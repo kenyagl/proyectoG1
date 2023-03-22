@@ -19,9 +19,10 @@ public class EntidadRespuesta {
     public class Respuesta{
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-
         Long id;
+        @Id
         Long idPregunta;
+        @Id
         Long idUsuario;
 
 private Integer votos;

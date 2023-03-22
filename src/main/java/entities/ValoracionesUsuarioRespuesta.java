@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="ValoracionesPorUsuarioPorRespuesta")
-public class ValoracionesPorUsuarioPorRespuesta {
+public class ValoracionesUsuarioRespuesta {
    @Id
     private Long idUsuario;
    @Id

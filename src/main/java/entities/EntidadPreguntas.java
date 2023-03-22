@@ -16,4 +16,10 @@ public class EntidadPreguntas {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String textoPregunta;
+
+    public EntidadPreguntas(String textoPregunta) {
+        this.textoPregunta = textoPregunta;
+    }
 }

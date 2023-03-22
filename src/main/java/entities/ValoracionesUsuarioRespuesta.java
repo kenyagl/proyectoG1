@@ -22,4 +22,11 @@ public class ValoracionesUsuarioRespuesta {
    private String texto;
 
    private Boolean aviso;
+
+    public ValoracionesUsuarioRespuesta(Long idRespuesta, Boolean puntuacion, String texto, Boolean aviso) {
+        this.idRespuesta = idRespuesta;
+        this.puntuacion = puntuacion;
+        this.texto = texto;
+        this.aviso = aviso;
+    }
 }

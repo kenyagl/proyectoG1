@@ -22,6 +22,8 @@ public class Puntuacion {
     private Long puntosEjercicios;
     private Long puntosRespuestas;
 
+    private Long idUsusario;
+
     public Puntuacion(Long puntosTotales, Long puntosEjercicios, Long puntosRespuestas) {
         this.puntosTotales = puntosTotales;
         this.puntosEjercicios = puntosEjercicios;

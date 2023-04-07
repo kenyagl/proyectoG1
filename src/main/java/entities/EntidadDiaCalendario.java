@@ -5,7 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import java.util.Date;
+
+import java.time.LocalDate;
 
 
 @Getter
@@ -19,12 +20,14 @@ public class EntidadDiaCalendario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Integer ejercicios;
-    private Date fecha;
+    private LocalDate fecha;
     private Integer respuestas;
     private Long usuariosId;
-    public EntidadDiaCalendario(Integer ejercicios, Date fecha, Integer respuestas) {
+
+    public EntidadDiaCalendario(Integer ejercicios, LocalDate fecha, Integer respuestas, Long usuariosId) {
         this.ejercicios = ejercicios;
         this.fecha = fecha;
         this.respuestas = respuestas;
+        this.usuariosId = usuariosId;
     }
 }

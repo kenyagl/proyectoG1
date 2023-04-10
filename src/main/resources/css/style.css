@@ -723,9 +723,9 @@ hr {
 }
 
 
-/*categori part*/
+/*tags part*/
 
-.categori-part329 {
+.tags {
     background-color: #fff;
     padding: 15px;
     -webkit-box-shadow: 0px 0px 13px -3px;
@@ -733,7 +733,7 @@ hr {
     margin-top: 30px;
 }
 
-.categori-part329 h4 {
+.tags h4 {
     color: #FF7361;
     font-weight: bold;
     font-family: serif;
@@ -741,14 +741,14 @@ hr {
     padding-bottom: 10px;
 }
 
-.categori-part329 ul li {
+.tags ul li {
     list-style: none;
     display: inline-block;
     padding-top: 8px;
     padding-left: 3px;
 }
 
-.categori-part329 ul li a {
+.tags ul li a {
     list-style: none;
     display: inline-block;
     background-color: #222629;
@@ -758,7 +758,7 @@ hr {
     color: #ddd;
 }
 
-.categori-part329 ul li a:hover {
+.tags ul li a:hover {
     list-style: none;
     display: inline-block;
     background-color: #fd6372;
@@ -1450,10 +1450,11 @@ h5:hover {
     text-decoration: none;
 }
 
-.ask-question-input-part032 {
+.ask-question-input {
     background-color: #FFFFFF;
     padding: 15px;
     margin-top: 70px;
+    margin-bottom: 70px;
     -webkit-box-shadow: 0px 0px 13px -3px;
             box-shadow: 0px 0px 13px -3px;
 }

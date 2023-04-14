@@ -14,7 +14,7 @@
     <title>Nueva Pregunta</title>
 </head>
 <body>
-  <form class="form-horizontal">
+  <form action="/preguntas/save" class="form-horizontal">
     <fieldset>
     <!-- Título de la pregunta-->
     <div class="form-group">
@@ -62,10 +62,7 @@
     
     <!-- Button -->
     <div class="form-group">
-      <label class="control-label" for="botonEnviar"></label>
-      <div class="">
-        <button id="botonEnviar" name="enviarPregunta" class="btn btn-primary">Publicar</button>
-      </div>
+        <button type="submit" class="btn btn-primary">Publicar</button>
     </div>
     
     </fieldset>

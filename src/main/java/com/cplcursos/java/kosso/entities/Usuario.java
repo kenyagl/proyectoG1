@@ -1,4 +1,4 @@
-package modelos;
+package com.cplcursos.java.kosso.entities;
 
 import java.util.Date;
 

@@ -1,9 +1,9 @@
-package services;
+package com.cplcursos.java.kosso.services;
 
-import entities.EjercicioOpMul;
+import com.cplcursos.java.kosso.entities.EjercicioOpMul;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repositories.EjerciciosRepository;
+import com.cplcursos.java.kosso.repositories.EjerciciosRepository;
 
 import java.util.List;
 import java.util.Optional;

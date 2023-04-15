@@ -1,5 +1,5 @@
-package repositories;
-import entities.EntidadEtiquetas;
+package com.cplcursos.java.kosso.repositories;
+import com.cplcursos.java.kosso.entities.EntidadEtiquetas;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 

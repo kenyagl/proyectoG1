@@ -1,4 +1,4 @@
-package entities;
+package com.cplcursos.java.kosso.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

@@ -1,6 +1,6 @@
-package repositories;
+package com.cplcursos.java.kosso.repositories;
 
-import entities.ValoracionesUsuarioRespuesta;
+import com.cplcursos.java.kosso.entities.ValoracionesUsuarioRespuesta;
 import org.springframework.data.repository.CrudRepository;
 
 public interface RepositorioValoracionesUsuarioRespuesta extends CrudRepository<ValoracionesUsuarioRespuesta, Long> {

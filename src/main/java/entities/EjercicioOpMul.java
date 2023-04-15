@@ -27,6 +27,8 @@ public class EjercicioOpMul {
 
     private String descripcion;
 
+    private String imagen;
+
     private String opcion1;
 
     private String opcion2;
@@ -39,7 +41,7 @@ public class EjercicioOpMul {
 
     private String respuestaUsuario;
 
-    public EjercicioOpMul(Integer dificultad, Integer puntosAcceso, String titulo, String descripcion, String opcion1, String opcion2, String opcion3, String opcion4, String respuestaCorrecta, String respuestaUsuario) {
+    public EjercicioOpMul(Integer dificultad, Integer puntosAcceso, String titulo, String descripcion, String opcion1, String opcion2, String opcion3, String opcion4, String respuestaCorrecta) {
         this.dificultad = dificultad;
         this.puntosAcceso = puntosAcceso;
         this.titulo = titulo;
@@ -49,6 +51,5 @@ public class EjercicioOpMul {
         this.opcion3 = opcion3;
         this.opcion4 = opcion4;
         this.respuestaCorrecta = respuestaCorrecta;
-        this.respuestaUsuario = respuestaUsuario;
     }
 }

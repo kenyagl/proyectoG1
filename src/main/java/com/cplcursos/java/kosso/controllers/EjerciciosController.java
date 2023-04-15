@@ -1,5 +1,5 @@
 package com.cplcursos.java.kosso.controllers;
-
+/*
 import com.cplcursos.java.kosso.entities.EjercicioOpMul;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,3 +51,4 @@ public class EjerciciosController {
         return "redirect:/ejercicios/";
     }
 }
+*/

@@ -1,5 +1,5 @@
 package com.cplcursos.java.kosso.services;
-
+/*
 import com.cplcursos.java.kosso.entities.EjercicioOpMul;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,3 +29,4 @@ public class EjerciciosService {
         ejerciciosRepository.deleteById(id);
     }
 }
+*/

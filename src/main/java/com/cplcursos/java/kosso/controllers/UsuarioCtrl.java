@@ -1,28 +1,45 @@
 package com.cplcursos.java.kosso.controllers;
 
+import com.cplcursos.java.kosso.services.UsuarioSrvcImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/version1")
+//@RequestMapping("/version1")
 public class UsuarioCtrl {
+
+
+    private UsuarioSrvcImpl usuSrvc;
 
     @GetMapping("/acceso")
     public String Acceso(Model modelo) {
-        return "index";
+        return "acceso";
     }
 
-    @PostMapping("/acceso")
-    public String Login(Model modelo) {
-        return "accedido";
+    @PostMapping("/login")
+    public String comprobarAcceso(Model modelo, @RequestParam("usuario") String usu, @RequestParam("clave") String clave){
+        String texto = "Hola "+ usu +". Tu clave es " + clave + ".";
+        modelo.addAttribute("texto", texto);
+        return "exitoLogin";
+    }
+
+    @GetMapping("/listausus")
+    public String listaUsus(Model modelo){
+        modelo.addAttribute("listausuarios", usuSrvc.listaUsus())
+        return "listausus";
     }
 
     @GetMapping("/registro")
     public String Registro(Model modelo) {
         return "Registro";
+    }
+
+    @PostMapping("/registro")
+    public String alta(Model modelo){
+
+        return "éxito";
     }
 
     @GetMapping("/perfil")

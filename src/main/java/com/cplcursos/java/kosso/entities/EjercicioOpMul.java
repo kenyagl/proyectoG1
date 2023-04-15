@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
-
+/*
 @Getter
 @Setter
 @NoArgsConstructor
@@ -40,16 +40,5 @@ public class EjercicioOpMul {
     private String respuestaCorrecta;
 
     private String respuestaUsuario;
-
-    public EjercicioOpMul(Integer dificultad, Integer puntosAcceso, String titulo, String descripcion, String opcion1, String opcion2, String opcion3, String opcion4, String respuestaCorrecta) {
-        this.dificultad = dificultad;
-        this.puntosAcceso = puntosAcceso;
-        this.titulo = titulo;
-        this.descripcion = descripcion;
-        this.opcion1 = opcion1;
-        this.opcion2 = opcion2;
-        this.opcion3 = opcion3;
-        this.opcion4 = opcion4;
-        this.respuestaCorrecta = respuestaCorrecta;
-    }
 }
+*/

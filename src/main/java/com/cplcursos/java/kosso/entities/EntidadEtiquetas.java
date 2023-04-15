@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 
 /**
  * The type Etiquetas.
- */
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -20,22 +20,16 @@ import java.time.LocalDateTime;
 @Table(name="Etiquetas")
 public class EntidadEtiquetas {
 
-    /**
-     * The id.
-     */
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
     private String nombre;
 
-    /**
-     * Instantiates a new Customer.
-     *
-     * @param nombre               the name
-     */
     public EntidadEtiquetas(String nombre) {
         this.nombre = nombre;
     }
 
 }
+*/

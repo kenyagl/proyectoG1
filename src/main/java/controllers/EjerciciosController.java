@@ -18,7 +18,8 @@ public class EjerciciosController {
     @GetMapping(value = {"/", ""})
     public String showEjercicios(Model model) {
         model.addAttribute("ejercicios", ejerciciosService.findAll());
-        return "ejerciciosList";
+        //return "ejerciciosList";
+        return "menuEjercicios";
     }
 
     @GetMapping("/ejercicioEjemplo")

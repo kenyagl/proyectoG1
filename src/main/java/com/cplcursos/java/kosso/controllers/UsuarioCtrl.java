@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 //@RequestMapping("/version1")
 public class UsuarioCtrl {
 
-
+    @Autowired
     private UsuarioSrvcImpl usuSrvc;
 
     @GetMapping("/acceso")
@@ -27,8 +27,8 @@ public class UsuarioCtrl {
 
     @GetMapping("/listausus")
     public String listaUsus(Model modelo){
-        modelo.addAttribute("listausuarios", usuSrvc.listaUsus())
-        return "listausus";
+        modelo.addAttribute("listausuarios", usuSrvc.listaUsus());
+        return "listaUsus";
     }
 
     @GetMapping("/registro")

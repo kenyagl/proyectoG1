@@ -1,6 +1,6 @@
 package com.cplcursos.java.kosso.controllers;
 
-/*
+
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
@@ -11,16 +11,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/perfil")
-public class ControladoresPerfil {
+public class PerfilCtrl {
 
-    @GetMapping(" ")
-    public String consultaperfil (Model model){
+    @GetMapping(value= {"", "/"})
+    public String consultaPerfil (Model model){
         return "perfil";
     }
 
+    @GetMapping("/editar")
+    public String verPerfilForm (Model model){
+        return "perfil-form";
+    }
+
     @PostMapping("/editar")
-    public String editarperfil (Model model){
-        return "perfil";
+    public String editarPerfil (Model model){
+        return "perfil-form";
+    }
+
+
+    @GetMapping("/borrarperfil") // NO sabemos muy bien si poner este get hasta que tengamos la funcion de borrar perfil
+    public String perfilEliminado (Model model){
+        return "index";
     }
 
     @DeleteMapping("/borrarperfil")
@@ -35,12 +46,12 @@ public class ControladoresPerfil {
 
     @GetMapping("/pregunta")
     public String irpreguntas (Model model){
-        return "pregunta";
+        return "pregunta-list";
     }
 
 }
 
- */
+
 
 
 

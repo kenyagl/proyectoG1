@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-//@RequestMapping("/version1")
+@RequestMapping("/usuario")
 public class UsuarioCtrl {
 
     @Autowired
@@ -46,4 +46,5 @@ public class UsuarioCtrl {
     public String Perfil(Model modelo) {
         return "perfil";
     }
+
 }

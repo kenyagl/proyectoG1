@@ -19,18 +19,13 @@ public class Usuario {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    private String emilio;
-
+    private String email;
     private String nombre;
-
     private String clave;
-
     private String rol;
-
     private String foto;
-
     private Boolean activo = false;
-
     private Date creadoEl;
+    private String acercaDe;
 
 }

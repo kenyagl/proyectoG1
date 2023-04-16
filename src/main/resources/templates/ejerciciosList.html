@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title>Ejercicios List</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+  <h1 class="my-4">Ejercicios List</h1>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Título</th>
+      <th>Dificultad</th>
+      <th>Puntos de Acceso</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="ejercicioOpMul : ${ejercicios}">
+      <td th:text="${ejercicioOpMul.id}">1</td>
+      <td th:text="${ejercicioOpMul.titulo}">Título del ejercicio</td>
+      <td th:number="${ejercicioOpMul.dificultad}">Dificultad</td>
+      <td th:number="${ejercicioOpMul.puntosAcceso}">Puntos de Acceso</td>
+      <td>
+        <a class="btn btn-outline-primary" th:href="@{/ejercicios/editOpMul/{id}(id=${ejercicioOpMul.id})}">Editar</a>
+        <a class="btn btn-outline-danger" th:href="@{/ejercicios/deleteOpMul/{id}(id=${ejercicioOpMul.id})}">Borrar</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <a class="btn btn-outline-success" th:href="@{/ejercicios/new}">Add New Ejercicio</a>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

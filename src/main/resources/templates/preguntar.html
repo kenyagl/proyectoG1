@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="es_ES">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+    <!-- Estilos personalizados -->
+    <link href="" type="text/css" rel="stylesheet">
+    <title>Nueva Pregunta</title>
+</head>
+<body>
+
+
+        <form class="form-horizontal">
+                <fieldset>
+                <!-- Título de la pregunta-->
+                <div class="form-group">
+                  <label class=" control-label" for="textinput">Título de la pregunta:</label>  
+                  <div class="">
+                  <input id="textinput" name="textinput" type="text" placeholder="Título" class="form-control input-md">
+                    
+                  </div>
+                </div>
+                
+                <!-- Área de la pregunta -->
+                <div class="form-group">
+                  <label class="control-label" for="textarea">Pregunta:</label>
+                  <div class="">                     
+                    <textarea class="form-control" id="textarea" name="textarea" placeholder="Escribe aquí tu pregunta"></textarea>
+                  </div>
+                </div>
+                
+                <!-- Form Select -->
+                <select class="form-select" aria-label="Default select example">
+                        <option selected>Selecciona etiquetas asociadas a tu pregunta</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                      </select>
+
+                      <!-- Select Multiple -->
+                      <div class="form-group">
+                        <label class="control-label" for="selectmultiple">Select Multiple</label>
+                        <div class="">
+                          <select id="selectmultiple" name="selectmultiple" class="form-control" multiple="multiple">
+                            <option value="1">Option one</option>
+                            <option value="2">Option two</option>
+                          </select>
+                        </div>
+                      </div>
+                
+                <!-- Boton para añadir archivo --> 
+                <div class="form-group">
+                  <label class="control-label" for="botonArchivo">Subir imagen:</label>
+                  <div class="">
+                    <input id="botonArchivo" name="botonArchivo" class="input-file" type="file">
+                  </div>
+                </div>
+                
+                <!-- Button -->
+                <div class="form-group">
+                  <label class="control-label" for="botonEnviar"></label>
+                  <div class="">
+                    <button id="botonEnviar" name="enviarPregunta" class="btn btn-primary">Publicar</button>
+                  </div>
+                </div>
+                
+                </fieldset>
+                </form>
+
+        
+
+
+
+
+<!-- Optional JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+        crossorigin="anonymous"></script>
+</body>
+</html>

@@ -23,4 +23,11 @@ public class ControladorPreguntas {
     public String selectPregunta (Model model){
         return "pegunta";
     }
+
+    @GetMapping(value = "/preguntar")
+    public String showPreguntar (Model model){ return "preguntar";}
+
+    @PostMapping(value = "/save")
+    public String savePregunta (Model model){ return "pregunta";}
+
 }

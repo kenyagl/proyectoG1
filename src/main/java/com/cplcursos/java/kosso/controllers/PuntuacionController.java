@@ -1,5 +1,6 @@
-package controllers;
+package com.cplcursos.java.kosso.controllers;
 
+/*
 import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
 import lombok.extern.log4j.Log4j2;
@@ -24,3 +25,5 @@ public class PuntuacionController {
         return "puntuacion";
     }
 }
+
+ */

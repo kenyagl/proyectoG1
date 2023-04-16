@@ -1,6 +1,8 @@
-package controllers;
+package com.cplcursos.java.kosso.controllers;
 
+/*
 import org.springframework.stereotype.Controller;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +39,8 @@ public class ControladoresPerfil {
     }
 
 }
+
+ */
 
 
 

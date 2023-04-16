@@ -33,7 +33,7 @@ public class UsuarioCtrl {
 
     @GetMapping("/registro")
     public String Registro(Model modelo) {
-        return "Registro";
+        return "registro";
     }
 
     @PostMapping("/registro")

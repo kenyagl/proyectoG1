@@ -30,5 +30,9 @@ public class PreguntaSrvc  {
 
     }
 
+    public Pregunta save (Pregunta pregunta){
+        return preguntaRepo.save(pregunta);
+    }
+
 
 }

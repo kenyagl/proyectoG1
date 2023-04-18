@@ -12,7 +12,7 @@
     <div class="row">
         <div class="col-lg-12">
             <h1>Crear o Editar Ejercicio</h1>
-            <form th:action="@{/ejercicios/saveOpMul}" th:object="${ejercicioOpMul}" method="post">
+            <form th:action="@{/ejercicios/save}" th:object="${ejercicioOpMul}" method="post">
                 <input type="hidden" th:field="*{id}">
                 <div class="form-group">
                     <label for="dificultad">Dificultad:</label>

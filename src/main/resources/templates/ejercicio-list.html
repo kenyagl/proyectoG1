@@ -19,14 +19,14 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="ejercicioOpMul : ${ejercicios}">
-      <td th:text="${ejercicioOpMul.id}">1</td>
-      <td th:text="${ejercicioOpMul.titulo}">Título del ejercicio</td>
-      <td th:number="${ejercicioOpMul.dificultad}">Dificultad</td>
-      <td th:number="${ejercicioOpMul.puntosAcceso}">Puntos de Acceso</td>
+    <tr th:each="ejercicio : ${ejercicios}">
+      <td th:text="${ejercicio.id}">1</td>
+      <td th:text="${ejercicio.titulo}">Título del ejercicio</td>
+      <td th:number="${ejercicio.dificultad}">Dificultad</td>
+      <td th:number="${ejercicio.puntosAcceso}">Puntos de Acceso</td>
       <td>
-        <a class="btn btn-outline-primary" th:href="@{/ejercicios/editOpMul/{id}(id=${ejercicioOpMul.id})}">Editar</a>
-        <a class="btn btn-outline-danger" th:href="@{/ejercicios/deleteOpMul/{id}(id=${ejercicioOpMul.id})}">Borrar</a>
+        <a class="btn btn-outline-primary" th:href="@{/ejercicios/edit/{id}(id=${ejercicio.id})}">Editar</a>
+        <a class="btn btn-outline-danger" th:href="@{/ejercicios/delete/{id}(id=${ejercicio.id})}">Borrar</a>
       </td>
     </tr>
     </tbody>

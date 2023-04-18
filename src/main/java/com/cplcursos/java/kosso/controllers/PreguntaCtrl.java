@@ -1,6 +1,6 @@
 package com.cplcursos.java.kosso.controllers;
 
-import com.cplcursos.java.kosso.entities.Pregunta;
+/*import com.cplcursos.java.kosso.entities.Pregunta;
 import com.cplcursos.java.kosso.services.PreguntaSrvc;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @Log4j2
-@RequiredArgsConstructor
 @RequestMapping("/preguntas")
 public class PreguntaCtrl {
 @Autowired
@@ -60,3 +59,6 @@ private PreguntaSrvc preguntaSrvc;
 
 
 }
+
+
+ */

@@ -1,17 +1,17 @@
 package com.cplcursos.java.kosso.services;
-/*
+
 import com.cplcursos.java.kosso.entities.EjercicioOpMul;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.cplcursos.java.kosso.repositories.EjerciciosRepository;
+import com.cplcursos.java.kosso.repositories.EjercicioRepo;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class EjerciciosService {
+public class EjerciciosSrvc {
     @Autowired
-    private EjerciciosRepository ejerciciosRepository;
+    private EjercicioRepo ejerciciosRepository;
 
     public List<EjercicioOpMul> findAll() {
         return ejerciciosRepository.findAll();
@@ -29,4 +29,3 @@ public class EjerciciosService {
         ejerciciosRepository.deleteById(id);
     }
 }
-*/

@@ -1,8 +1,7 @@
 package com.cplcursos.java.kosso.controllers;
 
-/*import com.cplcursos.java.kosso.entities.Pregunta;
+import com.cplcursos.java.kosso.entities.Pregunta;
 import com.cplcursos.java.kosso.services.PreguntaSrvc;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import lombok.extern.log4j.Log4j2;
@@ -39,26 +38,14 @@ private PreguntaSrvc preguntaSrvc;
         return "pregunta-form";
     }
 
-    @GetMapping("/new")
+    @PostMapping("/new")
     public String guardarPregunta (@PathVariable("id") Long id, Model model){
         model.addAttribute("pregunta", preguntaSrvc.encontrarPregunta(id));
         return "preguntaPublicada";
     }
-      @DeleteMapping(value = "/delete" )
+    @DeleteMapping(value = "/delete" )
     public String borrarPregunta (@PathVariable("id") Long id){
         preguntaSrvc.borrarPregunta(id);
         return "pregunta-list";
     }
-
-
-
-
-
-
-
-
-
 }
-
-
- */

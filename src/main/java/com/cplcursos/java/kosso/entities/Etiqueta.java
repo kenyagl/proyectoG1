@@ -1,6 +1,7 @@
 package com.cplcursos.java.kosso.entities;
 
 
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,9 +19,10 @@ public class Etiqueta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    Long id;
 
     private String nombre;
 
 }
+
 

@@ -10,5 +10,5 @@ import java.util.List;
 
 public interface EtiquetaRepo extends JpaRepository<Etiqueta, Long> {
 
-    List<Etiqueta> findByName(@Param("nombre") String nombre);
+    List<Etiqueta> findByNombre(@Param("nombre") String nombre);
 }

@@ -1,8 +1,8 @@
 package com.cplcursos.java.kosso.repositories;
-/*
+
 import com.cplcursos.java.kosso.entities.Puntuacion;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 
-public interface PuntuacionRepository extends CrudRepository<Puntuacion, Long> {
+public interface PuntuacionRepo extends JpaRepository<Puntuacion, Long> {
 }
-*/

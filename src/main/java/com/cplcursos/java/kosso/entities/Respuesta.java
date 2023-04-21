@@ -1,38 +1,37 @@
 package com.cplcursos.java.kosso.entities;
 
-/*
-public class EntidadRespuesta {
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-    @Getter
-    @Setter
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @Entity
-    @Table(name = "Respuesta")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+public class Respuesta {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
+    @Id
+    Long idPregunta;
+    @Id
+    Long idUsuario;
 
+    private Integer votos;
 
-    public class Respuesta{
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        Long id;
-        @Id
-        Long idPregunta;
-        @Id
-        Long idUsuario;
+    private Boolean alerta;
 
-private Integer votos;
+    private String respuesta;
 
-private Boolean alerta;
-
-private String respuesta;
-
-        public Respuesta(Integer votos, Boolean alerta, String respuesta) {
-            this.votos = votos;
-            this.alerta = alerta;
-            this.respuesta = respuesta;
-        }
+    public Respuesta(Integer votos, Boolean alerta, String respuesta) {
+        this.votos = votos;
+        this.alerta = alerta;
+        this.respuesta = respuesta;
     }
-
-
 }
-*/

@@ -1,23 +1,26 @@
 package com.cplcursos.java.kosso.entities;
 
-/*
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="TiposPerfil")
-public class EntidadTiposPerfil {
+public class TipoPerfil {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer idPerfil;
+    Long id;
 
     private String perfil;
 
 
-    public EntidadTiposPerfil(String perfil) {
+    public TipoPerfil(String perfil) {
         this.perfil = perfil;
     }
 }
-*/

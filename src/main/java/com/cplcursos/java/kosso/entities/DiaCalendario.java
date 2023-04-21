@@ -1,6 +1,5 @@
 package com.cplcursos.java.kosso.entities;
 
-/*
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,22 +14,18 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "DiaDeCalendario")
-public class EntidadDiaCalendario {
+public class DiaCalendario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private Integer ejercicios;
+
     private LocalDate fecha;
+
     private Integer respuestas;
+
     private Long usuariosId;
 
-    public EntidadDiaCalendario(Integer ejercicios, LocalDate fecha, Integer respuestas, Long usuariosId) {
-        this.ejercicios = ejercicios;
-        this.fecha = fecha;
-        this.respuestas = respuestas;
-        this.usuariosId = usuariosId;
-    }
-}
 
- */
+}

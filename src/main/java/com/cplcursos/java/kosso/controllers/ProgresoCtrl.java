@@ -1,6 +1,6 @@
 package com.cplcursos.java.kosso.controllers;
 
-/*
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/progreso")
-public class TuProgresoCtrl {
+public class ProgresoCtrl {
 
     @PostMapping("/progreso")
     public String inicioTuProgreso (Model model){
@@ -21,5 +21,3 @@ public class TuProgresoCtrl {
         return "tuProgreso";
     }
 }
-
- */

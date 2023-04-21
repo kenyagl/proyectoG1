@@ -19,16 +19,16 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="ejercicio : ${ejercicios}">
-      <td th:text="${ejercicio.id}">1</td>
-      <td th:text="${ejercicio.titulo}">Título del ejercicio</td>
-      <td th:number="${ejercicio.dificultad}">Dificultad</td>
-      <td th:number="${ejercicio.puntosAcceso}">Puntos de Acceso</td>
-      <td>
-        <a class="btn btn-outline-primary" th:href="@{/ejercicios/edit/{id}(id=${ejercicio.id})}">Editar</a>
-        <a class="btn btn-outline-danger" th:href="@{/ejercicios/delete/{id}(id=${ejercicio.id})}">Borrar</a>
-      </td>
-    </tr>
+      <tr th:each="ejercicio: ${ejercicios}">
+        <td th:text="${ejercicio.getId()}"></td>
+        <td th:text="${ejercicio.getTitulo()}"></td>
+        <td th:text="${ejercicio.getDificultad()}"></td>
+        <td th:text="${ejercicio.getPuntosAcceso()}"></td>
+        <td>
+          <a class="btn btn-outline-primary" th:href="@{/ejercicios/edit/{nro}(nro=${ejercicio.getId()})}">Editar</a>
+          <a class="btn btn-outline-danger" th:href="@{/ejercicios/delete/{nro}(nro=${ejercicio.getId()})}">Borrar</a>
+        </td>
+      </tr>
     </tbody>
   </table>
   <a class="btn btn-outline-success" th:href="@{/ejercicios/new}">Add New Ejercicio</a>

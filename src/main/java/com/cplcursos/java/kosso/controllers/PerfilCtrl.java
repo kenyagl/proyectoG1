@@ -41,7 +41,7 @@ public class PerfilCtrl {
 
     @GetMapping("/ejercicios")
     public String irejercicios (Model model){
-        return "ejercicios/menuEjercicios";
+        return "menuEjercicios_Kenya";
     }
 
     @GetMapping("/pregunta")

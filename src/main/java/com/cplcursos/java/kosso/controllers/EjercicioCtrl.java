@@ -2,6 +2,7 @@ package com.cplcursos.java.kosso.controllers;
 
 import com.cplcursos.java.kosso.entities.EjercicioOpMul;
 import com.cplcursos.java.kosso.entities.RespuestaEjOpMul;
+import com.cplcursos.java.kosso.entities.Usuario;
 import com.cplcursos.java.kosso.services.RespuestaEjOpMulSrvc;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +25,15 @@ public class EjercicioCtrl {
 
     @GetMapping(value = {"/", ""})
     public String showEjercicios(Model model) {
-        model.addAttribute("ejercicios", ejerciciosService.findAll());
-        return "ejercicios/ejercicio-list";
-        //return "menuEjercicios";
+        Usuario usu = new Usuario();
+        usu.setPuntosEjercicios(1);
+        usu.setPuntosRespuestas(2);
+        int totalusu = usu.getPuntosEjercicios() + usu.getPuntosRespuestas();
+
+        model.addAttribute("ejercicios",ejerciciosService.findAll() );
+        model.addAttribute("totalusu", totalusu);
+        //return "ejercicios/ejercicio-list";
+        return "ejercicios/menuEjercicios";
     }
 
     @GetMapping("/{id}")

@@ -27,5 +27,7 @@ public class Usuario {
     private Boolean activo = false;
     private Date creadoEl;
     private String acercaDe;
+    private Integer puntosEjercicios;
+    private Integer puntosRespuestas;
 
 }

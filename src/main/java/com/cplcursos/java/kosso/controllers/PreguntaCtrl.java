@@ -17,11 +17,11 @@ private PreguntaSrvc preguntaSrvc;
 
     @GetMapping(value = {"/", ""})
     public String replyPregunta (Model model){
-        return "pregunta-list";
+        return "preguntas/pregunta-list";
     }
 
     @GetMapping(value = "/save")
-    public String mirarPregunta (Model model){ return "preguntaPublicada";} //Opción 1: PreguntaLista
+    public String mirarPregunta (Model model){ return "preguntas/preguntaPublicada";} //Opción 1: PreguntaLista
 
     @PostMapping(value = "/save")
     public String savePregunta (@ModelAttribute("pregunta") Pregunta pregunta){
@@ -30,22 +30,22 @@ private PreguntaSrvc preguntaSrvc;
     } //Opción 2: PreguntaIndividual
 
     @GetMapping(value = "/pregunta") //Añadir el id de la pregunta
-    public String showPreguntar (Model model){ return "preguntaPublicada";}
+    public String showPreguntar (Model model){ return "preguntas/preguntaPublicada";}
 
     @GetMapping(value = "/new")
     public String verPregunta (Model model){
         model.addAttribute("pregunta", new Pregunta());
-        return "pregunta-form";
+        return "preguntas/pregunta-form";
     }
 
     @PostMapping("/new")
     public String guardarPregunta (@PathVariable("id") Long id, Model model){
         model.addAttribute("pregunta", preguntaSrvc.encontrarPregunta(id));
-        return "preguntaPublicada";
+        return "preguntas/preguntaPublicada";
     }
     @DeleteMapping(value = "/delete" )
     public String borrarPregunta (@PathVariable("id") Long id){
         preguntaSrvc.borrarPregunta(id);
-        return "pregunta-list";
+        return "preguntas/pregunta-list";
     }
 }

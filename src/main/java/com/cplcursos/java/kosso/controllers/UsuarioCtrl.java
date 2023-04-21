@@ -28,7 +28,7 @@ public class UsuarioCtrl {
     @GetMapping("/listausus")
     public String listaUsus(Model modelo){
         modelo.addAttribute("listausuarios", usuSrvc.listaUsus());
-        return "listaUsus";
+        return "perfilesYUsuarios/listaUsus";
     }
 
     @GetMapping("/registro")
@@ -39,12 +39,12 @@ public class UsuarioCtrl {
     @PostMapping("/registro")
     public String alta(Model modelo){
 
-        return "éxito";
+        return "exitoLogin";
     }
 
     @GetMapping("/perfil")
     public String Perfil(Model modelo) {
-        return "perfil";
+        return "perfilesYUsuarios/perfil";
     }
 
 }

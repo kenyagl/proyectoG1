@@ -15,17 +15,17 @@ public class PerfilCtrl {
 
     @GetMapping(value= {"", "/"})
     public String consultaPerfil (Model model){
-        return "perfil";
+        return "perfilesYUsuarios/perfil";
     }
 
     @GetMapping("/editar")
     public String verPerfilForm (Model model){
-        return "perfil-form";
+        return "perfilesYUsuarios/perfil-form";
     }
 
     @PostMapping("/editar")
     public String editarPerfil (Model model){
-        return "perfil-form";
+        return "perfilesYUsuarios/perfil-form";
     }
 
 
@@ -41,12 +41,12 @@ public class PerfilCtrl {
 
     @GetMapping("/ejercicios")
     public String irejercicios (Model model){
-        return "MenuEjercicios";
+        return "ejercicios/menuEjercicios";
     }
 
     @GetMapping("/pregunta")
     public String irpreguntas (Model model){
-        return "pregunta-list";
+        return "preguntas/pregunta-list";
     }
 
 }

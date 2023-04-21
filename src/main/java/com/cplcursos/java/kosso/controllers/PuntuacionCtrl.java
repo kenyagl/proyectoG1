@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/puntuacion")
 public class PuntuacionCtrl {
 
+    /********** HAY QUE HACER EL HTML DE ESTO *********/
+
     @GetMapping("")
     public String obtenerPuntuacion(Model modelo) {
         return "puntuacion";

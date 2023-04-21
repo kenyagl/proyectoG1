@@ -25,7 +25,7 @@ public class EjercicioCtrl {
     @GetMapping(value = {"/", ""})
     public String showEjercicios(Model model) {
         model.addAttribute("ejercicios", ejerciciosService.findAll());
-        return "ejercicio-list";
+        return "ejercicios/ejercicio-list";
         //return "menuEjercicios";
     }
 
@@ -37,13 +37,13 @@ public class EjercicioCtrl {
         } else {
             return "Ha habido un error encontrando el ejercicio";
         }
-        return "ejercicioOpMul";
+        return "ejercicios/ejercicioOpMul";
     }
 
     @GetMapping("/new")
     public String showNewEjercicioForm(Model model) {
         model .addAttribute("ejercicioOpMul", new EjercicioOpMul());
-        return "ejercicioForm";
+        return "ejercicios/ejercicioForm";
     }
 
     @PostMapping("/save")
@@ -60,7 +60,7 @@ public class EjercicioCtrl {
         } else {
             return "Ha habido un error encontrando el ejercicio" + id;
         }
-        return "ejercicioForm";
+        return "ejercicios/ejercicioForm";
     }
 
     @GetMapping("/delete/{id}")
@@ -74,6 +74,7 @@ public class EjercicioCtrl {
     *
     ****************** CONTROLADORES DE RESPUESTAS A CADA EJERCICIO ******************
     *
+    * PREGUNTA: podría hacer una clase anidada aquí dentro para ponerle antes el @RequestMapping("/{id}/respuesta")?
     *
      */
 
@@ -91,7 +92,7 @@ public class EjercicioCtrl {
         } else {
             return "Ha habido un error encontrando el ejercicio" + id;
         }
-        return "ejercicioForm";
+        return "ejercicios/ejercicioOpMul";
     }
 
     @GetMapping("/{id}/respuesta/delete")

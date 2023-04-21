@@ -10,6 +10,6 @@ import java.util.List;
 public interface TipoPerfilRepo extends CrudRepository<TipoPerfil, Long> {
 
 
-    List<TipoPerfil> findByName(@Param("perfil") String perfil);
+    List<TipoPerfil> findByNombre(@Param("perfil") String perfil);
 
 }

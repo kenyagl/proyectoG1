@@ -1,9 +1,7 @@
 package com.cplcursos.java.kosso.entities;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,12 +13,12 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ValoracionUsuarioRespuesta {
-   @Id
-    private Long idUsuario;
-   @Id
-    private Long idRespuesta;
+
+    @EmbeddedId
+    private idValoracion id;
 
    private Boolean puntuacion;
+
    private String texto;
 
    private Boolean aviso;

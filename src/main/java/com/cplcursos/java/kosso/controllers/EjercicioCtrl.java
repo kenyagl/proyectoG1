@@ -1,6 +1,8 @@
 package com.cplcursos.java.kosso.controllers;
 
 import com.cplcursos.java.kosso.entities.EjercicioOpMul;
+import com.cplcursos.java.kosso.entities.RespuestaEjOpMul;
+import com.cplcursos.java.kosso.services.RespuestaEjOpMulSrvc;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,9 @@ public class EjercicioCtrl {
     @Autowired
     private EjerciciosSrvc ejerciciosService;
 
+    @Autowired
+    private RespuestaEjOpMulSrvc respuestaEjOpMulSrvc;
+
     @GetMapping(value = {"/", ""})
     public String showEjercicios(Model model) {
         model.addAttribute("ejercicios", ejerciciosService.findAll());
@@ -24,8 +29,14 @@ public class EjercicioCtrl {
         //return "menuEjercicios";
     }
 
-    @GetMapping("/ejercicioEjemplo")
-    public String showEjercicio1() {
+    @GetMapping("/{id}")
+    public String showEjercicio(@PathVariable("id") Long id, Model model) {
+        Optional<EjercicioOpMul> ejercicioOpMul = ejerciciosService.findById(id);
+        if(ejercicioOpMul.isPresent()){
+            model.addAttribute("ejercicioOpMul", ejercicioOpMul);
+        } else {
+            return "Ha habido un error encontrando el ejercicio";
+        }
         return "ejercicioOpMul";
     }
 
@@ -54,6 +65,37 @@ public class EjercicioCtrl {
 
     @GetMapping("/delete/{id}")
     public String deleteEjercicio(@PathVariable("id") Long id) {
+        ejerciciosService.deleteById(id);
+        return "redirect:/ejercicios/";
+    }
+
+    /*
+    *
+    *
+    ****************** CONTROLADORES DE RESPUESTAS A CADA EJERCICIO ******************
+    *
+    *
+     */
+
+    @PostMapping("/{id}/respuesta/save")
+    public String saveRespuesta(@ModelAttribute("respuestaEjOpMul") RespuestaEjOpMul respuestaEjOpMul) {
+        respuestaEjOpMulSrvc.save(respuestaEjOpMul);
+        return "redirect:/ejercicios/";
+    }
+
+    @GetMapping("/{id}/respuesta/edit")
+    public String showEditRespuesta(@PathVariable("id") Long id, Model model) {
+        Optional<com.cplcursos.java.kosso.entities.RespuestaEjOpMul> respuestaEjercicioOpMul = respuestaEjOpMulSrvc.findById(id);
+        if(respuestaEjercicioOpMul.isPresent()){
+            model.addAttribute("respuestaEjOpMul", respuestaEjercicioOpMul);
+        } else {
+            return "Ha habido un error encontrando el ejercicio" + id;
+        }
+        return "ejercicioForm";
+    }
+
+    @GetMapping("/{id}/respuesta/delete")
+    public String deleteRespuesta(@PathVariable("id") Long id) {
         ejerciciosService.deleteById(id);
         return "redirect:/ejercicios/";
     }

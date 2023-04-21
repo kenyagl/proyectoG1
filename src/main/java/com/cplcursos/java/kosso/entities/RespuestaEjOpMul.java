@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class RespuestaEjercicioOpMul {
+public class RespuestaEjOpMul {
 
     @Id
     private Long id;

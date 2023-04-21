@@ -1,6 +1,6 @@
 package com.cplcursos.java.kosso.services;
 
-import com.cplcursos.java.kosso.entities.RespuestaEjercicioOpMul;
+import com.cplcursos.java.kosso.entities.RespuestaEjOpMul;
 import com.cplcursos.java.kosso.repositories.RespuestaEjOpMulRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,16 +13,16 @@ public class RespuestaEjOpMulSrvc {
     @Autowired
     private RespuestaEjOpMulRepo respuestaEjOpMulRepo;
 
-    public List<RespuestaEjercicioOpMul> findAll() {
+    public List<RespuestaEjOpMul> findAll() {
         return respuestaEjOpMulRepo.findAll();
     }
 
-    public Optional<RespuestaEjercicioOpMul> findById(Long id) {
+    public Optional<RespuestaEjOpMul> findById(Long id) {
         return respuestaEjOpMulRepo.findById(id);
     }
 
-    public RespuestaEjercicioOpMul save(RespuestaEjercicioOpMul respuestaEjercicioOpMul) {
-        return respuestaEjOpMulRepo.save(respuestaEjercicioOpMul);
+    public RespuestaEjOpMul save(RespuestaEjOpMul respuestaEjOpMul) {
+        return respuestaEjOpMulRepo.save(respuestaEjOpMul);
     }
 
     public void deleteById(Long id) {

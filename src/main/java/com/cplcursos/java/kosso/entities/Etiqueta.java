@@ -1,7 +1,12 @@
 package com.cplcursos.java.kosso.entities;
 
-/**
- * The type Etiquetas.
+
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -9,18 +14,15 @@ package com.cplcursos.java.kosso.entities;
 @AllArgsConstructor
 @Entity
 @Table(name="Etiquetas")
-public class EntidadEtiquetas {
+public class Etiqueta {
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    Long id;
 
     private String nombre;
 
-    public EntidadEtiquetas(String nombre) {
-        this.nombre = nombre;
-    }
-
 }
-*/
+
+

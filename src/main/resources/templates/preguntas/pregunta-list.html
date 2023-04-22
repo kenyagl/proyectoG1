@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="es_ES">
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="es_ES">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -37,13 +38,13 @@
   
                                 
                         <!-- Preguntas publicadas -->
-                        <div class="row border-top border-bottom p-2">
+                        <div th:each="pregunta: ${preguntas}" class="row border-top border-bottom p-2">
                                 <div class="col-3 align-self-center">
                                         <a href="#!" style="border: 2px; border-style: solid;">Img</a>
                                         <a href="/version1/perfil/{id}">UsuarioQuePregunta</a>
-                                        <span class="row">Ha preguntado hace X tiempo</span>
                                         <div class="container-fluid">
                                                 <ul>
+                                                        <li th:text="${pregunta.getFechaPregunta()}">Fecha:</li>
                                                         <li>Nº Votos</li>
                                                         <li>Respuestas</li>
                                                         <li>Visitas</li>
@@ -51,9 +52,9 @@
                                         </div>
                                 </div>
                                 <div class="col-9 align-self-center">
-                                        <h3>Pregunta1</h3>
+                                        <a th:href="@{preguntas/preguntaPublicada/{id}(id=${pregunta.getId()})}"><h3 th:text="${pregunta.getTituloPregunta()}"> Pregunta1</h3></a>
                                         <!-- Ver como se hace para que el overflow termine en puntos suspensivos -->
-                                        <p class="overflow-hidden" style="max-height: 100px;">Lorem ipsum dolor sit amet consectetur adipiscing elit non habitasse semper, eleifend cum suspendisse class velit hendrerit fringilla euismod vestibulum ad, sodales etiam praesent maecenas purus cubilia venenatis feugiat faucibus. Praesent ligula habitasse fusce parturient faucibus maecenas vivamus, magna suspendisse urna felis dignissim penatibus ut, ultrices lacinia ridiculus id senectus ...       
+                                        <p th:text="${pregunta.getTextoPregunta()}" class="overflow-hidden" style="max-height: 100px;">Lorem ipsum dolor sit amet consectetur adipiscing elit non habitasse semper, eleifend cum suspendisse class velit hendrerit fringilla euismod vestibulum ad, sodales etiam praesent maecenas purus cubilia venenatis feugiat faucibus. Praesent ligula habitasse fusce parturient faucibus maecenas vivamus, magna suspendisse urna felis dignissim penatibus ut, ultrices lacinia ridiculus id senectus ...
                                         </p>
                                         <div class="container">
                                                 <a href="#!">Tag1</a>

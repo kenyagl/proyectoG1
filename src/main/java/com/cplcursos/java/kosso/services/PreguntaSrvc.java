@@ -13,26 +13,25 @@ public class PreguntaSrvc  {
     @Autowired
     private PreguntaRepo preguntaRepo;
 
-    public Pregunta savePregunta (Pregunta pregunta){
-        return preguntaRepo.save(pregunta);
+
+    public Optional<Pregunta> findById(Long id) {
+        return preguntaRepo.findById(id);
     }
 
     public void borrarPregunta(Long id){
         preguntaRepo.deleteById(id);
     }
 
-    public List<Pregunta> listarPreguntas(){
+    public List<Pregunta> findAll(){
         return preguntaRepo.findAll();
     }
 
     public Optional<Pregunta> encontrarPregunta(Long id){
         return preguntaRepo.findById(id);
-
     }
 
     public Pregunta save (Pregunta pregunta){
         return preguntaRepo.save(pregunta);
     }
-
 
 }

@@ -13,11 +13,15 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 public class RespuestaEjOpMul {
-
     @Id
-    private Long id;
+    private idRespuestaEj id;
+    //El id es doble y se encuentra en idRespuestaEj: ahí tienes la fecha metida
 
+    //La respuesta es un entero porque el usuario puede elegir entre 4 opciones
     private Integer respuesta;
 
     //Relación many to one a la tabla EjercicioOpMul
+    @ManyToOne
+    @JoinColumn(name = "id_ejercicioOpMul", nullable = false)
+    private EjercicioOpMul ejercicioOpMul;
 }

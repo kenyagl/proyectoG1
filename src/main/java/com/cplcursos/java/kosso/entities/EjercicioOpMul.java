@@ -40,5 +40,9 @@ public class EjercicioOpMul {
     private String respuestaCorrecta;
 
     private String respuestaUsuario;
+
+    @OneToMany
+    @JoinColumn(name = "id_ejercicioOpMul", nullable = false)
+    private RespuestaEjOpMul respuestaEjOpMul;
 }
 

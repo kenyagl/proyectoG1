@@ -27,6 +27,8 @@ public class Pregunta {
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate fechaPregunta; // Preguntar formato de la fecha
 
+    private Integer votos; // Hacer controlador para los votos
+
     private Long idUsuarioPregunta;
 
     private Long idEtiquetas;

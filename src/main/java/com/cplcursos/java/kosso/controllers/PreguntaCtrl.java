@@ -38,7 +38,7 @@ public class PreguntaCtrl {
     // Publica la pregunta y la muestra
     @PostMapping(value = "/save")
     public String crearPregunta (@ModelAttribute("pregunta") Pregunta pregunta){
-        pregunta.setFechaPregunta(LocalDate.now()); // No sé si sea la manera correcta de asignarle una fecha a la pregunta cuando se crea pero funciona
+        preguntaSrvc.setFecha(pregunta); // No sé si sea la manera correcta de asignarle una fecha a la pregunta cuando se crea pero funciona
         preguntaSrvc.save(pregunta);
         return "redirect:/preguntas/preguntaPublicada/" + pregunta.getId();
     }
@@ -60,4 +60,6 @@ public class PreguntaCtrl {
         preguntaSrvc.borrarPregunta(id);
         return "preguntas/pregunta-list";
     }
+
+    // Controlador para votos
 }

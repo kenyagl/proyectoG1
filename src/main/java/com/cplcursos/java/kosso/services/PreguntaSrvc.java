@@ -5,6 +5,7 @@ import com.cplcursos.java.kosso.repositories.PreguntaRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,6 +33,10 @@ public class PreguntaSrvc  {
 
     public Pregunta save (Pregunta pregunta){
         return preguntaRepo.save(pregunta);
+    }
+
+    public void setFecha (Pregunta pregunta){
+        pregunta.setFechaPregunta(LocalDate.now());
     }
 
 }

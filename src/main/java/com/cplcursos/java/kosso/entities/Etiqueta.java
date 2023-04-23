@@ -8,6 +8,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -22,6 +25,9 @@ public class Etiqueta {
     Long id;
 
     private String nombre;
+
+    @ManyToMany(mappedBy = "etiquetas")
+    private List<Pregunta> preguntas = new ArrayList<>();
 
 }
 

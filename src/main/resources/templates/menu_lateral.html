@@ -30,42 +30,44 @@
     * Sus contenidos son "fluid" por defecto
     * Utilizamos la etiqueta <nav> para mejorar la accesibilidad.
     * "fixed-top" asegura que se queda fija en la parte superior.
-    * "flex-column" hace que los contenidos -items del menu- se muestren en columna
+    * "flex-column" hace que los contenidos -items del menu- se muestren en columna.
+    * "align-items-sm-start" hace que los iconos se muestren en su sitio cuando la barra está estrecha.
+    * "overflow-hidden" hace que el texto no se muestre cuando la barra está estrecha.
     -->
-    <nav id="sideBar" class="navbar navbar-expand-lg bg-sidebar fixed-top">
-        <ul>
-            <li>
-                <a href="/index">
+    <nav id="sideBar" class="navbar navbar-expand-lg bg-sidebar align-items-sm-start fixed-top flex-column overflow-hidden">
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <a class="nav-link" href="/index">
                     <i class="fa fa-home fa-2x"></i>
                     <span class="nav-text">Inicio</span>
                 </a>
             </li>
-            <li>
-                <a href="/ejercicios">
+            <li class="nav-item">
+                <a class="nav-link " href="/ejercicios">
                     <i class="fa fa-book fa-2x"></i>
                     <span class="nav-text">Ejercicios</span>
                 </a>
             </li>
-            <li>
-                <a href="/preguntas">
+            <li class="nav-item">
+                <a class="nav-link" href="/preguntas">
                     <i class="fa fa-comments fa-2x"></i>
                     <span class="nav-text">Foro</span>
                 </a>
             </li>
-            <li>
-                <a href="/calendario">
+            <li class="nav-item">
+                <a class="nav-link" href="/calendario">
                     <i class="fa fa-calendar fa-2x"></i>
                     <span class="nav-text">Calendario</span>
                 </a>
             </li>
-            <li>
-                <a href="/perfil">
+            <li  class="nav-item">
+                <a class="nav-link" href="/perfil">
                     <i class="fa fa-cogs fa-2x"></i>
                     <span class="nav-text">Ajustes de perfil</span>
                 </a>
             </li>
             <li class="logout">
-                <a href="/index">
+                <a class="nav-link" href="/index">
                     <i class="fa fa-power-off fa-2x"></i>
                     <span class="nav-text">Logout</span>
                 </a>

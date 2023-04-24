@@ -1,3 +1,35 @@
+/********************************
+    Estilos del menu lateral
+*********************************/
 .bg-sidebar {
     background-color: #212121;
+}
+#sideBar {
+    height: 100vh;  /* ocupa el alto de la pantalla */
+    width: 4.3em;  /* fija el ancho normal */
+    position: fixed;  /* para que no se desplace al hacer scroll */
+    top: 0;
+    left: 0;
+    /* efecto de desplazamiento del menu al ensanchar */
+    -webkit-transition:width .05s linear;
+    transition:width .05s linear;
+    /* fin efecto */
+}
+#sideBar:hover{
+    width: 14.4em;  /*ancho cuando pasa el cursor. Cubre la opción más larga */
+}
+/* Enlace de las opciones (incluye el icono y el texto) */
+#sideBar a {
+    color:#999;
+    width: 200px;  /* visualiza el icono y el texto en la misma línea */
+    box-sizing: content-box; /* el texto de la opción no salta de linea si es más ancho que la caja */
+}
+/* Icono de las opciones del menu lateral */
+#sideBar i{
+    font-size: 2.5em;
+}
+/* Texto de la opción del menu */
+#sideBar .nav-text{
+    font-size: 1.2em;
+    margin-left: 15px;
 }

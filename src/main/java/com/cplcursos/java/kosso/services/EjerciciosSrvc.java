@@ -34,7 +34,7 @@ public class EjerciciosSrvc {
         Long nextId = id + 1;
         Optional<EjercicioOpMul> nextEj = ejerciciosRepository.findById(nextId);
 
-        while(!nextEj.isPresent() && nextId > 0) {
+        while(!nextEj.isPresent() && nextId > 0 && nextId < 500) {
             nextId++;
             nextEj = ejerciciosRepository.findById(nextId);
         }

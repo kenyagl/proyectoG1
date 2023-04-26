@@ -81,7 +81,7 @@ public class EjercicioCtrl {
     public String nextEjercicio(@PathVariable Long id, Model model) {
         Optional<EjercicioOpMul> ejercicioOpMul = ejerciciosService.findNextEjercicio(id);
         if(ejercicioOpMul.isPresent()) {
-            model.addAttribute("ejercicio", ejercicioOpMul);
+            model.addAttribute("ejercicio", ejercicioOpMul.get());
         } else {
             return "errorEncontrandoEjercicio";
         }

@@ -3,6 +3,7 @@ package com.cplcursos.java.kosso.controllers;
 import com.cplcursos.java.kosso.entities.EjercicioOpMul;
 import com.cplcursos.java.kosso.entities.RespuestaEjOpMul;
 import com.cplcursos.java.kosso.entities.Usuario;
+import com.cplcursos.java.kosso.entities.IdRespuestaEj;
 import com.cplcursos.java.kosso.services.RespuestaEjOpMulSrvc;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.cplcursos.java.kosso.services.EjerciciosSrvc;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Controller
@@ -90,32 +92,36 @@ public class EjercicioCtrl {
 
     /*
     *
-    ****************** CONTROLADORES DE RESPUESTAS A CADA EJERCICIO ******************
+    ****************** CONTROLADOR DE RESPUESTAS A CADA EJERCICIO ******************
     *
     * PREGUNTA: podría hacer una clase anidada aquí dentro para ponerle antes el @RequestMapping("/{id}/respuesta")?
     *
      */
 
     @PostMapping("/{id}/respuesta/save")
-    public String saveRespuesta(@ModelAttribute("respuestaEjOpMul") RespuestaEjOpMul respuestaEjOpMul) {
-        respuestaEjOpMulSrvc.save(respuestaEjOpMul);
-        return "redirect:/ejercicios/";
-    }
+    public String saveRespuesta(@PathVariable("id") Long id, @RequestParam("answer") String respuesta) {
+        Optional<EjercicioOpMul> ejer = ejerciciosService.findById(id);
+        if(ejer.isPresent()) {
+            RespuestaEjOpMul respuestaEjOpMul = new RespuestaEjOpMul();
 
-    @GetMapping("/{id}/respuesta/edit")
-    public String showEditRespuesta(@PathVariable("id") Long id, Model model) {
-        Optional<com.cplcursos.java.kosso.entities.RespuestaEjOpMul> respuestaEjercicioOpMul = respuestaEjOpMulSrvc.findById(id);
-        if(respuestaEjercicioOpMul.isPresent()){
-            model.addAttribute("respuestaEjOpMul", respuestaEjercicioOpMul);
+            /*
+
+            // Falta meter el usuario con la securización
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            Usuario usuario = usuarioRepository.findByUsername(authentication.getName())
+            .orElseThrow(() -> new UsernameNotFoundException(authentication.getName()));
+
+            */
+
+            Usuario usuario = new Usuario();
+
+            respuestaEjOpMul.setRespuesta(respuesta);
+            respuestaEjOpMul.setFechaRespuesta(LocalDateTime.now());
+            respuestaEjOpMul.setId(new IdRespuestaEj(usuario.getId(), ejer.get().getId()));
+
         } else {
             return "errorEncontrandoEjercicio";
         }
-        return "ejercicios/ejercicioOpMul";
-    }
-
-    @GetMapping("/{id}/respuesta/delete")
-    public String deleteRespuesta(@PathVariable("id") Long id) {
-        ejerciciosService.deleteById(id);
-        return "redirect:/ejercicios/";
+        return "redirect:/ejercicios/" + id;
     }
 }

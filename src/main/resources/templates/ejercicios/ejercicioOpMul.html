@@ -68,6 +68,7 @@
                 <p id="result"></p>
             </div>
             <div class="modal-footer">
+                <!-- aquí hay problema: aunque no tengas los puntos te deja ir a lo siguiente-->
                 <a th:href="@{/ejercicios/{id}/next(id=${ejercicio.getId})}">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Siguiente</button>
                 </a>
@@ -86,14 +87,14 @@
 
 <script th:inline="javascript">
     function checkAnswer() {
-        let selectedAnswer = document.querySelector('input[name="answer"]:checked').value;
-        let correctAnswer = [[${ejercicio.getRespuestaCorrecta}]];
-        let resultText = document.getElementById("result");
+        const selectedAnswer = document.querySelector('input[name="answer"]:checked').value;
+        const  correctAnswer = [[${ejercicio.getRespuestaCorrecta}]];
+        const resultText = document.getElementById("result");
 
         if (selectedAnswer === correctAnswer) {
-            resultText.textContent = "Correct!";
+            resultText.textContent = "¡Correcto!";
         } else {
-            resultText.textContent = "Incorrect. The correct answer is " + correctAnswer;
+            resultText.textContent = "Incorrecto :( La respuesta correcta es " + correctAnswer;
         }
     }
 </script>

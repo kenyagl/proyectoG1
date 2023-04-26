@@ -31,4 +31,7 @@ public class Usuario {
     private Integer puntosEjercicios;
     private Integer puntosRespuestas;
 
+    public Usuario(Long id) {
+        this.id = id;
+    }
 }

@@ -113,7 +113,7 @@ public class EjercicioCtrl {
 
             */
 
-            Usuario usuario = new Usuario();
+            Usuario usuario = new Usuario(1L);
 
             respuestaEjOpMul.setRespuesta(respuesta);
             respuestaEjOpMul.setFechaRespuesta(LocalDateTime.now());

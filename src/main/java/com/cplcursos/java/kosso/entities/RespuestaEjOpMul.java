@@ -2,6 +2,8 @@ package com.cplcursos.java.kosso.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +23,6 @@ public class RespuestaEjOpMul {
     private Integer respuesta;
 
     //Relación many to one a la tabla EjercicioOpMul
-    @ManyToOne
-    @JoinColumn(name = "id_ejercicioOpMul", nullable = false)
-    private EjercicioOpMul ejercicioOpMul;
+
+    //Relación many to one a la tabla Usuario
 }

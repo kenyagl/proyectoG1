@@ -38,11 +38,12 @@ public class EjercicioCtrl {
 
     @GetMapping("/{id}")
     public String showEjercicio(@PathVariable("id") Long id, Model model) {
-        Optional<EjercicioOpMul> ejercicioOpMul = ejerciciosService.findById(id);
-        if(ejercicioOpMul.isPresent()){
-            model.addAttribute("ejercicioOpMul", ejercicioOpMul);
+        Optional<EjercicioOpMul> ejercicioOpMulOptional = ejerciciosService.findById(id);
+        if(ejercicioOpMulOptional.isPresent()){
+            EjercicioOpMul ejercicioOpMul = ejercicioOpMulOptional.get();
+            model.addAttribute("ejercicio", ejercicioOpMul);
         } else {
-            return "Ha habido un error encontrando el ejercicio";
+            return "errorEncontrandoEjercicio";
         }
         return "ejercicios/ejercicioOpMul";
     }
@@ -65,7 +66,7 @@ public class EjercicioCtrl {
         if(ejercicioOpMul.isPresent()){
             model.addAttribute("ejercicioOpMul", ejercicioOpMul);
         } else {
-            return "Ha habido un error encontrando el ejercicio" + id;
+            return "errorEncontrandoEjercicio";
         }
         return "ejercicios/ejercicioForm";
     }
@@ -76,8 +77,18 @@ public class EjercicioCtrl {
         return "redirect:/ejercicios/";
     }
 
+    @GetMapping("/{id}/next")
+    public String nextEjercicio(@PathVariable Long id, Model model) {
+        Optional<EjercicioOpMul> ejercicioOpMul = ejerciciosService.findNextEjercicio(id);
+        if(ejercicioOpMul.isPresent()) {
+            model.addAttribute("ejercicio", ejercicioOpMul);
+        } else {
+            return "errorEncontrandoEjercicio";
+        }
+        return "ejercicios/ejercicioOpMul";
+    }
+
     /*
-    *
     *
     ****************** CONTROLADORES DE RESPUESTAS A CADA EJERCICIO ******************
     *
@@ -97,7 +108,7 @@ public class EjercicioCtrl {
         if(respuestaEjercicioOpMul.isPresent()){
             model.addAttribute("respuestaEjOpMul", respuestaEjercicioOpMul);
         } else {
-            return "Ha habido un error encontrando el ejercicio" + id;
+            return "errorEncontrandoEjercicio";
         }
         return "ejercicios/ejercicioOpMul";
     }

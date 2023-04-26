@@ -28,4 +28,18 @@ public class EjerciciosSrvc {
     public void deleteById(Long id) {
         ejerciciosRepository.deleteById(id);
     }
+
+    //Método para encontrar el siguiente ejercicio
+    public Optional<EjercicioOpMul> findNextEjercicio(Long id) {
+        Long nextId = id + 1;
+        Optional<EjercicioOpMul> nextEj = ejerciciosRepository.findById(nextId);
+
+        while(!nextEj.isPresent() && nextId > 0) {
+            nextId++;
+            nextEj = ejerciciosRepository.findById(nextId);
+        }
+
+        return nextEj;
+    }
+
 }

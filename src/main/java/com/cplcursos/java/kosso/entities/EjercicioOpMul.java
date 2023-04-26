@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 
 
 @Getter
@@ -41,8 +42,9 @@ public class EjercicioOpMul {
 
     private String respuestaUsuario;
 
-    @OneToMany
-    @JoinColumn(name = "id_ejercicioOpMul", nullable = false)
-    private RespuestaEjOpMul respuestaEjOpMul;
+
+    public Long getId() {
+        return id;
+    }
 }
 

@@ -2,8 +2,13 @@ package com.cplcursos.java.kosso.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import lombok.AllArgsConstructor;
 
+import jakarta.persistence.Embeddable;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+@Embeddable
+@NoArgsConstructor
 @AllArgsConstructor
 public class IdRespuestaEj implements Serializable {
 

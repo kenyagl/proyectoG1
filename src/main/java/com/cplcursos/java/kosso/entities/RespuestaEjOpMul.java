@@ -1,5 +1,6 @@
 package com.cplcursos.java.kosso.entities;
 
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Entity
 public class RespuestaEjOpMul {
-    @Id
+    @EmbeddedId
     private IdRespuestaEj idRespuestaEj;
     //El id es doble y se encuentra en idRespuestaEj: ahí tienes la fecha metida
 

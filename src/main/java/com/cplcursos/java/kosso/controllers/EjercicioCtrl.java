@@ -104,28 +104,28 @@ public class EjercicioCtrl {
     *
      */
 
-    /*@PostMapping("/{id}/respuesta/save")
+    @PostMapping("/{id}/respuesta/save")
     public String saveRespuesta(@PathVariable("id") Long idEjercicio,
-                                @RequestParam("answer") String respuesta,
-                                @RequestParam("idUser") Long idUsuario) {
+                                @RequestParam("idUser") Long idUsuario,
+                                @RequestParam("answer") String miRespuesta) {
         Optional<EjercicioOpMul> ejer = ejerciciosService.findById(idEjercicio);
         if(ejer.isPresent()) {
             EjercicioOpMul ejercicio = ejer.get();
-            RespuestaEjOpMul respuestaEjOpMul = new RespuestaEjOpMul(new IdRespuestaEj(idUsuario, LocalDate.now(), idEjercicio), respuesta, LocalDateTime.now());
+            RespuestaEjOpMul respuestaEjOpMul = new RespuestaEjOpMul(new IdRespuestaEj(idUsuario, LocalDate.now(), ejercicio.getId()), miRespuesta, LocalDateTime.now());
 
-            *//*
+            /*
 
             // Falta meter el usuario con la securización
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             Usuario usuario = usuarioRepository.findByUsername(authentication.getName())
             .orElseThrow(() -> new UsernameNotFoundException(authentication.getName()));
 
-            *//*
+            */
 
-            respuestaEjOpMulSrvc.save(respuestaEjOpMul);
+            respuestaEjOpMulSrvc.saveAndFlush(respuestaEjOpMul);
         } else {
             return "errorEncontrandoEjercicio";
         }
         return "redirect:/ejercicios/";
-    }*/
+    }
 }

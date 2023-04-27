@@ -29,6 +29,7 @@ public class EjerciciosSrvc {
         ejerciciosRepository.deleteById(id);
     }
 
+
     //Método para encontrar el siguiente ejercicio
     public Long findIdNextEjercicio(Long id) {
         Long nextId = id + 1;

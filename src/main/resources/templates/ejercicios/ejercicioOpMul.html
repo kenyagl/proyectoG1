@@ -31,24 +31,25 @@
          class="img-fluid mb-3"/>
     <!--        <form  th:action="@{ejercicios/saveOpMul}" th:object="${ejercicio}" method="post">-->
     <form>
+        <input type="hidden" name="idUser" th:value="${usuario.getId()}" />
         <label>
-            <input type="radio" name="answer" value="1" th:value="${ejercicio.getOpcion1}"/>
-            <span th:text="${ejercicio.getOpcion1}">Option 1</span>
+            <input type="radio" name="answer" value="1" th:value="${ejercicio.getOpcion1()}"/>
+            <span th:text="${ejercicio.getOpcion1()}">Option 1</span>
         </label>
         <br/>
         <label>
-            <input type="radio" name="answer" value="2" th:value="${ejercicio.getOpcion2}"/>
-            <span th:text="${ejercicio.getOpcion2}">Option 2</span>
+            <input type="radio" name="answer" value="2" th:value="${ejercicio.getOpcion2()}"/>
+            <span th:text="${ejercicio.getOpcion2()}">Option 2</span>
         </label>
         <br/>
         <label>
-            <input type="radio" name="answer" value="3" th:value="${ejercicio.getOpcion3}"/>
-            <span th:text="${ejercicio.getOpcion3}">Option 3</span>
+            <input type="radio" name="answer" value="3" th:value="${ejercicio.getOpcion3()}"/>
+            <span th:text="${ejercicio.getOpcion3()}">Option 3</span>
         </label>
         <br/>
         <label>
-            <input type="radio" name="answer" value="4" th:value="${ejercicio.getOpcion4}"/>
-            <span th:text="${ejercicio.getOpcion4}">Option 4</span>
+            <input type="radio" name="answer" value="4" th:value="${ejercicio.getOpcion4()}"/>
+            <span th:text="${ejercicio.getOpcion4()}">Option 4</span>
         </label>
         <br/>
         <button type="button" onclick="checkAnswer()" class="btn btn-primary" data-bs-toggle="modal"
@@ -88,11 +89,20 @@
 <script th:inline="javascript">
     function checkAnswer() {
         const selectedAnswer = document.querySelector('input[name="answer"]:checked').value;
-        const  correctAnswer = [[${ejercicio.getRespuestaCorrecta}]];
+        const correctAnswer = [[${ejercicio.getRespuestaCorrecta}]];
         const resultText = document.getElementById("result");
 
         if (selectedAnswer === correctAnswer) {
             resultText.textContent = "¡Correcto!";
+            fetch('/ejercicios/' + [[${ejercicio.getId()}]] + '/respuesta/save?answer=' + selectedAnswer + '&idUser=' + [[${usuario.getId()}]], {
+                method: 'POST'
+            }).then(response => {
+                // handle the response here
+                console.log = "guardao";
+            }).catch(error => {
+                // handle the error here
+                console.log = "Ha habido un error al guardar la respuesta : " + error;
+            });
         } else {
             resultText.textContent = "Incorrecto :( La respuesta correcta es " + correctAnswer;
         }

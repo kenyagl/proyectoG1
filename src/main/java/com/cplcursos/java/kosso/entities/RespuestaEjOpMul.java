@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Entity
 public class RespuestaEjOpMul {
     @Id
-    private IdRespuestaEj id;
+    private IdRespuestaEj idRespuestaEj;
     //El id es doble y se encuentra en idRespuestaEj: ahí tienes la fecha metida
 
     private String respuesta;

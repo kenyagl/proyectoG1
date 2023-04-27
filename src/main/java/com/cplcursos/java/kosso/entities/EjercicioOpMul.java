@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 
 
 @Getter
@@ -40,5 +41,10 @@ public class EjercicioOpMul {
     private String respuestaCorrecta;
 
     private String respuestaUsuario;
+
+
+    public Long getId() {
+        return id;
+    }
 }
 

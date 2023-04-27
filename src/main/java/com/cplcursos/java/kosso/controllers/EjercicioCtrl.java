@@ -3,6 +3,8 @@ package com.cplcursos.java.kosso.controllers;
 import com.cplcursos.java.kosso.entities.EjercicioOpMul;
 import com.cplcursos.java.kosso.entities.RespuestaEjOpMul;
 import com.cplcursos.java.kosso.entities.Usuario;
+import com.cplcursos.java.kosso.entities.IdRespuestaEj;
+import com.cplcursos.java.kosso.repositories.EjercicioRepo;
 import com.cplcursos.java.kosso.services.RespuestaEjOpMulSrvc;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.cplcursos.java.kosso.services.EjerciciosSrvc;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Controller
@@ -38,11 +42,30 @@ public class EjercicioCtrl {
 
     @GetMapping("/{id}")
     public String showEjercicio(@PathVariable("id") Long id, Model model) {
-        Optional<EjercicioOpMul> ejercicioOpMul = ejerciciosService.findById(id);
-        if(ejercicioOpMul.isPresent()){
-            model.addAttribute("ejercicioOpMul", ejercicioOpMul);
+        Optional<EjercicioOpMul> ejercicioOpMulOptional = ejerciciosService.findById(id);
+        if(ejercicioOpMulOptional.isPresent()){
+            //Creo un usuario fake para probar el guardar respuesta, ya que sin l aautenticación configurada el usuario no está presente
+            Usuario usu = new Usuario(1L, 1, 2);
+            int totalusu = usu.getPuntosEjercicios() + usu.getPuntosRespuestas();
+
+            EjercicioOpMul ejercicioOpMul = ejercicioOpMulOptional.get();
+            model.addAttribute("ejercicio", ejercicioOpMul);
+            model.addAttribute("usuario", usu);
+            model.addAttribute("totalusu", totalusu);
+
+            //Añado el siguiente ejercicio
+            EjercicioOpMul ejer = ejercicioOpMulOptional.get();
+            Long idNextEjer = ejerciciosService.findIdNextEjercicio(ejer.getId());
+            Optional<EjercicioOpMul> nextEjerOp = ejerciciosService.findById(idNextEjer);
+            if (nextEjerOp.isPresent()){
+                EjercicioOpMul nextEjer = nextEjerOp.get();
+                model.addAttribute("nextEjer", nextEjer);
+            }else{
+                return "errorEncontrandoEjercicio";
+            }
+
         } else {
-            return "Ha habido un error encontrando el ejercicio";
+            return "errorEncontrandoEjercicio";
         }
         return "ejercicios/ejercicioOpMul";
     }
@@ -65,7 +88,7 @@ public class EjercicioCtrl {
         if(ejercicioOpMul.isPresent()){
             model.addAttribute("ejercicioOpMul", ejercicioOpMul);
         } else {
-            return "Ha habido un error encontrando el ejercicio" + id;
+            return "errorEncontrandoEjercicio";
         }
         return "ejercicios/ejercicioForm";
     }
@@ -76,35 +99,47 @@ public class EjercicioCtrl {
         return "redirect:/ejercicios/";
     }
 
+    /*@GetMapping("/{id}/next")
+    public String nextEjercicio(@PathVariable Long id, Model model) {
+        Long nextId = ejerciciosService.findIdNextEjercicio(id);
+
+        if(nextId != null) {
+            return "redirect:/ejercicios/" + nextId;
+        } else {
+            return "errorEncontrandoEjercicio";
+        }
+    }*/
+
     /*
     *
-    *
-    ****************** CONTROLADORES DE RESPUESTAS A CADA EJERCICIO ******************
+    ****************** CONTROLADOR DE RESPUESTAS A CADA EJERCICIO ******************
     *
     * PREGUNTA: podría hacer una clase anidada aquí dentro para ponerle antes el @RequestMapping("/{id}/respuesta")?
     *
      */
 
     @PostMapping("/{id}/respuesta/save")
-    public String saveRespuesta(@ModelAttribute("respuestaEjOpMul") RespuestaEjOpMul respuestaEjOpMul) {
-        respuestaEjOpMulSrvc.save(respuestaEjOpMul);
-        return "redirect:/ejercicios/";
-    }
+    public String saveRespuesta(@PathVariable("id") Long idEjercicio,
+                                @RequestParam("idUser") Long idUsuario,
+                                @RequestParam("answer") String miRespuesta) {
+        Optional<EjercicioOpMul> ejer = ejerciciosService.findById(idEjercicio);
+        if(ejer.isPresent()) {
+            EjercicioOpMul ejercicio = ejer.get();
+            RespuestaEjOpMul respuestaEjOpMul = new RespuestaEjOpMul(new IdRespuestaEj(idUsuario, LocalDate.now(), ejercicio.getId()), miRespuesta, LocalDateTime.now());
 
-    @GetMapping("/{id}/respuesta/edit")
-    public String showEditRespuesta(@PathVariable("id") Long id, Model model) {
-        Optional<com.cplcursos.java.kosso.entities.RespuestaEjOpMul> respuestaEjercicioOpMul = respuestaEjOpMulSrvc.findById(id);
-        if(respuestaEjercicioOpMul.isPresent()){
-            model.addAttribute("respuestaEjOpMul", respuestaEjercicioOpMul);
+            /*
+
+            // Falta meter el usuario con la securización
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            Usuario usuario = usuarioRepository.findByUsername(authentication.getName())
+            .orElseThrow(() -> new UsernameNotFoundException(authentication.getName()));
+
+            */
+
+            respuestaEjOpMulSrvc.saveAndFlush(respuestaEjOpMul);
         } else {
-            return "Ha habido un error encontrando el ejercicio" + id;
+            return "errorEncontrandoEjercicio";
         }
-        return "ejercicios/ejercicioOpMul";
-    }
-
-    @GetMapping("/{id}/respuesta/delete")
-    public String deleteRespuesta(@PathVariable("id") Long id) {
-        ejerciciosService.deleteById(id);
         return "redirect:/ejercicios/";
     }
 }

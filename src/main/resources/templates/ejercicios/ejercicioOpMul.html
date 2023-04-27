@@ -68,7 +68,7 @@
                 <p id="result"></p>
             </div>
             <div class="modal-footer">
-                <a th:href="@{/ejercicios/{id}/next(id=${ejercicio.getId})}" type="button" class="btn" data-bs-dismiss="modal" th:classappend="${totalusu<nextEjer.getPuntosAcceso()} ? 'disabled btn-secondary' : 'btn-primary'">
+                <a class="btn"  th:href="@{/ejercicios/{id}/next(id=${ejercicio.getId()})}" th:classappend="${totalusu<nextEjer.getPuntosAcceso()} ? 'disabled btn-secondary' : 'btn-primary'">
                         Siguiente
                 </a>
             </div>
@@ -96,10 +96,10 @@
                 method: 'POST'
             }).then(response => {
                 // handle the response here
-                console.log = "guardao";
+                console.log("guardao");
             }).catch(error => {
                 // handle the error here
-                alert = "Ha habido un error al guardar la respuesta : " + error;
+                alert("Ha habido un error al guardar la respuesta : " + error);
             });
         } else {
             resultText.textContent = "Incorrecto :( La respuesta correcta es " + correctAnswer;

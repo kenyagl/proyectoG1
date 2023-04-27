@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.cplcursos.java.kosso.services.EjerciciosSrvc;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -117,7 +118,7 @@ public class EjercicioCtrl {
 
             respuestaEjOpMul.setRespuesta(respuesta);
             respuestaEjOpMul.setFechaRespuesta(LocalDateTime.now());
-            respuestaEjOpMul.setId(new IdRespuestaEj(usuario.getId(), ejer.get().getId()));
+            respuestaEjOpMul.setId(new IdRespuestaEj(usuario.getId(), LocalDate.now(), ejer.get().getId()));
 
         } else {
             return "errorEncontrandoEjercicio";

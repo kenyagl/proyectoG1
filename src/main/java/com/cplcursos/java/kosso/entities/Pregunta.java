@@ -8,13 +8,14 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="Preguntas")
+@Table(name = "preguntas")
 public class Pregunta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,17 +28,23 @@ public class Pregunta {
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate fechaPregunta; // Preguntar formato de la fecha
 
-    private Integer votos; // Hacer controlador para los votos
+    private Integer votos;
+    // Hacer controlador para los votos
+    // Como hacer que una persona solo pueda votar una vez o cambiar su voto
+    // Solo los usuarios pueden votar
 
-    private Long idUsuarioPregunta;
+    @ManyToOne
+    @JoinColumn(name = "idUsuario")
+    private Usuario usuario;
 
-    private Long idEtiquetas;
+    private List<Etiqueta> etiquetas; // Esto creo que será una lista de etiquetas asignadas a esta pregunta
 
-    private Long idRespuestas;
+
+    private List<Respuesta> respuestas; // Para los comentarios se haría una relación de respuestas a ella misma?
 
     //Preguntar a Carlos:
     //1) Tenemos que crear una tabla de etiquetas?
     //2) Tenemos que crear una tabla de respuestas? Y las respuestas a las respuestas?
-    //3) Votos de las preguntas y de las respuestas
-    //4) Botones para páginas de preguntas
+    //3) Votos de las preguntas y de las respestas
+    //4) Botones para páginas de preguntasu
 }

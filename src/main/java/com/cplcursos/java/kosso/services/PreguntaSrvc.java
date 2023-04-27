@@ -39,4 +39,12 @@ public class PreguntaSrvc  {
         pregunta.setFechaPregunta(LocalDate.now());
     }
 
+    public void sumarVoto (Pregunta pregunta){
+        pregunta.setVotos(pregunta.getVotos()+1);
+    }
+
+    public void restarVoto (Pregunta pregunta){
+        pregunta.setVotos(pregunta.getVotos()-1);
+    }
+
 }

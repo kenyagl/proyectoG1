@@ -30,4 +30,7 @@ public class Usuario {
     private Integer puntosEjercicios;
     private Integer puntosRespuestas;
 
+    @OneToMany(mappedBy = "usuario")
+    private List<Pregunta> preguntas;
+
 }

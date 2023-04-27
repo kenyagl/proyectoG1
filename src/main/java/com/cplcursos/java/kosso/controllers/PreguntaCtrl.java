@@ -25,6 +25,7 @@ public class PreguntaCtrl {
     }
 
     // Muestra la pregunta publicada por su id
+    // Hay un problema que desde la url http://localhost:8080/preguntas/ con la barra al final no muestra la pregunta publicada
     @GetMapping(value = "/preguntaPublicada/{id}")
     public String verPreguntaPublicada (@PathVariable Long id, Model model){
         Optional<Pregunta> pregunta = preguntaSrvc.findById(id);
@@ -38,13 +39,27 @@ public class PreguntaCtrl {
     // Publica la pregunta y la muestra
     @PostMapping(value = "/save")
     public String crearPregunta (@ModelAttribute("pregunta") Pregunta pregunta){
-        preguntaSrvc.setFecha(pregunta); // No sé si sea la manera correcta de asignarle una fecha a la pregunta cuando se crea pero funciona
+        if (pregunta.getFechaPregunta() == null){
+            preguntaSrvc.setFecha(pregunta);
+        }
         preguntaSrvc.save(pregunta);
         return "redirect:/preguntas/preguntaPublicada/" + pregunta.getId();
     }
 
+    @GetMapping(value = "/edit/{id}")
+    public String editarPregunta( @PathVariable("id") Long id, Model model){
+        Optional<Pregunta> pregunta = preguntaSrvc.findById(id);
+        if(pregunta.isPresent()){
+            model.addAttribute("pregunta", pregunta.get());
+        }
+        else{
+            return "error-page";
+        }
+        return "preguntas/pregunta-form";
+    }
+
     @GetMapping(value = "/new")
-    public String verPregunta (Model model){
+    public String verFormularioPregunta (Model model){
         model.addAttribute("pregunta", new Pregunta());
         return "preguntas/pregunta-form";
     }
@@ -55,11 +70,15 @@ public class PreguntaCtrl {
         return "preguntas/preguntaPublicada";
     }
 
-    @DeleteMapping(value = "/delete" )
+    @GetMapping(value = "/delete/{id}")
     public String borrarPregunta (@PathVariable("id") Long id){
         preguntaSrvc.borrarPregunta(id);
-        return "preguntas/pregunta-list";
+        return "redirect:/preguntas";
     }
 
     // Controlador para votos
+
+
+
+
 }

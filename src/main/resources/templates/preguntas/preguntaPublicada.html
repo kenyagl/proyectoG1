@@ -37,7 +37,12 @@
                                 </div>
                         </div>
                         <!-- Título de la pregunta -->
-                        <h2 class="my-3" th:text="${pregunta.getTituloPregunta()}" >Título de la pregunta</h2>
+                        <div>
+                                <a th:href="@{/preguntas/edit/{id}(id=${pregunta.getId()})}" class="btn border-dark">Editar Pregunta</a>
+                                <a th:href="@{/preguntas/delete/{id}(id=${pregunta.getId()})}" class="btn btn-danger" >Eliminar Pregunta</a>
+                                <h2 class="my-3" th:text="${pregunta.getTituloPregunta()}" >Título de la pregunta</h2>
+
+                        </div>
                 </div>
 
                 <!-- Sección de la pregunta -->
@@ -66,16 +71,16 @@
 
                                 <!-- Responder a la pregunta -->
                                 <div class="col-4">
-                                        <a class="container-fluid btn btn-primary" href="/upvote">Responder</a>
+                                        <a class="container-fluid btn btn-primary" href="/responder" >Responder</a>
                                 </div>
         
                                 <!-- Valoración de la pregunta -->
                                 <div class="col-4">
-                                        <a class="btn btn-primary" href="/upvote">Like</a>
-                                        <span>X Votos</span>
-                                        <a class="btn btn-warning" href="/dislike">Dislike</a>
+                                        <a class="btn btn-primary" href="@{/preguntas/upvote/{id}(id=${pregunta.getId()})}">Like</a>
+                                        <span th:text="${pregunta.getVotos()}" >X Votos</span>
+                                        <a class="btn btn-warning" href="@{/preguntas/dislike/{id}(id=${pregunta.getId()})}">Dislike</a>
                                         <a class="btn btn-danger" href="/report">Report</a>
-                                </div>       
+                                </div>
                         </section>
                 </section>
 

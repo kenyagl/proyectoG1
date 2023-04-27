@@ -29,7 +29,6 @@
     <p th:text="${ejercicio.getDescripcion()}">Descripción del ejercicio</p>
     <img src="../../static/${ejercicio.getImagen()}" height="138" width="580" alt="<Code picture>"
          class="img-fluid mb-3"/>
-    <!--        <form  th:action="@{ejercicios/saveOpMul}" th:object="${ejercicio}" method="post">-->
     <form>
         <input type="hidden" name="idUser" th:value="${usuario.getId()}" />
         <label>
@@ -69,9 +68,8 @@
                 <p id="result"></p>
             </div>
             <div class="modal-footer">
-                <!-- aquí hay problema: aunque no tengas los puntos te deja ir a lo siguiente-->
-                <a th:href="@{/ejercicios/{id}/next(id=${ejercicio.getId})}">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Siguiente</button>
+                <a th:href="@{/ejercicios/{id}/next(id=${ejercicio.getId})}" type="button" class="btn" data-bs-dismiss="modal" th:classappend="${totalusu<nextEjer.getPuntosAcceso()} ? 'disabled btn-secondary' : 'btn-primary'">
+                        Siguiente
                 </a>
             </div>
             <div class="modal-footer">
@@ -101,7 +99,7 @@
                 console.log = "guardao";
             }).catch(error => {
                 // handle the error here
-                console.log = "Ha habido un error al guardar la respuesta : " + error;
+                alert = "Ha habido un error al guardar la respuesta : " + error;
             });
         } else {
             resultText.textContent = "Incorrecto :( La respuesta correcta es " + correctAnswer;

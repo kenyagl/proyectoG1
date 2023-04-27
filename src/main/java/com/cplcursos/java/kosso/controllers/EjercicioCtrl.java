@@ -4,6 +4,7 @@ import com.cplcursos.java.kosso.entities.EjercicioOpMul;
 import com.cplcursos.java.kosso.entities.RespuestaEjOpMul;
 import com.cplcursos.java.kosso.entities.Usuario;
 import com.cplcursos.java.kosso.entities.IdRespuestaEj;
+import com.cplcursos.java.kosso.repositories.EjercicioRepo;
 import com.cplcursos.java.kosso.services.RespuestaEjOpMulSrvc;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,11 +45,24 @@ public class EjercicioCtrl {
         Optional<EjercicioOpMul> ejercicioOpMulOptional = ejerciciosService.findById(id);
         if(ejercicioOpMulOptional.isPresent()){
             //Creo un usuario fake para probar el guardar respuesta, ya que sin l aautenticación configurada el usuario no está presente
-            Usuario usu = new Usuario(1L);
+            Usuario usu = new Usuario(1L, 1, 2);
+            int totalusu = usu.getPuntosEjercicios() + usu.getPuntosRespuestas();
 
             EjercicioOpMul ejercicioOpMul = ejercicioOpMulOptional.get();
             model.addAttribute("ejercicio", ejercicioOpMul);
             model.addAttribute("usuario", usu);
+            model.addAttribute("totalusu", totalusu);
+
+            //Añado el siguiente ejercicio
+            EjercicioOpMul ejer = ejercicioOpMulOptional.get();
+            Long idNextEjer = ejerciciosService.findIdNextEjercicio(ejer.getId());
+            Optional<EjercicioOpMul> nextEjerOp = ejerciciosService.findById(idNextEjer);
+            if (nextEjerOp.isPresent()){
+                EjercicioOpMul nextEjer = nextEjerOp.get();
+                model.addAttribute("nextEjer", nextEjer);
+            }else{
+                return "errorEncontrandoEjercicio";
+            }
 
         } else {
             return "errorEncontrandoEjercicio";

@@ -43,8 +43,13 @@ public class EjercicioCtrl {
     public String showEjercicio(@PathVariable("id") Long id, Model model) {
         Optional<EjercicioOpMul> ejercicioOpMulOptional = ejerciciosService.findById(id);
         if(ejercicioOpMulOptional.isPresent()){
+            //Creo un usuario fake para probar el guardar respuesta, ya que sin l aautenticación configurada el usuario no está presente
+            Usuario usu = new Usuario(1L);
+
             EjercicioOpMul ejercicioOpMul = ejercicioOpMulOptional.get();
             model.addAttribute("ejercicio", ejercicioOpMul);
+            model.addAttribute("usuario", usu);
+
         } else {
             return "errorEncontrandoEjercicio";
         }
@@ -82,13 +87,13 @@ public class EjercicioCtrl {
 
     @GetMapping("/{id}/next")
     public String nextEjercicio(@PathVariable Long id, Model model) {
-        Optional<EjercicioOpMul> ejercicioOpMul = ejerciciosService.findNextEjercicio(id);
-        if(ejercicioOpMul.isPresent()) {
-            model.addAttribute("ejercicio", ejercicioOpMul.get());
+        Long nextId = ejerciciosService.findIdNextEjercicio(id);
+
+        if(nextId != null) {
+            return "redirect:/ejercicios/" + nextId;
         } else {
             return "errorEncontrandoEjercicio";
         }
-        return "ejercicios/ejercicioOpMul";
     }
 
     /*
@@ -99,30 +104,28 @@ public class EjercicioCtrl {
     *
      */
 
-    @PostMapping("/{id}/respuesta/save")
-    public String saveRespuesta(@PathVariable("id") Long id, @RequestParam("answer") String respuesta) {
-        Optional<EjercicioOpMul> ejer = ejerciciosService.findById(id);
+    /*@PostMapping("/{id}/respuesta/save")
+    public String saveRespuesta(@PathVariable("id") Long idEjercicio,
+                                @RequestParam("answer") String respuesta,
+                                @RequestParam("idUser") Long idUsuario) {
+        Optional<EjercicioOpMul> ejer = ejerciciosService.findById(idEjercicio);
         if(ejer.isPresent()) {
-            RespuestaEjOpMul respuestaEjOpMul = new RespuestaEjOpMul();
+            EjercicioOpMul ejercicio = ejer.get();
+            RespuestaEjOpMul respuestaEjOpMul = new RespuestaEjOpMul(new IdRespuestaEj(idUsuario, LocalDate.now(), idEjercicio), respuesta, LocalDateTime.now());
 
-            /*
+            *//*
 
             // Falta meter el usuario con la securización
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             Usuario usuario = usuarioRepository.findByUsername(authentication.getName())
             .orElseThrow(() -> new UsernameNotFoundException(authentication.getName()));
 
-            */
+            *//*
 
-            Usuario usuario = new Usuario(1L);
-
-            respuestaEjOpMul.setRespuesta(respuesta);
-            respuestaEjOpMul.setFechaRespuesta(LocalDateTime.now());
-            respuestaEjOpMul.setId(new IdRespuestaEj(usuario.getId(), LocalDate.now(), ejer.get().getId()));
-
+            respuestaEjOpMulSrvc.save(respuestaEjOpMul);
         } else {
             return "errorEncontrandoEjercicio";
         }
-        return "redirect:/ejercicios/" + id;
-    }
+        return "redirect:/ejercicios/";
+    }*/
 }

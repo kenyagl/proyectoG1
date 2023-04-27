@@ -30,7 +30,7 @@ public class EjerciciosSrvc {
     }
 
     //Método para encontrar el siguiente ejercicio
-    public Optional<EjercicioOpMul> findNextEjercicio(Long id) {
+    public Long findIdNextEjercicio(Long id) {
         Long nextId = id + 1;
         Optional<EjercicioOpMul> nextEj = ejerciciosRepository.findById(nextId);
 
@@ -39,7 +39,8 @@ public class EjerciciosSrvc {
             nextEj = ejerciciosRepository.findById(nextId);
         }
 
-        return nextEj;
+        Long nextEjId = nextEj.get().getId();
+        return nextEjId;
     }
 
 }

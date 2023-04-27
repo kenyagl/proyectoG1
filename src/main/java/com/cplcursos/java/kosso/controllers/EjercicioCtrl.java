@@ -99,7 +99,7 @@ public class EjercicioCtrl {
         return "redirect:/ejercicios/";
     }
 
-    @GetMapping("/{id}/next")
+    /*@GetMapping("/{id}/next")
     public String nextEjercicio(@PathVariable Long id, Model model) {
         Long nextId = ejerciciosService.findIdNextEjercicio(id);
 
@@ -108,7 +108,7 @@ public class EjercicioCtrl {
         } else {
             return "errorEncontrandoEjercicio";
         }
-    }
+    }*/
 
     /*
     *

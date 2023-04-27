@@ -68,7 +68,7 @@
                 <p id="result"></p>
             </div>
             <div class="modal-footer">
-                <a class="btn"  th:href="@{/ejercicios/{id}/next(id=${ejercicio.getId()})}" th:classappend="${totalusu<nextEjer.getPuntosAcceso()} ? 'disabled btn-secondary' : 'btn-primary'">
+                <a class="btn"  th:href="@{/ejercicios/{id}(id=${nextEjer.getId()})}" th:classappend="${totalusu<nextEjer.getPuntosAcceso()} ? 'disabled btn-secondary' : 'btn-primary'">
                         Siguiente
                 </a>
             </div>

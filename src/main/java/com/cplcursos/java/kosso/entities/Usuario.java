@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -29,5 +31,9 @@ public class Usuario {
     private String acercaDe;
     private Integer puntosEjercicios;
     private Integer puntosRespuestas;
+
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+
+    private List<DiaCalendario> diaCalendario = new ArrayList<>();
 
 }

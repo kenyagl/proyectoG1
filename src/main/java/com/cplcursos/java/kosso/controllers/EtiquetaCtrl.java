@@ -44,7 +44,7 @@ public class EtiquetaCtrl {
         if(etiqueta.isPresent()){
             model.addAttribute("etiqueta", etiqueta);
         } else {
-            return "Ha tag no existe" + id;
+            return "El tag no existe" + id;
         }
         return "null";
     }

@@ -42,11 +42,7 @@ body {
   background-size: cover;
 }
 
- .card-container {
-      background-image: url('/static/image/bg.png');
-      background-repeat: no-repeat;
-      background-size: cover;
-    }
+
 
     </style>
 
@@ -89,13 +85,13 @@ body {
 <div class="container-fluid pb-3 flex-grow-1">
     <div class="row">
         <main class="col">
-            <div class="d-flex align-items-center justify-content-center h-100 card-container">
-                <div class="card" style="margin-top: 200px;">
+            <div class="d-flex align-items-center justify-content-center h-100 ">
+                <div class="card" style="margin-top: 200px;background-image: url('/static/image/bg-form.png'); box-shadow: 5px 5px 10px rgba(255, 255, 255, 0.75);" >
                     <div class="card-header">
-                        <h5 class="card-title">Iniciar sesión</h5>
+                        <h5 class="card-title" style="color: white">Iniciar sesión</h5>
                     </div>
                     <div class="card-body">
-                        <form action="/login" method="POST">
+                        <form action="/login" method="POST" style="color: white">
                             <div class="form-group row">
                                 <label class="col-3 col-form-label" for="usuario">Usuario</label>
                                 <div class="col-6">

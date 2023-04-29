@@ -26,8 +26,8 @@ public class Respuesta {
 
     private String respuesta;
 
-    @OneToMany(mappedBy = "respuesta")
-    private Comentario comentario;
+    //@OneToMany(mappedBy = "respuesta")
+    //private Comentario comentario;
 
 
     public Respuesta(Integer votos, Boolean alerta, String respuesta) {

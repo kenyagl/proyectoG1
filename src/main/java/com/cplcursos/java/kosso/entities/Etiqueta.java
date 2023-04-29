@@ -1,7 +1,5 @@
 package com.cplcursos.java.kosso.entities;
 
-
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,13 +11,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="Etiquetas")
+@Table(name="etiquetas")
 public class Etiqueta {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     private String nombre;
 

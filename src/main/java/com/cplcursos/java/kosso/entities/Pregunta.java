@@ -37,10 +37,10 @@ public class Pregunta {
     @JoinColumn(name = "idUsuario")
     private Usuario usuario;
 
-    private List<Etiqueta> etiquetas; // Esto creo que será una lista de etiquetas asignadas a esta pregunta
+    //private List<Etiqueta> etiquetas; // Esto creo que será una lista de etiquetas asignadas a esta pregunta
 
 
-    private List<Respuesta> respuestas; // Para los comentarios se haría una relación de respuestas a ella misma?
+    //private List<Respuesta> respuestas; // Para los comentarios se haría una relación de respuestas a ella misma?
 
     //Preguntar a Carlos:
     //1) Tenemos que crear una tabla de etiquetas?

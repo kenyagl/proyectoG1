@@ -44,8 +44,5 @@ public class Pregunta {
     private List<Respuesta> respuestas;
 
     //Preguntar a Carlos:
-    //1) Tenemos que crear una tabla de etiquetas?
-    //2) Tenemos que crear una tabla de respuestas? Y las respuestas a las respuestas?
-    //3) Votos de las preguntas y de las respestas
-    //4) Botones para páginas de preguntasu
+    //4) Botones para páginas de preguntas
 }

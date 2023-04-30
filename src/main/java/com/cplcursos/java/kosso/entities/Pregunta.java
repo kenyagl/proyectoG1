@@ -37,10 +37,11 @@ public class Pregunta {
     @JoinColumn(name = "idUsuario")
     private Usuario usuario;
 
-    //private List<Etiqueta> etiquetas; // Esto creo que será una lista de etiquetas asignadas a esta pregunta
+    @ManyToMany(mappedBy = "preguntas")
+    private List<Etiqueta> etiquetas;
 
-
-    //private List<Respuesta> respuestas; // Para los comentarios se haría una relación de respuestas a ella misma?
+    @OneToMany(mappedBy = "pregunta",cascade = CascadeType.ALL)
+    private List<Respuesta> respuestas;
 
     //Preguntar a Carlos:
     //1) Tenemos que crear una tabla de etiquetas?

@@ -20,8 +20,12 @@ public class Comentario {
 
     private String texto;
 
-    //@ManyToOne(cascade = CascadeType.ALL)
-    //@JoinColumn(name = "idRespuesta", referencedColumnName = "id")
-    //private Respuesta respuesta;
+    @ManyToOne
+    @JoinColumn(name = "idUsuario")
+    private Usuario usuario;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idRespuesta", referencedColumnName = "id")
+    private Respuesta respuesta;
 
 }

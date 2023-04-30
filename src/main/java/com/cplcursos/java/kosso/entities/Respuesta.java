@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -14,25 +16,29 @@ import lombok.Setter;
 public class Respuesta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    @Id
-    Long idPregunta;
-    @Id
-    Long idUsuario;
+    private Long id;
 
     private Integer votos;
 
     private Boolean alerta;
 
-    private String respuesta;
+    private String textoRespuesta;
 
-    //@OneToMany(mappedBy = "respuesta")
-    //private Comentario comentario;
+    @ManyToOne
+    @JoinColumn(name = "idUsuario")
+    private Usuario usuario;
+
+    @OneToMany(mappedBy = "respuesta")
+    private List<Comentario> comentario;
+
+    @ManyToOne
+    @JoinColumn(name = "idPregunta", referencedColumnName = "id")
+    private Pregunta pregunta;
 
 
-    public Respuesta(Integer votos, Boolean alerta, String respuesta) {
+    public Respuesta(Integer votos, Boolean alerta, String textoRespuesta) {
         this.votos = votos;
         this.alerta = alerta;
-        this.respuesta = respuesta;
+        this.textoRespuesta = textoRespuesta;
     }
 }

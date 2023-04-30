@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -20,6 +22,12 @@ public class Etiqueta {
 
     private String nombre;
 
+    @ManyToMany
+    @JoinTable(
+            name = "etiqueta_pregunta",
+            joinColumns = @JoinColumn(name = "idPregunta"),
+            inverseJoinColumns = @JoinColumn(name = "idEtiqueta"))
+    private List<Pregunta> preguntas;
 }
 
 

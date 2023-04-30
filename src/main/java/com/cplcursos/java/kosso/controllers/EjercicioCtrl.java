@@ -44,7 +44,7 @@ public class EjercicioCtrl {
     public String showEjercicio(@PathVariable("id") Long id, Model model) {
         Optional<EjercicioOpMul> ejercicioOpMulOptional = ejerciciosService.findById(id);
         if(ejercicioOpMulOptional.isPresent()){
-            //Creo un usuario fake para probar el guardar respuesta, ya que sin l aautenticación configurada el usuario no está presente
+            //Creo un usuario fake para probar el guardar respuesta, ya que sin la autenticación configurada el usuario no está presente
             Usuario usu = new Usuario(1L, 1, 2);
             int totalusu = usu.getPuntosEjercicios() + usu.getPuntosRespuestas();
 
@@ -121,11 +121,28 @@ public class EjercicioCtrl {
     @PostMapping("/{id}/respuesta/save")
     public String saveRespuesta(@PathVariable("id") Long idEjercicio,
                                 @RequestParam("usuario") Usuario usuario,
-                                @RequestParam("answer") String miRespuesta) {
+                                @RequestParam("answer") String miRespuesta,
+                                Model model){
+
         Optional<EjercicioOpMul> ejer = ejerciciosService.findById(idEjercicio);
         if(ejer.isPresent()) {
             EjercicioOpMul ejercicio = ejer.get();
-            RespuestaEjOpMul respuestaEjOpMul = new RespuestaEjOpMul(new IdRespuestaEj(ejercicio, usuario), miRespuesta, LocalDateTime.now());
+
+            String respuestaCorrecta = ejercicio.getRespuestaCorrecta();
+
+            String resultMessage;
+            if(miRespuesta.equals(respuestaCorrecta)){
+                resultMessage = "correcto";
+                usuario.setPuntosRespuestas(usuario.getPuntosRespuestas() + 1);
+
+                model.addAttribute("resultMessage", resultMessage);
+
+                RespuestaEjOpMul respuestaEjOpMul = new RespuestaEjOpMul(new IdRespuestaEj(ejercicio, usuario), miRespuesta, LocalDateTime.now());
+                respuestaEjOpMulSrvc.saveAndFlush(respuestaEjOpMul);
+
+            } else {
+                resultMessage = "incorrecto";
+            }
 
             /*
 
@@ -135,8 +152,6 @@ public class EjercicioCtrl {
             .orElseThrow(() -> new UsernameNotFoundException(authentication.getName()));
 
             */
-
-            respuestaEjOpMulSrvc.saveAndFlush(respuestaEjOpMul);
         } else {
             return "errorEncontrandoEjercicio";
         }

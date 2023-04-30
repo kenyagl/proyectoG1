@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
 
 
 @Getter
@@ -42,17 +41,8 @@ public class EjercicioOpMul {
 
     private String respuestaUsuario;
 
-
-    public Long getId() {
-        return id;
-    }
-
-    @ManyToMany
-    @JoinTable(
-            name = "ejercicio_categoria",
-            joinColumns = @JoinColumn(name = "id_ejercicioOpMul"),
-            inverseJoinColumns = @JoinColumn(name = "id_categoriaEjercicios")
-    )
-    private List<CategoriaEjercicios> categorias;
+    @OneToMany
+    @JoinColumn(name = "RespuestaEjercicioOpMul_id", nullable = false)
+    private RespuestaEjOpMul respuestaEjOpMul;
 }
 

@@ -13,17 +13,15 @@ import lombok.Setter;
 @Entity
 @Table(name = "RespuestaEjerciciosOpMul")
 public class RespuestaEjOpMul {
-    @EmbeddedId
-    private IdRespuestaEj idRespuestaEj;
-    //El id es doble y se encuentra en idRespuestaEj: ahí tienes la fecha metida
+
+    // @EmbeddedId means that the id is multiple and is defined in class RespuestaEjId
     @EmbeddedId
     private RespuestaEjId id;
-
-    private String respuesta;
+    // Is it a numeric value or the String that represents?
     private Integer respuesta;
 
-    private LocalDateTime fechaRespuesta;
+    // Many answers to a single exercise
     @ManyToOne
-    @JoinColumn(name = "id_ejercicioOpMul", nullable = false)
+    @JoinColumn(name = "ejercicioOpMul_id", nullable = false)
     private EjercicioOpMul ejercicioOpMul;
 }

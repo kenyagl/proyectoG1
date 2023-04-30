@@ -41,8 +41,12 @@ public class Usuario {
         this.puntosEjercicios = puntosEjercicios;
         this.puntosRespuestas = puntosRespuestas;
     }
-    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<DiaCalendario> diaCalendario = new ArrayList<>();
+
+    @OneToMany
+    @JoinColumn(name = "usuario_id")
+    private List<RespuestaEjOpMul> respuestasEj = new ArrayList<>();
 
 }

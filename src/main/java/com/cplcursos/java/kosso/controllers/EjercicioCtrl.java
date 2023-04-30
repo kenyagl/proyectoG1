@@ -120,12 +120,12 @@ public class EjercicioCtrl {
 
     @PostMapping("/{id}/respuesta/save")
     public String saveRespuesta(@PathVariable("id") Long idEjercicio,
-                                @RequestParam("idUser") Long idUsuario,
+                                @RequestParam("usuario") Usuario usuario,
                                 @RequestParam("answer") String miRespuesta) {
         Optional<EjercicioOpMul> ejer = ejerciciosService.findById(idEjercicio);
         if(ejer.isPresent()) {
             EjercicioOpMul ejercicio = ejer.get();
-            RespuestaEjOpMul respuestaEjOpMul = new RespuestaEjOpMul(new IdRespuestaEj(idUsuario, LocalDate.now(), ejercicio.getId()), miRespuesta, LocalDateTime.now());
+            RespuestaEjOpMul respuestaEjOpMul = new RespuestaEjOpMul(new IdRespuestaEj(ejercicio, usuario), miRespuesta, LocalDateTime.now());
 
             /*
 

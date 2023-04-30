@@ -30,7 +30,7 @@
     <img src="../../static/${ejercicio.getImagen()}" height="138" width="580" alt="<Code picture>"
          class="img-fluid mb-3"/>
     <form>
-        <input type="hidden" name="idUser" th:value="${usuario.getId()}" />
+        <input type="hidden" name="usuario" th:value="${usuario}" />
         <label>
             <input type="radio" name="answer" value="1" th:value="${ejercicio.getOpcion1()}"/>
             <span th:text="${ejercicio.getOpcion1()}">Option 1</span>

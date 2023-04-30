@@ -8,8 +8,6 @@ import java.time.LocalDate;
 
 @Embeddable
 public class RespuestaEjId implements Serializable {
-    @Column(name = "usuario_id")
-    private Long usuarioId;
-    @Column(name = "fecha_id")
-    private LocalDate fecha;
+    private Long idUsuario;
+    private Long idEjercicioOpMul;
 }

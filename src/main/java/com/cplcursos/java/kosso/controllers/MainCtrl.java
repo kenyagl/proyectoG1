@@ -12,4 +12,8 @@ public class MainCtrl {
         return "home";
     }
 
+    @GetMapping("/calendario")
+    public String showCalendario() {
+        return "calendario";
+    }
 }

@@ -5,6 +5,7 @@ import com.cplcursos.java.kosso.entities.RespuestaEjOpMul;
 import com.cplcursos.java.kosso.entities.Usuario;
 import com.cplcursos.java.kosso.entities.IdRespuestaEj;
 import com.cplcursos.java.kosso.repositories.EjercicioRepo;
+import com.cplcursos.java.kosso.services.CategoriaSrvc;
 import com.cplcursos.java.kosso.services.RespuestaEjOpMulSrvc;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class EjercicioCtrl {
 
     @Autowired
     private RespuestaEjOpMulSrvc respuestaEjOpMulSrvc;
+
+    @Autowired
+    private CategoriaSrvc categoriaSrvc;
 
     @GetMapping(value = {"/", ""})
     public String showEjercicios(Model model) {
@@ -72,7 +76,8 @@ public class EjercicioCtrl {
 
     @GetMapping("/new")
     public String showNewEjercicioForm(Model model) {
-        model .addAttribute("ejercicioOpMul", new EjercicioOpMul());
+        model.addAttribute("ejercicio", new EjercicioOpMul());
+        model.addAttribute("categoriasEj", categoriaSrvc.findAll());
         return "ejercicios/ejercicioForm";
     }
 
@@ -133,7 +138,7 @@ public class EjercicioCtrl {
             String resultMessage;
             if(miRespuesta.equals(respuestaCorrecta)){
                 resultMessage = "correcto";
-                usuario.setPuntosRespuestas(usuario.getPuntosRespuestas() + 1);
+                usuario.setPuntosEjercicios(usuario.getPuntosEjercicios() + 1);
 
                 model.addAttribute("resultMessage", resultMessage);
 

@@ -45,4 +45,13 @@ public class Pregunta {
 
     //Preguntar a Carlos:
     //4) Botones para páginas de preguntas
+
+    // agregar en el controlador de votos un set de puntos al usuario por los votos
+
+    // TODO -agragar etiquetas al formulario de preguntas y asignarle su usuario(thymeleaf), controlador respuestas(podemos hacerlo en el de preguntas directamente), controlador comentarios,
+    //  controlador de etiquetas
+    //
+
+
+
 }

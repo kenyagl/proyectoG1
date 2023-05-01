@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="es_ES">
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="es_ES">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -11,7 +12,7 @@
 
     <!-- Estilos personalizados -->
     <link href="" type="text/css" rel="stylesheet">
-    <title>Pregunta</title>
+    <title th:text="${tituloPregunta}">Pregunta</title>
 </head>
 <body>
 
@@ -26,22 +27,27 @@
                                         <!-- Perfil de usuario -->
                                         <div class="col-8">
                                                 <a href="#!" style="border: 2px; border-style: solid;">Img</a>
-                                                <a href="/version1/prefil/{id}">UsuarioQuePregunta</a>
+                                                <a href="/usuario/prefil/{id}">UsuarioQuePregunta</a>
                                         </div>
                                         <!-- Información de la publicación -->
                                         <div class="col-4">
-                                                <div>Fecha de Pregunta</div>
+                                                <div th:text="${pregunta.getFechaPregunta()}">Fecha de Pregunta</div>
                                                 <div>X Views</div>
                                         </div>
                                 </div>
                         </div>
                         <!-- Título de la pregunta -->
-                        <h2 class="my-3">Título de la pregunta</h2>                      
+                        <div>
+                                <a th:href="@{/preguntas/edit/{id}(id=${pregunta.getId()})}" class="btn border-dark">Editar Pregunta</a>
+                                <a th:href="@{/preguntas/delete/{id}(id=${pregunta.getId()})}" class="btn btn-danger" >Eliminar Pregunta</a>
+                                <h2 class="my-3" th:text="${pregunta.getTituloPregunta()}" >Título de la pregunta</h2>
+
+                        </div>
                 </div>
 
                 <!-- Sección de la pregunta -->
                 <section class="col-11 m-auto" style="text-align: justify;">
-                        <p>Lorem ipsum dolor sit amet consectetur adipiscing elit sollicitudin, eget vestibulum sem facilisi auctor curabitur bibendum tellus, consequat ornare hendrerit primis vitae rhoncus donec. Eget facilisis ridiculus pharetra sodales vulputate ad elementum, scelerisque et blandit non nec aenean, vel auctor lacinia sapien dapibus molestie. Class at ligula accumsan auctor molestie lobortis quam egestas, pharetra dignissim est montes sem felis morbi habitasse laoreet, in sollicitudin ridiculus interdum hendrerit fusce gravida.
+                        <p th:text="${pregunta.getTextoPregunta}" >Lorem ipsum dolor sit amet consectetur adipiscing elit sollicitudin, eget vestibulum sem facilisi auctor curabitur bibendum tellus, consequat ornare hendrerit primis vitae rhoncus donec. Eget facilisis ridiculus pharetra sodales vulputate ad elementum, scelerisque et blandit non nec aenean, vel auctor lacinia sapien dapibus molestie. Class at ligula accumsan auctor molestie lobortis quam egestas, pharetra dignissim est montes sem felis morbi habitasse laoreet, in sollicitudin ridiculus interdum hendrerit fusce gravida.
                 
                                 Diam quis senectus cum rutrum iaculis conubia placerat, dapibus aliquam litora magna augue arcu nam velit, non mattis himenaeos praesent sed luctus. In libero nascetur senectus pretium donec, sodales luctus non etiam pulvinar lectus, tempus nulla commodo torquent. Rutrum malesuada ridiculus sociosqu sodales ornare nam pharetra iaculis, rhoncus bibendum nostra natoque convallis class vel est turpis, neque nunc cubilia facilisis augue ligula et. Curabitur eu augue elementum semper ultrices lacus bibendum, fusce eget eros rutrum a pretium nullam proin, fames euismod cum egestas tempor ullamcorper.
                 
@@ -65,16 +71,16 @@
 
                                 <!-- Responder a la pregunta -->
                                 <div class="col-4">
-                                        <a class="container-fluid btn btn-primary" href="/upvote">Responder</a>
+                                        <a class="container-fluid btn btn-primary" href="/responder" >Responder</a>
                                 </div>
         
                                 <!-- Valoración de la pregunta -->
                                 <div class="col-4">
-                                        <a class="btn btn-primary" href="/upvote">Like</a>
-                                        <span>X Votos</span>
-                                        <a class="btn btn-warning" href="/dislike">Dislike</a>
+                                        <a class="btn btn-primary" href="@{/preguntas/upvote/{id}(id=${pregunta.getId()})}">Like</a>
+                                        <span th:text="${pregunta.getVotos()}" >X Votos</span>
+                                        <a class="btn btn-warning" href="@{/preguntas/dislike/{id}(id=${pregunta.getId()})}">Dislike</a>
                                         <a class="btn btn-danger" href="/report">Report</a>
-                                </div>       
+                                </div>
                         </section>
                 </section>
 

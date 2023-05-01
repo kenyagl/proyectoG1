@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es_ES">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -14,22 +14,22 @@
     <title>Nueva Pregunta</title>
 </head>
 <body>
-  <form action="/preguntas/save" class="form-horizontal">
-    <fieldset>
+    <!-- Formulario para publicar una pregunta -->
+  <form th:action="@{/preguntas/save}" th:object="${pregunta}" class="form-horizontal" method="post">
+      <input type="hidden" th:field="*{id}">
+      <input type="hidden" th:field="*{fechaPregunta}">
+      <fieldset>
     <!-- Título de la pregunta-->
     <div class="form-group">
-      <label class=" control-label" for="textinput">Título de la pregunta:</label>  
-      <div class="">
-      <input id="textinput" name="textinput" type="text" placeholder="Título" class="form-control input-md">
-        
+      <label class="control-label" for="tituloPregunta">Título de la pregunta:</label>
+      <input id="tituloPregunta" name="tituloPregunta" type="text" placeholder="Título" class="form-control" th:field="*{tituloPregunta}">
       </div>
-    </div>
     
     <!-- Área de la pregunta -->
     <div class="form-group">
-      <label class="control-label" for="textarea">Pregunta:</label>
+      <label class="control-label" for="textopregunta">Pregunta:</label>
       <div class="">                     
-        <textarea class="form-control" id="textarea" name="textarea" placeholder="Escribe aquí tu pregunta"></textarea>
+        <textarea class="form-control" id="textopregunta" name="textoPregunta" placeholder="Escribe aquí tu pregunta" th:field="*{textoPregunta}"></textarea>
       </div>
     </div>
     
@@ -52,7 +52,7 @@
             </div>
           </div>
     
-    <!-- Boton para añadir archivo --> 
+    <!-- Botón para añadir archivo -->
     <div class="form-group">
       <label class="control-label" for="botonArchivo">Subir imagen:</label>
       <div class="">
@@ -63,6 +63,7 @@
     <!-- Button -->
     <div class="form-group">
         <button type="submit" class="btn btn-primary">Publicar</button>
+        <a th:href="@{/preguntas/}" class="btn btn-outline-secondary">Cancelar</a>
     </div>
     
     </fieldset>

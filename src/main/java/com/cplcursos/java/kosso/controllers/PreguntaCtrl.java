@@ -8,32 +8,58 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.Optional;
+
 @Controller
 @Log4j2
 @RequestMapping("/preguntas")
 public class PreguntaCtrl {
-@Autowired
-private PreguntaSrvc preguntaSrvc;
+    @Autowired
+    private PreguntaSrvc preguntaSrvc;
 
     @GetMapping(value = {"/", ""})
-    public String replyPregunta (Model model){
+    public String mostrarPreguntas (Model model){
+        model.addAttribute("preguntas",preguntaSrvc.findAll());
         return "preguntas/pregunta-list";
     }
 
-    @GetMapping(value = "/save")
-    public String mirarPregunta (Model model){ return "preguntas/preguntaPublicada";} //Opción 1: PreguntaLista
+    // Muestra la pregunta publicada por su id
+    // Hay un problema que desde la url http://localhost:8080/preguntas/ con la barra al final no muestra la pregunta publicada
+    @GetMapping(value = "/preguntaPublicada/{id}")
+    public String verPreguntaPublicada (@PathVariable Long id, Model model){
+        Optional<Pregunta> pregunta = preguntaSrvc.findById(id);
+        if(pregunta.isPresent()) {
+            model.addAttribute("pregunta", pregunta.get());
+            return "preguntas/preguntaPublicada";
+        }
+        return "Pregunta no existe";
+    }
 
+    // Publica la pregunta y la muestra
     @PostMapping(value = "/save")
-    public String savePregunta (@ModelAttribute("pregunta") Pregunta pregunta){
-        preguntaSrvc.savePregunta(pregunta);
-        return "redirect:/preguntaPublicada";
-    } //Opción 2: PreguntaIndividual
+    public String crearPregunta (@ModelAttribute("pregunta") Pregunta pregunta){
+        if (pregunta.getFechaPregunta() == null){
+            preguntaSrvc.setFecha(pregunta);
+        }
+        preguntaSrvc.save(pregunta);
+        return "redirect:/preguntas/preguntaPublicada/" + pregunta.getId();
+    }
 
-    @GetMapping(value = "/pregunta") //Añadir el id de la pregunta
-    public String showPreguntar (Model model){ return "preguntas/preguntaPublicada";}
+    @GetMapping(value = "/edit/{id}")
+    public String editarPregunta( @PathVariable("id") Long id, Model model){
+        Optional<Pregunta> pregunta = preguntaSrvc.findById(id);
+        if(pregunta.isPresent()){
+            model.addAttribute("pregunta", pregunta.get());
+        }
+        else{
+            return "error-page";
+        }
+        return "preguntas/pregunta-form";
+    }
 
     @GetMapping(value = "/new")
-    public String verPregunta (Model model){
+    public String verFormularioPregunta (Model model){
         model.addAttribute("pregunta", new Pregunta());
         return "preguntas/pregunta-form";
     }
@@ -43,9 +69,16 @@ private PreguntaSrvc preguntaSrvc;
         model.addAttribute("pregunta", preguntaSrvc.encontrarPregunta(id));
         return "preguntas/preguntaPublicada";
     }
-    @DeleteMapping(value = "/delete" )
+
+    @GetMapping(value = "/delete/{id}")
     public String borrarPregunta (@PathVariable("id") Long id){
         preguntaSrvc.borrarPregunta(id);
-        return "preguntas/pregunta-list";
+        return "redirect:/preguntas";
     }
+
+    // Controlador para votos
+
+
+
+
 }

@@ -29,8 +29,8 @@
     <p th:text="${ejercicio.getDescripcion()}">Descripción del ejercicio</p>
     <img src="../../static/${ejercicio.getImagen()}" height="138" width="580" alt="<Code picture>"
          class="img-fluid mb-3"/>
-    <form th:action="@{/ejercicios/{id}/respuesta/save(id=${ejercicio.getId()})}" method="POST">
-        <input type="hidden" name="usuario" th:value="${usuario}"/>
+    <form>
+        <input type="hidden" name="usuario" th:value="${usuario}" />
         <label>
             <input type="radio" name="answer" value="1" th:value="${ejercicio.getOpcion1()}"/>
             <span th:text="${ejercicio.getOpcion1()}">Option 1</span>
@@ -51,7 +51,7 @@
             <span th:text="${ejercicio.getOpcion4()}">Option 4</span>
         </label>
         <br/>
-        <button th:type="submit" class="btn btn-primary" data-bs-toggle="modal"
+        <button type="button" onclick="checkAnswer()" class="btn btn-primary" data-bs-toggle="modal"
                 data-bs-target="#resultModal">Comprueba tu respuesta
         </button>
     </form>
@@ -67,30 +67,45 @@
             <div class="modal-body">
                 <p id="result"></p>
             </div>
-            <div th:if="${not #strings.isEmpty(resultMessage)}">
-                <div th:text="${resultMessage == 'correcto' ? '¡Respuesta correcta!' : 'Respuesta incorrecta'}">Result
-                    message
-                </div>
-                <p th:text="${resultMessage}"></p>
-
-                <div class="modal-footer">
-                    <a class="btn" th:if="${resultMessage == 'correcto'}"
-                       th:href="@{/ejercicios/{id}(id=${nextEjer.getId()})}"
-                       th:classappend="${totalusu<nextEjer.getPuntosAcceso()} ? 'disabled btn-secondary' : 'btn-primary'">Siguiente</a>
-                    <button th:if="${resultMessage == 'incorrecto'}"
-                            th:href="@{/ejercicios/{id}(id=${ejercicio.getId()})}">Inténtalo otra vez
-                    </button>
-                </div>
+            <div class="modal-footer">
+                <a class="btn"  th:href="@{/ejercicios/{id}(id=${nextEjer.getId()})}" th:classappend="${totalusu<nextEjer.getPuntosAcceso()} ? 'disabled btn-secondary' : 'btn-primary'">
+                        Siguiente
+                </a>
             </div>
-        </div>
-        <div class="modal-footer">
-            <a th:href="@{/ejercicios}">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Volver al menú</button>
-            </a>
+            <div class="modal-footer">
+                <a th:href="@{/ejercicios}">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Volver al menú</button>
+                </a>
+            </div>
         </div>
     </div>
 </div>
-</div>
+
+
+<!-- Optional JavaScript -->
+
+<script th:inline="javascript">
+    function checkAnswer() {
+        const selectedAnswer = document.querySelector('input[name="answer"]:checked').value;
+        const correctAnswer = [[${ejercicio.getRespuestaCorrecta}]];
+        const resultText = document.getElementById("result");
+
+        if (selectedAnswer === correctAnswer) {
+            resultText.textContent = "¡Correcto!";
+            fetch('/ejercicios/' + [[${ejercicio.getId()}]] + '/respuesta/save?answer=' + selectedAnswer + '&idUser=' + [[${usuario.getId()}]], {
+                method: 'POST'
+            }).then(response => {
+                // handle the response here
+                console.log("guardao");
+            }).catch(error => {
+                // handle the error here
+                alert("Ha habido un error al guardar la respuesta : " + error);
+            });
+        } else {
+            resultText.textContent = "Incorrecto :( La respuesta correcta es " + correctAnswer;
+        }
+    }
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
         integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"

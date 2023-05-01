@@ -4,8 +4,8 @@ import com.cplcursos.java.kosso.entities.EjercicioOpMul;
 import com.cplcursos.java.kosso.entities.RespuestaEjOpMul;
 import com.cplcursos.java.kosso.entities.Usuario;
 import com.cplcursos.java.kosso.entities.IdRespuestaEj;
-import com.cplcursos.java.kosso.repositories.EjercicioRepo;
 import com.cplcursos.java.kosso.services.RespuestaEjOpMulSrvc;
+import com.cplcursos.java.kosso.services.UsuarioSrvcImpl;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.cplcursos.java.kosso.services.EjerciciosSrvc;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -27,12 +26,16 @@ public class EjercicioCtrl {
     @Autowired
     private RespuestaEjOpMulSrvc respuestaEjOpMulSrvc;
 
+    @Autowired
+    private UsuarioSrvcImpl usuarioSrvc;
+
+    //Creo un usuario fake para probar el guardar respuesta, ya que sin la autenticación configurada el usuario no está presente
+    Usuario usu = new Usuario(1L, 200,100);
+    Integer totalusu = usu.getPuntosEjercicios() + usu.getPuntosRespuestas();
+
+
     @GetMapping(value = {"/", ""})
     public String showEjercicios(Model model) {
-        Usuario usu = new Usuario();
-        usu.setPuntosEjercicios(1);
-        usu.setPuntosRespuestas(2);
-        int totalusu = usu.getPuntosEjercicios() + usu.getPuntosRespuestas();
 
         model.addAttribute("ejercicios",ejerciciosService.findAll() );
         model.addAttribute("totalusu", totalusu);
@@ -44,13 +47,10 @@ public class EjercicioCtrl {
     public String showEjercicio(@PathVariable("id") Long id, Model model) {
         Optional<EjercicioOpMul> ejercicioOpMulOptional = ejerciciosService.findById(id);
         if(ejercicioOpMulOptional.isPresent()){
-            //Creo un usuario fake para probar el guardar respuesta, ya que sin la autenticación configurada el usuario no está presente
-            Usuario usu = new Usuario(1L, 1, 2);
-            int totalusu = usu.getPuntosEjercicios() + usu.getPuntosRespuestas();
 
             EjercicioOpMul ejercicioOpMul = ejercicioOpMulOptional.get();
             model.addAttribute("ejercicio", ejercicioOpMul);
-            model.addAttribute("usuario", usu);
+            model.addAttribute("id_usuario", usu.getId());
             model.addAttribute("totalusu", totalusu);
 
             //Añado el siguiente ejercicio
@@ -120,7 +120,7 @@ public class EjercicioCtrl {
 
     @PostMapping("/{id}/respuesta/save")
     public String saveRespuesta(@PathVariable("id") Long idEjercicio,
-                                @RequestParam("usuario") Usuario usuario,
+                                @RequestParam("id_usuario") Long idUsuario,
                                 @RequestParam("answer") String miRespuesta,
                                 Model model){
 
@@ -133,13 +133,16 @@ public class EjercicioCtrl {
             String resultMessage;
             if(miRespuesta.equals(respuestaCorrecta)){
                 resultMessage = "correcto";
-                usuario.setPuntosRespuestas(usuario.getPuntosRespuestas() + 1);
+
+                Optional<Usuario> usuOp = usuarioSrvc.findById(idUsuario);
+                Usuario usuario = usuOp.get();
+
+                usuario.setPuntosRespuestas(usuario.getPuntosRespuestas() + 100);
 
                 model.addAttribute("resultMessage", resultMessage);
 
                 RespuestaEjOpMul respuestaEjOpMul = new RespuestaEjOpMul(new IdRespuestaEj(ejercicio, usuario), miRespuesta, LocalDateTime.now());
                 respuestaEjOpMulSrvc.saveAndFlush(respuestaEjOpMul);
-
             } else {
                 resultMessage = "incorrecto";
             }
@@ -148,13 +151,13 @@ public class EjercicioCtrl {
 
             // Falta meter el usuario con la securización
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            Usuario usuario = usuarioRepository.findByUsername(authentication.getName())
-            .orElseThrow(() -> new UsernameNotFoundException(authentication.getName()));
+            Optional<Usuario> usuario = usuarioSrvc.findById(authentication.getId());
 
             */
-        } else {
+            return "redirect:/ejercicios/" + idEjercicio + "?resultMessage=" + resultMessage;
+
+        }else{
             return "errorEncontrandoEjercicio";
         }
-        return "redirect:/ejercicios/";
     }
 }

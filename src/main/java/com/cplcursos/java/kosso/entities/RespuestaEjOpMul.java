@@ -16,15 +16,20 @@ import java.time.LocalDateTime;
 @Table(name = "RespuestaEjerciciosOpMul")
 public class RespuestaEjOpMul {
     @EmbeddedId
+    private IdRespuestaEj id;
+
+    /*@EmbeddedId
     private RespuestaEjId id;
     // @MapsId  used to map a foreign key relationship to the composite key of the target entity
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("id_usuario")
     private Usuario usuario;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("id_ejercios_op_mul")
     private EjercicioOpMul ejercicioOpMul;
 
+     */
     private String respuesta;
     private LocalDateTime fechaRespuesta;
 }

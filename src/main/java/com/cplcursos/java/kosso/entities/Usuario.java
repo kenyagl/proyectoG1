@@ -31,8 +31,7 @@ public class Usuario {
     private String acercaDe;
     private Integer puntosEjercicios;
     private Integer puntosRespuestas;
-    @OneToMany(mappedBy = "usuario")
-    private List<RespuestaEjOpMul> respuestaEjOpMuls = new ArrayList<>();
+    
     public Usuario(Long id) {
         this.id = id;
     }
@@ -57,7 +56,6 @@ public class Usuario {
     private List<Comentario> comentarios;
 
     @OneToMany
-    @JoinColumn(name = "usuario_id")
-    private List<RespuestaEjOpMul> respuestasEj = new ArrayList<>();
+    private List<RespuestaEjOpMul> respuestasEj;
 
 }

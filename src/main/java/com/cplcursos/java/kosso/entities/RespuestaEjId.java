@@ -1,3 +1,4 @@
+/*
 package com.cplcursos.java.kosso.entities;
 
 import jakarta.persistence.Column;
@@ -10,4 +11,4 @@ import java.time.LocalDate;
 public class RespuestaEjId implements Serializable {
     private Long idUsuario;
     private Long idEjercicioOpMul;
-}
+}*/

@@ -1,0 +1,58 @@
+<nav th:fragment="navbar" class="main-menu">
+  <ul style="margin-top: 200px;">
+    <li>
+      <a href="/index">
+        <i class="fa fa-home fa-2x"></i>
+        <span class="nav-text">
+                           Inicio
+                        </span>
+      </a>
+
+    </li>
+    <li>
+      <a href="/ejercicios">
+        <i class="fa fa-book fa-2x"></i>
+        <span class="nav-text">
+                           Ejercicios
+                        </span>
+      </a>
+    </li>
+    <li class="has-subnav">
+      <a href="/preguntas">
+        <i class="fa fa-comments fa-2x"></i>
+        <span class="nav-text">
+                            Foro
+                        </span>
+      </a>
+
+    </li>
+    <li class="has-subnav">
+      <a href="/calendario">
+        <i class="fa fa-calendar fa-2x"></i>
+        <span class="nav-text">
+                            Calendario
+                        </span>
+      </a>
+
+    </li>
+    <li>
+      <a href="/perfil">
+        <i class="fa fa-cogs fa-2x"></i>
+        <span class="nav-text">
+                            Ajustes de perfil
+                        </span>
+      </a>
+    </li>
+  </ul>
+
+  <ul class="logout">
+    <li>
+      <a href="/index">
+        <i class="fa fa-power-off fa-2x"></i>
+        <span class="nav-text">
+                            Logout
+                        </span>
+      </a>
+    </li>
+  </ul>
+</nav>

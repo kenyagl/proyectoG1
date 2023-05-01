@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Getter
@@ -40,5 +42,7 @@ public class EjercicioOpMul {
     private String respuestaCorrecta;
 
     private String respuestaUsuario;
+/*    @OneToMany(mappedBy = "ejercicioOpMul")
+    private List<RespuestaEjOpMul> respuestaEjOpMuls = new ArrayList<>();*/
 }
 

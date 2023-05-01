@@ -42,7 +42,7 @@ public class EjercicioOpMul {
     private String respuestaCorrecta;
 
     private String respuestaUsuario;
-/*    @OneToMany(mappedBy = "ejercicioOpMul")
-    private List<RespuestaEjOpMul> respuestaEjOpMuls = new ArrayList<>();*/
+    @OneToMany(mappedBy = "ejercicioOpMul")
+    private List<RespuestaEjOpMul> respuestaEjOpMuls = new ArrayList<>();
 }
 

@@ -33,9 +33,6 @@ public class Usuario {
     private Integer puntosRespuestas;
     @OneToMany(mappedBy = "usuario")
     private List<RespuestaEjOpMul> respuestaEjOpMuls = new ArrayList<>();
-/*    @OneToMany(mappedBy = "usuario")
-    private List<RespuestaEjOpMul> respuestaEjOpMuls = new ArrayList<>();*/
-
     public Usuario(Long id) {
         this.id = id;
     }

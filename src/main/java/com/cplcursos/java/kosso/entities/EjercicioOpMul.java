@@ -46,5 +46,13 @@ public class EjercicioOpMul {
     public Long getId() {
         return id;
     }
+
+    @ManyToMany
+    @JoinTable(
+            name = "ejercicio_categoria",
+            joinColumns = @JoinColumn(name = "id_ejercicioOpMul"),
+            inverseJoinColumns = @JoinColumn(name = "id_categoriaEjercicios")
+    )
+    private List<CategoriaEjercicios> categorias;
 }
 

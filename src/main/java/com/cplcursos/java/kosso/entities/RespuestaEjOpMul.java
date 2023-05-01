@@ -1,8 +1,6 @@
 package com.cplcursos.java.kosso.entities;
 
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,5 +21,4 @@ public class RespuestaEjOpMul {
     private String respuesta;
 
     private LocalDateTime fechaRespuesta;
-
 }

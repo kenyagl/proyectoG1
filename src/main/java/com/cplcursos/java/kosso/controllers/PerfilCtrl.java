@@ -28,7 +28,6 @@ public class PerfilCtrl {
         return "perfilesYUsuarios/perfil-form";
     }
 
-
     @GetMapping("/borrarperfil") // NO sabemos muy bien si poner este get hasta que tengamos la funcion de borrar perfil
     public String perfilEliminado (Model model){
         return "index";

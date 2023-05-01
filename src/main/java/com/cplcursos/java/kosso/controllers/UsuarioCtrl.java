@@ -32,7 +32,8 @@ public class UsuarioCtrl {
     }
 
     @GetMapping("/registro")
-    public String Registro(Model modelo) {
+    public String registro(Model modelo) {
+
         return "registro";
     }
 

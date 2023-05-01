@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -16,19 +15,21 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="Etiquetas")
+@Table(name="etiquetas")
 public class Etiqueta {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     private String nombre;
 
-    @ManyToMany(mappedBy = "etiquetas")
-    private List<Pregunta> preguntas = new ArrayList<>();
-
+    @ManyToMany
+    @JoinTable(
+            name = "etiqueta_pregunta",
+            joinColumns = @JoinColumn(name = "idPregunta"),
+            inverseJoinColumns = @JoinColumn(name = "idEtiqueta"))
+    private List<Pregunta> preguntas;
 }
 
 

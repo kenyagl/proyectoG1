@@ -5,8 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -14,7 +15,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="Preguntas")
+@Table(name = "preguntas")
 public class Pregunta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,22 +25,24 @@ public class Pregunta {
 
     private String textoPregunta;
 
-    private String fechaPregunta;
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    private LocalDate fechaPregunta; // Preguntar formato de la fecha
 
-    private Long idUsuarioPregunta;
+    private Integer votos;
+    // Hacer controlador para los votos
+    // Como hacer que una persona solo pueda votar una vez o cambiar su voto
+    // Solo los usuarios pueden votar
 
-//    private Long idEtiquetas;
+    @ManyToOne
+    @JoinColumn(name = "idUsuario")
+    private Usuario usuario;
 
-    private Long idRespuestas;
-    @ManyToMany
-    @JoinTable(
-            name = "pregunta_etiqueta",
-            joinColumns = @JoinColumn(name = "pregunta_id"),
-            inverseJoinColumns = @JoinColumn(name = "etiqueta_id", referencedColumnName = "id")
-    )
-    private List<Etiqueta> etiquetas = new ArrayList<>();
+    @ManyToMany(mappedBy = "preguntas")
+    private List<Etiqueta> etiquetas;
+
+    @OneToMany(mappedBy = "pregunta",cascade = CascadeType.ALL)
+    private List<Respuesta> respuestas;
 
     //Preguntar a Carlos:
-    //1) Tenemos que crear una tabla de etiquetas?
-    //2) Tenemos que crear una tabla de respuestas? Y las respuestas a las respuestas?
+    //4) Botones para páginas de preguntas
 }

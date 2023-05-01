@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.cplcursos.java.kosso.services.EjerciciosSrvc;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -30,37 +31,39 @@ public class EjercicioCtrl {
     private UsuarioSrvcImpl usuarioSrvc;
 
     //Creo un usuario fake para probar el guardar respuesta, ya que sin la autenticación configurada el usuario no está presente
-    Usuario usu = new Usuario(1L, 200,100);
+    Usuario usu = new Usuario(1L, 200, 100);
     Integer totalusu = usu.getPuntosEjercicios() + usu.getPuntosRespuestas();
 
 
     @GetMapping(value = {"/", ""})
     public String showEjercicios(Model model) {
 
-        model.addAttribute("ejercicios",ejerciciosService.findAll() );
+        model.addAttribute("ejercicios", ejerciciosService.findAll());
         model.addAttribute("totalusu", totalusu);
         //return "ejercicios/ejercicio-list";
         return "ejercicios/menuEjercicios";
     }
 
     @GetMapping("/{id}")
-    public String showEjercicio(@PathVariable("id") Long id, Model model) {
+    public String showEjercicio(@PathVariable("id") Long id, Model model, @ModelAttribute ("resultMessage") String resultMessage) {
         Optional<EjercicioOpMul> ejercicioOpMulOptional = ejerciciosService.findById(id);
-        if(ejercicioOpMulOptional.isPresent()){
+        if (ejercicioOpMulOptional.isPresent()) {
 
             EjercicioOpMul ejercicioOpMul = ejercicioOpMulOptional.get();
             model.addAttribute("ejercicio", ejercicioOpMul);
             model.addAttribute("id_usuario", usu.getId());
             model.addAttribute("totalusu", totalusu);
+            model.addAttribute("resultMessage", resultMessage);
 
             //Añado el siguiente ejercicio
             EjercicioOpMul ejer = ejercicioOpMulOptional.get();
             Long idNextEjer = ejerciciosService.findIdNextEjercicio(ejer.getId());
             Optional<EjercicioOpMul> nextEjerOp = ejerciciosService.findById(idNextEjer);
-            if (nextEjerOp.isPresent()){
+            if (nextEjerOp.isPresent()) {
                 EjercicioOpMul nextEjer = nextEjerOp.get();
                 model.addAttribute("nextEjer", nextEjer);
-            }else{
+
+            } else {
                 return "errorEncontrandoEjercicio";
             }
 
@@ -72,7 +75,7 @@ public class EjercicioCtrl {
 
     @GetMapping("/new")
     public String showNewEjercicioForm(Model model) {
-        model .addAttribute("ejercicioOpMul", new EjercicioOpMul());
+        model.addAttribute("ejercicioOpMul", new EjercicioOpMul());
         return "ejercicios/ejercicioForm";
     }
 
@@ -83,9 +86,9 @@ public class EjercicioCtrl {
     }
 
     @GetMapping("/edit/{id}")
-    public String showEditEjercicioForm(@PathVariable ("id") Long id, Model model) {
+    public String showEditEjercicioForm(@PathVariable("id") Long id, Model model) {
         Optional<EjercicioOpMul> ejercicioOpMul = ejerciciosService.findById(id);
-        if(ejercicioOpMul.isPresent()){
+        if (ejercicioOpMul.isPresent()) {
             model.addAttribute("ejercicioOpMul", ejercicioOpMul);
         } else {
             return "errorEncontrandoEjercicio";
@@ -111,53 +114,66 @@ public class EjercicioCtrl {
     }*/
 
     /*
-    *
-    ****************** CONTROLADOR DE RESPUESTAS A CADA EJERCICIO ******************
-    *
-    * PREGUNTA: podría hacer una clase anidada aquí dentro para ponerle antes el @RequestMapping("/{id}/respuesta")?
-    *
+     *
+     ****************** CONTROLADOR DE RESPUESTAS A CADA EJERCICIO ******************
+     *
+     * PREGUNTA: podría hacer una clase anidada aquí dentro para ponerle antes el @RequestMapping("/{id}/respuesta")?
+     *
      */
+
+   /* @GetMapping("/{id}/respuesta/save")
+    public String verSaveRespuesta() {
+        return "ejercicios/ejercicioOpMul";
+    }*/
 
     @PostMapping("/{id}/respuesta/save")
     public String saveRespuesta(@PathVariable("id") Long idEjercicio,
                                 @RequestParam("id_usuario") Long idUsuario,
                                 @RequestParam("answer") String miRespuesta,
-                                Model model){
+                                Model model,
+                                RedirectAttributes redirectAttributes) {
 
         Optional<EjercicioOpMul> ejer = ejerciciosService.findById(idEjercicio);
-        if(ejer.isPresent()) {
-            EjercicioOpMul ejercicio = ejer.get();
 
-            String respuestaCorrecta = ejercicio.getRespuestaCorrecta();
+        if (ejer.isEmpty()) {
+            return "errorEncontrandoEjercicio";
+        }
 
-            String resultMessage;
-            if(miRespuesta.equals(respuestaCorrecta)){
-                resultMessage = "correcto";
+        EjercicioOpMul ejercicio = ejer.get();
 
-                Optional<Usuario> usuOp = usuarioSrvc.findById(idUsuario);
-                Usuario usuario = usuOp.get();
+        String respuestaCorrecta = ejercicio.getRespuestaCorrecta();
 
-                usuario.setPuntosRespuestas(usuario.getPuntosRespuestas() + 100);
+        String resultMessage;
 
-                model.addAttribute("resultMessage", resultMessage);
+        if (miRespuesta.equals(respuestaCorrecta)) {
+            resultMessage = "correcto";
 
-                RespuestaEjOpMul respuestaEjOpMul = new RespuestaEjOpMul(new IdRespuestaEj(ejercicio, usuario), miRespuesta, LocalDateTime.now());
-                respuestaEjOpMulSrvc.saveAndFlush(respuestaEjOpMul);
-            } else {
-                resultMessage = "incorrecto";
+            Optional<Usuario> usuOp = usuarioSrvc.findById(idUsuario);
+
+            if (usuOp.isEmpty()) {
+                return "error";
             }
 
-            /*
+            Usuario usuario = usuOp.get();
+            usuario.setPuntosRespuestas(usuario.getPuntosRespuestas() + 100);
+
+            RespuestaEjOpMul respuestaEjOpMul = new RespuestaEjOpMul(new IdRespuestaEj(ejercicio, usuario), miRespuesta, LocalDateTime.now());
+            respuestaEjOpMulSrvc.saveAndFlush(respuestaEjOpMul);
+        } else {
+            resultMessage = "incorrecto";
+        }
+
+        model.addAttribute("resultMessage", resultMessage);
+        redirectAttributes.addAttribute("resultMessage", resultMessage);
+
+        return "redirect:/ejercicios/" + idEjercicio;
+    }
+
+    /*
 
             // Falta meter el usuario con la securización
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             Optional<Usuario> usuario = usuarioSrvc.findById(authentication.getId());
 
             */
-            return "redirect:/ejercicios/" + idEjercicio + "?resultMessage=" + resultMessage;
-
-        }else{
-            return "errorEncontrandoEjercicio";
-        }
-    }
 }

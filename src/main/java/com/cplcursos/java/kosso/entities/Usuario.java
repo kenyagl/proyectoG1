@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.util.*;
 
 @Entity
 @Getter
@@ -29,5 +29,32 @@ public class Usuario {
     private String acercaDe;
     private Integer puntosEjercicios;
     private Integer puntosRespuestas;
+
+    public Usuario(Long id) {
+        this.id = id;
+    }
+
+    public Usuario(Long id, Integer puntosEjercicios, Integer puntosRespuestas) {
+        this.id = id;
+        this.puntosEjercicios = puntosEjercicios;
+        this.puntosRespuestas = puntosRespuestas;
+    }
+
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+
+    private List<DiaCalendario> diaCalendario = new ArrayList<>();
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Pregunta> preguntas;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Respuesta> respuestas;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Comentario> comentarios;
+
+    @OneToMany
+    @JoinColumn(name = "usuario_id")
+    private List<RespuestaEjOpMul> respuestasEj = new ArrayList<>();
 
 }

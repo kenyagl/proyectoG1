@@ -1,11 +1,12 @@
 package com.cplcursos.java.kosso.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -13,11 +14,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 public class RespuestaEjOpMul {
+    @EmbeddedId
+    private IdRespuestaEj idRespuestaEj;
+    //El id es doble y se encuentra en idRespuestaEj: ahí tienes la fecha metida
 
-    @Id
-    private Long id;
+    private String respuesta;
 
-    private Integer respuesta;
-
-    //Relación many to one a la tabla EjercicioOpMul
+    private LocalDateTime fechaRespuesta;
 }

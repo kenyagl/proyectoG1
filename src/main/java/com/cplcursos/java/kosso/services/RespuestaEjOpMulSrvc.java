@@ -1,5 +1,6 @@
 package com.cplcursos.java.kosso.services;
 
+import com.cplcursos.java.kosso.entities.EjercicioOpMul;
 import com.cplcursos.java.kosso.entities.RespuestaEjOpMul;
 import com.cplcursos.java.kosso.repositories.RespuestaEjOpMulRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +28,9 @@ public class RespuestaEjOpMulSrvc {
 
     public void deleteById(Long id) {
         respuestaEjOpMulRepo.deleteById(id);
+    }
+
+    public void saveAndFlush(RespuestaEjOpMul respuestaEjOpMul) {
+        respuestaEjOpMulRepo.saveAndFlush(respuestaEjOpMul);
     }
 }

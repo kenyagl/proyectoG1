@@ -33,24 +33,18 @@
       </div>
     </div>
     
-    <!-- Form Select -->
-    <select class="form-select" aria-label="Default select example">
-            <option selected>Selecciona etiquetas asociadas a tu pregunta</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
-
-          <!-- Select Multiple -->
-          <div class="form-group">
-            <label class="control-label" for="selectmultiple">Select Multiple</label>
-            <div class="">
-              <select id="selectmultiple" name="selectmultiple" class="form-control" multiple="multiple">
-                <option value="1">Option one</option>
-                <option value="2">Option two</option>
-              </select>
-            </div>
-          </div>
+    <!-- Form Etiquetas -->
+              <div class="row mb-3 g-3">
+                  <div class="col-md-4">
+                      <label for="validationTagsShow" class="form-label">Etiquetas (mostrar todas + colores)</label>
+                      <select class="form-select" id="validationTagsShow" name="tags_show[]" multiple
+                              data-show-all-suggestions="true">
+                          <option disabled hidden value="">Elige una etiqueta</option>
+                          <option th:each="etiqueta: ${etiquetas}" selected="selected" th:text="etiqueta.getNombre()">Nombre de Etiqueta</option>
+                      </select>
+                      <div class="invalid-feedback">Por favor elige una etiqueta valida.</div>
+                  </div>
+              </div>
     
     <!-- Botón para añadir archivo -->
     <div class="form-group">
@@ -76,5 +70,19 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
         integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
         crossorigin="anonymous"></script>
+
+    <script type="module">
+      import Tags from "/src/main/resources/js/tags.js";
+      Tags.init("select[multiple]:not(#regular)");
+      // Multiple inits should not matter
+      Tags.init("select[multiple]:not(#regular)");
+
+      // Reset does not fire a change input
+      document.getElementById("regular").addEventListener("change", function (ev) {
+        console.log(this.selectedOptions);
+      });
+
+</script>
+
 </body>
 </html>

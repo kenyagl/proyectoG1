@@ -1,228 +1,329 @@
 <!doctype html>
+
 <html xmlns:th="http://www.thymeleaf.org"
       lang="es_ES">
 <head>
+
     <!-- Required meta tags -->
+
     <meta charset="utf-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+
     <!-- Bootstrap CSS -->
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
     <!-- Estilos personalizados -->
-    <link href="" type="text/css" rel="stylesheet">
-    <title th:text="${tituloPregunta}">Pregunta</title>
+
+    <link href="style1.css" type="text/css" rel="stylesheet">
+
+    <title>Pregunta Individual</title>
+
+    <style>
+                  .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        width: 100%;
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .btn-bd-primary {
+        --bd-violet-bg: #712cf9;
+        --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+
+        --bs-btn-font-weight: 600;
+        --bs-btn-color: var(--bs-white);
+        --bs-btn-bg: var(--bd-violet-bg);
+        --bs-btn-border-color: var(--bd-violet-bg);
+        --bs-btn-hover-color: var(--bs-white);
+        --bs-btn-hover-bg: #6528e0;
+        --bs-btn-hover-border-color: #6528e0;
+        --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+        --bs-btn-active-color: var(--bs-btn-hover-color);
+        --bs-btn-active-bg: #5a23c8;
+        --bs-btn-active-border-color: #5a23c8;
+      }
+      .bd-mode-toggle {
+        z-index: 1500;
+      }
+      .gradient-custom {
+        /* fallback for old browsers */ background: #4facfe; /* Chrome 10-25,
+        Safari 5.1-6 */ background: -webkit-linear-gradient(to bottom right, rgba(79, 172, 254,
+        1), rgba(0, 242, 254, 1)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+,
+        Safari 7+ */ background: linear-gradient(to bottom right, rgba(79, 172, 254, 1), rgba(0,
+        242, 254, 1))
+        }
+
+
+
+    </style>
+
+
 </head>
+
 <body>
-
-<!-- Hacer un botón de EDIT y otro de DELETE -->
-
-<div section class="container bg-light" style="width: 60%; margin:auto;">
+<section class="main">
+    <div class="container">
         <div class="row">
-                <!-- Cabecera de la pregunta -->
-                <div class="row">
-                        <div class="container-fluid">
-                                <div class="row">
-                                        <!-- Perfil de usuario -->
-                                        <div class="col-8">
-                                                <a href="#!" style="border: 2px; border-style: solid;">Img</a>
-                                                <a href="/usuario/prefil/{id}">UsuarioQuePregunta</a>
-                                        </div>
-                                        <!-- Información de la publicación -->
-                                        <div class="col-4">
-                                                <div th:text="${pregunta.getFechaPregunta()}">Fecha de Pregunta</div>
-                                                <div>X Views</div>
-                                        </div>
-                                </div>
-                        </div>
-                        <!-- Título de la pregunta -->
-                        <div>
-                                <a th:href="@{/preguntas/edit/{id}(id=${pregunta.getId()})}" class="btn border-dark">Editar Pregunta</a>
-                                <a th:href="@{/preguntas/delete/{id}(id=${pregunta.getId()})}" class="btn btn-danger" >Eliminar Pregunta</a>
-                                <h2 class="my-3" th:text="${pregunta.getTituloPregunta()}" >Título de la pregunta</h2>
+            <div class="col-md-12">
 
-                        </div>
+                <!--tags and badges-->
+
+                <div class="d-flex gap-2 justify-content-center py-5">
+                    <h4>Tags</h4>
+                    <div>
+                        <a href="#"><span class="badge text-bg-info rounded-pill">Arrays</span></a></li>
+                        <a href="#"><span class="badge text-bg-info rounded-pill">Java Wrapper</span></a></li>
+                        <a href="#"><span class="badge text-bg-info rounded-pill">Strings</span></a></li>
+                        <a href="#"><span class="badge text-bg-info rounded-pill">Data types</span></a></li>
+                    </div>
                 </div>
 
-                <!-- Sección de la pregunta -->
-                <section class="col-11 m-auto" style="text-align: justify;">
-                        <p th:text="${pregunta.getTextoPregunta}" >Lorem ipsum dolor sit amet consectetur adipiscing elit sollicitudin, eget vestibulum sem facilisi auctor curabitur bibendum tellus, consequat ornare hendrerit primis vitae rhoncus donec. Eget facilisis ridiculus pharetra sodales vulputate ad elementum, scelerisque et blandit non nec aenean, vel auctor lacinia sapien dapibus molestie. Class at ligula accumsan auctor molestie lobortis quam egestas, pharetra dignissim est montes sem felis morbi habitasse laoreet, in sollicitudin ridiculus interdum hendrerit fusce gravida.
-                
-                                Diam quis senectus cum rutrum iaculis conubia placerat, dapibus aliquam litora magna augue arcu nam velit, non mattis himenaeos praesent sed luctus. In libero nascetur senectus pretium donec, sodales luctus non etiam pulvinar lectus, tempus nulla commodo torquent. Rutrum malesuada ridiculus sociosqu sodales ornare nam pharetra iaculis, rhoncus bibendum nostra natoque convallis class vel est turpis, neque nunc cubilia facilisis augue ligula et. Curabitur eu augue elementum semper ultrices lacus bibendum, fusce eget eros rutrum a pretium nullam proin, fames euismod cum egestas tempor ullamcorper.
-                
-                                Sociosqu pharetra egestas aenean morbi donec penatibus mi porta, aliquam sed elementum sagittis imperdiet per nostra. Venenatis bibendum ultrices etiam interdum porttitor mus proin purus sagittis, habitasse justo ut euismod at massa dignissim vestibulum pulvinar, montes neque felis condimentum sociis nisl augue turpis. Quam quisque dignissim dapibus tristique libero nec hac lectus at cum, ultricies mollis suspendisse id sociis dictum et egestas inceptos, aliquam odio hendrerit interdum urna neque auctor dictumst fusce. Dui primis magnis inceptos ante auctor eget arcu velit sem conubia lacinia sagittis tortor integer luctus, a vehicula lectus porta cras litora eros duis venenatis etiam dictum tempus commodo est.
-                        </p>
-                        <!-- Imagen de la pregunta (Si es que la tiene) -->
-                        <div class="container">
-                                <img src="/imagenes" alt="Imagen de la pregunta">
+                <!--Título y cuerpo pregunta-->
+
+                <div class="post-details">
+                    <div class="details-header">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div>
+                                    <a th:href="@{/preguntas/edit/{id}(id=${pregunta.getId()})}"
+                                       class="btn border-dark">Editar Pregunta<i class="fa fa-thumbs-o-up "
+                                                                                 aria-hidden="true"></i></a>
+                                    <a th:href="@{/preguntas/delete/{id}(id=${pregunta.getId()})}"
+                                       class="btn border-dark btn-danger">Eliminar Pregunta<i class="fa fa-thumbs-o-up "
+                                                                                              aria-hidden="true"></i></a>
+
+                                    <div class="col-12">
+                                        <h3 th:text="${pregunta.getTituloPregunta()}">Título Primera Pregunta</h3>
+                                        <span th:text="${pregunta.getFechaPregunta()}">Fecha de Publicación</span>
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
+                    </div>
+                    <div>
+                        <p th:text="${pregunta.getTextoPregunta}"> Texto Pregunta</p>
+                        <div class="container">
+                            <img src="/imagenes" alt="Imagen de la pregunta">
+                        </div>
+                        <hr>
+                        <!-- botones de like y dislike en de la pregunta -->
+                        <div class="post-footer">
+                            <div class="col">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalRespuesta" >Responder</button>
+                                <button type="button" class="tooltip-button thumbs-up2" data-toggle="tooltip"
+                                        data-placement="bottom" title="Like">Like<i class="fa fa-thumbs-o-up " aria-hidden="true"></i></button>
+                                <button type="button" class="tooltip-button  thumbs-down2" data-toggle="tooltip" data-placement="bottom" title="Dislike">Dislike<i class="fa fa-thumbs-o-down"
+                                                                                          aria-hidden="true"></i>
+                                </button>
+                                <span class="single-question-vote-result">+22 Votos</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                        <!-- Sección de etiquetas y valoración -->
-                        <section class="row my-2">
-                                <!-- Etiquetas de la pregunta -->
-                                <div class="col-4 align-self-center">
-                                        <a href="#!" style="border: 2px; border-style: solid;">Tag1</a>  
-                                        <a href="#!" style="border: 2px; border-style: solid;">Tag2</a>  
-                                        <a href="#!" style="border: 2px; border-style: solid;">Tag3</a>  
-                                        <a href="#!" style="border: 2px; border-style: solid;">Tag4</a>  
-                                        <a href="#!" style="border: 2px; border-style: solid;">Tag5</a>  
-                                </div>
+                <!-- Respuestas -->
 
-                                <!-- Responder a la pregunta -->
-                                <div class="col-4">
-                                        <a class="container-fluid btn btn-primary" href="/responder" >Responder</a>
+                <section>
+                    <div class="row d-flex justify-content-center">
+                        <div class="container-fluid">
+
+                            <div class="card-body p-4">
+                                <h4 class="text-center mb-4 pb-2">Respuestas</h4>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="d-flex flex-start">
+                                            <img class="rounded-circle shadow-1-strong me-3"
+                                                 src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(10).webp"
+                                                 alt="avatar" width="65"
+                                                 height="65"/>
+                                            <div class="flex-grow-1 flex-shrink-1">
+                                                <div>
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <p class="mb-1">
+                                                            Maria Smantha <span class="small">- 2 hours ago</span>
+                                                        </p>
+
+                                                        <!-- Comentar una pregunta -->
+                                                        <a href="#!"><i class="fas fa-reply fa-xs"></i><span
+                                                                class="small"> Comentar</span></a>
+                                                    </div>
+                                                    <p class="small mb-0">
+                                                        It is a long-established fact that a reader will be distracted
+                                                        by
+                                                        the readable content of a page.
+                                                    </p>
+                                                </div>
+                                                <div class="col">
+                                                    <button type="button" class="tooltip-button thumbs-up2"
+                                                            data-toggle="tooltip" data-placement="bottom" title="Like">
+                                                        Like<i class="fa fa-thumbs-o-up " aria-hidden="true"></i>
+                                                    </button>
+                                                    <button type="button" class="tooltip-button  thumbs-down2"
+                                                            data-toggle="tooltip" data-placement="bottom"
+                                                            title="Dislike">Dislike<i class="fa fa-thumbs-o-down"
+                                                                                      aria-hidden="true"></i></button>
+                                                    <span class="single-question-vote-result">+22 Votos</span>
+                                                </div>
+
+                                                <div class="d-flex flex-start mt-4">
+                                                    <a class="me-3" href="#">
+                                                        <img class="rounded-circle shadow-1-strong"
+                                                             src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(11).webp"
+                                                             alt="avatar"
+                                                             width="65" height="65"/>
+                                                    </a>
+                                                    <div class="flex-grow-1 flex-shrink-1">
+                                                        <div>
+                                                            <div class="d-flex justify-content-between align-items-center">
+                                                                <p class="mb-1">
+                                                                    Simona Disa <span class="small">- 3 hours ago</span>
+                                                                </p>
+
+                                                            </div>
+                                                            <p class="small mb-0">
+                                                                letters, as opposed to using 'Content here, content
+                                                                here',
+                                                                making it look like readable English.
+                                                            </p>
+                                                            <div class="col">
+                                                                <button type="button" class="tooltip-button thumbs-up2"
+                                                                        data-toggle="tooltip" data-placement="bottom"
+                                                                        title="Like">Like<i class="fa fa-thumbs-o-up "
+                                                                                            aria-hidden="true"></i>
+                                                                </button>
+                                                                <button type="button"
+                                                                        class="tooltip-button  thumbs-down2"
+                                                                        data-toggle="tooltip" data-placement="bottom"
+                                                                        title="Dislike">Dislike<i
+                                                                        class="fa fa-thumbs-o-down"
+                                                                        aria-hidden="true"></i></button>
+                                                                <span class="single-question-vote-result">+22 Votos</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-        
-                                <!-- Valoración de la pregunta -->
-                                <div class="col-4">
-                                        <a class="btn btn-primary" href="@{/preguntas/upvote/{id}(id=${pregunta.getId()})}">Like</a>
-                                        <span th:text="${pregunta.getVotos()}" >X Votos</span>
-                                        <a class="btn btn-warning" href="@{/preguntas/dislike/{id}(id=${pregunta.getId()})}">Dislike</a>
-                                        <a class="btn btn-danger" href="/report">Report</a>
-                                </div>
-                        </section>
+                            </div>
+
+                        </div>
+                    </div>
                 </section>
 
-                        <!-- Sección de respuestas -->
-                        <hr class="my-2">
-                        <div class="my-3" >
-                                <h4>Respuestas</h4>
+
+                <!-- Modal respuesta -->
+                <div class="modal fade modal-lg" id="modalRespuesta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" >
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Responder pregunta</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form th:action="@{/preguntas/respuestasave}" th:object="${respuesta}" method="post">
+                                    <input type="hidden" field="*{id}">
+                                    <input type="hidden" field="*{fechaRespuesta}">
+                                    <div class="mb-3">
+                                        <label for="textoRespuesta" class="col-form-label">Respuesta:</label>
+                                        <textarea field="*{textoRespuesta}" class="form-control" id="textoRespuesta"></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">Publicar</button>
+                            </div>
                         </div>
-                        <hr class="my-2">
-                        <section>
-
-                                <!-- Respuesta de un usuario -->
-                                <div class="row">
-                                        <div class="col-2">
-                                                <!-- Información del usuario que responde -->
-                                                <div class="row">
-                                                        <a href="#!" style="border: 2px; border-style: solid;">Img</a>
-                                                        <a href="/version1/prefil/{id}">UsuarioQueResponde</a>
-                                                </div>
-                                                <!-- Valoración de la respuesta -->
-                                                <div class="row">
-                                                        <a class="btn btn-primary" href="/upvote">Like</a>
-                                                        <span>X Votos</span>
-                                                        <a class="btn btn-warning" href="/dislike">Dislike</a>
-                                                        <a class="btn btn-danger" href="/report">Report</a>
-                                                </div>
-                                                <div class="row">
-                                                        <a class="container-fluid btn btn-primary" href="/upvote">Responder</a>
-                                                </div>
-                                        </div>
-                                        <!-- Contenido de la respuesta -->
-                                        <div class="col-10">
-                                                <p>Lorem ipsum dolor sit amet consectetur adipiscing elit sollicitudin, eget vestibulum sem facilisi auctor curabitur bibendum tellus, consequat ornare hendrerit primis vitae rhoncus donec. Eget facilisis ridiculus pharetra sodales vulputate ad elementum, scelerisque et blandit non nec aenean, vel auctor lacinia sapien dapibus molestie. Class at ligula accumsan auctor molestie lobortis quam egestas, pharetra dignissim est montes sem felis morbi habitasse laoreet, in sollicitudin ridiculus interdum hendrerit fusce gravida.
-                
-                                                        Diam quis senectus cum rutrum iaculis conubia placerat, dapibus aliquam litora magna augue arcu nam velit, non mattis himenaeos praesent sed luctus. In libero nascetur senectus pretium donec, sodales luctus non etiam pulvinar lectus, tempus nulla commodo torquent. Rutrum malesuada ridiculus sociosqu sodales ornare nam pharetra iaculis, rhoncus bibendum nostra natoque convallis class vel est turpis, neque nunc cubilia facilisis augue ligula et. Curabitur eu augue elementum semper ultrices lacus bibendum, fusce eget eros rutrum a pretium nullam proin, fames euismod cum egestas tempor ullamcorper.
-                                        
-                                                        Sociosqu pharetra egestas aenean morbi donec penatibus mi porta, aliquam sed elementum sagittis imperdiet per nostra. Venenatis bibendum ultrices etiam interdum porttitor mus proin purus sagittis, habitasse justo ut euismod at massa dignissim vestibulum pulvinar, montes neque felis condimentum sociis nisl augue turpis. Quam quisque dignissim dapibus tristique libero nec hac lectus at cum, ultricies mollis suspendisse id sociis dictum et egestas inceptos, aliquam odio hendrerit interdum urna neque auctor dictumst fusce. Dui primis magnis inceptos ante auctor eget arcu velit sem conubia lacinia sagittis tortor integer luctus, a vehicula lectus porta cras litora eros duis venenatis etiam dictum tempus commodo est.
-                                                </p>
-                                                <!-- Imagen de la pregunta (Si es que la tiene) -->
-                                                <div class="container">
-                                                        <img src="/imagenes" alt="Imagen de la pregunta">
-                                                </div>
-                                        </div>
-                                        <hr>
-                                </div>
-                                        <!-- Sección de comentarios de respuesta -->
-                                        <section class="row">
-                                                <div class="col-2"> 
-                                                        <h5>Comentarios</h5>
-                                                        
-                                                </div>
-                                                <div class="col-10">
-
-                                                        <!-- Comentario -->
-                                                        <div class="row p-4 bg-info border border-4">
-                                                                <div class="col-1">
-                                                                        <!-- Información del usuario que comenta -->
-                                                                        <div class="row">
-                                                                                <a href="#!" style="border: 2px; border-style: solid;">Img</a>
-                                                                                <a href="/version1/prefil/{id}">UsuarioQueResponde</a>
-                                                                        </div>
-                                                                </div>
-                
-                                                                <!-- Comentario y valoración -->
-                                                                <div class="container col-11">
-                                                                        <div class="col">
-                                                                                <p>Lorem ipsum dolor sit amet consectetur adipiscing elit sollicitudin, eget vestibulum sem facilisi auctor curabitur bibendum tellus, consequat ornare hendrerit primis vitae rhoncus donec. Eget facilisis ridiculus pharetra sodales vulputate ad elementum, scelerisque et blandit non nec aenean, vel auctor lacinia sapien dapibus molestie. Class at ligula accumsan auctor molestie lobortis quam egestas, pharetra dignissim est montes sem felis morbi habitasse laoreet, in sollicitudin ridiculus interdum hendrerit fusce gravida.
-                                                                                </p>
-                                                                        </div>
-                                                                        
-                                                                        <!-- Valoración del comentario -->
-                                                                        <div class="row">
-                                                                                <div class="col-5" >
-                                                                                        <a class="btn btn-primary" href="/upvote">Like</a>
-                                                                                        <span>X Votos</span>
-                                                                                        <a class="btn btn-warning" href="/dislike">Dislike</a>
-                                                                                        <a class="btn btn-danger" href="/report">Report</a>
-                                                                                </div>
-                                                                        </div> 
-                                                                </div>
-                                                        </div>        
-                                                </div>
-
-                                        </section>
-                                        
-                                        <hr class="my-4">
-
-                                        <!-- Proxima Respuesta -->
-                                        <div class="row">
-                                                <div class="col-2">
-                                                        <!-- Información del usuario que responde -->
-                                                        <div class="row">
-                                                                <a href="#!" style="border: 2px; border-style: solid;">Img</a>
-                                                                <a href="/version1/prefil/{id}">UsuarioQueResponde</a>
-                                                        </div>
-                                                        <!-- Valoración de la respuesta -->
-                                                        <div class="row">
-                                                                <a class="btn btn-primary" href="/upvote">Like</a>
-                                                                <span>X Votos</span>
-                                                                <a class="btn btn-warning" href="/dislike">Dislike</a>
-                                                                <a class="btn btn-danger" href="/report">Report</a>
-                                                        </div> 
-                                                        <div class="row">
-                                                        <a class="container-fluid btn btn-primary" href="/upvote">Responder</a>
-                                                </div>
-                                                </div>
-                                                <!-- Contenido de la respuesta -->
-                                                <div class="col-10">
-                                                        <p>Lorem ipsum dolor sit amet consectetur adipiscing elit sollicitudin, eget vestibulum sem facilisi auctor curabitur bibendum tellus, consequat ornare hendrerit primis vitae rhoncus donec. Eget facilisis ridiculus pharetra sodales vulputate ad elementum, scelerisque et blandit non nec aenean, vel auctor lacinia sapien dapibus molestie. Class at ligula accumsan auctor molestie lobortis quam egestas, pharetra dignissim est montes sem felis morbi habitasse laoreet, in sollicitudin ridiculus interdum hendrerit fusce gravida.
-                        
-                                                                Diam quis senectus cum rutrum iaculis conubia placerat, dapibus aliquam litora magna augue arcu nam velit, non mattis himenaeos praesent sed luctus. In libero nascetur senectus pretium donec, sodales luctus non etiam pulvinar lectus, tempus nulla commodo torquent. Rutrum malesuada ridiculus sociosqu sodales ornare nam pharetra iaculis, rhoncus bibendum nostra natoque convallis class vel est turpis, neque nunc cubilia facilisis augue ligula et. Curabitur eu augue elementum semper ultrices lacus bibendum, fusce eget eros rutrum a pretium nullam proin, fames euismod cum egestas tempor ullamcorper.
-                                                
-                                                                Sociosqu pharetra egestas aenean morbi donec penatibus mi porta, aliquam sed elementum sagittis imperdiet per nostra. Venenatis bibendum ultrices etiam interdum porttitor mus proin purus sagittis, habitasse justo ut euismod at massa dignissim vestibulum pulvinar, montes neque felis condimentum sociis nisl augue turpis. Quam quisque dignissim dapibus tristique libero nec hac lectus at cum, ultricies mollis suspendisse id sociis dictum et egestas inceptos, aliquam odio hendrerit interdum urna neque auctor dictumst fusce. Dui primis magnis inceptos ante auctor eget arcu velit sem conubia lacinia sagittis tortor integer luctus, a vehicula lectus porta cras litora eros duis venenatis etiam dictum tempus commodo est.
-                                                        </p>
-                                                        <!-- Imagen de la pregunta (Si es que la tiene) -->
-                                                        <div class="container">
-                                                                <img src="/imagenes" alt="Imagen de la pregunta">
-                                                        </div>
-                                                </div>
-                                                <hr>
-                                        </div>
-
-                                        <!-- Proxima Respuesta -->
+                    </div>
+                </div>
 
 
-                        </section>
-        
+                <!--Modal comentario-->
+
+                <div class="comment289-box">
+                    <h3>Haz un comentario</h3>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="post9320-box">
+                                <input type="text" class="comment-input219882" placeholder="Tu comentario">
+                            </div>
+                            <button type="button" class="pos393-submit">Publica tu comentario</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- footer -->
+
+
+            </div>
         </div>
-
-
-
-</div>
-
-
-
+    </div>
+</section>
 
 <!-- Optional JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+
+<script src="cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
         integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
         crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
-        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
+
+
 </body>
 </html>

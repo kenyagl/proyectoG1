@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -24,6 +25,8 @@ public class Respuesta {
 
     private String textoRespuesta;
 
+    private LocalDate fechaRespuesta;
+
     @ManyToOne
     @JoinColumn(name = "idUsuario")
     private Usuario usuario;
@@ -34,7 +37,6 @@ public class Respuesta {
     @ManyToOne
     @JoinColumn(name = "idPregunta", referencedColumnName = "id")
     private Pregunta pregunta;
-
 
     public Respuesta(Integer votos, Boolean alerta, String textoRespuesta) {
         this.votos = votos;

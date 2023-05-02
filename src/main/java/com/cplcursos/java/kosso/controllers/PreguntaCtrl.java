@@ -1,7 +1,11 @@
 package com.cplcursos.java.kosso.controllers;
 
+import com.cplcursos.java.kosso.entities.Etiqueta;
 import com.cplcursos.java.kosso.entities.Pregunta;
+import com.cplcursos.java.kosso.entities.Respuesta;
+import com.cplcursos.java.kosso.services.EtiquetaSrvc;
 import com.cplcursos.java.kosso.services.PreguntaSrvc;
+import com.cplcursos.java.kosso.services.RespuestaSrvc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import lombok.extern.log4j.Log4j2;
@@ -9,14 +13,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
 @Log4j2
 @RequestMapping("/preguntas")
 public class PreguntaCtrl {
+
     @Autowired
     private PreguntaSrvc preguntaSrvc;
+
+    @Autowired
+    private RespuestaSrvc respuestaSrvc;
+
+    @Autowired
+    private EtiquetaSrvc etiquetaSrvc;
 
     @GetMapping(value = {"/", ""})
     public String mostrarPreguntas (Model model){
@@ -42,6 +55,7 @@ public class PreguntaCtrl {
         if (pregunta.getFechaPregunta() == null){
             preguntaSrvc.setFecha(pregunta);
         }
+
         preguntaSrvc.save(pregunta);
         return "redirect:/preguntas/preguntaPublicada/" + pregunta.getId();
     }
@@ -61,12 +75,13 @@ public class PreguntaCtrl {
     @GetMapping(value = "/new")
     public String verFormularioPregunta (Model model){
         model.addAttribute("pregunta", new Pregunta());
+
         return "preguntas/pregunta-form";
     }
 
     @PostMapping("/new")
     public String guardarPregunta (@PathVariable("id") Long id, Model model){
-        model.addAttribute("pregunta", preguntaSrvc.encontrarPregunta(id));
+        model.addAttribute("pregunta", preguntaSrvc.findById(id));
         return "preguntas/preguntaPublicada";
     }
 
@@ -76,7 +91,17 @@ public class PreguntaCtrl {
         return "redirect:/preguntas";
     }
 
-    // Controlador para votos
+    // Controladores para Respuestas
+
+    @PostMapping(value = "/respuestasave")
+    public String crearRespuesta (@ModelAttribute("respuesta") Respuesta respuesta){
+        if (respuesta.getFechaRespuesta() == null){
+            respuestaSrvc.setFecha(respuesta);
+        }
+        respuesta.setPregunta(respuesta.getPregunta());
+        respuestaSrvc.save(respuesta);
+        return "redirect:/preguntas/preguntaPublicada/" + respuesta.getPregunta().getId();
+    }
 
 
 

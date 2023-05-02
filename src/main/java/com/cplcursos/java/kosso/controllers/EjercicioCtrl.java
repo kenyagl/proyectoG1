@@ -45,7 +45,7 @@ public class EjercicioCtrl {
     }
 
     @GetMapping("/{id}")
-    public String showEjercicio(@PathVariable("id") Long id, Model model, @ModelAttribute ("resultMessage") String resultMessage) {
+    public String showEjercicio(@PathVariable("id") Long id, Model model) {
         Optional<EjercicioOpMul> ejercicioOpMulOptional = ejerciciosService.findById(id);
         if (ejercicioOpMulOptional.isPresent()) {
 
@@ -53,7 +53,6 @@ public class EjercicioCtrl {
             model.addAttribute("ejercicio", ejercicioOpMul);
             model.addAttribute("id_usuario", usu.getId());
             model.addAttribute("totalusu", totalusu);
-            model.addAttribute("resultMessage", resultMessage);
 
             //Añado el siguiente ejercicio
             EjercicioOpMul ejer = ejercicioOpMulOptional.get();
@@ -102,17 +101,6 @@ public class EjercicioCtrl {
         return "redirect:/ejercicios/";
     }
 
-    /*@GetMapping("/{id}/next")
-    public String nextEjercicio(@PathVariable Long id, Model model) {
-        Long nextId = ejerciciosService.findIdNextEjercicio(id);
-
-        if(nextId != null) {
-            return "redirect:/ejercicios/" + nextId;
-        } else {
-            return "errorEncontrandoEjercicio";
-        }
-    }*/
-
     /*
      *
      ****************** CONTROLADOR DE RESPUESTAS A CADA EJERCICIO ******************
@@ -121,17 +109,11 @@ public class EjercicioCtrl {
      *
      */
 
-   /* @GetMapping("/{id}/respuesta/save")
-    public String verSaveRespuesta() {
-        return "ejercicios/ejercicioOpMul";
-    }*/
-
     @PostMapping("/{id}/respuesta/save")
     public String saveRespuesta(@PathVariable("id") Long idEjercicio,
-                                @RequestParam("id_usuario") Long idUsuario,
-                                @RequestParam("answer") String miRespuesta,
-                                Model model,
-                                RedirectAttributes redirectAttributes) {
+                                @RequestParam(name = "resp") String miRespuesta,
+                                @RequestParam(name="id_usuario") Long idUsuario,
+                                Model model) {
 
         Optional<EjercicioOpMul> ejer = ejerciciosService.findById(idEjercicio);
 
@@ -163,12 +145,10 @@ public class EjercicioCtrl {
             resultMessage = "incorrecto";
         }
 
-        redirectAttributes.addAttribute("resultMessage", resultMessage);
-        /*redirectAttributes.addAttribute("ejercicio", ejercicio);
-        redirectAttributes.addAttribute("respuestaUsu", miRespuesta);*/
+        model.addAttribute("resultMessage", resultMessage);
 
 
-        return "redirect:/ejercicios/" + idEjercicio + "?resultMessage=" + resultMessage;
+        return "partesAjax :: resultadoRespuesta";
     }
     /*
 

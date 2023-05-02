@@ -273,22 +273,28 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form th:action="@{/preguntas/respuestasave}" th:object="${respuesta}" method="post">
-                                    <input type="hidden" field="*{id}">
-                                    <input type="hidden" field="*{fechaRespuesta}">
-                                    <div class="mb-3">
-                                        <label for="textoRespuesta" class="col-form-label">Respuesta:</label>
-                                        <textarea field="*{textoRespuesta}" class="form-control" id="textoRespuesta"></textarea>
+                                <form th:action="@{/preguntas/respuestasave}" th:object="${respuesta}" th:method="post">
+                                    <div class="mb-3 form-group">
+                                        <label for="textoRespuesta">Respuesta:</label>
+                                        <input type="text" class="form-control" id="textoRespuesta" name="textoRespuesta" th:field="*{textoRespuesta}" required>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="submit"  class="btn btn-primary">Publicar</button>
                                     </div>
                                 </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                <button type="submit" class="btn btn-primary">Publicar</button>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <form th:action="@{/preguntas/respuestasave}" th:object="${respuesta}" th:method="post">
+                    <div class="mb-3 form-group">
+                        <label for="textoRespuest">Respuesta:</label>
+                        <input type="text" class="form-control" id="textoRespuest" name="textoRespuesta" th:field="*{textoRespuesta}" required>
+                        <button type="submit" class="btn btn-primary">Publicar</button>
+                    </div>
+                </form>
 
 
                 <!--Modal comentario-->

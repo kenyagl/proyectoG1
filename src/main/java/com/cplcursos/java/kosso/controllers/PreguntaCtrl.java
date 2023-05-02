@@ -12,6 +12,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Method;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,9 +39,8 @@ public class PreguntaCtrl {
     }
 
     // Muestra la pregunta publicada por su id
-    // Hay un problema que desde la url http://localhost:8080/preguntas/ con la barra al final no muestra la pregunta publicada
     @GetMapping(value = "/preguntaPublicada/{id}")
-    public String verPreguntaPublicada (@PathVariable Long id, Model model){
+    public String verPreguntaPublicada (@PathVariable Long id, Respuesta respuesta, Model model){
         Optional<Pregunta> pregunta = preguntaSrvc.findById(id);
         if(pregunta.isPresent()) {
             model.addAttribute("pregunta", pregunta.get());
@@ -59,6 +59,7 @@ public class PreguntaCtrl {
         preguntaSrvc.save(pregunta);
         return "redirect:/preguntas/preguntaPublicada/" + pregunta.getId();
     }
+
 
     @GetMapping(value = "/edit/{id}")
     public String editarPregunta( @PathVariable("id") Long id, Model model){
@@ -98,9 +99,8 @@ public class PreguntaCtrl {
         if (respuesta.getFechaRespuesta() == null){
             respuestaSrvc.setFecha(respuesta);
         }
-        respuesta.setPregunta(respuesta.getPregunta());
         respuestaSrvc.save(respuesta);
-        return "redirect:/preguntas/preguntaPublicada/" + respuesta.getPregunta().getId();
+        return "redirect:/preguntas/preguntaPublicada/";
     }
 
 

@@ -155,7 +155,7 @@ public class EjercicioCtrl {
             }
 
             Usuario usuario = usuOp.get();
-            usuario.setPuntosRespuestas(usuario.getPuntosRespuestas() + 100);
+            usuario.setPuntosEjercicios(usuario.getPuntosEjercicios() + 100);
 
             RespuestaEjOpMul respuestaEjOpMul = new RespuestaEjOpMul(new IdRespuestaEj(ejercicio, usuario), miRespuesta, LocalDateTime.now());
             respuestaEjOpMulSrvc.saveAndFlush(respuestaEjOpMul);
@@ -163,12 +163,13 @@ public class EjercicioCtrl {
             resultMessage = "incorrecto";
         }
 
-        model.addAttribute("resultMessage", resultMessage);
         redirectAttributes.addAttribute("resultMessage", resultMessage);
+        /*redirectAttributes.addAttribute("ejercicio", ejercicio);
+        redirectAttributes.addAttribute("respuestaUsu", miRespuesta);*/
 
-        return "redirect:/ejercicios/" + idEjercicio;
+
+        return "redirect:/ejercicios/" + idEjercicio + "?resultMessage=" + resultMessage;
     }
-
     /*
 
             // Falta meter el usuario con la securización

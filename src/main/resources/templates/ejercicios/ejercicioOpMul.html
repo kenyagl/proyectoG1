@@ -24,13 +24,43 @@
 <header>
     <h1 th:text="${ejercicio.getTitulo()}">Título del ejercicio</h1>
 </header>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script th:inline="javascript">
+    const respuesta = (respuesta) => {
+
+        const id_usuario = document.getElementById("id_usuario").value;
+        const ejercicioId = document.getElementById("id_ejercicio").value;
+
+        let formData = new FormData();
+        formData.append('resp', respuesta);
+        formData.append('id_usuario', id_usuario);
+        let init = {
+            method: 'POST',
+            body: formData
+        };
+
+        fetch(ejercicioId + "/respuesta/save", init).then(function (response) {
+            return response.text();
+        }).then(function (html) {
+            const resultMessage = document.getElementById("resultMessage");
+            resultMessage.innerHTML = html;
+
+            //const resultMessageInput = /*[[${resultMessageInput}]]*/ 'resultMessage.innerHTML';
+        }).catch(function (err) {
+            console.warn('Something went wrong.', err);
+        });
+    }
+</script>
 
 <div class="container">
     <p th:text="${ejercicio.getDescripcion()}">Descripción del ejercicio</p>
     <img src="../../static/${ejercicio.getImagen()}" height="138" width="580" alt="<Code picture>"
          class="img-fluid mb-3"/>
-    <form th:action="@{/ejercicios/{id}/respuesta/save(id=${ejercicio.getId()})}" method="POST">
-        <input type="hidden" name="usuario" th:value="${usuario}"/>
+    <form id="myForm">
+        <input type="hidden" id="resultMessageInput" name="resultMessage" th:value="${resultMessage}" />
+        <input type="hidden" id="id_usuario" th:value="${id_usuario}"/>
+        <input type="hidden" id="id_ejercicio" th:value="${ejercicio.getId()}"/>
         <label>
             <input type="radio" name="answer" value="1" th:value="${ejercicio.getOpcion1()}"/>
             <span th:text="${ejercicio.getOpcion1()}">Option 1</span>
@@ -51,7 +81,8 @@
             <span th:text="${ejercicio.getOpcion4()}">Option 4</span>
         </label>
         <br/>
-        <button th:type="submit" class="btn btn-primary" data-bs-toggle="modal"
+        <button type="button" onclick="respuesta(document.querySelector('input[name=answer]:checked').value)"
+                class="btn btn-primary" data-bs-toggle="modal"
                 data-bs-target="#resultModal">Comprueba tu respuesta
         </button>
     </form>
@@ -61,35 +92,26 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="resultModalLabel">Result</h5>
+                <h5 class="modal-title" id="resultModalLabel">Resultado</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <p id="result"></p>
             </div>
-            <div th:if="${not #strings.isEmpty(resultMessage)}">
-                <div th:text="${resultMessage == 'correcto' ? '¡Respuesta correcta!' : 'Respuesta incorrecta'}">Result
-                    message
-                </div>
-                <p th:text="${resultMessage}"></p>
+            <div id="resultMessage">ResultMessage</div>
 
-                <div class="modal-footer">
-                    <a class="btn" th:if="${resultMessage == 'correcto'}"
-                       th:href="@{/ejercicios/{id}(id=${nextEjer.getId()})}"
-                       th:classappend="${totalusu<nextEjer.getPuntosAcceso()} ? 'disabled btn-secondary' : 'btn-primary'">Siguiente</a>
-                    <button th:if="${resultMessage == 'incorrecto'}"
-                            th:href="@{/ejercicios/{id}(id=${ejercicio.getId()})}">Inténtalo otra vez
-                    </button>
-                </div>
+            <br><br>
+
+            <div class="modal-footer">
+                <a class="btn" th:href="@{/ejercicios/{id}(id=${nextEjer.getId()})}"
+                   th:classappend="${totalusu<nextEjer.getPuntosAcceso()} ? 'disabled btn-secondary' : 'btn-primary'">Siguiente</a>
+<!--                <button th:if="${resultMessageInput == 'Lo siento, tu respuesta no es correcta.'}" type="button" class="btn btn-danger" data-bs-dismiss="modal">Inténtalo otra vez</button>-->
+                <a th:href="@{/ejercicios}">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Volver al menú</button>
+                </a>
             </div>
         </div>
-        <div class="modal-footer">
-            <a th:href="@{/ejercicios}">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Volver al menú</button>
-            </a>
-        </div>
     </div>
-</div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"

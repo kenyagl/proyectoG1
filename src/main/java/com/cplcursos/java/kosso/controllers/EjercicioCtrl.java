@@ -128,7 +128,7 @@ public class EjercicioCtrl {
         String resultMessage;
 
         if (miRespuesta.equals(respuestaCorrecta)) {
-            resultMessage = "correcto";
+            resultMessage = "¡Muy bien! Tu respuesta es correcta.";
 
             Optional<Usuario> usuOp = usuarioSrvc.findById(idUsuario);
 
@@ -142,12 +142,10 @@ public class EjercicioCtrl {
             RespuestaEjOpMul respuestaEjOpMul = new RespuestaEjOpMul(new IdRespuestaEj(ejercicio, usuario), miRespuesta, LocalDateTime.now());
             respuestaEjOpMulSrvc.saveAndFlush(respuestaEjOpMul);
         } else {
-            resultMessage = "incorrecto";
+            resultMessage = "Lo siento, tu respuesta no es correcta.";
         }
 
         model.addAttribute("resultMessage", resultMessage);
-
-
         return "partesAjax :: resultadoRespuesta";
     }
     /*

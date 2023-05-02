@@ -4,6 +4,8 @@ import com.cplcursos.java.kosso.entities.EjercicioOpMul;
 import com.cplcursos.java.kosso.entities.RespuestaEjOpMul;
 import com.cplcursos.java.kosso.entities.Usuario;
 import com.cplcursos.java.kosso.entities.IdRespuestaEj;
+import com.cplcursos.java.kosso.repositories.EjercicioRepo;
+import com.cplcursos.java.kosso.services.CategoriaSrvc;
 import com.cplcursos.java.kosso.services.RespuestaEjOpMulSrvc;
 import com.cplcursos.java.kosso.services.UsuarioSrvcImpl;
 import lombok.extern.log4j.Log4j2;
@@ -26,6 +28,9 @@ public class EjercicioCtrl {
 
     @Autowired
     private RespuestaEjOpMulSrvc respuestaEjOpMulSrvc;
+
+    @Autowired
+    private CategoriaSrvc categoriaSrvc;
 
     @Autowired
     private UsuarioSrvcImpl usuarioSrvc;
@@ -61,7 +66,6 @@ public class EjercicioCtrl {
             if (nextEjerOp.isPresent()) {
                 EjercicioOpMul nextEjer = nextEjerOp.get();
                 model.addAttribute("nextEjer", nextEjer);
-
             } else {
                 return "errorEncontrandoEjercicio";
             }
@@ -74,7 +78,8 @@ public class EjercicioCtrl {
 
     @GetMapping("/new")
     public String showNewEjercicioForm(Model model) {
-        model.addAttribute("ejercicioOpMul", new EjercicioOpMul());
+        model.addAttribute("ejercicio", new EjercicioOpMul());
+        model.addAttribute("categoriasEj", categoriaSrvc.findAll());
         return "ejercicios/ejercicioForm";
     }
 
@@ -112,7 +117,7 @@ public class EjercicioCtrl {
     @PostMapping("/{id}/respuesta/save")
     public String saveRespuesta(@PathVariable("id") Long idEjercicio,
                                 @RequestParam(name = "resp") String miRespuesta,
-                                @RequestParam(name="id_usuario") Long idUsuario,
+                                @RequestParam(name = "id_usuario") Long idUsuario,
                                 Model model) {
 
         Optional<EjercicioOpMul> ejer = ejerciciosService.findById(idEjercicio);
@@ -141,6 +146,7 @@ public class EjercicioCtrl {
 
             RespuestaEjOpMul respuestaEjOpMul = new RespuestaEjOpMul(new IdRespuestaEj(ejercicio, usuario), miRespuesta, LocalDateTime.now());
             respuestaEjOpMulSrvc.saveAndFlush(respuestaEjOpMul);
+
         } else {
             resultMessage = "Lo siento, tu respuesta no es correcta.";
         }

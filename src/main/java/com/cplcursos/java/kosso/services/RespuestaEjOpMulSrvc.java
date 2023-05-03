@@ -1,11 +1,13 @@
 package com.cplcursos.java.kosso.services;
 
 import com.cplcursos.java.kosso.entities.EjercicioOpMul;
+import com.cplcursos.java.kosso.entities.RespuestaEjId;
 import com.cplcursos.java.kosso.entities.RespuestaEjOpMul;
 import com.cplcursos.java.kosso.repositories.RespuestaEjOpMulRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,5 +34,8 @@ public class RespuestaEjOpMulSrvc {
 
     public void saveAndFlush(RespuestaEjOpMul respuestaEjOpMul) {
         respuestaEjOpMulRepo.saveAndFlush(respuestaEjOpMul);
+    }
+    public List<RespuestaEjOpMul> getDateRange(LocalDateTime startDate, LocalDateTime endDate) {
+        return respuestaEjOpMulRepo.findByFechaRespuestaBetween(startDate, endDate);
     }
 }

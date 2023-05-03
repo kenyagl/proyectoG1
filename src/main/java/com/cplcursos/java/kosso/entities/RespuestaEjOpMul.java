@@ -8,6 +8,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 // This entity stores the answers to an exercise
+// This entity must contain a boolean to store if the answer was correct or incorrect ->
 @Getter
 @Setter
 @AllArgsConstructor
@@ -24,7 +25,11 @@ public class RespuestaEjOpMul {
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("id_ejercios_op_mul")
     private EjercicioOpMul ejercicioOpMul;
-
+    private Boolean esCorrecta;
     private String respuesta;
     private LocalDateTime fechaRespuesta;
+/*    Los datos que requieren las estadísticas son los siguientes:
+    -Número de ejercicios contestados EjercicioOpMul (intentos)
+    -Puntos ejercicios y puntos respuestas Usuario (Desempeño)
+    -Preguntas correctas RespuestaEjOpMul*/
 }

@@ -1,8 +1,11 @@
 package com.cplcursos.java.kosso.controllers;
 
+import com.cplcursos.java.kosso.entities.Comentario;
 import com.cplcursos.java.kosso.entities.Etiqueta;
 import com.cplcursos.java.kosso.entities.Pregunta;
 import com.cplcursos.java.kosso.entities.Respuesta;
+import com.cplcursos.java.kosso.repositories.RespuestaRepo;
+import com.cplcursos.java.kosso.services.ComentarioSrvc;
 import com.cplcursos.java.kosso.services.EtiquetaSrvc;
 import com.cplcursos.java.kosso.services.PreguntaSrvc;
 import com.cplcursos.java.kosso.services.RespuestaSrvc;
@@ -22,12 +25,17 @@ import java.util.Optional;
 @Log4j2
 @RequestMapping("/preguntas")
 public class PreguntaCtrl {
+    @Autowired
+    private RespuestaRepo respuestaRepo;
 
     @Autowired
     private PreguntaSrvc preguntaSrvc;
 
     @Autowired
     private RespuestaSrvc respuestaSrvc;
+
+    @Autowired
+    private ComentarioSrvc comentarioSrvc;
 
     @Autowired
     private EtiquetaSrvc etiquetaSrvc;
@@ -40,7 +48,7 @@ public class PreguntaCtrl {
 
     // Muestra la pregunta publicada por su id
     @GetMapping(value = "/preguntaPublicada/{id}")
-    public String verPreguntaPublicada (@PathVariable Long id, Respuesta respuesta, Model model){
+    public String verPreguntaPublicada (@PathVariable Long id, Model model){
         Optional<Pregunta> pregunta = preguntaSrvc.findById(id);
         if(pregunta.isPresent()) {
             model.addAttribute("pregunta", pregunta.get());
@@ -95,14 +103,36 @@ public class PreguntaCtrl {
     // Controladores para Respuestas
 
     @PostMapping(value = "/respuestasave")
-    public String crearRespuesta (@ModelAttribute("respuesta") Respuesta respuesta){
-        if (respuesta.getFechaRespuesta() == null){
-            respuestaSrvc.setFecha(respuesta);
-        }
+    public String crearRespuesta (@RequestParam(name = "idPregunta") Long id, @RequestParam(name = "textoRespuesta") String textoRespuesta, Model model){
+        Respuesta respuesta = new Respuesta();
+        Pregunta pregunta = new Pregunta();
+        pregunta.setId(id);
+        respuesta.setPregunta(pregunta);
+        respuesta.setTextoRespuesta(textoRespuesta);
+        respuesta.setFechaRespuesta(LocalDate.now());
+
         respuestaSrvc.save(respuesta);
-        return "redirect:/preguntas/preguntaPublicada/";
+        return "redirect:/preguntas/preguntaPublicada/" + pregunta.getId();
     }
 
+    // Controladores Comentarios
+    @PostMapping(value = "/comentariosave")
+    public String crearComentario(@RequestParam(name = "idPregunta") Long idPregunta,/* @RequestParam(name = "idRespuesta") Long idRespuesta,*/ @RequestParam(name = "textoComentario") String textoComentario, Model model){
+        Pregunta pregunta = new Pregunta();
+        Comentario comentario = new Comentario();
+        pregunta.setId(idPregunta);
+
+        // Problema cuando hay más de dos respuestas
+        Respuesta respuesta = respuestaRepo.findByPregunta_Id(idPregunta);
+
+        comentario.setRespuesta(respuesta);
+        comentario.setTextoComentario(textoComentario);
+        comentario.setFechaComentario(LocalDate.now());
+
+
+        comentarioSrvc.save(comentario);
+        return "redirect:/preguntas/preguntaPublicada/" + idPregunta;
+    }
 
 
 

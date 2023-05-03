@@ -20,6 +20,10 @@ public class RespuestaSrvc {
         return respuestaRepo.findById(id);
     }
 
+//    public Respuesta findByIdPregunta(Pregunta pregunta){
+//        return respuestaRepo.findByIdRespuesta();
+//    }
+
     public List<Respuesta> findAll(){
         return respuestaRepo.findAll();
     }
@@ -32,7 +36,7 @@ public class RespuestaSrvc {
         respuestaRepo.deleteById(id);
     }
 
-    public void setFecha (Respuesta respuesta){
+    public void setFecha(Respuesta respuesta){
         respuesta.setFechaRespuesta(LocalDate.now());
     }
 

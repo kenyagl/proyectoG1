@@ -42,10 +42,10 @@
               <div class="row mb-3 g-3">
                   <div class="col-md-4">
                       <label for="validationTagsShow" class="form-label">Etiquetas (mostrar todas + colores)</label>
-                      <select class="form-select" id="validationTagsShow" name="tags_show[]" multiple
+                      <select th:each="etiqueta: ${etiquetas}" class="form-select" id="validationTagsShow" name="tags_show[]" multiple
                               data-show-all-suggestions="true">
                           <option disabled hidden value="">Elige una etiqueta</option>
-                          <option th:each="etiqueta: ${etiquetas}" selected="selected" th:text="etiqueta.getNombre()">Nombre de Etiqueta</option>
+                          <option selected="selected" th:text="etiqueta.getNombre()">Nombre de Etiqueta</option>
                       </select>
                       <div class="invalid-feedback">Por favor elige una etiqueta valida.</div>
                   </div>

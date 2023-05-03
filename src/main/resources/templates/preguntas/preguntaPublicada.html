@@ -182,7 +182,9 @@
 
                                 <div class="row">
                                     <div class="col">
-                                        <div class="d-flex flex-start">
+
+                                        <!-- Cada Respuesta -->
+                                        <div th:each="respuesta : ${pregunta.getRespuestas()}" class="d-flex flex-start">
                                             <img class="rounded-circle shadow-1-strong me-3"
                                                  src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(10).webp"
                                                  alt="avatar" width="65"
@@ -190,15 +192,19 @@
                                             <div class="flex-grow-1 flex-shrink-1">
                                                 <div>
                                                     <div class="d-flex justify-content-between align-items-center">
+
+                                                        <!-- Usuario de la respuesta y fecha -->
                                                         <p class="mb-1">
-                                                            Maria Smantha <span class="small">- 2 hours ago</span>
+                                                            Maria Smantha <span th:text="${respuesta.getFechaRespuesta()}" class="small">- 2 hours ago</span>
                                                         </p>
 
                                                         <!-- Comentar una pregunta -->
-                                                        <a href="#!"><i class="fas fa-reply fa-xs"></i><span
-                                                                class="small"> Comentar</span></a>
+                                                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalComentario" ><span
+                                                                class="small"> Comentar</span></button>
                                                     </div>
-                                                    <p class="small mb-0">
+
+                                                    <!-- Texto de la respuesta -->
+                                                    <p th:text="${respuesta.getTextoRespuesta()}" class="small mb-0">
                                                         It is a long-established fact that a reader will be distracted
                                                         by
                                                         the readable content of a page.
@@ -216,7 +222,8 @@
                                                     <span class="single-question-vote-result">+22 Votos</span>
                                                 </div>
 
-                                                <div class="d-flex flex-start mt-4">
+                                                <!-- Sección de comentarios -->
+                                                <div th:each="comentario : ${respuesta.getComentario()}" class="d-flex flex-start mt-4">
                                                     <a class="me-3" href="#">
                                                         <img class="rounded-circle shadow-1-strong"
                                                              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(11).webp"
@@ -227,11 +234,11 @@
                                                         <div>
                                                             <div class="d-flex justify-content-between align-items-center">
                                                                 <p class="mb-1">
-                                                                    Simona Disa <span class="small">- 3 hours ago</span>
+                                                                    Simona Disa <span th:text="${comentario.getFechaComentario()}" class="small">- 3 hours ago</span>
                                                                 </p>
 
                                                             </div>
-                                                            <p class="small mb-0">
+                                                            <p th:text="${comentario.getTextoComentario()}" class="small mb-0">
                                                                 letters, as opposed to using 'Content here, content
                                                                 here',
                                                                 making it look like readable English.
@@ -273,10 +280,11 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form th:action="@{/preguntas/respuestasave}" th:object="${respuesta}" th:method="post">
+                                <form th:action="@{/preguntas/respuestasave}" th:method="post">
+                                    <input type="hidden" th:value="@{{id}(id=${pregunta.getId()})}" name="idPregunta" >
                                     <div class="mb-3 form-group">
                                         <label for="textoRespuesta">Respuesta:</label>
-                                        <input type="text" class="form-control" id="textoRespuesta" name="textoRespuesta" th:field="*{textoRespuesta}" required>
+                                        <input type="text" class="form-control" id="textoRespuesta" name="textoRespuesta" required>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -288,26 +296,30 @@
                     </div>
                 </div>
 
-                <form th:action="@{/preguntas/respuestasave}" th:object="${respuesta}" th:method="post">
-                    <div class="mb-3 form-group">
-                        <label for="textoRespuest">Respuesta:</label>
-                        <input type="text" class="form-control" id="textoRespuest" name="textoRespuesta" th:field="*{textoRespuesta}" required>
-                        <button type="submit" class="btn btn-primary">Publicar</button>
-                    </div>
-                </form>
-
 
                 <!--Modal comentario-->
 
-                <div class="comment289-box">
-                    <h3>Haz un comentario</h3>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="post9320-box">
-                                <input type="text" class="comment-input219882" placeholder="Tu comentario">
+                <div class="modal fade modal-lg" id="modalComentario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" >
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="comentario">Comentar</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <button type="button" class="pos393-submit">Publica tu comentario</button>
+                            <div class="modal-body">
+                                <form th:action="@{/preguntas/comentariosave}" th:method="post">
+                                    <input type="hidden" th:value="@{{id}(id=${pregunta.getId()})}" name="idPregunta" >
+                                   <!-- <input type="hidden" th:value="@{{id}(id=${respuesta.getId()})}" name="idRespuesta"> -->
+                                    <div class="mb-3 form-group">
+                                        <label for="textoComentario">Comentario:</label>
+                                        <input type="text" class="form-control" id="textoComentario" name="textoComentario" required>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="submit"  class="btn btn-primary">Publicar</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>

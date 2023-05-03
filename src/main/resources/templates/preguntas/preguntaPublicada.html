@@ -119,30 +119,28 @@
 
                 <div class="d-flex gap-2 justify-content-center py-5">
                     <h4>Tags</h4>
-                    <div>
-                        <a href="#"><span class="badge text-bg-info rounded-pill">Arrays</span></a></li>
-                        <a href="#"><span class="badge text-bg-info rounded-pill">Java Wrapper</span></a></li>
-                        <a href="#"><span class="badge text-bg-info rounded-pill">Strings</span></a></li>
-                        <a href="#"><span class="badge text-bg-info rounded-pill">Data types</span></a></li>
+                    <div>   <!-- Etiquetas -->
+                        <a href="#" th:each="etiqueta : ${pregunta.getEtiquetas()}}"><span th:text="${etiqueta.getNombre()}" class="badge text-bg-info rounded-pill">Arrays</span></a>
                     </div>
                 </div>
 
                 <!--Título y cuerpo pregunta-->
-
                 <div class="post-details">
                     <div class="details-header">
                         <div class="row">
                             <div class="col-md-8">
                                 <div>
+                                    <!-- Botón de editar pregunta -->
                                     <a th:href="@{/preguntas/edit/{id}(id=${pregunta.getId()})}"
                                        class="btn border-dark">Editar Pregunta<i class="fa fa-thumbs-o-up "
                                                                                  aria-hidden="true"></i></a>
+                                    <!-- Botón de eliminar pregunta -->
                                     <a th:href="@{/preguntas/delete/{id}(id=${pregunta.getId()})}"
                                        class="btn border-dark btn-danger">Eliminar Pregunta<i class="fa fa-thumbs-o-up "
                                                                                               aria-hidden="true"></i></a>
-
+                                    <!-- Título y fecha de publicación -->
                                     <div class="col-12">
-                                        <h3 th:text="${pregunta.getTituloPregunta()}">Título Primera Pregunta</h3>
+                                        <h3 th:text="${pregunta.getTituloPregunta()}">Título Pregunta</h3>
                                         <span th:text="${pregunta.getFechaPregunta()}">Fecha de Publicación</span>
                                     </div>
 
@@ -151,12 +149,13 @@
                         </div>
                     </div>
                     <div>
+                        <!-- Contenido de la pregunta -->
                         <p th:text="${pregunta.getTextoPregunta}"> Texto Pregunta</p>
                         <div class="container">
                             <img src="/imagenes" alt="Imagen de la pregunta">
                         </div>
                         <hr>
-                        <!-- botones de like y dislike en de la pregunta -->
+                        <!-- botones de responder, like y dislike en de la pregunta -->
                         <div class="post-footer">
                             <div class="col">
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalRespuesta" >Responder</button>
@@ -212,8 +211,8 @@
                                                 </div>
                                                 <div class="col">
                                                     <button type="button" class="tooltip-button thumbs-up2"
-                                                            data-toggle="tooltip" data-placement="bottom" title="Like">
-                                                        Like<i class="fa fa-thumbs-o-up " aria-hidden="true"></i>
+                                                            data-toggle="tooltip" data-placement="bottom" title="Like">Like<i class="fa fa-thumbs-o-up "
+                                                                                                                              aria-hidden="true"></i>
                                                     </button>
                                                     <button type="button" class="tooltip-button  thumbs-down2"
                                                             data-toggle="tooltip" data-placement="bottom"

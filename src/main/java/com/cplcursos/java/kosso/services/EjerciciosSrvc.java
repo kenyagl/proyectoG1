@@ -40,8 +40,12 @@ public class EjerciciosSrvc {
             nextEj = ejerciciosRepository.findById(nextId);
         }
 
-        Long nextEjId = nextEj.get().getId();
-        return nextEjId;
+        if(nextEj.isPresent()){
+            Long nextEjId = nextEj.get().getId();
+            return nextEjId;
+        }
+
+        return null;
     }
 
 }

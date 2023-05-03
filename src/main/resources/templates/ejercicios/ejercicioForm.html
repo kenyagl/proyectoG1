@@ -58,7 +58,7 @@
                 <div class="row mb-3 g-3">
                     <div class="col-md-4">
                         <label for="validationTagsThreshold" class="form-label">Etiquetas (Mínimo 1)</label>
-                        <select class="form-select" id="validationTagsThreshold" name="tagsClearThreshold[]" multiple data-allow-clear="true" data-suggestions-threshold="1"
+                        <select class="form-select" id="validationTagsThreshold" name="tagsClearThreshold[]" multiple="true" data-allow-clear="true" data-suggestions-threshold="1"
                                 th:field="*{categorias}">
                             <option disabled hidden value="">Elige una etiqueta</option>
                             <option th:each="categoria : ${categoriasEj}" th:value="${categoria.getId()}" th:text="${categoria.getNombre()}"></option>

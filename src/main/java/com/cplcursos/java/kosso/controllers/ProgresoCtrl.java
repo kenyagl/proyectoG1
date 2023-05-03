@@ -1,5 +1,6 @@
 package com.cplcursos.java.kosso.controllers;
 import com.cplcursos.java.kosso.entities.RespuestaEjOpMul;
+import com.cplcursos.java.kosso.entities.Usuario;
 import com.cplcursos.java.kosso.services.RespuestaEjOpMulSrvc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

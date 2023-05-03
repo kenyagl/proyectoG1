@@ -19,23 +19,15 @@ public class RespuestaSrvc {
     public Optional<Respuesta> encontrarRespuesta(Long id){
         return respuestaRepo.findById(id);
     }
-
-//    public Respuesta findByIdPregunta(Pregunta pregunta){
-//        return respuestaRepo.findByIdRespuesta();
-//    }
-
     public List<Respuesta> findAll(){
         return respuestaRepo.findAll();
     }
-
     public Respuesta save (Respuesta respuesta){
         return respuestaRepo.save(respuesta);
     }
-
     public void borrarRespuesta(Long id){
         respuestaRepo.deleteById(id);
     }
-
     public void setFecha(Respuesta respuesta){
         respuesta.setFechaRespuesta(LocalDate.now());
     }

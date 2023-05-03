@@ -344,16 +344,21 @@
 
     <!-- Código para adjuntar el código de la respuesta en el formulario del comentario -->
     <script type="text/javascript">
+
         // comentModal contiene el nodo del DOM con el modal para el comentario
         const comentModal = document.getElementById('modalComentario')
+
         // Añadimos un escuchador para detectar cuándo se abre el modal. Este escuchador lo lanza Bootstrap.
         // Al activarse el escuchador, se ejecuta la función que recibe el objeto "evento".
         comentModal.addEventListener('show.bs.modal', event => {
+
             // La propiedad relatedtarget indica el nodo del DOM que envió el evento (en este caso, el botón que abre
             // el modal)
             let boton = event.relatedTarget
+
             // Del botón sacamos el valor de la propiedad data-idrespuesta que definimos en el html
             let idRespuesta = boton.getAttribute('data-idrespuesta')
+
             // Actualizamos el input oculto que contiene el id de la respuesta
             comentModal.querySelector('#idRespuesta').value = idRespuesta
         })

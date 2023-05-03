@@ -30,7 +30,7 @@ public class Comentario {
     @JoinColumn(name = "idUsuario")
     private Usuario usuario;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "idRespuesta", referencedColumnName = "id")
     private Respuesta respuesta;
 

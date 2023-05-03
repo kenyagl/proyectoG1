@@ -4,7 +4,6 @@ import com.cplcursos.java.kosso.entities.Comentario;
 import com.cplcursos.java.kosso.entities.Etiqueta;
 import com.cplcursos.java.kosso.entities.Pregunta;
 import com.cplcursos.java.kosso.entities.Respuesta;
-import com.cplcursos.java.kosso.repositories.RespuestaRepo;
 import com.cplcursos.java.kosso.services.ComentarioSrvc;
 import com.cplcursos.java.kosso.services.EtiquetaSrvc;
 import com.cplcursos.java.kosso.services.PreguntaSrvc;
@@ -15,19 +14,13 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Method;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Controller
 @Log4j2
 @RequestMapping("/preguntas")
 public class PreguntaCtrl {
-    @Autowired
-    private RespuestaRepo respuestaRepo;
-
     @Autowired
     private PreguntaSrvc preguntaSrvc;
 
@@ -112,24 +105,19 @@ public class PreguntaCtrl {
         respuesta.setFechaRespuesta(LocalDate.now());
 
         respuestaSrvc.save(respuesta);
-        return "redirect:/preguntas/preguntaPublicada/" + pregunta.getId();
+        return "redirect:/preguntas/preguntaPublicada/" + id;
     }
 
     // Controladores Comentarios
     @PostMapping(value = "/comentariosave")
-    public String crearComentario(@RequestParam(name = "idPregunta") Long idPregunta,/* @RequestParam(name = "idRespuesta") Long idRespuesta,*/ @RequestParam(name = "textoComentario") String textoComentario, Model model){
-        Pregunta pregunta = new Pregunta();
+    public String crearComentario(@RequestParam(name = "idPregunta") Long idPregunta, @RequestParam(name = "idRespuesta") Long idRespuesta, @RequestParam(name = "textoComentario") String textoComentario, Model model){
         Comentario comentario = new Comentario();
-        pregunta.setId(idPregunta);
-
-        // Problema cuando hay más de dos respuestas
-        Respuesta respuesta = respuestaRepo.findByPregunta_Id(idPregunta);
+        Respuesta respuesta = new Respuesta();
+        respuesta.setId(idRespuesta);
 
         comentario.setRespuesta(respuesta);
         comentario.setTextoComentario(textoComentario);
         comentario.setFechaComentario(LocalDate.now());
-
-
         comentarioSrvc.save(comentario);
         return "redirect:/preguntas/preguntaPublicada/" + idPregunta;
     }

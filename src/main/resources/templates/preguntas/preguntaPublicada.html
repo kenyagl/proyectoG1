@@ -112,171 +112,152 @@
 
 </head>
 <body>
-
-<header th:replace="components/cabeceraFrag :: cabecera"></header>
-<nav th:replace="components/menuLateral :: navbar"></nav>
-
-
-<!-- Hacer un botón de EDIT y otro de DELETE -->
-
-<div section class="container bg-light" style="width: 60%; margin:auto;">
+<section class="main">
+    <div class="container">
         <div class="row">
-                <!-- Cabecera de la pregunta -->
-                <div class="row">
-                        <div class="container-fluid">
-                                <div class="row">
-                                        <!-- Perfil de usuario -->
-                                        <div class="col-8">
-                                                <a href="#!" style="border: 2px; border-style: solid;">Img</a>
-                                                <a href="/usuario/prefil/{id}">UsuarioQuePregunta</a>
-    <section class="main">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
+            <div class="col-md-12">
 
-                    <!--tags and badges-->
+                <!--tags and badges-->
 
-                    <div class="d-flex gap-2 justify-content-center py-5">
-                        <h4>Tags</h4>
-                        <div>   <!-- Etiquetas -->
-                            <a href="#" th:each="etiqueta : ${pregunta.getEtiquetas()}"><span th:text="${etiqueta.getNombre()}" class="badge text-bg-info rounded-pill">Arrays</span></a>
-                        </div>
+                <div class="d-flex gap-2 justify-content-center py-5">
+                    <h4>Tags</h4>
+                    <div>   <!-- Etiquetas -->
+                        <a href="#" th:each="etiqueta : ${pregunta.getEtiquetas()}"><span th:text="${etiqueta.getNombre()}" class="badge text-bg-info rounded-pill">Arrays</span></a>
                     </div>
+                </div>
 
-                    <!--Título y cuerpo pregunta-->
-                    <div class="post-details">
-                        <div class="details-header">
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <div>
-                                        <!-- Botón de editar pregunta -->
-                                        <a th:href="@{/preguntas/edit/{id}(id=${pregunta.getId()})}"
-                                           class="btn border-dark">Editar Pregunta<i class="fa fa-thumbs-o-up "
-                                                                                     aria-hidden="true"></i></a>
-                                        <!-- Botón de eliminar pregunta -->
-                                        <a th:href="@{/preguntas/delete/{id}(id=${pregunta.getId()})}"
-                                           class="btn border-dark btn-danger">Eliminar Pregunta<i class="fa fa-thumbs-o-up "
-                                                                                                  aria-hidden="true"></i></a>
-                                        <!-- Título y fecha de publicación -->
-                                        <div class="col-12">
-                                            <h3 th:text="${pregunta.getTituloPregunta()}">Título Pregunta</h3>
-                                            <span th:text="${pregunta.getFechaPregunta()}">Fecha de Publicación</span>
-                                        </div>
-
+                <!--Título y cuerpo pregunta-->
+                <div class="post-details">
+                    <div class="details-header">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div>
+                                    <!-- Botón de editar pregunta -->
+                                    <a th:href="@{/preguntas/edit/{id}(id=${pregunta.getId()})}"
+                                       class="btn border-dark">Editar Pregunta<i class="fa fa-thumbs-o-up "
+                                                                                 aria-hidden="true"></i></a>
+                                    <!-- Botón de eliminar pregunta -->
+                                    <a th:href="@{/preguntas/delete/{id}(id=${pregunta.getId()})}"
+                                       class="btn border-dark btn-danger">Eliminar Pregunta<i class="fa fa-thumbs-o-up "
+                                                                                              aria-hidden="true"></i></a>
+                                    <!-- Título y fecha de publicación -->
+                                    <div class="col-12">
+                                        <h3 th:text="${pregunta.getTituloPregunta()}">Título Pregunta</h3>
+                                        <span th:text="${pregunta.getFechaPregunta()}">Fecha de Publicación</span>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Título de la pregunta -->
-                        <div>
-                            <!-- Contenido de la pregunta -->
-                            <p th:text="${pregunta.getTextoPregunta}"> Texto Pregunta</p>
-                            <div class="container">
-                                <img src="/imagenes" alt="Imagen de la pregunta">
-                            </div>
-                            <hr>
-                            <!-- botones de responder, like y dislike en de la pregunta -->
-                            <div class="post-footer">
-                                <div class="col">
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalRespuesta" >Responder</button>
-                                    <button type="button" class="tooltip-button thumbs-up2" data-toggle="tooltip"
-                                            data-placement="bottom" title="Like">Like<i class="fa fa-thumbs-o-up " aria-hidden="true"></i></button>
-                                    <button type="button" class="tooltip-button  thumbs-down2" data-toggle="tooltip" data-placement="bottom" title="Dislike">Dislike<i class="fa fa-thumbs-o-down"
-                                                                                              aria-hidden="true"></i>
-                                    </button>
-                                    <span class="single-question-vote-result">+22 Votos</span>
+
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div>
+                        <!-- Contenido de la pregunta -->
+                        <p th:text="${pregunta.getTextoPregunta}"> Texto Pregunta</p>
+                        <div class="container">
+                            <img src="/imagenes" alt="Imagen de la pregunta">
+                        </div>
+                        <hr>
+                        <!-- botones de responder, like y dislike en de la pregunta -->
+                        <div class="post-footer">
+                            <div class="col">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalRespuesta" >Responder</button>
+                                <button type="button" class="tooltip-button thumbs-up2" data-toggle="tooltip"
+                                        data-placement="bottom" title="Like">Like<i class="fa fa-thumbs-o-up " aria-hidden="true"></i></button>
+                                <button type="button" class="tooltip-button  thumbs-down2" data-toggle="tooltip" data-placement="bottom" title="Dislike">Dislike<i class="fa fa-thumbs-o-down"
+                                                                                                                                                                   aria-hidden="true"></i>
+                                </button>
+                                <span class="single-question-vote-result">+22 Votos</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                    <!-- Respuestas -->
+                <!-- Respuestas -->
 
-                    <section>
-                        <div class="row d-flex justify-content-center">
-                            <div class="container-fluid">
+                <section>
+                    <div class="row d-flex justify-content-center">
+                        <div class="container-fluid">
 
-                                <div class="card-body p-4">
-                                    <h4 class="text-center mb-4 pb-2">Respuestas</h4>
+                            <div class="card-body p-4">
+                                <h4 class="text-center mb-4 pb-2">Respuestas</h4>
 
-                                    <div class="row">
-                                        <div class="col">
+                                <div class="row">
+                                    <div class="col">
 
-                                            <!-- Cada Respuesta -->
-                                            <div th:each="respuesta : ${pregunta.getRespuestas()}" class="d-flex flex-start">
-                                                <img class="rounded-circle shadow-1-strong me-3"
-                                                     src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(10).webp"
-                                                     alt="avatar" width="65"
-                                                     height="65"/>
-                                                <div class="flex-grow-1 flex-shrink-1">
-                                                    <div>
-                                                        <div class="d-flex justify-content-between align-items-center">
+                                        <!-- Cada Respuesta -->
+                                        <div th:each="respuesta : ${pregunta.getRespuestas()}" class="d-flex flex-start">
+                                            <img class="rounded-circle shadow-1-strong me-3"
+                                                 src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(10).webp"
+                                                 alt="avatar" width="65"
+                                                 height="65"/>
+                                            <div class="flex-grow-1 flex-shrink-1">
+                                                <div>
+                                                    <div class="d-flex justify-content-between align-items-center">
 
-                                                            <!-- Usuario de la respuesta y fecha -->
-                                                            <p class="mb-1">
-                                                                Maria Smantha <span th:text="${respuesta.getFechaRespuesta()}" class="small">- 2 hours ago</span>
-                                                            </p>
-
-                                                            <!-- Comentar una pregunta -->
-                                                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalComentario" th:attr="data-idrespuesta=${respuesta.getId()}">
-                                                                <span class="small"> Comentar</span>
-                                                            </button>
-                                                        </div>
-
-                                                        <!-- Texto de la respuesta -->
-                                                        <p th:text="${respuesta.getTextoRespuesta()}" class="small mb-0">
-                                                            It is a long-established fact that a reader will be distracted
-                                                            by
-                                                            the readable content of a page.
+                                                        <!-- Usuario de la respuesta y fecha -->
+                                                        <p class="mb-1">
+                                                            Maria Smantha <span th:text="${respuesta.getFechaRespuesta()}" class="small">- 2 hours ago</span>
                                                         </p>
-                                                    </div>
-                                                    <div class="col">
-                                                        <button type="button" class="tooltip-button thumbs-up2"
-                                                                data-toggle="tooltip" data-placement="bottom" title="Like">Like<i class="fa fa-thumbs-o-up "
-                                                                                                                                  aria-hidden="true"></i>
+
+                                                        <!-- Comentar una pregunta -->
+                                                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalComentario" th:attr="data-idrespuesta=${respuesta.getId()}">
+                                                            <span class="small"> Comentar</span>
                                                         </button>
-                                                        <button type="button" class="tooltip-button  thumbs-down2"
-                                                                data-toggle="tooltip" data-placement="bottom"
-                                                                title="Dislike">Dislike<i class="fa fa-thumbs-o-down"
-                                                                                          aria-hidden="true"></i></button>
-                                                        <span class="single-question-vote-result">+22 Votos</span>
                                                     </div>
 
-                                                    <!-- Sección de comentarios -->
-                                                    <div th:each="comentario : ${respuesta.getComentario()}" class="d-flex flex-start mt-4">
-                                                        <a class="me-3" href="#">
-                                                            <img class="rounded-circle shadow-1-strong"
-                                                                 src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(11).webp"
-                                                                 alt="avatar"
-                                                                 width="65" height="65"/>
-                                                        </a>
-                                                        <div class="flex-grow-1 flex-shrink-1">
-                                                            <div>
-                                                                <div class="d-flex justify-content-between align-items-center">
-                                                                    <p class="mb-1">
-                                                                        Simona Disa <span th:text="${comentario.getFechaComentario()}" class="small">- 3 hours ago</span>
-                                                                    </p>
+                                                    <!-- Texto de la respuesta -->
+                                                    <p th:text="${respuesta.getTextoRespuesta()}" class="small mb-0">
+                                                        It is a long-established fact that a reader will be distracted
+                                                        by
+                                                        the readable content of a page.
+                                                    </p>
+                                                </div>
+                                                <div class="col">
+                                                    <button type="button" class="tooltip-button thumbs-up2"
+                                                            data-toggle="tooltip" data-placement="bottom" title="Like">Like<i class="fa fa-thumbs-o-up "
+                                                                                                                              aria-hidden="true"></i>
+                                                    </button>
+                                                    <button type="button" class="tooltip-button  thumbs-down2"
+                                                            data-toggle="tooltip" data-placement="bottom"
+                                                            title="Dislike">Dislike<i class="fa fa-thumbs-o-down"
+                                                                                      aria-hidden="true"></i></button>
+                                                    <span class="single-question-vote-result">+22 Votos</span>
+                                                </div>
 
-                                                                </div>
-                                                                <p th:text="${comentario.getTextoComentario()}" class="small mb-0">
-                                                                    letters, as opposed to using 'Content here, content
-                                                                    here',
-                                                                    making it look like readable English.
+                                                <!-- Sección de comentarios -->
+                                                <div th:each="comentario : ${respuesta.getComentario()}" class="d-flex flex-start mt-4">
+                                                    <a class="me-3" href="#">
+                                                        <img class="rounded-circle shadow-1-strong"
+                                                             src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(11).webp"
+                                                             alt="avatar"
+                                                             width="65" height="65"/>
+                                                    </a>
+                                                    <div class="flex-grow-1 flex-shrink-1">
+                                                        <div>
+                                                            <div class="d-flex justify-content-between align-items-center">
+                                                                <p class="mb-1">
+                                                                    Simona Disa <span th:text="${comentario.getFechaComentario()}" class="small">- 3 hours ago</span>
                                                                 </p>
-                                                                <div class="col">
-                                                                    <button type="button" class="tooltip-button thumbs-up2"
-                                                                            data-toggle="tooltip" data-placement="bottom"
-                                                                            title="Like">Like<i class="fa fa-thumbs-o-up "
-                                                                                                aria-hidden="true"></i>
-                                                                    </button>
-                                                                    <button type="button"
-                                                                            class="tooltip-button  thumbs-down2"
-                                                                            data-toggle="tooltip" data-placement="bottom"
-                                                                            title="Dislike">Dislike<i
-                                                                            class="fa fa-thumbs-o-down"
-                                                                            aria-hidden="true"></i></button>
-                                                                    <span class="single-question-vote-result">+22 Votos</span>
-                                                                </div>
+
+                                                            </div>
+                                                            <p th:text="${comentario.getTextoComentario()}" class="small mb-0">
+                                                                letters, as opposed to using 'Content here, content
+                                                                here',
+                                                                making it look like readable English.
+                                                            </p>
+                                                            <div class="col">
+                                                                <button type="button" class="tooltip-button thumbs-up2"
+                                                                        data-toggle="tooltip" data-placement="bottom"
+                                                                        title="Like">Like<i class="fa fa-thumbs-o-up "
+                                                                                            aria-hidden="true"></i>
+                                                                </button>
+                                                                <button type="button"
+                                                                        class="tooltip-button  thumbs-down2"
+                                                                        data-toggle="tooltip" data-placement="bottom"
+                                                                        title="Dislike">Dislike<i
+                                                                        class="fa fa-thumbs-o-down"
+                                                                        aria-hidden="true"></i></button>
+                                                                <span class="single-question-vote-result">+22 Votos</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -285,87 +266,88 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
+
                         </div>
-                    </section>
+                    </div>
+                </section>
 
 
-                    <!-- Modal respuesta -->
-                    <div class="modal fade modal-lg" id="modalRespuesta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" >
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Responder pregunta</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form th:action="@{/preguntas/respuestasave}" th:method="post">
-                                        <input type="hidden" th:value="@{{id}(id=${pregunta.getId()})}" name="idPregunta" >
-                                        <div class="mb-3 form-group">
-                                            <label for="textoRespuesta">Respuesta:</label>
-                                            <input type="text" class="form-control" id="textoRespuesta" name="textoRespuesta" required>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                            <button type="submit"  class="btn btn-primary">Publicar</button>
-                                        </div>
-                                    </form>
-                                </div>
+                <!-- Modal respuesta -->
+                <div class="modal fade modal-lg" id="modalRespuesta" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" >
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Responder pregunta</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form th:action="@{/preguntas/respuestasave}" th:method="post">
+                                    <input type="hidden" th:value="@{{id}(id=${pregunta.getId()})}" name="idPregunta" >
+                                    <div class="mb-3 form-group">
+                                        <label for="textoRespuesta">Respuesta:</label>
+                                        <input type="text" class="form-control" id="textoRespuesta" name="textoRespuesta" required>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="submit"  class="btn btn-primary">Publicar</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
-
-
-                    <!--Modal comentario-->
-
-                    <div class="modal fade modal-lg" id="modalComentario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" >
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="comentario">Comentar</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form th:action="@{/preguntas/comentariosave}" th:method="post">
-                                        <input type="hidden" th:value="@{{id}(id=${pregunta.getId()})}" name="idPregunta" >
-                                        <input type="hidden" name="idRespuesta" id="idRespuesta">
-                                        <div class="mb-3 form-group">
-                                            <label for="textoComentario">Comentario:</label>
-                                            <input type="text" class="form-control" id="textoComentario" name="textoComentario" required>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                            <button type="submit"  class="btn btn-primary">Publicar</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- footer -->
-
-
                 </div>
+
+
+                <!--Modal comentario-->
+
+                <div class="modal fade modal-lg" id="modalComentario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" >
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="comentario">Comentar</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form th:action="@{/preguntas/comentariosave}" th:method="post">
+                                    <input type="hidden" th:value="@{{id}(id=${pregunta.getId()})}" name="idPregunta" >
+                                    <input type="hidden" name="idRespuesta" id="idRespuesta">
+                                    <div class="mb-3 form-group">
+                                        <label for="textoComentario">Comentario:</label>
+                                        <input type="text" class="form-control" id="textoComentario" name="textoComentario" required>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="submit"  class="btn btn-primary">Publicar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- footer -->
+
+
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Optional JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-            integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
-            crossorigin="anonymous">
+<!-- Optional JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+        crossorigin="anonymous">
 
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
-            integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
-            crossorigin="anonymous">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+        crossorigin="anonymous">
 
-    </script>
+</script>
 
-    <!-- Código para adjuntar el código de la respuesta en el formulario del comentario -->
-    <script type="text/javascript">
+<!-- Código para adjuntar el código de la respuesta en el formulario del comentario -->
+<script type="text/javascript">
 
         // comentModal contiene el nodo del DOM con el modal para el comentario
         const comentModal = document.getElementById('modalComentario')

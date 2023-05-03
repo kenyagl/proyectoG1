@@ -44,7 +44,7 @@ public class EjercicioCtrl {
         model.addAttribute("ejercicios", ejerciciosService.findAll());
         model.addAttribute("totalusu", totalusu);
         //return "ejercicios/ejercicio-list";
-        return "ejercicios/menuEjercicios";
+        return "ejercicios/menuEjercicios_Kenya";
     }
 
     @GetMapping("/{id}")

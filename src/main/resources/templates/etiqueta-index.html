@@ -21,28 +21,19 @@
 
     <!-- Estilos personalizados -->
 
-    <link href="proyectoG1/src/main/resources/css/tags-standalone.min.css" rel="stylesheet" />
-
+    <link href="../css/tags-standalone.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/styles.css">
 
     <title>indexEtiqueta</title>
 
-    <style>
-      body {
-        font-family: sans-serif;
-      }
 
-      .mb-3 {
-        margin-bottom: 1em;
-      }
-
-      .container {
-        padding: 2em
-      }
-    </style>
 
 </head>
 
 <body>
+<header th:replace="components/cabeceraFrag :: cabecera"></header>
+<nav th:replace="components/menuLateral :: navbar"></nav>
+
     <div class="container">
       <h1>Demo Etiquetas</h1>
       <form class="needs-validation" novalidate method="get" action="https://vercel-dumper.vercel.app/">

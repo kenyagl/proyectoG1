@@ -20,10 +20,6 @@
 </head>
 
 <body>
-
-<header>
-    <h1 th:text="${ejercicio.getTitulo()}">Título del ejercicio</h1>
-</header>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script th:inline="javascript">
@@ -54,57 +50,82 @@
 </script>
 
 <div class="container">
-    <p th:text="${ejercicio.getDescripcion()}">Descripción del ejercicio</p>
-    <img src="../../static/${ejercicio.getImagen()}" height="138" width="580" alt="<Code picture>"
-         class="img-fluid mb-3"/>
-    <form id="myForm">
-        <input type="hidden" id="resultMessageInput" name="resultMessage" th:value="${resultMessage}" />
-        <input type="hidden" id="id_usuario" th:value="${id_usuario}"/>
-        <input type="hidden" id="id_ejercicio" th:value="${ejercicio.getId()}"/>
-        <label>
-            <input type="radio" name="answer" value="1" th:value="${ejercicio.getOpcion1()}"/>
-            <span th:text="${ejercicio.getOpcion1()}">Option 1</span>
-        </label>
-        <br/>
-        <label>
-            <input type="radio" name="answer" value="2" th:value="${ejercicio.getOpcion2()}"/>
-            <span th:text="${ejercicio.getOpcion2()}">Option 2</span>
-        </label>
-        <br/>
-        <label>
-            <input type="radio" name="answer" value="3" th:value="${ejercicio.getOpcion3()}"/>
-            <span th:text="${ejercicio.getOpcion3()}">Option 3</span>
-        </label>
-        <br/>
-        <label>
-            <input type="radio" name="answer" value="4" th:value="${ejercicio.getOpcion4()}"/>
-            <span th:text="${ejercicio.getOpcion4()}">Option 4</span>
-        </label>
-        <br/>
-        <button type="button" onclick="respuesta(document.querySelector('input[name=answer]:checked').value)"
-                class="btn btn-primary" data-bs-toggle="modal"
-                data-bs-target="#resultModal">Comprueba tu respuesta
-        </button>
-    </form>
+    <br><br>
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <h1 th:text="${ejercicio.getTitulo()}">Título del ejercicio</h1>
+            <p th:text="${ejercicio.getDescripcion()}">Descripción del ejercicio</p>
+            <img src="../../static/${ejercicio.getImagen()}" height="138" width="580" alt="<Code picture>"
+                 class="img-fluid mb-3"/>
+            <form id="myForm" class="was-validated">
+                <input type="hidden" id="resultMessageInput" name="resultMessage" th:value="${resultMessage}"/>
+                <input type="hidden" id="id_usuario" th:value="${id_usuario}"/>
+                <input type="hidden" id="id_ejercicio" th:value="${ejercicio.getId()}"/>
+                <label>
+                    <input type="radio" class="form-check-input" name="answer" value="1" id="op1" required
+                           th:value="${ejercicio.getOpcion1()}"/>
+                    <label type="form-check-label" for="op4" th:text="${ejercicio.getOpcion1()}">Option 1</label>
+                </label>
+                <br/>
+                <label>
+                    <input type="radio" class="form-check-input" name="answer" value="2" id="op2" required
+                           th:value="${ejercicio.getOpcion2()}"/>
+                    <label type="form-check-label" for="op4" th:text="${ejercicio.getOpcion2()}">Option 2</label>
+                </label>
+                <br/>
+                <label>
+                    <input type="radio" class="form-check-input" name="answer" value="3" id="op3" required
+                           th:value="${ejercicio.getOpcion3()}"/>
+                    <label type="form-check-label" for="op4" th:text="${ejercicio.getOpcion3()}">Option 3</label>
+                </label>
+                <br/>
+                <label>
+                    <input type="radio" class="form-check-input" name="answer" value="4" id="op4" required
+                           th:value="${ejercicio.getOpcion4()}"/>
+                    <label type="form-check-label" for="op4" th:text="${ejercicio.getOpcion4()}">Option 4</label>
+                </label>
+                <br/>
+                <button type="button" onclick="respuesta(document.querySelector('input[name=answer]:checked').value)"
+                        class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#resultModal">Comprueba tu
+                    respuesta
+                </button>
+            </form>
+        </div>
+        <div class="col-3">
+        </div>
+    </div>
 </div>
 
 <div class="modal fade" id="resultModal" tabindex="-1" aria-labelledby="resultModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="resultModalLabel">Resultado</h5>
+                <div class="row">
+                    <div class="col-4"></div>
+                    <div class="col-6">
+                        <h5 class="modal-title" id="resultModalLabel">Resultado</h5>
+                    </div>
+                    <div class="col-2"></div>
+                </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <p id="result"></p>
             </div>
-            <div id="resultMessage">ResultMessage</div>
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-8" id="resultMessage">ResultMessage</div>
+                <div class="col-2"></div>
+            </div>
+
 
             <br><br>
 
             <div class="modal-footer">
-<!--                <button th:if="${resultMessageInput == 'Lo siento, tu respuesta no es correcta.'}" type="button" class="btn btn-danger" data-bs-dismiss="modal">Inténtalo otra vez</button>-->
-                <a th:if="${idNextEjer != null}" th:href="@{/ejercicios/{id}(id = ${idNextEjer})}" class="btn" th:classappend="${totalusu<puntoAccesoNext} ? 'disabled btn-secondary' : 'btn-primary'" data-bs-dismiss="modal">Siguiente</a>
+                <a th:if="${idNextEjer != null}" th:href="@{/ejercicios/{id}(id = ${idNextEjer})}" class="btn"
+                   th:classappend="${totalusu<puntoAccesoNext} ? 'disabled btn-secondary' : 'btn-primary'"
+                   data-bs-dismiss="modal">Siguiente</a>
                 <a th:href="@{/ejercicios}" class="btn btn-secondary" data-bs-dismiss="modal">Volver al menú</a>
             </div>
         </div>

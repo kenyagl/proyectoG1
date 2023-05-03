@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -53,6 +52,9 @@ public class EjercicioOpMul {
             inverseJoinColumns = @JoinColumn(name = "id_categoriaEjercicios")
     )
     private List<CategoriaEjercicios> categorias;
+
+    @OneToMany
+    private List<RespuestaEjOpMul> respuestaEjOpMul;
 
 }
 

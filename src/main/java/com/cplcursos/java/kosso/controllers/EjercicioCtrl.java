@@ -4,7 +4,6 @@ import com.cplcursos.java.kosso.entities.EjercicioOpMul;
 import com.cplcursos.java.kosso.entities.RespuestaEjOpMul;
 import com.cplcursos.java.kosso.entities.Usuario;
 import com.cplcursos.java.kosso.entities.IdRespuestaEj;
-import com.cplcursos.java.kosso.repositories.EjercicioRepo;
 import com.cplcursos.java.kosso.services.CategoriaSrvc;
 import com.cplcursos.java.kosso.services.RespuestaEjOpMulSrvc;
 import com.cplcursos.java.kosso.services.UsuarioSrvcImpl;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.cplcursos.java.kosso.services.EjerciciosSrvc;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -196,11 +194,4 @@ public class EjercicioCtrl {
         model.addAttribute("resultMessage", resultMessage);
         return "partesAjax :: resultadoRespuesta";
     }
-    /*
-
-            // Falta meter el usuario con la securización
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            Optional<Usuario> usuario = usuarioSrvc.findById(authentication.getId());
-
-            */
 }

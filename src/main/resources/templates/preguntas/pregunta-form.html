@@ -10,7 +10,7 @@
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/styles.css">
     <!-- Estilos personalizados -->
-    <link href="" type="text/css" rel="stylesheet">
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Nueva Pregunta</title>
@@ -22,7 +22,7 @@
 
 
     <!-- Formulario para publicar una pregunta -->
-  <form th:action="@{/preguntas/save}" th:object="${pregunta}" class="form-horizontal" method="post">
+  <form th:action="@{/preguntas/save}" th:object="${pregunta}" class="form-horizontal" method="post" style="margin-top: 150px; margin-left: 100px;">
       <input type="hidden" th:field="*{id}">
       <input type="hidden" th:field="*{fechaPregunta}">
       <fieldset>

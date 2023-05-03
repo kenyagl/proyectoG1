@@ -3,7 +3,7 @@ package com.cplcursos.java.kosso.controllers;
 import com.cplcursos.java.kosso.entities.EjercicioOpMul;
 import com.cplcursos.java.kosso.entities.RespuestaEjOpMul;
 import com.cplcursos.java.kosso.entities.Usuario;
-import com.cplcursos.java.kosso.entities.IdRespuestaEj;
+/*import com.cplcursos.java.kosso.entities.IdRespuestaEj*/;
 import com.cplcursos.java.kosso.repositories.EjercicioRepo;
 import com.cplcursos.java.kosso.services.RespuestaEjOpMulSrvc;
 import lombok.extern.log4j.Log4j2;
@@ -137,8 +137,8 @@ public class EjercicioCtrl {
 
                 model.addAttribute("resultMessage", resultMessage);
 
-                RespuestaEjOpMul respuestaEjOpMul = new RespuestaEjOpMul(new IdRespuestaEj(ejercicio, usuario), miRespuesta, LocalDateTime.now());
-                respuestaEjOpMulSrvc.saveAndFlush(respuestaEjOpMul);
+                /*RespuestaEjOpMul respuestaEjOpMul = new RespuestaEjOpMul(new IdRespuestaEj(ejercicio, usuario), miRespuesta, LocalDateTime.now());
+                respuestaEjOpMulSrvc.saveAndFlush(respuestaEjOpMul);*/
 
             } else {
                 resultMessage = "incorrecto";

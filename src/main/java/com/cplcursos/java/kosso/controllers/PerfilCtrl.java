@@ -48,6 +48,11 @@ public class PerfilCtrl {
         return "preguntas/pregunta-list";
     }
 
+    @GetMapping("/progreso")
+    public String showProgreso (Model model){
+        return "tuprogreso";
+    }
+
 }
 
 

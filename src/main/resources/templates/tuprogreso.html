@@ -42,25 +42,34 @@
 
 <!-- Page Heading -->
     <div class="container align-items-center justify-content-between mb-4">
-        <h1 class="mb-0 text-dark">Tu Progreso</h1>
+        <h1 class="mb-4 text-dark">Tu Progreso</h1>
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-secondary active">
+                <input type="radio" name="mes" id="mes" autocomplete="off" checked> Mes
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="semana" id="semana" autocomplete="off"> Semana
+            </label>
+            <label class="btn btn-secondary">
+                <input type="radio" name="dia" id="dia" autocomplete="off"> Dia
+            </label>
+        </div>
         <div>
             <ul>
-            <div>
-                <a href="#" class="text-dark"><i
-                    class="fas fa-download fa-sm text-white-50"></i>Estadísticas</a>
-            </div>
-                <div>
-                    <a href="#" class="text-dark"><i
-                            class="fas fa-download fa-sm text-white-50"></i>Tus preguntas en el foro</a>
-                </div>
-                <div>
+                <li>
+                    <a href="preguntas/pregunta-list.html" class="text-dark"><i
+                            class="fas fa-download fa-sm text-white-50"></i>Foro de preguntas</a>
+                </li>
+                    <!--Hay que decidir si esto te redirecciona al foro o las preguntas del usuario en el foro-->
+                <li>
                     <a href="#" class="text-dark"><i
                             class="fas fa-download fa-sm text-white-50"></i>Seguir</a>
-                </div>
+                </li>
             </ul>
         </div>
     </div>
 <!--Barras de progreso genericas-->
+
     <main class="col overflow-auto h-100">
         <div class="bg-light border rounded-3 p-3">
             <h2>Tu Progreso</h2>

@@ -29,7 +29,9 @@ public class Usuario {
     private Boolean activo = false;
     private Date creadoEl;
     private String acercaDe;
+    // Linked to tuprogreso must have some type of relationship to date in class RespuestaEjOpMul
     private Integer puntosEjercicios;
+    // Linked to tuprogreso must have some type of relationship to date in class RespuestaEjOpMul
     private Integer puntosRespuestas;
     @OneToMany(mappedBy = "usuario")
     private List<RespuestaEjOpMul> respuestaEjOpMuls = new ArrayList<>();

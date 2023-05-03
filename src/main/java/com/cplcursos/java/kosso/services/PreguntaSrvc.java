@@ -27,11 +27,7 @@ public class PreguntaSrvc  {
         return preguntaRepo.findAll();
     }
 
-    public Optional<Pregunta> encontrarPregunta(Long id){
-        return preguntaRepo.findById(id);
-    }
-
-    public Pregunta save (Pregunta pregunta){
+    public Pregunta save(Pregunta pregunta){
         return preguntaRepo.save(pregunta);
     }
 

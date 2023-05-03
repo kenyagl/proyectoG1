@@ -43,7 +43,6 @@ public class Usuario {
     }
 
     @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-
     private List<DiaCalendario> diaCalendario = new ArrayList<>();
 
     @OneToMany(mappedBy = "usuario")

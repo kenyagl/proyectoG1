@@ -1,7 +1,13 @@
 package com.cplcursos.java.kosso.controllers;
 
+import com.cplcursos.java.kosso.entities.Comentario;
+import com.cplcursos.java.kosso.entities.Etiqueta;
 import com.cplcursos.java.kosso.entities.Pregunta;
+import com.cplcursos.java.kosso.entities.Respuesta;
+import com.cplcursos.java.kosso.services.ComentarioSrvc;
+import com.cplcursos.java.kosso.services.EtiquetaSrvc;
 import com.cplcursos.java.kosso.services.PreguntaSrvc;
+import com.cplcursos.java.kosso.services.RespuestaSrvc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import lombok.extern.log4j.Log4j2;
@@ -18,6 +24,15 @@ public class PreguntaCtrl {
     @Autowired
     private PreguntaSrvc preguntaSrvc;
 
+    @Autowired
+    private RespuestaSrvc respuestaSrvc;
+
+    @Autowired
+    private ComentarioSrvc comentarioSrvc;
+
+    @Autowired
+    private EtiquetaSrvc etiquetaSrvc;
+
     @GetMapping(value = {"/", ""})
     public String mostrarPreguntas (Model model){
         model.addAttribute("preguntas",preguntaSrvc.findAll());
@@ -25,7 +40,6 @@ public class PreguntaCtrl {
     }
 
     // Muestra la pregunta publicada por su id
-    // Hay un problema que desde la url http://localhost:8080/preguntas/ con la barra al final no muestra la pregunta publicada
     @GetMapping(value = "/preguntaPublicada/{id}")
     public String verPreguntaPublicada (@PathVariable Long id, Model model){
         Optional<Pregunta> pregunta = preguntaSrvc.findById(id);
@@ -42,9 +56,11 @@ public class PreguntaCtrl {
         if (pregunta.getFechaPregunta() == null){
             preguntaSrvc.setFecha(pregunta);
         }
+
         preguntaSrvc.save(pregunta);
         return "redirect:/preguntas/preguntaPublicada/" + pregunta.getId();
     }
+
 
     @GetMapping(value = "/edit/{id}")
     public String editarPregunta( @PathVariable("id") Long id, Model model){
@@ -61,12 +77,13 @@ public class PreguntaCtrl {
     @GetMapping(value = "/new")
     public String verFormularioPregunta (Model model){
         model.addAttribute("pregunta", new Pregunta());
+
         return "preguntas/pregunta-form";
     }
 
     @PostMapping("/new")
     public String guardarPregunta (@PathVariable("id") Long id, Model model){
-        model.addAttribute("pregunta", preguntaSrvc.encontrarPregunta(id));
+        model.addAttribute("pregunta", preguntaSrvc.findById(id));
         return "preguntas/preguntaPublicada";
     }
 
@@ -76,8 +93,34 @@ public class PreguntaCtrl {
         return "redirect:/preguntas";
     }
 
-    // Controlador para votos
+    // Controladores para Respuestas
 
+    @PostMapping(value = "/respuestasave")
+    public String crearRespuesta (@RequestParam(name = "idPregunta") Long id, @RequestParam(name = "textoRespuesta") String textoRespuesta, Model model){
+        Respuesta respuesta = new Respuesta();
+        Pregunta pregunta = new Pregunta();
+        pregunta.setId(id);
+        respuesta.setPregunta(pregunta);
+        respuesta.setTextoRespuesta(textoRespuesta);
+        respuesta.setFechaRespuesta(LocalDate.now());
+
+        respuestaSrvc.save(respuesta);
+        return "redirect:/preguntas/preguntaPublicada/" + id;
+    }
+
+    // Controladores Comentarios
+    @PostMapping(value = "/comentariosave")
+    public String crearComentario(@RequestParam(name = "idPregunta") Long idPregunta, @RequestParam(name = "idRespuesta") Long idRespuesta, @RequestParam(name = "textoComentario") String textoComentario, Model model){
+        Comentario comentario = new Comentario();
+        Respuesta respuesta = new Respuesta();
+        respuesta.setId(idRespuesta);
+
+        comentario.setRespuesta(respuesta);
+        comentario.setTextoComentario(textoComentario);
+        comentario.setFechaComentario(LocalDate.now());
+        comentarioSrvc.save(comentario);
+        return "redirect:/preguntas/preguntaPublicada/" + idPregunta;
+    }
 
 
 

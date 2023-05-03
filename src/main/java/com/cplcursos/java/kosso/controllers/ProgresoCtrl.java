@@ -1,6 +1,5 @@
 package com.cplcursos.java.kosso.controllers;
 import com.cplcursos.java.kosso.entities.RespuestaEjOpMul;
-import com.cplcursos.java.kosso.entities.Usuario;
 import com.cplcursos.java.kosso.services.RespuestaEjOpMulSrvc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +13,6 @@ import java.util.List;
 @Controller
 @RequestMapping("/progreso")
 public class ProgresoCtrl {
-    // Aquí va la declarición opcional de los servicios con la notación @Autowired
     @Autowired
     RespuestaEjOpMulSrvc respuestaEjOpMulSrvc;
     @GetMapping("/progreso-mensual")

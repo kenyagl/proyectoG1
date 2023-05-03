@@ -33,8 +33,6 @@ public class Usuario {
     private Integer puntosEjercicios;
     // Linked to tuprogreso must have some type of relationship to date in class RespuestaEjOpMul
     private Integer puntosRespuestas;
-    @OneToMany(mappedBy = "usuario")
-    private List<RespuestaEjOpMul> respuestaEjOpMuls = new ArrayList<>();
     public Usuario(Long id) {
         this.id = id;
     }
@@ -60,6 +58,5 @@ public class Usuario {
 
     @OneToMany
     @JoinColumn(name = "usuario_id")
-    private List<RespuestaEjOpMul> respuestasEj = new ArrayList<>();
-
+    private List<RespuestaEjOpMul> respuestasEjOpMul = new ArrayList<>();
 }

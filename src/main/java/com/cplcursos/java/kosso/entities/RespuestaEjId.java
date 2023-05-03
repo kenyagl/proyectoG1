@@ -1,13 +1,13 @@
 package com.cplcursos.java.kosso.entities;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
-
+import jakarta.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
 
 @Embeddable
 public class RespuestaEjId implements Serializable {
-    private Long idUsuario;
-    private Long idEjercicioOpMul;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ejercicio_id")
+    private EjercicioOpMul ejercicioOpMul;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
 }

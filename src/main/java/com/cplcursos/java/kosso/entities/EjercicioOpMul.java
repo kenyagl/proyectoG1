@@ -34,15 +34,11 @@ public class EjercicioOpMul {
     private String opcion1;
 
     private String opcion2;
-
     private String opcion3;
-
     private String opcion4;
-
     private String respuestaCorrecta;
-
     private String respuestaUsuario;
-    @OneToMany(mappedBy = "ejercicioOpMul")
-    private List<RespuestaEjOpMul> respuestaEjOpMuls = new ArrayList<>();
+    @OneToMany(mappedBy = "ejercicio_op_mul_id")
+    private List<RespuestaEjOpMul> respuestasEjOpMul = new ArrayList<>();
 }
 

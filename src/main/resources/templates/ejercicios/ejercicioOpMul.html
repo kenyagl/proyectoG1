@@ -103,12 +103,9 @@
             <br><br>
 
             <div class="modal-footer">
-                <a class="btn" th:href="@{/ejercicios/{id}(id=${nextEjer.getId()})}"
-                   th:classappend="${totalusu<nextEjer.getPuntosAcceso()} ? 'disabled btn-secondary' : 'btn-primary'">Siguiente</a>
 <!--                <button th:if="${resultMessageInput == 'Lo siento, tu respuesta no es correcta.'}" type="button" class="btn btn-danger" data-bs-dismiss="modal">Inténtalo otra vez</button>-->
-                <a th:href="@{/ejercicios}">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Volver al menú</button>
-                </a>
+                <a th:if="${idNextEjer != null}" th:href="@{/ejercicios/{id}(id = ${idNextEjer})}" class="btn" th:classappend="${totalusu<puntoAccesoNext} ? 'disabled btn-secondary' : 'btn-primary'" data-bs-dismiss="modal">Siguiente</a>
+                <a th:href="@{/ejercicios}" class="btn btn-secondary" data-bs-dismiss="modal">Volver al menú</a>
             </div>
         </div>
     </div>

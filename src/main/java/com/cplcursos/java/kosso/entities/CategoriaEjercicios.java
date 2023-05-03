@@ -26,4 +26,6 @@ public class CategoriaEjercicios {
 
     @ManyToMany
     private List<EjercicioOpMul> ejercicios;
+
+
 }

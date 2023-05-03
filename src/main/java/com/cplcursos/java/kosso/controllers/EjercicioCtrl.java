@@ -59,20 +59,62 @@ public class EjercicioCtrl {
             model.addAttribute("id_usuario", usu.getId());
             model.addAttribute("totalusu", totalusu);
 
+            Long idNextEjer = ejerciciosService.findIdNextEjercicio(id);
+
+            model.addAttribute("idNextEjer", idNextEjer);
+
+            if(idNextEjer == null){
+                //Hacer algo
+            }else{
+                Optional<EjercicioOpMul> nextEjerOp = ejerciciosService.findById(idNextEjer);
+                if(nextEjerOp.isEmpty()){
+                    //Hacer algo
+                }else{
+                    EjercicioOpMul nextEjer = nextEjerOp.get();
+                    model.addAttribute("puntoAccesoNext", nextEjer.getPuntosAcceso());
+                }
+            }
             //Añado el siguiente ejercicio
-            EjercicioOpMul ejer = ejercicioOpMulOptional.get();
+            /*EjercicioOpMul ejer = ejercicioOpMulOptional.get();
             Long idNextEjer = ejerciciosService.findIdNextEjercicio(ejer.getId());
+
+            if(idNextEjer == null){
+                return "errorEncontrandoEjercicio";
+            }
+
             Optional<EjercicioOpMul> nextEjerOp = ejerciciosService.findById(idNextEjer);
             if (nextEjerOp.isPresent()) {
                 EjercicioOpMul nextEjer = nextEjerOp.get();
                 model.addAttribute("nextEjer", nextEjer);
             } else {
                 return "errorEncontrandoEjercicio";
-            }
+            }*/
 
         } else {
             return "errorEncontrandoEjercicio";
         }
+        return "ejercicios/ejercicioOpMul";
+    }
+
+    @GetMapping("/{id}/next")
+    public String nextEjer(@PathVariable("id") Long id, Model model) {
+
+        Long idNextEjer = ejerciciosService.findIdNextEjercicio(id);
+
+        if(idNextEjer == null){
+            return "errorEncontrandoEjercicio";
+        }
+
+        Optional<EjercicioOpMul> nextEjerOp = ejerciciosService.findById(idNextEjer);
+        if (nextEjerOp.isPresent()) {
+            EjercicioOpMul nextEjer = nextEjerOp.get();
+            model.addAttribute("ejercicio", nextEjer);
+        } else {
+            return "errorEncontrandoEjercicio";
+        }
+
+        model.addAttribute("id_usuario", usu.getId());
+        model.addAttribute("totalusu", totalusu);
         return "ejercicios/ejercicioOpMul";
     }
 

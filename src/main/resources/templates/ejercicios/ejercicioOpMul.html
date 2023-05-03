@@ -41,8 +41,6 @@
         }).then(function (html) {
             const resultMessage = document.getElementById("resultMessage");
             resultMessage.innerHTML = html;
-
-            //const resultMessageInput = /*[[${resultMessageInput}]]*/ 'resultMessage.innerHTML';
         }).catch(function (err) {
             console.warn('Something went wrong.', err);
         });
@@ -56,10 +54,9 @@
         <div class="col-6">
             <h1 th:text="${ejercicio.getTitulo()}">Título del ejercicio</h1>
             <p th:text="${ejercicio.getDescripcion()}">Descripción del ejercicio</p>
-            <img src="../../static/${ejercicio.getImagen()}" height="138" width="580" alt="<Code picture>"
-                 class="img-fluid mb-3"/>
+            <!--<img src="../../static/${ejercicio.getImagen()}" height="138" width="580" alt="<Code picture>"
+                 class="img-fluid mb-3"/>-->
             <form id="myForm" class="was-validated">
-                <input type="hidden" id="resultMessageInput" name="resultMessage" th:value="${resultMessage}"/>
                 <input type="hidden" id="id_usuario" th:value="${id_usuario}"/>
                 <input type="hidden" id="id_ejercicio" th:value="${ejercicio.getId()}"/>
                 <label>
@@ -124,9 +121,8 @@
 
             <div class="modal-footer">
                 <a th:if="${idNextEjer != null}" th:href="@{/ejercicios/{id}(id = ${idNextEjer})}" class="btn"
-                   th:classappend="${totalusu<puntoAccesoNext} ? 'disabled btn-secondary' : 'btn-primary'"
-                   data-bs-dismiss="modal">Siguiente</a>
-                <a th:href="@{/ejercicios}" class="btn btn-secondary" data-bs-dismiss="modal">Volver al menú</a>
+                   th:classappend="${totalusu<puntoAccesoNext} ? 'disabled btn-secondary' : 'btn-primary'">Siguiente</a>
+                <a th:href="@{/ejercicios}" class="btn btn-secondary">Volver al menú</a>
             </div>
         </div>
     </div>

@@ -13,7 +13,7 @@
     <div class="row">
         <div class="col-lg-12">
             <h1>Crear o Editar Ejercicio</h1>
-            <form th:action="@{/ejercicios/save}" th:object="${ejercicio}" method="post">
+            <form th:action="@{/ejercicios/save}" th:object="${ejercicio}" method="post" enctype="multipart/form-data">
                 <input type="hidden" th:field="*{id}">
                 <div class="form-group">
                     <label for="dificultad">Dificultad:</label>
@@ -34,7 +34,7 @@
                 </div>
                 <div class="form-group">
                     <label for="imagen">Imagen: </label>
-                    <input type="text" class="form-control" id="imagen" th:field="*{imagen}"/>
+                    <input type="file" class="form-control" id="imagen" accept="image/jpeg, image/png" th:field="*{imagen}"/>
                 </div>
                 <div class="form-group">
                     <label for="opcion1">Opción 1:</label>

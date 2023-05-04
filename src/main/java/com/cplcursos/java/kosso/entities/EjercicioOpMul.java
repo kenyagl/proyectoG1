@@ -42,8 +42,14 @@ public class EjercicioOpMul {
 
     private String respuestaUsuario;
 
-    /*@OneToMany(mappedBy = "ejercicioOpMul")
-    private List<RespuestaEjOpMul> respuestaEjOpMul = new ArrayList<>();*/
+    @Transient
+    public String getImagenPath() {
+        if (imagen == null || id == null) {
+            return null;
+        }
+
+        return "/ejercicio-photos/" + id + "/" + imagen;
+    }
 
     @ManyToMany
     @JoinTable(

@@ -1,5 +1,6 @@
 package com.cplcursos.java.kosso.controllers;
 
+import com.cplcursos.java.kosso.utils.FileUploadUtil;
 import com.cplcursos.java.kosso.entities.EjercicioOpMul;
 import com.cplcursos.java.kosso.entities.RespuestaEjOpMul;
 import com.cplcursos.java.kosso.entities.Usuario;
@@ -11,9 +12,12 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import com.cplcursos.java.kosso.services.EjerciciosSrvc;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -43,7 +47,6 @@ public class EjercicioCtrl {
 
         model.addAttribute("ejercicios", ejerciciosService.findAll());
         model.addAttribute("totalusu", totalusu);
-        //return "ejercicios/ejercicio-list";
         return "ejercicios/menuEjercicios_Kenya";
     }
 
@@ -72,47 +75,10 @@ public class EjercicioCtrl {
                     model.addAttribute("puntoAccesoNext", nextEjer.getPuntosAcceso());
                 }
             }
-            //Añado el siguiente ejercicio
-            /*EjercicioOpMul ejer = ejercicioOpMulOptional.get();
-            Long idNextEjer = ejerciciosService.findIdNextEjercicio(ejer.getId());
-
-            if(idNextEjer == null){
-                return "errorEncontrandoEjercicio";
-            }
-
-            Optional<EjercicioOpMul> nextEjerOp = ejerciciosService.findById(idNextEjer);
-            if (nextEjerOp.isPresent()) {
-                EjercicioOpMul nextEjer = nextEjerOp.get();
-                model.addAttribute("nextEjer", nextEjer);
-            } else {
-                return "errorEncontrandoEjercicio";
-            }*/
 
         } else {
             return "errorEncontrandoEjercicio";
         }
-        return "ejercicios/ejercicioOpMul";
-    }
-
-    @GetMapping("/{id}/next")
-    public String nextEjer(@PathVariable("id") Long id, Model model) {
-
-        Long idNextEjer = ejerciciosService.findIdNextEjercicio(id);
-
-        if(idNextEjer == null){
-            return "errorEncontrandoEjercicio";
-        }
-
-        Optional<EjercicioOpMul> nextEjerOp = ejerciciosService.findById(idNextEjer);
-        if (nextEjerOp.isPresent()) {
-            EjercicioOpMul nextEjer = nextEjerOp.get();
-            model.addAttribute("ejercicio", nextEjer);
-        } else {
-            return "errorEncontrandoEjercicio";
-        }
-
-        model.addAttribute("id_usuario", usu.getId());
-        model.addAttribute("totalusu", totalusu);
         return "ejercicios/ejercicioOpMul";
     }
 
@@ -124,8 +90,16 @@ public class EjercicioCtrl {
     }
 
     @PostMapping("/save")
-    public String saveEjercicio(@ModelAttribute("ejercicioOpMul") EjercicioOpMul ejercicioOpMul) {
-        ejerciciosService.save(ejercicioOpMul);
+    public String saveEjercicio(@ModelAttribute("ejercicioOpMul") EjercicioOpMul ejercicioOpMul, @RequestParam("imagen") MultipartFile imagen) throws IOException {
+
+        String fileName = StringUtils.cleanPath(imagen.getOriginalFilename());
+        ejercicioOpMul.setImagen(fileName);
+
+        EjercicioOpMul savedEjer = ejerciciosService.save(ejercicioOpMul);
+        String uploadDir = "resources/image/ejercicio-photos/" + savedEjer.getId();
+
+        FileUploadUtil.saveFile(uploadDir, fileName, imagen);
+
         return "redirect:/ejercicios/";
     }
 

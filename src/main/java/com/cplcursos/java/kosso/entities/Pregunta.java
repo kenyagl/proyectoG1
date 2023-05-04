@@ -37,7 +37,6 @@ public class Pregunta {
     @JoinColumn(name = "idUsuario")
     private Usuario usuario;
 
-
     @ManyToMany(mappedBy = "preguntas")
     private List<Etiqueta> etiquetas;
 

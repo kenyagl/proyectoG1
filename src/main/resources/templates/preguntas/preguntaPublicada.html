@@ -110,7 +110,6 @@
 
     <title th:text="${tituloPregunta}">Pregunta</title>
 
-</head>
 <body>
 <section class="main">
     <div class="container">
@@ -134,8 +133,7 @@
                                 <div>
                                     <!-- Botón de editar pregunta -->
                                     <a th:href="@{/preguntas/edit/{id}(id=${pregunta.getId()})}"
-                                       class="btn border-dark">Editar Pregunta<i class="fa fa-thumbs-o-up "
-                                                                                 aria-hidden="true"></i></a>
+                                       class="btn border-dark">Editar Pregunta</a>
                                     <!-- Botón de eliminar pregunta -->
                                     <a th:href="@{/preguntas/delete/{id}(id=${pregunta.getId()})}" class="btn border-dark btn-danger">Eliminar Pregunta</a>
                                     <!-- Título y fecha de publicación -->
@@ -159,10 +157,11 @@
                         <div class="post-footer">
                             <div class="col">
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalRespuesta" >Responder</button>
-                                <button type="button" class="tooltip-button thumbs-up2" data-toggle="tooltip" data-placement="bottom" title="Like">Like<i class="fa fa-thumbs-o-up " aria-hidden="true"></i></button>
-                                <button type="button" class="tooltip-button  thumbs-down2" data-toggle="tooltip" data-placement="bottom" title="Dislike">Dislike<i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+                                <button type="button" class="tooltip-button thumbs-up2" data-toggle="tooltip" data-placement="bottom" title="Like" th:attr="onclick=|vota(1,'${pregunta.getId}')|" >Like <i class="fa fa-thumbs-o-up " aria-hidden="true"></i></button>
+                                <button type="button" class="tooltip-button  thumbs-down2" data-toggle="tooltip" data-placement="bottom" title="Dislike" th:attr="onclick=|vota(-1,'${pregunta.getId}')|" >Dislike <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
                                 </button>
-                                <span class="single-question-vote-result">+22 Votos</span>
+                                <!-- Votos Pregunta -->
+                                <span>Likes: <span id="votosPregunta" class="single-question-vote-result" th:text="${pregunta.getVotos()} ?: '0'">0</span></span>
                             </div>
                         </div>
                     </div>
@@ -195,7 +194,7 @@
                                                             Maria Smantha <span th:text="${respuesta.getFechaRespuesta()}" class="small">- 2 hours ago</span>
                                                         </p>
 
-                                                        <!-- Comentar una pregunta -->
+                                                        <!-- Comentar una Respuesta -->
                                                         <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalComentario" th:attr="data-idrespuesta=${respuesta.getId()}">
                                                             <span class="small"> Comentar</span>
                                                         </button>
@@ -210,13 +209,10 @@
                                                 </div>
                                                 <div class="col">
                                                     <button type="button" class="tooltip-button thumbs-up2"
-                                                            data-toggle="tooltip" data-placement="bottom" title="Like">Like<i class="fa fa-thumbs-o-up "
-                                                                                                                              aria-hidden="true"></i>
+                                                            data-toggle="tooltip" data-placement="bottom" title="Like">Like <i class="fa fa-thumbs-o-up " aria-hidden="true"></i>
                                                     </button>
-                                                    <button type="button" class="tooltip-button  thumbs-down2"
-                                                            data-toggle="tooltip" data-placement="bottom"
-                                                            title="Dislike">Dislike<i class="fa fa-thumbs-o-down"
-                                                                                      aria-hidden="true"></i></button>
+                                                    <button type="button" class="tooltip-button  thumbs-down2" data-toggle="tooltip" data-placement="bottom"
+                                                            title="Dislike">Dislike <i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button>
                                                     <span class="single-question-vote-result">+22 Votos</span>
                                                 </div>
 
@@ -244,13 +240,13 @@
                                                             <div class="col">
                                                                 <button type="button" class="tooltip-button thumbs-up2"
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Like">Like<i class="fa fa-thumbs-o-up "
+                                                                        title="Like">Like <i class="fa fa-thumbs-o-up "
                                                                                             aria-hidden="true"></i>
                                                                 </button>
                                                                 <button type="button"
                                                                         class="tooltip-button  thumbs-down2"
                                                                         data-toggle="tooltip" data-placement="bottom"
-                                                                        title="Dislike">Dislike<i
+                                                                        title="Dislike">Dislike <i
                                                                         class="fa fa-thumbs-o-down"
                                                                         aria-hidden="true"></i></button>
                                                                 <span class="single-question-vote-result">+22 Votos</span>
@@ -363,6 +359,27 @@
             comentModal.querySelector('#idRespuesta').value = idRespuesta
         })
     </script>
+    <script>
+        const vota = (n , x) => {
+            let formData = new FormData();
+            formData.append('valor', n)
+            formData.append('idPregunta', x)
+            let init = {
+                method: 'POST',
+                body: formData
+            }
+
+            fetch('/preguntas/cuentavotospregunta', init).then(function (response) {
+                return response.text();
+            }).then(function (html){
+                console.log(html)
+                document.getElementById("votosPregunta").innerHTML = html;
+            }).catch(function (err){
+                console.warn('Something went wrong.', err)
+            });
+        }
+    </script>
+
 
 
 </body>

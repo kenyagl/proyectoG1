@@ -123,5 +123,25 @@ public class PreguntaCtrl {
     }
 
 
+    // Controladores de votos
+    @PostMapping(value = "/cuentavotospregunta")
+    public String cuentaVotos(@RequestParam(name = "valor") Integer votos, @RequestParam(name = "idPregunta") Long id, Model model){
+        Optional<Pregunta> preOp = preguntaSrvc.findById(id);
+        if(preOp.isPresent()){
+            Pregunta pregunta = preOp.get();
+            Integer acumulados = pregunta.getVotos();
+            if (acumulados == null){
+                acumulados = 0;
+            }
+            pregunta.setVotos(votos + acumulados);
+            model.addAttribute("suma", pregunta.getVotos());
+            preguntaSrvc.save(pregunta);
+        }
+        else{
+            return "error-page";
+        }
+        return "/preguntas/bloqueAjaxVotos :: votosPregunta";
+    }
+
 
 }

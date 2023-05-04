@@ -89,7 +89,7 @@ public class EjercicioCtrl {
 
     @PostMapping("/save")
     public String saveEjercicio(@ModelAttribute EjercicioOpMul ejercicioOpMul,
-                                @RequestParam("imagen") MultipartFile imagen
+                                @RequestParam("image") MultipartFile imagen
                                 ) throws IOException {
 
         String fileName1 = imagen.getOriginalFilename();
@@ -103,7 +103,7 @@ public class EjercicioCtrl {
 
         EjercicioOpMul savedEjer = ejerciciosService.save(ejercicioOpMul);
 
-        String uploadDir = "resources/image/ejercicio-photos/" + savedEjer.getId();
+        String uploadDir = "src/main/resources/image/ejercicio-photos/" + savedEjer.getId();
 
         FileUploadUtil.saveFile(uploadDir, fileName, imagen);
 

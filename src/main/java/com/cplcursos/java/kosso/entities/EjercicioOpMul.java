@@ -42,9 +42,6 @@ public class EjercicioOpMul {
 
     private String respuestaUsuario;
 
-    /*@OneToMany(mappedBy = "ejercicioOpMul")
-    private List<RespuestaEjOpMul> respuestaEjOpMul = new ArrayList<>();*/
-
     @ManyToMany
     @JoinTable(
             name = "ejercicio_categoria",

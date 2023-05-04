@@ -28,6 +28,7 @@ public class EjercicioOpMul {
 
     private String descripcion;
 
+    @Column(length = 64)
     private String imagen;
 
     private String opcion1;

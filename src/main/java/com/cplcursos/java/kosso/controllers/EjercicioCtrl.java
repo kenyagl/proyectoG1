@@ -1,10 +1,7 @@
 package com.cplcursos.java.kosso.controllers;
 
+import com.cplcursos.java.kosso.entities.*;
 import com.cplcursos.java.kosso.utils.FileUploadUtil;
-import com.cplcursos.java.kosso.entities.EjercicioOpMul;
-import com.cplcursos.java.kosso.entities.RespuestaEjOpMul;
-import com.cplcursos.java.kosso.entities.Usuario;
-import com.cplcursos.java.kosso.entities.IdRespuestaEj;
 import com.cplcursos.java.kosso.services.CategoriaSrvc;
 import com.cplcursos.java.kosso.services.RespuestaEjOpMulSrvc;
 import com.cplcursos.java.kosso.services.UsuarioSrvcImpl;
@@ -19,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -47,7 +45,7 @@ public class EjercicioCtrl {
 
         model.addAttribute("ejercicios", ejerciciosService.findAll());
         model.addAttribute("totalusu", totalusu);
-        return "ejercicios/menuEjercicios_Kenya";
+        return "ejercicios/menuEjercicios";
     }
 
     @GetMapping("/{id}")
@@ -90,12 +88,21 @@ public class EjercicioCtrl {
     }
 
     @PostMapping("/save")
-    public String saveEjercicio(@ModelAttribute("ejercicioOpMul") EjercicioOpMul ejercicioOpMul, @RequestParam("imagen") MultipartFile imagen) throws IOException {
+    public String saveEjercicio(@ModelAttribute EjercicioOpMul ejercicioOpMul,
+                                @RequestParam("imagen") MultipartFile imagen
+                                ) throws IOException {
 
-        String fileName = StringUtils.cleanPath(imagen.getOriginalFilename());
+        String fileName1 = imagen.getOriginalFilename();
+        if(fileName1 == null){
+            fileName1 = "default.png";
+        }
+
+        String fileName = StringUtils.cleanPath(fileName1);
+
         ejercicioOpMul.setImagen(fileName);
 
         EjercicioOpMul savedEjer = ejerciciosService.save(ejercicioOpMul);
+
         String uploadDir = "resources/image/ejercicio-photos/" + savedEjer.getId();
 
         FileUploadUtil.saveFile(uploadDir, fileName, imagen);

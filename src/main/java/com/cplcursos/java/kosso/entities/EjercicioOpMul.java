@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 
@@ -49,7 +52,7 @@ public class EjercicioOpMul {
             return null;
         }
 
-        return "/ejercicio-photos/" + id + "/" + imagen;
+        return "/image/ejercicio-photos/" + id + "/" + imagen;
     }
 
     @ManyToMany

@@ -13,6 +13,7 @@ public class MvcConfig implements WebMvcConfigurer {
     //https://www.codejava.net/frameworks/spring-boot/spring-boot-file-upload-tutorial
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+
         exposeDirectory("ejercicio-photos", registry);
     }
 

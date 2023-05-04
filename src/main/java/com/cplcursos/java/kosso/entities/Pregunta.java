@@ -29,14 +29,12 @@ public class Pregunta {
     private LocalDate fechaPregunta; // Preguntar formato de la fecha
 
     private Integer votos;
-    // Hacer controlador para los votos
     // Como hacer que una persona solo pueda votar una vez o cambiar su voto
     // Solo los usuarios pueden votar
 
     @ManyToOne
     @JoinColumn(name = "idUsuario")
     private Usuario usuario;
-
 
     @ManyToMany(mappedBy = "preguntas")
     private List<Etiqueta> etiquetas;
@@ -49,7 +47,7 @@ public class Pregunta {
 
     // agregar en el controlador de votos un set de puntos al usuario por los votos
 
-    // TODO -agragar etiquetas al formulario de preguntas y asignarle su usuario(thymeleaf), controlador respuestas(podemos hacerlo en el de preguntas directamente), controlador comentarios,
+    // TODO -agragar etiquetas al formulario de preguntas y asignarle su usuario(thymeleaf)
     //  controlador de etiquetas
     //
 

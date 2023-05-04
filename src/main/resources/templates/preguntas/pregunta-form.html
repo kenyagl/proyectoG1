@@ -30,6 +30,7 @@
   <form th:action="@{/preguntas/save}" th:object="${pregunta}" class="form-horizontal" method="post" style="margin-top: 150px; margin-left: 100px;">
       <input type="hidden" th:field="*{id}">
       <input type="hidden" th:field="*{fechaPregunta}">
+      <input type="hidden" th:field="*{votos}">
       <fieldset>
     <!-- Título de la pregunta-->
     <div class="form-group">

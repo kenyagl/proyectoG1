@@ -16,7 +16,7 @@ public class RespuestaSrvc {
     @Autowired
     private RespuestaRepo respuestaRepo;
 
-    public Optional<Respuesta> encontrarRespuesta(Long id){
+    public Optional<Respuesta> findById(Long id){
         return respuestaRepo.findById(id);
     }
     public List<Respuesta> findAll(){

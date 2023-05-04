@@ -31,7 +31,7 @@ public class Respuesta {
     @JoinColumn(name = "idUsuario")
     private Usuario usuario;
 
-    @OneToMany(mappedBy = "respuesta")
+    @OneToMany(mappedBy = "respuesta", cascade = CascadeType.ALL)
     private List<Comentario> comentario;
 
     @ManyToOne

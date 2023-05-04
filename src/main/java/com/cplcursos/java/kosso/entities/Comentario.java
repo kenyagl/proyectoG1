@@ -23,6 +23,8 @@ public class Comentario {
 
     private String textoComentario;
 
+    private Integer votos;
+
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate fechaComentario;
 

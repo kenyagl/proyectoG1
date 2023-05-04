@@ -29,7 +29,6 @@ public class Pregunta {
     private LocalDate fechaPregunta; // Preguntar formato de la fecha
 
     private Integer votos;
-    // Hacer controlador para los votos
     // Como hacer que una persona solo pueda votar una vez o cambiar su voto
     // Solo los usuarios pueden votar
 

@@ -15,7 +15,7 @@ public class ComentarioSrvc {
     @Autowired
     private ComentarioRepo comentarioRepo;
 
-    public Optional<Comentario> encontrarRespuesta(Long id){
+    public Optional<Comentario> findById(Long id){
         return comentarioRepo.findById(id);
     }
 

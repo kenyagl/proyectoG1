@@ -93,7 +93,7 @@ public class PreguntaCtrl {
         return "redirect:/preguntas";
     }
 
-    // Controladores para Respuestas
+    // Controlador para Respuestas
 
     @PostMapping(value = "/respuestasave")
     public String crearRespuesta (@RequestParam(name = "idPregunta") Long id, @RequestParam(name = "textoRespuesta") String textoRespuesta, Model model){
@@ -108,7 +108,7 @@ public class PreguntaCtrl {
         return "redirect:/preguntas/preguntaPublicada/" + id;
     }
 
-    // Controladores Comentarios
+    // Controlador para Comentarios
     @PostMapping(value = "/comentariosave")
     public String crearComentario(@RequestParam(name = "idPregunta") Long idPregunta, @RequestParam(name = "idRespuesta") Long idRespuesta, @RequestParam(name = "textoComentario") String textoComentario, Model model){
         Comentario comentario = new Comentario();
@@ -124,8 +124,9 @@ public class PreguntaCtrl {
 
 
     // Controladores de votos
+    // Votos Preguntas
     @PostMapping(value = "/cuentavotospregunta")
-    public String cuentaVotos(@RequestParam(name = "valor") Integer votos, @RequestParam(name = "idPregunta") Long id, Model model){
+    public String cuentaVotosPreg(@RequestParam(name = "valor") Integer votos, @RequestParam(name = "idPregunta") Long id, Model model){
         Optional<Pregunta> preOp = preguntaSrvc.findById(id);
         if(preOp.isPresent()){
             Pregunta pregunta = preOp.get();
@@ -134,7 +135,7 @@ public class PreguntaCtrl {
                 acumulados = 0;
             }
             pregunta.setVotos(votos + acumulados);
-            model.addAttribute("suma", pregunta.getVotos());
+            model.addAttribute("sumaP", pregunta.getVotos());
             preguntaSrvc.save(pregunta);
         }
         else{
@@ -142,6 +143,48 @@ public class PreguntaCtrl {
         }
         return "/preguntas/bloqueAjaxVotos :: votosPregunta";
     }
+
+    // Votos Respuestas
+    @PostMapping(value = "/cuentavotosrespuesta")
+    public String cuentaVotosResp(@RequestParam(name = "valor") Integer votos, @RequestParam(name = "idRespuesta") Long id, Model model){
+        Optional<Respuesta> respOp = respuestaSrvc.findById(id);
+        if(respOp.isPresent()){
+            Respuesta respuesta = respOp.get();
+            Integer acumulados = respuesta.getVotos();
+            if (acumulados == null){
+                acumulados = 0;
+            }
+            respuesta.setVotos(votos + acumulados);
+            model.addAttribute("sumaR", respuesta.getVotos());
+            respuestaSrvc.save(respuesta);
+        }
+        else{
+            return "error-page";
+        }
+        return "/preguntas/bloqueAjaxVotos :: votosRespuesta";
+    }
+
+    // Votos Comentarios
+
+    @PostMapping(value = "/cuentavotoscomentario")
+    public String cuentaVotosComen(@RequestParam(name = "valor") Integer votos, @RequestParam(name = "idComentario") Long id, Model model){
+        Optional<Comentario> comenOp = comentarioSrvc.findById(id);
+        if(comenOp.isPresent()){
+            Comentario comentario = comenOp.get();
+            Integer acumulados = comentario.getVotos();
+            if (acumulados == null){
+                acumulados = 0;
+            }
+            comentario.setVotos(votos + acumulados);
+            model.addAttribute("sumaC", comentario.getVotos());
+            comentarioSrvc.save(comentario);
+        }
+        else{
+            return "error-page";
+        }
+        return "/preguntas/bloqueAjaxVotos :: votosComentario";
+    }
+
 
 
 }

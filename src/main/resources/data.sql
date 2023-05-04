@@ -3,8 +3,8 @@ INSERT INTO `mydb`.`usuario` (`clave`, `nombre`) VALUES ('54321', 'Ana');
 INSERT INTO `mydb`.`usuario` (`clave`, `nombre`) VALUES ('2468', 'Rosa');
 INSERT INTO `mydb`.`usuario` (`clave`, `nombre`) VALUES ('8642', 'Carlos');
 
-INSERT INTO mydb.ejercicio_op_mul (descripcion, dificultad, opcion1, opcion2, opcion3, opcion4, puntos_acceso, respuesta_correcta,titulo)
-VALUES ('What is 3 times 4?', '1', '6', '9', '12', '15', '100', '12','Multiplication Exercise 1');
+INSERT INTO mydb.ejercicio_op_mul (descripcion, dificultad, opcion1, opcion2, opcion3, opcion4, puntos_acceso, respuesta_correcta,titulo, imagen)
+VALUES ('¿Qué comando resulta en este mensaje en la terminal?', '1', 'System out print line ("Hello World");', 'System.out.println("Hello World");', 'print ("Hello World")', 'System.out.print.ln("Hello World")', '100', 'System.out.println("Hello World");','Ejercicio1','ejemploEjercicio.png');
 INSERT INTO mydb.ejercicio_op_mul (descripcion, dificultad, opcion1, opcion2, opcion3, opcion4, puntos_acceso, respuesta_correcta,titulo)
 VALUES ('What is 7 times 9?', '2', '42', '54', '63', '72', '100', '63','Multiplication Exercise 2');
 INSERT INTO mydb.ejercicio_op_mul (descripcion, dificultad, opcion1, opcion2, opcion3, opcion4, puntos_acceso, respuesta_correcta,titulo)

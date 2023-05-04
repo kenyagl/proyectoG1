@@ -137,9 +137,7 @@
                                        class="btn border-dark">Editar Pregunta<i class="fa fa-thumbs-o-up "
                                                                                  aria-hidden="true"></i></a>
                                     <!-- Botón de eliminar pregunta -->
-                                    <a th:href="@{/preguntas/delete/{id}(id=${pregunta.getId()})}"
-                                       class="btn border-dark btn-danger">Eliminar Pregunta<i class="fa fa-thumbs-o-up "
-                                                                                              aria-hidden="true"></i></a>
+                                    <a th:href="@{/preguntas/delete/{id}(id=${pregunta.getId()})}" class="btn border-dark btn-danger">Eliminar Pregunta</a>
                                     <!-- Título y fecha de publicación -->
                                     <div class="col-12">
                                         <h3 th:text="${pregunta.getTituloPregunta()}">Título Pregunta</h3>
@@ -161,10 +159,8 @@
                         <div class="post-footer">
                             <div class="col">
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalRespuesta" >Responder</button>
-                                <button type="button" class="tooltip-button thumbs-up2" data-toggle="tooltip"
-                                        data-placement="bottom" title="Like">Like<i class="fa fa-thumbs-o-up " aria-hidden="true"></i></button>
-                                <button type="button" class="tooltip-button  thumbs-down2" data-toggle="tooltip" data-placement="bottom" title="Dislike">Dislike<i class="fa fa-thumbs-o-down"
-                                                                                                                                                                   aria-hidden="true"></i>
+                                <button type="button" class="tooltip-button thumbs-up2" data-toggle="tooltip" data-placement="bottom" title="Like">Like<i class="fa fa-thumbs-o-up " aria-hidden="true"></i></button>
+                                <button type="button" class="tooltip-button  thumbs-down2" data-toggle="tooltip" data-placement="bottom" title="Dislike">Dislike<i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
                                 </button>
                                 <span class="single-question-vote-result">+22 Votos</span>
                             </div>

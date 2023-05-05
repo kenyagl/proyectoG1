@@ -1,6 +1,8 @@
 package com.cplcursos.java.kosso.controllers;
 
+import com.cplcursos.java.kosso.entities.EjercicioOpMul;
 import com.cplcursos.java.kosso.entities.RespuestaEjOpMul;
+import com.cplcursos.java.kosso.services.EjerciciosSrvc;
 import com.cplcursos.java.kosso.services.RespuestaEjOpMulSrvc;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ import java.util.Map;
 public class ProgresoCtrl {
     @Autowired
     RespuestaEjOpMulSrvc respuestaEjOpMulSrvc;
+    @Autowired
+    EjerciciosSrvc ejerciciosSrvc;
 
     // Returns a list with respuestas log
     @GetMapping(value = {"/", ""})
@@ -33,25 +37,39 @@ public class ProgresoCtrl {
     @GetMapping("/progress")
     public String showProgress(Model model) {
         // Retrieve the data from the database
+        List<EjercicioOpMul> ejercicios = ejerciciosSrvc.findAll();
         List<RespuestaEjOpMul> respuestas = respuestaEjOpMulSrvc.findAll();
-        int numeroRespuestas = respuestaEjOpMulSrvc.findAll().size();
+        // Calculate the number of ejercicios and respuestas
+        int numeroEjercicios = ejercicios.size();
+//        int numeroRespuestas = respuestas.size();
 
         // Calculate the number of respuestas by month, week and day
         // This shows the progress by month in general with no reference to current date
-        Map<String, Integer> respuestasByMonth = new HashMap<>();
-        Map<String, Integer> respuestasByWeek = new HashMap<>();
-        Map<String, Integer> respuestasByDay = new HashMap<>();
+
+        // Create a HashMap with <respuestaByDateRange, counter>
+        Map<String, Double> respuestasByMonth = new HashMap<>();
+        Map<String, Double> respuestasByWeek = new HashMap<>();
+        Map<String, Double> respuestasByDay = new HashMap<>();
         for (RespuestaEjOpMul respuesta : respuestas) {
             String month = respuesta.getFechaRespuesta().getMonth().toString();
             String week = respuesta.getFechaRespuesta().getYear() + "-Semana: " + respuesta.getFechaRespuesta().get(IsoFields.WEEK_OF_WEEK_BASED_YEAR);
             String day = respuesta.getFechaRespuesta().toString().substring(0, 10);
-            respuestasByMonth.put(month, respuestasByMonth.getOrDefault(month, 0) + 1);
-            respuestasByWeek.put(week, respuestasByWeek.getOrDefault(week, 0) + 1);
-            respuestasByDay.put(day, respuestasByDay.getOrDefault(day, 0) + 1);
+            respuestasByMonth.put(month, respuestasByMonth.getOrDefault(month, 0.0) + 1.0);
+            respuestasByWeek.put(week, respuestasByWeek.getOrDefault(week, 0.0) + 1.0);
+            respuestasByDay.put(day, respuestasByDay.getOrDefault(day, 0.0) + 1.0);
+        }
+        // Calculate the percentages of responses for each time period
+        for (Map.Entry<String, Double> entry : respuestasByMonth.entrySet()) {
+            entry.setValue((entry.getValue() / numeroEjercicios) * 100.0);
+        }
+        for (Map.Entry<String, Double> entry : respuestasByWeek.entrySet()) {
+            entry.setValue((entry.getValue() / numeroEjercicios) * 100.0);
+        }
+        for (Map.Entry<String, Double> entry : respuestasByDay.entrySet()) {
+            entry.setValue((entry.getValue() / numeroEjercicios) * 100.0);
         }
 
         // Add the data to the model
-        model.addAttribute("numeroRespuestas", numeroRespuestas);
         model.addAttribute("respuestasByMonth", respuestasByMonth);
         model.addAttribute("respuestasByWeek", respuestasByWeek);
         model.addAttribute("respuestasByDay", respuestasByDay);

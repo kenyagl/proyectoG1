@@ -29,7 +29,6 @@ public class Pregunta {
     private LocalDate fechaPregunta; // Preguntar formato de la fecha
 
     private Integer votos;
-    // Hacer controlador para los votos
     // Como hacer que una persona solo pueda votar una vez o cambiar su voto
     // Solo los usuarios pueden votar
 
@@ -45,4 +44,13 @@ public class Pregunta {
 
     //Preguntar a Carlos:
     //4) Botones para páginas de preguntas
+
+    // agregar en el controlador de votos un set de puntos al usuario por los votos
+
+    // TODO -agragar etiquetas al formulario de preguntas y asignarle su usuario(thymeleaf)
+    //  controlador de etiquetas
+    //
+
+
+
 }

@@ -5,20 +5,18 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.time.LocalDateTime;
 
+// This entity stores the answers to an exercise
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "RespuestaEjerciciosOpMul")
 public class RespuestaEjOpMul {
     @EmbeddedId
-    private IdRespuestaEj idRespuestaEj;
-    //El id es doble y se encuentra en idRespuestaEj: ahí tienes la fecha metida
-
+    private IdRespuestaEj id;
     private String respuesta;
-
     private LocalDateTime fechaRespuesta;
 }

@@ -1,8 +1,14 @@
 <!doctype html>
 
-<html lang="es_ES">
+<html xmlns:th="thymeleaf.org"
 
-<head>
+      xmlns:layout="ultraq.net.nz/thymeleaf/layout"
+
+      xmlns:sd="w3.org/1999/xhtml"
+
+      layout:decorate="~{layout}">
+
+<head th:fragment="head">
 
     <!-- Required meta tags -->
 
@@ -19,16 +25,18 @@
 
     <!-- Estilos personalizados -->
 
+    <link href="" type="text/css" rel="stylesheet">
 
 
-
-    <title>ErrorEjercicio</title>
+    <title>Partes Ajax</title>
 
 </head>
 
 <body>
 
-<h1>El ejercicio no ha sido encontrado</h1>
+<div th:fragment="resultadoRespuesta">
+    <span th:text="${resultMessage}"></span>
+</div>
 
 
 <!-- Optional JavaScript -->

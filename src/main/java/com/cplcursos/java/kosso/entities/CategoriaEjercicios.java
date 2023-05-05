@@ -17,7 +17,7 @@ public class CategoriaEjercicios {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_categoriaEjercicios", nullable = false)
-    private Integer id_CategoriaEjercicios;
+    private Integer id;
     private String nombre;
 
     public CategoriaEjercicios(String nombre) {
@@ -25,10 +25,7 @@ public class CategoriaEjercicios {
     }
 
     @ManyToMany
-    @JoinTable(
-            name = "ejercicio_categoria",
-            joinColumns = @JoinColumn(name = "id_categoriaEjercicios"),
-            inverseJoinColumns = @JoinColumn(name = "id_ejercicioOpMul")
-    )
     private List<EjercicioOpMul> ejercicios;
+
+
 }

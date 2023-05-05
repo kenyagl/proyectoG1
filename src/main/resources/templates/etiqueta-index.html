@@ -21,8 +21,8 @@
 
     <!-- Estilos personalizados -->
 
-    <link href="proyectoG1/src/main/resources/css/tags-standalone.min.css" rel="stylesheet" />
-
+    <link href="../css/tags-standalone.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/styles.css">
 
     <title>indexEtiqueta</title>
 
@@ -43,6 +43,9 @@
 </head>
 
 <body>
+<header th:replace="components/cabeceraFrag :: cabecera"></header>
+<nav th:replace="components/menuLateral :: navbar"></nav>
+
     <div class="container">
       <h1>Demo Etiquetas</h1>
       <form class="needs-validation" novalidate method="get" action="https://vercel-dumper.vercel.app/">
@@ -271,9 +274,8 @@
         <p>A disabled input for reference</p>
         <input class="form-control" type="text" placeholder="Disabled input" aria-label="Disabled input example" disabled>
         <hr>
-      </form>
-    </div>
-</body>
+    </form>
+</div>
 <!-- Optional JavaScript -->
 
 <script src="cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
@@ -293,4 +295,7 @@
       document.getElementById("regular").addEventListener("change", function (ev) {
         console.log(this.selectedOptions);
       });
-    </script>
+
+</script>
+</body>
+</html>

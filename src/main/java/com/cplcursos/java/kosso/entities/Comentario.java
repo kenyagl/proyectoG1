@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -18,13 +21,18 @@ public class Comentario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String texto;
+    private String textoComentario;
+
+    private Integer votos;
+
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    private LocalDate fechaComentario;
 
     @ManyToOne
     @JoinColumn(name = "idUsuario")
     private Usuario usuario;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "idRespuesta", referencedColumnName = "id")
     private Respuesta respuesta;
 

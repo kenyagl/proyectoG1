@@ -1,17 +1,10 @@
-<!--
-  Created by CPL.
-  User: Carlos
-  Date: 15/04/2023
-  Time: 13:19
-  To change this template use File | Settings | File Templates | JSP Bootstrap 5.
--->
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sd="http://www.w3.org/1999/xhtml"
+<html xmlns:th="thymeleaf.org"
+      xmlns:layout="ultraq.net.nz/thymeleaf/layout"
+      xmlns:sd="w3.org/1999/xhtml"
       layout:decorate="~{layout}">
 <head th:fragment="head">
-    <link rel="stylesheet" href="../css/styles.css">
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,20 +15,27 @@
 
     <!-- Estilos personalizados -->
     <link href="" type="text/css" rel="stylesheet">
-
-    <title>Acceso exitoso</title>
+    <title>bloqueAjaxVotos</title>
 </head>
 <body>
 
-<header th:replace="components/cabeceraFrag :: cabecera"></header>
-<nav th:replace="components/menuLateral :: navbar"></nav>
-    <h1 th:text="${texto}"></h1>
+
+    <!-- Fragmento que muestra los votos de la pregunta -->
+    <span th:fragment="votosPregunta" th:text="${sumaP}"></span>
+
+    <!-- Fragmento que muestra los votos de la respuesta -->
+    <span th:fragment="votosRespuesta" th:text="${sumaR}"></span>
+
+    <!-- Fragmento que muestra los votos de la respuesta -->
+    <span th:fragment="votosComentario" th:text="${sumaC}"></span>
+
+
 
 <!-- Optional JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+<script src="http://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
         integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
         crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+<script src="http://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
         integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
         crossorigin="anonymous"></script>
 </body>

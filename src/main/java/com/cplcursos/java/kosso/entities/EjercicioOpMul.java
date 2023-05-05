@@ -28,6 +28,7 @@ public class EjercicioOpMul {
 
     private String descripcion;
 
+    @Column(length = 64)
     private String imagen;
 
     private String opcion1;
@@ -42,9 +43,13 @@ public class EjercicioOpMul {
 
     private String respuestaUsuario;
 
+    @Transient
+    public String getImagenPath() {
+        if (imagen == null || id == null) {
+            return null;
+        }
 
-    public Long getId() {
-        return id;
+        return "/image/ejercicio-photos/" + id + "/" + imagen;
     }
 
     @ManyToMany
@@ -54,5 +59,9 @@ public class EjercicioOpMul {
             inverseJoinColumns = @JoinColumn(name = "id_categoriaEjercicios")
     )
     private List<CategoriaEjercicios> categorias;
+
+    @OneToMany
+    private List<RespuestaEjOpMul> respuestaEjOpMul;
+
 }
 

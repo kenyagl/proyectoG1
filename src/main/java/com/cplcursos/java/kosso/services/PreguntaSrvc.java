@@ -27,24 +27,12 @@ public class PreguntaSrvc  {
         return preguntaRepo.findAll();
     }
 
-    public Optional<Pregunta> encontrarPregunta(Long id){
-        return preguntaRepo.findById(id);
-    }
-
-    public Pregunta save (Pregunta pregunta){
+    public Pregunta save(Pregunta pregunta){
         return preguntaRepo.save(pregunta);
     }
 
     public void setFecha (Pregunta pregunta){
         pregunta.setFechaPregunta(LocalDate.now());
-    }
-
-    public void sumarVoto (Pregunta pregunta){
-        pregunta.setVotos(pregunta.getVotos()+1);
-    }
-
-    public void restarVoto (Pregunta pregunta){
-        pregunta.setVotos(pregunta.getVotos()-1);
     }
 
 }

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title>Ejercicios List</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+</head>
+
+
+<body>
+
+<div class="container">
+  <h1 class="my-4">Ejercicios List</h1>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Título</th>
+      <th>Dificultad</th>
+      <th>Puntos de Acceso</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr th:each="ejercicio: ${ejercicios}">
+        <td th:text="${ejercicio.getId()}"></td>
+        <td th:text="${ejercicio.getTitulo()}"></td>
+        <td th:text="${ejercicio.getDificultad()}"></td>
+        <td th:text="${ejercicio.getPuntosAcceso()}"></td>
+        <td>
+          <a class="btn btn-outline-primary" th:href="@{/ejercicios/edit/{nro}(nro=${ejercicio.getId()})}">Editar</a>
+          <a class="btn btn-outline-danger" th:href="@{/ejercicios/delete/{nro}(nro=${ejercicio.getId()})}">Borrar</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <a class="btn btn-outline-success" th:href="@{/ejercicios/new}">Add New Ejercicio</a>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

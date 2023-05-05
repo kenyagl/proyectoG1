@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Calendario</title>
@@ -7,34 +7,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../css/styles.css">
+	
+	<link rel="stylesheet" href="../static/css/calendar.css">
 </head>
-
 <body>
-
-<section class="ftco-section">
+    <div>
+    </div>
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-6 text-center mb-5">
-                <h2 class="heading-section">Calendario</h2>
-            </div>
-        </div>
         <div class="row">
-            <div class="col-md-12">
-                <div class="calendar calendar-first" id="calendar_first">
-                    <div class="calendar_header">
-                        <button class="switch-month switch-left"> <i class="fa fa-chevron-left"></i></button>
-                        <h2>April 2023</h2>
-                        <button class="switch-month switch-right"> <i class="fa fa-chevron-right"></i></button>
-                    </div>
-                    <div class="calendar_weekdays"><div style="color: rgb(68, 68, 68);">Sun</div><div style="color: rgb(68, 68, 68);">Mon</div><div style="color: rgb(68, 68, 68);">Tue</div><div style="color: rgb(68, 68, 68);">Wed</div><div style="color: rgb(68, 68, 68);">Thu</div><div style="color: rgb(68, 68, 68);">Fri</div><div style="color: rgb(68, 68, 68);">Sat</div></div>
-                    <div class="calendar_content"><div class="blank"></div><div class="blank"></div><div class="blank"></div><div class="blank"></div><div class="blank"></div><div class="blank"></div><div class="past-date">1</div><div class="past-date">2</div><div class="past-date">3</div><div class="past-date selected">4</div><div class="past-date">5</div><div class="past-date">6</div><div class="past-date">7</div><div class="past-date">8</div><div class="past-date">9</div><div class="past-date">10</div><div class="past-date">11</div><div class="past-date">12</div><div class="past-date">13</div><div class="past-date">14</div><div class="past-date">15</div><div class="past-date">16</div><div class="past-date">17</div><div class="past-date">18</div><div class="past-date">19</div><div class="past-date">20</div><div class="past-date">21</div><div class="past-date">22</div><div class="past-date">23</div><div class="past-date">24</div><div class="past-date">25</div><div class="past-date">26</div><div class="today" style="color: rgb(0, 189, 170);">27</div><div>28</div><div>29</div><div>30</div><div class="blank"></div><div class="blank"></div><div class="blank"></div><div class="blank"></div><div class="blank"></div><div class="blank"></div></div>
-                </div>
-            </div>
+            <table class="table table-striped">
+                <thead>
+                <th class="text-center" >
+                    LUNES
+                </th>
+                <th class="text-center" >
+                    MARTES
+                </th >
+                <th class="text-center" >
+                    MIERCOLES
+                </th>
+                <th class="text-center" >
+                    JUEVES
+                </th>
+                <th class="text-center" >
+                    VIERNES
+                </th>
+                <th class="text-center" >
+                    SABADO
+                </th>
+                <th class="text-center" >
+                    DOMINGO
+                </th>
+    
+                </thead>
+                <tbody>
+                    <tr th:each="semana: ${dias}" >
+                        <td class="text-center" th:text="${dia}" th:each="dia: ${semana}">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
-</section>
 
 <script src="../js/jquery.min.js"></script>
 <script src="../js/popper.js"></script>

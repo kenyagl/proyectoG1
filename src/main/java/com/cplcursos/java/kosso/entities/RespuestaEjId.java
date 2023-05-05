@@ -6,7 +6,8 @@ import java.io.Serializable;
 public class RespuestaEjId implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ejercicio_id")
-    private EjercicioOpMul ejercicioOpMul;
+    private EjercicioOpMul ejercicio;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;

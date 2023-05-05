@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 public class RespuestaEjOpMul {
     @EmbeddedId
     private RespuestaEjId id;
+
     private String respuesta;
     private LocalDateTime fechaRespuesta;
 /*    Los datos que requieren las estadísticas son los siguientes:

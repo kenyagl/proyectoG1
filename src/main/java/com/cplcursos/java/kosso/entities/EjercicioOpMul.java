@@ -22,23 +22,15 @@ public class EjercicioOpMul {
     private Long id;
 
     private Integer dificultad;
-
     private Integer puntosAcceso;
-
     private String titulo;
-
     private String descripcion;
-
     private String imagen;
-
     private String opcion1;
-
     private String opcion2;
     private String opcion3;
     private String opcion4;
     private String respuestaCorrecta;
     private String respuestaUsuario;
-    @OneToMany(mappedBy = "ejercicio_op_mul_id")
-    private List<RespuestaEjOpMul> respuestasEjOpMul = new ArrayList<>();
 }
 

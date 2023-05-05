@@ -19,9 +19,7 @@ public class Respuesta {
     private Long id;
 
     private Integer votos;
-
     private Boolean alerta;
-
     private String textoRespuesta;
 
     @ManyToOne

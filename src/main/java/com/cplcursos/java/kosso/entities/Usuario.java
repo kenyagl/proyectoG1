@@ -29,9 +29,9 @@ public class Usuario {
     private Boolean activo = false;
     private Date creadoEl;
     private String acercaDe;
-    // Linked to tuprogreso must have some type of relationship to date in class RespuestaEjOpMul
+    // Linked to tu progreso must have some type of relationship to date in class RespuestaEjOpMul
     private Integer puntosEjercicios;
-    // Linked to tuprogreso must have some type of relationship to date in class RespuestaEjOpMul
+    // Linked to tu progreso must have some type of relationship to date in class RespuestaEjOpMul
     private Integer puntosRespuestas;
     public Usuario(Long id) {
         this.id = id;
@@ -44,7 +44,6 @@ public class Usuario {
     }
 
     @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-
     private List<DiaCalendario> diaCalendario = new ArrayList<>();
 
     @OneToMany(mappedBy = "usuario")

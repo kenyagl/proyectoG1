@@ -79,7 +79,7 @@ public class CalendarioCtrl {
         model.addAttribute("numeroColumnas",numeroColumnas);
         model.addAttribute("dias",dias);
 
-        return "calendarioOK/calendario";
+        return "calendario";
     }
 
 }

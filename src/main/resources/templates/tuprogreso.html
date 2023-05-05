@@ -1,6 +1,5 @@
 <!doctype html>
-
-<html lang="es_ES">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
@@ -22,7 +21,7 @@
     <link href="" type="text/css" rel="stylesheet">
 
 
-    <title>tuProgreso.html</title>
+    <title>tuprogreso.html</title>
     <style>
     .progress-vertical {
         height: 200px; /* set the desired height */
@@ -33,6 +32,7 @@
         transform-origin: bottom center;
         transform: rotate(-90deg); /* rotate the progress bar */
     }
+
     </style>
 
 </head>
@@ -41,7 +41,8 @@
 <!--TODO crear html dinámico que agrupe las barras por meses, semanas y días | Definir de donde vienen los datos con lo cuales vamos a trabajar en esta vista | Añadir thymeleaf para que los datos de progreso se muestren aquí-->
 
 <!-- Page Heading -->
-<div class="container align-items-center justify-content-between mb-4">
+
+<!--<div class="container align-items-center justify-content-between mb-4">
     <h1 class="mb-4 text-dark">Tu Progreso</h1>
     <div class="btn-group btn-group-toggle" data-toggle="buttons">
         <label class="btn btn-secondary active">
@@ -57,36 +58,32 @@
     <div>
         <ul>
             <li>
-                <a href="preguntas/pregunta-list.html" class="text-dark"><i
+                <a href="#" class="text-dark"><i
                         class="fas fa-download fa-sm text-white-50"></i>Foro de preguntas</a>
             </li>
             <li>
-                <a href="perfilesyusuarios/perfil.html" class="text-dark"><i
+                <a href="#" class="text-dark"><i
                         class="fas fa-download fa-sm text-white-50"></i>Volver</a>
             </li>
         </ul>
     </div>
-</div>
+</div>-->
 
 <!--Barras de progreso genericas-->
+<header class="text-center">
+    <h1>Tu Progreso</h1>
+</header>
 
 <main class="col overflow-auto h-100">
     <div class="bg-light border rounded-3 p-3">
-        <h2>Tu Progreso</h2>
         <div class="progress progress-vertical"> <!-- add class progress-vertical -->
-            <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">Ejercicio 1</div>
+            <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                Ejercicio 1
+            </div>
         </div>
         <div class="progress progress-vertical"> <!-- add class progress-vertical -->
-            <div class="progress-bar" role="progressbar" style="height: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-        <div class="progress progress-vertical"> <!-- add class progress-vertical -->
-            <div class="progress-bar" role="progressbar" style="height: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-        <div class="progress progress-vertical"> <!-- add class progress-vertical -->
-            <div class="progress-bar" role="progressbar" style="height: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-        <div class="progress progress-vertical"> <!-- add class progress-vertical -->
-            <div class="progress-bar" role="progressbar" style="height: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="progress-bar" role="progressbar" style="height: 25%" aria-valuenow="25" aria-valuemin="0"
+                 aria-valuemax="100"></div>
         </div>
     </div>
 </main>

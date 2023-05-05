@@ -60,8 +60,5 @@ public class EjercicioOpMul {
     )
     private List<CategoriaEjercicios> categorias;
 
-    @OneToMany
-    private List<RespuestaEjOpMul> respuestaEjOpMul;
-
 }
 

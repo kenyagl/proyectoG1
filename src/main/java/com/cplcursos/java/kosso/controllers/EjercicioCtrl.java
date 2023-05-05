@@ -103,7 +103,7 @@ public class EjercicioCtrl {
 
         EjercicioOpMul savedEjer = ejerciciosService.save(ejercicioOpMul);
 
-        String uploadDir = "src/main/resources/static/image/ejercicio-photos/" + savedEjer.getId();
+        String uploadDir = "target/classes/static/image/ejercicio-photos/" + savedEjer.getId();
 
         FileUploadUtil.saveFile(uploadDir, fileName, imagen);
 

@@ -27,7 +27,7 @@
         <div class="row">
             <div class="col-md-7 m-auto">
     <!-- Formulario para publicar una pregunta -->
-  <form th:action="@{/preguntas/save}" th:object="${pregunta}" class="form-horizontal" method="post" style="margin-top: 150px; margin-left: 100px;">
+  <form th:action="@{/preguntas/save}" enctype="multipart/form-data" th:object="${pregunta}" class="form-horizontal" method="post" style="margin-top: 150px; margin-left: 100px;">
       <input type="hidden" th:field="*{id}">
       <input type="hidden" th:field="*{fechaPregunta}">
       <input type="hidden" th:field="*{votos}">
@@ -61,9 +61,9 @@
     
     <!-- Botón para añadir archivo -->
     <div class="form-group">
-      <label class="control-label" for="botonArchivo">Subir imagen:</label>
+      <label class="control-label">Subir imagen:</label>
       <div class="">
-        <input id="botonArchivo" name="botonArchivo" class="input-file" type="file">
+          <input type="file" name="image" accept="image/png, image/jpeg" />
       </div>
     </div>
     

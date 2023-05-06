@@ -2,12 +2,16 @@ package com.cplcursos.java.kosso.controllers;
 
 import com.cplcursos.java.kosso.entities.*;
 import com.cplcursos.java.kosso.services.*;
+import com.cplcursos.java.kosso.utils.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -47,12 +51,23 @@ public class PreguntaCtrl {
 
     // Publica la pregunta y la muestra
     @PostMapping(value = "/save")
-    public String crearPregunta (@ModelAttribute("pregunta") Pregunta pregunta){
+    public String crearPregunta (@ModelAttribute("pregunta") Pregunta pregunta, @RequestParam("image") MultipartFile multipartFile) throws IOException {
+        String fileName1 = multipartFile.getOriginalFilename();
+
+        if(fileName1 == null){
+            // controlar null de nombre de foto
+        }
+        String fileName = StringUtils.cleanPath(fileName1);
+        pregunta.setFoto(fileName);
+
         if (pregunta.getFechaPregunta() == null){
             preguntaSrvc.setFecha(pregunta);
         }
+        Pregunta preguntaGuardada = preguntaSrvc.save(pregunta);
+        String uploadDir = "target/classes/static/image/pregunta-photos/" + preguntaGuardada.getId();
 
-        preguntaSrvc.save(pregunta);
+        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+
         return "redirect:/preguntas/preguntaPublicada/" + pregunta.getId();
     }
 

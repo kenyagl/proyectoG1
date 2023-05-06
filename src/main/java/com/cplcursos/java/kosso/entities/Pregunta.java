@@ -25,6 +25,8 @@ public class Pregunta {
 
     private String textoPregunta;
 
+    private String foto;
+
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate fechaPregunta; // Preguntar formato de la fecha
 
@@ -42,15 +44,22 @@ public class Pregunta {
     @OneToMany(mappedBy = "pregunta",cascade = CascadeType.ALL)
     private List<Respuesta> respuestas;
 
+
+
     //Preguntar a Carlos:
     //4) Botones para páginas de preguntas
 
     // agregar en el controlador de votos un set de puntos al usuario por los votos
 
-    // TODO -agragar etiquetas al formulario de preguntas y asignarle su usuario(thymeleaf)
-    //  controlador de etiquetas
-    //
+    // TODO y asignarle su usuario(thymeleaf)
 
+    @Transient
+    public String getFotoPath() {
+        if (foto == null || id == null) {
+            return null;
+        }
 
+        return "/image/pregunta-photos/" + id + "/" + foto;
+    }
 
 }

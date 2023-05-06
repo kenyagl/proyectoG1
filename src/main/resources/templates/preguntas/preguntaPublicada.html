@@ -148,7 +148,7 @@
                         <!-- Contenido de la pregunta -->
                         <p th:text="${pregunta.getTextoPregunta}"> Texto Pregunta</p>
                         <div class="container">
-                            <img src="/imagenes" alt="Imagen de la pregunta">
+                            <img  th:src="@{${pregunta.getFotoPath()}}" alt="Imagen de la pregunta">
                         </div>
                         <hr>
                         <!-- botones de responder, like y dislike en de la pregunta -->

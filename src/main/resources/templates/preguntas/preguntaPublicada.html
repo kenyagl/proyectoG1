@@ -119,7 +119,7 @@
                 <div class="d-flex gap-2 justify-content-center py-5">
                     <h4>Tags</h4>
                     <div>   <!-- Etiquetas -->
-                        <a href="#" th:each="etiqueta : ${pregunta.getEtiquetas()}"><span th:text="${etiqueta.getNombre()}" class="badge text-bg-info rounded-pill">Arrays</span></a>
+                        <a href="#" th:each="categoria : ${pregunta.getCategorias()}"><span th:text="${categoria.getNombre()}" class="badge text-bg-info rounded-pill">Categoria</span></a>
                     </div>
                 </div>
 

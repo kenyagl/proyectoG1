@@ -71,7 +71,7 @@
                         <select class="form-select" id="validationTagsThreshold" name="tagsClearThreshold[]" multiple="true" data-allow-clear="true" data-suggestions-threshold="1"
                                 th:field="*{categorias}">
                             <option disabled hidden value="">Elige una etiqueta</option>
-                            <option th:each="categoria : ${categoriasEj}" th:value="${categoria.getId()}" th:text="${categoria.getNombre()}"></option>
+                            <option th:each="categoria : ${categorias}" th:value="${categoria.getId()}" th:text="${categoria.getNombre()}"></option>
                         </select>
                         <div class="invalid-feedback">Por favor elige una etiqueta válida.</div>
                     </div>

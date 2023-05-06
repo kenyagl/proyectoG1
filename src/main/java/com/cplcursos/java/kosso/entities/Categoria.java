@@ -13,19 +13,26 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class CategoriaEjercicios {
+public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_categoriaEjercicios", nullable = false)
     private Integer id;
     private String nombre;
 
-    public CategoriaEjercicios(String nombre) {
+    public Categoria(String nombre) {
         this.nombre = nombre;
     }
 
     @ManyToMany
     private List<EjercicioOpMul> ejercicios;
+
+    @ManyToMany
+    @JoinTable(
+            name = "categoria_pregunta",
+            joinColumns = @JoinColumn(name = "idPregunta"),
+            inverseJoinColumns = @JoinColumn(name = "idCategoria"))
+    private List<Pregunta> preguntas;
 
 
 }

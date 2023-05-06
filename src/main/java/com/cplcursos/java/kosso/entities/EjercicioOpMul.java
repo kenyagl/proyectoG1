@@ -58,7 +58,7 @@ public class EjercicioOpMul {
             joinColumns = @JoinColumn(name = "id_ejercicioOpMul"),
             inverseJoinColumns = @JoinColumn(name = "id_categoriaEjercicios")
     )
-    private List<CategoriaEjercicios> categorias;
+    private List<Categoria> categorias;
 
 }
 

@@ -83,7 +83,7 @@ public class EjercicioCtrl {
     @GetMapping("/new")
     public String showNewEjercicioForm(Model model) {
         model.addAttribute("ejercicio", new EjercicioOpMul());
-        model.addAttribute("categoriasEj", categoriaSrvc.findAll());
+        model.addAttribute("categorias", categoriaSrvc.findAll());
         return "ejercicios/ejercicioForm";
     }
 

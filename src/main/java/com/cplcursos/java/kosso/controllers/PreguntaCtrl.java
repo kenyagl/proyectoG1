@@ -1,13 +1,7 @@
 package com.cplcursos.java.kosso.controllers;
 
-import com.cplcursos.java.kosso.entities.Comentario;
-import com.cplcursos.java.kosso.entities.Etiqueta;
-import com.cplcursos.java.kosso.entities.Pregunta;
-import com.cplcursos.java.kosso.entities.Respuesta;
-import com.cplcursos.java.kosso.services.ComentarioSrvc;
-import com.cplcursos.java.kosso.services.EtiquetaSrvc;
-import com.cplcursos.java.kosso.services.PreguntaSrvc;
-import com.cplcursos.java.kosso.services.RespuestaSrvc;
+import com.cplcursos.java.kosso.entities.*;
+import com.cplcursos.java.kosso.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import lombok.extern.log4j.Log4j2;
@@ -31,7 +25,8 @@ public class PreguntaCtrl {
     private ComentarioSrvc comentarioSrvc;
 
     @Autowired
-    private EtiquetaSrvc etiquetaSrvc;
+    private CategoriaSrvc categoriaSrvc;
+
 
     @GetMapping(value = {"/", ""})
     public String mostrarPreguntas (Model model){
@@ -61,7 +56,7 @@ public class PreguntaCtrl {
         return "redirect:/preguntas/preguntaPublicada/" + pregunta.getId();
     }
 
-
+// agregar al edit las categorias que ya tenía la pregunta
     @GetMapping(value = "/edit/{id}")
     public String editarPregunta( @PathVariable("id") Long id, Model model){
         Optional<Pregunta> pregunta = preguntaSrvc.findById(id);
@@ -77,7 +72,7 @@ public class PreguntaCtrl {
     @GetMapping(value = "/new")
     public String verFormularioPregunta (Model model){
         model.addAttribute("pregunta", new Pregunta());
-
+        model.addAttribute("categorias", categoriaSrvc.findAll());
         return "preguntas/pregunta-form";
     }
 

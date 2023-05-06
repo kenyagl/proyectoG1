@@ -20,9 +20,9 @@ VALUES ('What is 3 multiplied by 13?', '2', '34', '36', '39', '41', '350', '39',
 INSERT INTO mydb.ejercicio_op_mul (descripcion, dificultad, opcion1, opcion2, opcion3, opcion4, puntos_acceso, respuesta_correcta,titulo)
 VALUES ('What is 18 multiplied by 2?', '1', '20', '30', '36', '42', '400', '36','Multiplication Exercise 8');
 
-INSERT INTO `mydb`.`categoria_ejercicios` (`nombre`) VALUES ('String');
-INSERT INTO `mydb`.`categoria_ejercicios` (`nombre`) VALUES ('Array');
-INSERT INTO `mydb`.`categoria_ejercicios` (`nombre`) VALUES ('Clases y Objetos');
-INSERT INTO `mydb`.`categoria_ejercicios` (`nombre`) VALUES ('POO');
-INSERT INTO `mydb`.`categoria_ejercicios` (`nombre`) VALUES ('Herencia');
+INSERT INTO `mydb`.`categoria` (`nombre`) VALUES ('String');
+INSERT INTO `mydb`.`categoria` (`nombre`) VALUES ('Array');
+INSERT INTO `mydb`.`categoria` (`nombre`) VALUES ('Clases y Objetos');
+INSERT INTO `mydb`.`categoria` (`nombre`) VALUES ('POO');
+INSERT INTO `mydb`.`categoria` (`nombre`) VALUES ('Herencia');
 

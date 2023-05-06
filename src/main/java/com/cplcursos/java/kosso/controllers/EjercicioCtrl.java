@@ -54,15 +54,6 @@ public class EjercicioCtrl {
         return "ejercicios/menuEjercicios";
     }
 
-    /*@GetMapping("/search")
-    public String search(@RequestParam("keyword") String keyword, Model model) {
-        List<EjercicioOpMul> ejerciciosResult = ejerciciosService.encontrarEjerPorCategoria(keyword);
-        model.addAttribute("ejercicios", ejerciciosResult);
-        model.addAttribute("keyword", keyword);
-        model.addAttribute("totalusu", totalusu);
-        return "ejercicios/menuEjercicios";
-    }*/
-
     @GetMapping("/{id}")
     public String showEjercicio(@PathVariable("id") Long id, Model model) {
         Optional<EjercicioOpMul> ejercicioOpMulOptional = ejerciciosService.findById(id);
@@ -118,7 +109,7 @@ public class EjercicioCtrl {
 
         EjercicioOpMul savedEjer = ejerciciosService.save(ejercicioOpMul);
 
-        String uploadDir = "image/ejercicio-photos/" + savedEjer.getId();
+        String uploadDir = "target/classes/static/image/ejercicio-photos/" + savedEjer.getId();
 
         FileUploadUtil.saveFile(uploadDir, fileName, imagen);
 

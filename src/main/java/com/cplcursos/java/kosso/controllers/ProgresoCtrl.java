@@ -36,7 +36,7 @@ public class ProgresoCtrl {
     // Returns a view of respuestas grouped by month, day and year with no reference to current day
     @GetMapping("/progress")
     public String showProgress(Model model) {
-        // Retrieve the data from the database
+        // Retrieve data from database
         List<EjercicioOpMul> ejercicios = ejerciciosSrvc.findAll();
         List<RespuestaEjOpMul> respuestas = respuestaEjOpMulSrvc.findAll();
         // Calculate the number of ejercicios and respuestas

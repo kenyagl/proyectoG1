@@ -24,7 +24,7 @@ public class Categoria {
         this.nombre = nombre;
     }
 
-    @ManyToMany
+    @ManyToMany (mappedBy = "categorias")
     private List<EjercicioOpMul> ejercicios;
 
     @ManyToMany

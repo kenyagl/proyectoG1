@@ -7,6 +7,7 @@ import com.cplcursos.java.kosso.services.RespuestaEjOpMulSrvc;
 import com.cplcursos.java.kosso.services.UsuarioSrvcImpl;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -41,12 +42,26 @@ public class EjercicioCtrl {
 
 
     @GetMapping(value = {"/", ""})
-    public String showEjercicios(Model model) {
+    public String showEjercicios(Model model, @Param("keyword") String keyword) {
+        //Este método devuelve .findAll si no se le pasa ninguna keyword
+        List<EjercicioOpMul> ejerciciosResult = ejerciciosService.encontrarEjerPorCategoria(keyword);
 
-        model.addAttribute("ejercicios", ejerciciosService.findAll());
+        model.addAttribute("ejercicios", ejerciciosResult);
+        model.addAttribute("keyword", keyword);
         model.addAttribute("totalusu", totalusu);
+        model.addAttribute("categorias", categoriaSrvc.findAll());
+
         return "ejercicios/menuEjercicios";
     }
+
+    /*@GetMapping("/search")
+    public String search(@RequestParam("keyword") String keyword, Model model) {
+        List<EjercicioOpMul> ejerciciosResult = ejerciciosService.encontrarEjerPorCategoria(keyword);
+        model.addAttribute("ejercicios", ejerciciosResult);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("totalusu", totalusu);
+        return "ejercicios/menuEjercicios";
+    }*/
 
     @GetMapping("/{id}")
     public String showEjercicio(@PathVariable("id") Long id, Model model) {
@@ -103,7 +118,7 @@ public class EjercicioCtrl {
 
         EjercicioOpMul savedEjer = ejerciciosService.save(ejercicioOpMul);
 
-        String uploadDir = "target/classes/static/image/ejercicio-photos/" + savedEjer.getId();
+        String uploadDir = "image/ejercicio-photos/" + savedEjer.getId();
 
         FileUploadUtil.saveFile(uploadDir, fileName, imagen);
 

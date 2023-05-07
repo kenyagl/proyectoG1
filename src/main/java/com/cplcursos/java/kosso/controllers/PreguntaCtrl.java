@@ -63,6 +63,7 @@ public class PreguntaCtrl {
         if (pregunta.getFechaPregunta() == null){
             preguntaSrvc.setFecha(pregunta);
         }
+
         Pregunta preguntaGuardada = preguntaSrvc.save(pregunta);
         String uploadDir = "target/classes/static/image/pregunta-photos/" + preguntaGuardada.getId();
 
@@ -78,6 +79,7 @@ public class PreguntaCtrl {
         if(pregunta.isPresent()){
             model.addAttribute("pregunta", pregunta.get());
             model.addAttribute("categorias", categoriaSrvc.findAll());
+
         }
         else{
             return "error-page";

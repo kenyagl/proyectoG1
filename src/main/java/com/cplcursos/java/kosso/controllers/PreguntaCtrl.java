@@ -55,7 +55,7 @@ public class PreguntaCtrl {
         String fileName1 = multipartFile.getOriginalFilename();
 
         if(fileName1 == null){
-            fileName1 = "img" + pregunta.getTituloPregunta();
+            fileName1 = pregunta.getTituloPregunta() + "default.png";
         }
         String fileName = StringUtils.cleanPath(fileName1);
         pregunta.setFoto(fileName);

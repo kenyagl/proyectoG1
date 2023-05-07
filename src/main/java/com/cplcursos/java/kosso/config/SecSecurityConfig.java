@@ -22,6 +22,7 @@ public class SecSecurityConfig {
             "/image/**",
             "/",
             "/login",
+            "/registro",
             "/home",
             "/preguntas"
     };

@@ -77,6 +77,7 @@ public class PreguntaCtrl {
         Optional<Pregunta> pregunta = preguntaSrvc.findById(id);
         if(pregunta.isPresent()){
             model.addAttribute("pregunta", pregunta.get());
+            model.addAttribute("categorias", categoriaSrvc.findAll());
         }
         else{
             return "error-page";

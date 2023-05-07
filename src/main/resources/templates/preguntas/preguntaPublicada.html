@@ -121,7 +121,7 @@
 
                 <!--tags and badges-->
                 <div class="d-flex gap-2 justify-content-center py-5">
-                    <h4>Categorías</h4>
+                    <h4>Categorías: </h4>
                     <div>
                         <!-- Etiquetas -->
                         <a href="#" th:each="categoria : ${pregunta.getCategorias()}"><span
@@ -146,7 +146,7 @@
                                         <!-- Imagen de Usuario, Nombre de Perfil, Título de la pregunta y fecha de la publicación-->
                                     <div class="col-12">
                                         <div class="d-flex align-items-center">
-                                            <img id="imgPerfil" class="rounded-circle m-3" th:src="@{${usuario.getFotoPath()}}" alt="Imagen de Prefil">
+                                            <img id="imgPerfil" class="rounded-circle m-3" src="@{${usuario.getFotoPath()}}" alt="Imagen de Prefil">
                                             <h3 th:text="${pregunta.getTituloPregunta()}"><a href="/usuario" th:href="/perfil/{id}(id="{id=pregunta.getUsuario.getId()}")" th:text="${pregunta.getUsuario().getNombre()}">Nombre de Usuario</a><span> - </span> Título Pregunta</h3>
                                         </div>
                                         <span th:text="${pregunta.getFechaPregunta()}">Fecha de Publicación</span>

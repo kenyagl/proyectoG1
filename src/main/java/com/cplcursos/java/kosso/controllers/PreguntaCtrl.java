@@ -113,7 +113,6 @@ public class PreguntaCtrl {
         respuesta.setPregunta(pregunta);
         respuesta.setTextoRespuesta(textoRespuesta);
         respuesta.setFechaRespuesta(LocalDate.now());
-
         respuestaSrvc.save(respuesta);
         return "redirect:/preguntas/preguntaPublicada/" + id;
     }

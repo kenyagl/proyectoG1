@@ -30,22 +30,12 @@ public class PerfilCtrl {
 
     @GetMapping("/borrarperfil") // NO sabemos muy bien si poner este get hasta que tengamos la funcion de borrar perfil
     public String perfilEliminado (Model model){
-        return "index";
+        return "redirect: home";
     }
 
     @DeleteMapping("/borrarperfil")
     public String eliminarperfil (Model model){
-        return "index";
-    }
-
-    @GetMapping("/ejercicios")
-    public String irejercicios (Model model){
-        return "menuEjercicios_Kenya";
-    }
-
-    @GetMapping("/pregunta")
-    public String irpreguntas (Model model){
-        return "preguntas/pregunta-list";
+        return "redirect: home";
     }
 
 }

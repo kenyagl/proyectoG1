@@ -26,6 +26,14 @@ public class SecSecurityConfig {
             "/preguntas"
     };
 
+    public static final String[] ENDPOINTS_WHITELIST_ADMIN = {
+            "/ejercicios/new",
+            "/ejercicios/delete",
+            "/ejercicios/edit/**",
+            "/ejercicios/save",
+            "/usuario/listausus"
+    };
+
     @Bean
     public UserDetailsService userDetailsService() {
         UserDetails user1 = User.withUsername("user1")
@@ -54,6 +62,7 @@ public class SecSecurityConfig {
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/", "/home").permitAll()
                         .requestMatchers(ENDPOINTS_WHITELIST).permitAll()
+                        .requestMatchers(ENDPOINTS_WHITELIST_ADMIN).hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form

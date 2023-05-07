@@ -13,35 +13,13 @@ public class UsuarioCtrl {
     @Autowired
     private UsuarioSrvcImpl usuSrvc;
 
-    @GetMapping("/acceso")
-    public String Acceso(Model modelo) {
-        return "acceso";
-    }
-
-    @PostMapping("/login")
-    public String comprobarAcceso(Model modelo, @RequestParam("usuario") String usu, @RequestParam("clave") String clave){
-        String texto = "Hola "+ usu +". Tu clave es " + clave + ".";
-        modelo.addAttribute("texto", texto);
-        return "exitoLogin";
-    }
-
     @GetMapping("/listausus")
     public String listaUsus(Model modelo){
         modelo.addAttribute("listausuarios", usuSrvc.listaUsus());
         return "perfilesYUsuarios/listaUsus";
     }
 
-    @GetMapping("/registro")
-    public String registro(Model modelo) {
 
-        return "registro";
-    }
-
-    @PostMapping("/registro")
-    public String alta(Model modelo){
-
-        return "exitoLogin";
-    }
 
     @GetMapping("/perfil")
     public String Perfil(Model modelo) {

@@ -1,12 +1,13 @@
-<header th:fragment="cabecera" class="py-3 mb-4 border-bottom shadow fixed-top w-100 header-bg">
+<header th:fragment="cabecera" class="py-3 mb-4 border-bottom shadow fixed-top w-100 header-bg"
+        xmlns:sec="http://www.w3.org/1999/xhtml">
   <div class="container-fluid align-items-center d-flex">
     <img src="/image/logo-grey.png" alt="Logo de la empresa" class="logo" style=" padding-left: 70px;">
     <div class="flex-grow-1 d-flex align-items-center">
       <!-- Acceso a login y registro -->
       <div class="col-md-10 text-end">
-        <a href="/usuario/acceso" type="button" class="btn btn-outline-primary me-2">Acceder</a>
-        <a href="/usuario/registro" type="button" class="btn btn-primary">Registro</a>
-        <a href="/usuario/perfil" type="button" class="btn btn-primary">Mi Perfil</a>
+        <a href="/login" type="button" class="btn btn-outline-primary me-2">Acceder</a>
+        <a href="/registro" type="button" class="btn btn-primary">Registro</a>
+        <a href="/usuario/perfil" type="button" class="btn btn-primary"><span th:remove="tag" sec:authentication="name"></span></a>
       </div>
       <div class="flex-shrink-0 dropdown">
         <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser2"

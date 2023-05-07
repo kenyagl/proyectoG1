@@ -31,7 +31,6 @@
       <input type="hidden" th:field="*{id}">
       <input type="hidden" th:field="*{fechaPregunta}">
       <input type="hidden" th:field="*{votos}">
-      <input type="hidden" th:field="*{fotoPath}">
       <fieldset>
     <!-- Título de la pregunta-->
     <div class="form-group">
@@ -63,7 +62,7 @@
     <!-- Botón para añadir archivo -->
     <div class="form-group">
         <label class="control-label">Subir imagen:</label>
-        <input class="form-control" type="file" name="image" accept="image/png, image/jpeg" required/>
+        <input class="form-control" type="file" name="image" accept="image/png, image/jpeg"  required/>
     </div>
     
     <!-- Button -->

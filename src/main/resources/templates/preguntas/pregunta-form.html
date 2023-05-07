@@ -35,23 +35,23 @@
     <!-- Título de la pregunta-->
     <div class="form-group">
       <label class="control-label" for="tituloPregunta">Título de la pregunta:</label>
-      <input id="tituloPregunta" name="tituloPregunta" type="text" placeholder="Título" class="form-control" th:field="*{tituloPregunta}">
+      <input id="tituloPregunta" name="tituloPregunta" type="text" placeholder="Título" class="form-control" th:field="*{tituloPregunta}" required>
       </div>
     
     <!-- Área de la pregunta -->
     <div class="form-group">
       <label class="control-label" for="textopregunta">Pregunta:</label>
       <div class="">                     
-        <textarea class="form-control" id="textopregunta" name="textoPregunta" placeholder="Escribe aquí tu pregunta" th:field="*{textoPregunta}"></textarea>
+        <textarea class="form-control" id="textopregunta" name="textoPregunta" placeholder="Escribe aquí tu pregunta" th:field="*{textoPregunta}" style="height: 250px" required></textarea>
       </div>
     </div>
     
-    <!-- Form Etiquetas -->
+    <!-- Etiquetas -->
           <div class="row mb-3 g-3">
-              <div class="col-md-4">
-                  <label for="validationTagsThreshold" class="form-label">Etiquetas (Mínimo 1)</label>
+              <div class="container-fluid">
+                  <label for="validationTagsThreshold" class="form-label">Categorías: </label>
                   <select class="form-select" id="validationTagsThreshold" name="tagsClearThreshold[]" multiple="true" data-allow-clear="true" data-suggestions-threshold="1"
-                          th:field="*{categorias}">
+                          th:field="*{categorias}" required>
                       <option disabled hidden value="">Elige una etiqueta</option>
                       <option th:each="categoria : ${categorias}" th:value="${categoria.getId()}" th:text="${categoria.getNombre()}">Nombre Etiqueta</option>
                   </select>
@@ -61,10 +61,8 @@
     
     <!-- Botón para añadir archivo -->
     <div class="form-group">
-      <label class="control-label">Subir imagen:</label>
-      <div class="">
-          <input type="file" name="image" accept="image/png, image/jpeg" />
-      </div>
+        <label class="control-label">Subir imagen:</label>
+        <input class="form-control" type="file" name="image" accept="image/png, image/jpeg"  required/>
     </div>
     
     <!-- Button -->

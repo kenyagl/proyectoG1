@@ -55,7 +55,7 @@ public class PreguntaCtrl {
         String fileName1 = multipartFile.getOriginalFilename();
 
         if(fileName1 == null){
-            // controlar null de nombre de foto
+            fileName1 = pregunta.getTituloPregunta() + "default.png";
         }
         String fileName = StringUtils.cleanPath(fileName1);
         pregunta.setFoto(fileName);
@@ -63,6 +63,7 @@ public class PreguntaCtrl {
         if (pregunta.getFechaPregunta() == null){
             preguntaSrvc.setFecha(pregunta);
         }
+
         Pregunta preguntaGuardada = preguntaSrvc.save(pregunta);
         String uploadDir = "target/classes/static/image/pregunta-photos/" + preguntaGuardada.getId();
 
@@ -77,6 +78,8 @@ public class PreguntaCtrl {
         Optional<Pregunta> pregunta = preguntaSrvc.findById(id);
         if(pregunta.isPresent()){
             model.addAttribute("pregunta", pregunta.get());
+            model.addAttribute("categorias", categoriaSrvc.findAll());
+
         }
         else{
             return "error-page";
@@ -113,7 +116,6 @@ public class PreguntaCtrl {
         respuesta.setPregunta(pregunta);
         respuesta.setTextoRespuesta(textoRespuesta);
         respuesta.setFechaRespuesta(LocalDate.now());
-
         respuestaSrvc.save(respuesta);
         return "redirect:/preguntas/preguntaPublicada/" + id;
     }

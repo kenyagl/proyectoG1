@@ -1,9 +1,12 @@
 package com.cplcursos.java.kosso.controllers;
 
 import com.cplcursos.java.kosso.entities.*;
+import com.cplcursos.java.kosso.repositories.PreguntaPaginacionRepo;
 import com.cplcursos.java.kosso.services.*;
 import com.cplcursos.java.kosso.utils.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.ui.Model;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -13,7 +16,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 @Log4j2
@@ -31,10 +38,24 @@ public class PreguntaCtrl {
     @Autowired
     private CategoriaSrvc categoriaSrvc;
 
+    @Autowired
+    private PreguntaPaginacionRepo preguntaPaginacionRepo;
+
 
     @GetMapping(value = {"/", ""})
-    public String mostrarPreguntas (Model model){
-        model.addAttribute("preguntas",preguntaSrvc.findAll());
+    public String mostrarPreguntas (Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(10);
+        Page<Pregunta> paginaPreguntas = preguntaPaginacionRepo.findAll(PageRequest.of(currentPage - 1, pageSize));
+        model.addAttribute("paginaPreguntas", paginaPreguntas);
+
+        int totalPaginas = paginaPreguntas.getTotalPages();
+        if (totalPaginas > 0) {
+            List<Integer> numeroPaginas = IntStream.rangeClosed(1, totalPaginas)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("numeroPaginas", numeroPaginas);
+        }
         return "preguntas/pregunta-list";
     }
 

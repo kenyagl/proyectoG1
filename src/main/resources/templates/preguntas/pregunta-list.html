@@ -19,7 +19,7 @@
         <section class="container" style="width: 60%; margin:auto;">
                 <div>
                         <h2>Preguntas</h2>
-                        <a href="/preguntas/new" class="btn border-dark">Hacer una pregunta</a>
+                        <a th:href="@{/preguntas/new}" class="btn border-dark">Hacer una pregunta</a>
                         <div class="input-group">
                                 <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
                                 <button type="button" class="btn btn-outline-primary">search</button>
@@ -46,14 +46,14 @@
                                                 <ul>
                                                         <li th:text="${pregunta.getFechaPregunta()}">Fecha:</li>
                                                         <li><span>Votos: </span><span th:text="${pregunta.getVotos()} ?: '0'"></span></li>
-                                                        <li>Respuestas</li>
+                                                        <li><span>Respuestas: </span><span text="" ></span> </li>
                                                 </ul>    
                                         </div>
                                 </div>
                                 <div class="col-9 align-self-center">
                                         <a th:href="@{preguntas/preguntaPublicada/{id}(id=${pregunta.getId()})}"><h3 th:text="${pregunta.getTituloPregunta()}"> Pregunta1</h3></a>
                                         <!-- Ver como se hace para que el overflow termine en puntos suspensivos -->
-                                        <p th:text="${pregunta.getTextoPregunta()}" class="overflow-hidden" style="max-height: 100px;">Lorem ipsum dolor sit amet consectetur adipiscing elit non habitasse semper, eleifend cum suspendisse class velit hendrerit fringilla euismod vestibulum ad, sodales etiam praesent maecenas purus cubilia venenatis feugiat faucibus. Praesent ligula habitasse fusce parturient faucibus maecenas vivamus, magna suspendisse urna felis dignissim penatibus ut, ultrices lacinia ridiculus id senectus ...
+                                        <p th:text="${pregunta.getTextoPregunta()}" class="text-truncate overflow-hidden" style="max-height: 100px;">Lorem ipsum dolor sit amet consectetur adipiscing elit non habitasse semper, eleifend cum suspendisse class velit hendrerit fringilla euismod vestibulum ad, sodales etiam praesent maecenas purus cubilia venenatis feugiat faucibus. Praesent ligula habitasse fusce parturient faucibus maecenas vivamus, magna suspendisse urna felis dignissim penatibus ut, ultrices lacinia ridiculus id senectus
                                         </p>
                                         <div class="container">
                                                 <a th:each="categoria : ${pregunta.getCategorias()}" class="mx-2"  href="#!" th:text="${categoria.getNombre()}">Tag1</a>

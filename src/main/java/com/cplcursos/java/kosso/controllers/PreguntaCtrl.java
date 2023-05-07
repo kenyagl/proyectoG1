@@ -43,27 +43,19 @@ public class PreguntaCtrl {
 
 
     @GetMapping(value = {"/", ""})
-    public String mostrarPreguntas (Model model,
-                                    @RequestParam("page") Optional<Integer> page,
-                                    @RequestParam("size") Optional<Integer> size
-    )
-    {
+    public String mostrarPreguntas (Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(10);
-
         Page<Pregunta> paginaPreguntas = preguntaPaginacionRepo.findAll(PageRequest.of(currentPage - 1, pageSize));
-
         model.addAttribute("paginaPreguntas", paginaPreguntas);
 
         int totalPaginas = paginaPreguntas.getTotalPages();
-
         if (totalPaginas > 0) {
             List<Integer> numeroPaginas = IntStream.rangeClosed(1, totalPaginas)
                     .boxed()
                     .collect(Collectors.toList());
             model.addAttribute("numeroPaginas", numeroPaginas);
         }
-
         return "preguntas/pregunta-list";
     }
 

@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.management.relation.Role;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,9 +23,10 @@ public class Usuario {
     private Long id;
 
     private String email;
-    private String nombre;
     private String clave;
-    private String rol;
+    private String nombre;
+    private String apellidos;
+    private String descripcion;
     private String foto;
     private Boolean activo = false;
     private Date creadoEl;
@@ -56,5 +58,12 @@ public class Usuario {
 
     @OneToMany
     private List<RespuestaEjOpMul> respuestasEj;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    @JoinTable(
+            name="users_roles",
+            joinColumns={@JoinColumn(name="USER_ID", referencedColumnName="ID")},
+            inverseJoinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
+    private List<Rol> roles = new ArrayList<>();
 
 }

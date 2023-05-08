@@ -41,51 +41,75 @@
 <header th:replace="components/cabeceraFrag :: cabecera"></header>
 <nav th:replace="components/menuLateral :: navbar"></nav>
 
-<h1 th:text="#{label.form.title}">form</h1>
-<form action="/" th:object="${usuario}" method="POST" enctype="utf8">
-    <div>
-        <label th:text="#{label.user.firstName}">first</label>
-        <input th:field="*{nombre}"/>
-        <p th:each="error: ${#fields.errors('firstName')}"
-           th:text="${error}">Validation error</p>
+<div th:if="${param.success}">
+    <div class="alert alert-info">
+        ¡Te has registrado correctamente!
     </div>
-    <div>
-        <label th:text="#{label.user.lastName}">last</label>
-        <input th:field="*{apellidos}"/>
-        <p th:each="error : ${#fields.errors('lastName')}"
-           th:text="${error}">Validation error</p>
+</div>
+
+<div class="container-fluid pb-3 flex-grow-1">
+    <div class="row">
+        <main class="col">
+            <div class="d-flex align-items-center justify-content-center h-100 ">
+                <div class="card"
+                     style="margin-top: 200px;background-image: url('/image/bg-form.png'); box-shadow: 5px 5px 10px rgba(255, 255, 255, 0.75);">
+                    <div class="card-header">
+                        <h5 class="card-title" style="color: white">Registro de Usuario</h5>
+                    </div>
+
+                    <form th:action="@{/registro/save}" th:object="${usuario}" method="POST" enctype="utf8" role="form" style="color: white">
+                        <div>
+                            <label class="form-label" for="firstName">Nombre</label>
+                            <input type="text" class="form-control" th:field="*{firstName}" id="firstName"
+                                   name="firstName" alt="Pepe"/>
+                            <p th:errors="*{firstName}" class="text-danger"
+                               th:if="${#fields.hasErrors('firstName')}"></p>
+                        </div>
+
+                        <div>
+                            <label class="form-label" for="lastName">Apellidos</label>
+                            <input type="text" class="form-control" th:field="*{lastName}" id="lastName" name="lastName"
+                                   alt="Martínez Hernández"/>
+                            <p th:errors="*{lastName}" class="text-danger"
+                               th:if="${#fields.hasErrors('lastName')}"></p>
+                        </div>
+
+                        <div>
+                            <label class="form-label" for="email">Email</label>
+                            <input type="email" class="form-control" th:field="*{email}" id="email" name="email" alt="pepe.mh@gmail.com"/>
+                            <p th:errors="*{email}" class="text-danger"
+                               th:if="${#fields.hasErrors('email')}"></p>
+                        </div>
+
+                        <div>
+                            <label class="form-label" for="password">Contraseña</label>
+                            <input type="password" class="form-control" th:field="*{password}" id="password" name="password"
+                                   alt="Introduce una contraseña"/>
+                            <p th:errors="*{password}" class="text-danger"
+                               th:if="${#fields.hasErrors('password')}"></p>
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn btn-primary" type="submit">Registrarse</button>
+                            <span>¿Ya estás registrado? <a th:href="@{/login}">Accede a tu cuenta</a></span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
     </div>
-    <div>
-        <label th:text="#{label.user.email}">email</label>
-        <input type="email" th:field="*{email}"/>
-        <p th:each="error : ${#fields.errors('email')}"
-           th:text="${error}">Validation error</p>
-    </div>
-    <div>
-        <label th:text="#{label.user.password}">password</label>
-        <input type="password" th:field="*{clave}"/>
-        <p th:each="error : ${#fields.errors('password')}"
-           th:text="${error}">Validation error</p>
-    </div>
-    <div>
-        <label th:text="#{label.user.confirmPass}">confirm</label>
-        <input type="password" th:field="*{matchingPassword}"/>
-    </div>
-    <button type="submit" th:text="#{label.form.submit}">submit</button>
-</form>
-
-<a th:href="@{/login}" th:text="#{label.form.loginLink}">login</a>
+</div>
 
 
-<!-- Optional JavaScript -->
+                    <!-- Optional JavaScript -->
 
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
-        crossorigin="anonymous"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+                            integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+                            crossorigin="anonymous"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
-        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
-        crossorigin="anonymous"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+                            integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+                            crossorigin="anonymous"></script>
 
 </body>
 

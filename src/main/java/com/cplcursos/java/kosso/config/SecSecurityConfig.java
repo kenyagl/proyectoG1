@@ -31,6 +31,7 @@ public class SecSecurityConfig {
             "/",
             "/login",
             "/usuario/registro",
+            "/usuario/registro/**",
             "/home",
             "",
             "/preguntas"

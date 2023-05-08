@@ -57,7 +57,7 @@
                         <h5 class="card-title" style="color: white">Registro de Usuario</h5>
                     </div>
 
-                    <form th:action="@{/registro/save}" th:object="${usuario}" method="POST" enctype="utf8" role="form" style="color: white">
+                    <form th:action="@{/usuario/registro/save}" th:object="${usuario}" method="POST" enctype="utf8" role="form" style="color: white">
                         <div>
                             <label class="form-label" for="firstName">Nombre</label>
                             <input type="text" class="form-control" th:field="*{firstName}" id="firstName"

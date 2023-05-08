@@ -52,7 +52,7 @@ public class UsuarioCtrl {
         }
 
         usuSrvc.save(usuarioDTO);
-        return "redirect: /registro?success";
+        return "redirect: /usuario/registro?success";
     }
 
 }

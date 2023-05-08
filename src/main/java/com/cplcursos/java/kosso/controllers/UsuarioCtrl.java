@@ -40,9 +40,9 @@ public class UsuarioCtrl {
     public String registerUserAccount(@Valid @ModelAttribute("usuario") UsuarioDTO usuarioDTO,
                                             BindingResult result, Model modelo) {
 
-        Optional<Usuario> yaRegistrado = usuSrvc.findByEmail(usuarioDTO.getEmail());
+        Usuario yaRegistrado = usuSrvc.findByEmail(usuarioDTO.getEmail());
 
-        if (yaRegistrado.isPresent()) {
+        if (yaRegistrado != null) {
             result.rejectValue("email", null, "Ya existe un usuario registrado con ese email");
         }
 
@@ -52,7 +52,7 @@ public class UsuarioCtrl {
         }
 
         usuSrvc.save(usuarioDTO);
-        return "redirect: /usuario/registro?success";
+        return "redirect:/usuario/registro?success";
     }
 
 }

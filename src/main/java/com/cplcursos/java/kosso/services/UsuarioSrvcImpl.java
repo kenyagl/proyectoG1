@@ -37,14 +37,14 @@ public class UsuarioSrvcImpl implements ifxUsuarioSrvc {
         user.setNombre(userDTO.getFirstName());
         user.setApellidos(userDTO.getLastName());
         user.setEmail(userDTO.getEmail());
-        user.setClave(userDTO.getPassword());
+        user.setClave(passwordEncoder.encode(userDTO.getPassword()));
 
-        Optional<Rol> rolOp = roleRepository.findByName("ROLE_ADMIN");
+        Optional<Rol> rolOp = roleRepository.findByName("ADMIN");
         Rol rol;
-        if(rolOp.isEmpty()){
-            rol = checkRoleExist();
-        }else {
+        if(rolOp.isPresent()){
             rol = rolOp.get();
+        }else{
+            rol = checkRoleExist();
         }
         user.setRoles(Arrays.asList(rol));
         usurepo.save(user);
@@ -59,13 +59,13 @@ public class UsuarioSrvcImpl implements ifxUsuarioSrvc {
         return usurepo.findById(id);
     }
 
-    public Optional<Usuario> findByEmail(String email) {
+    public Usuario findByEmail(String email) {
         return usurepo.findByEmail(email);
     }
 
     private Rol checkRoleExist(){
         Rol role = new Rol();
-        role.setName("ROLE_ADMIN");
+        role.setName("ADMIN");
         return roleRepository.save(role);
     }
 }

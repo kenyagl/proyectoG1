@@ -22,12 +22,15 @@ public class DetallesUsuarioSrvc implements UserDetailsService {
     @Autowired
     private UsuarioRepo userRepository;
 
+    public DetallesUsuarioSrvc (UsuarioRepo userRepository){
+        this.userRepository = userRepository;
+    }
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Optional<Usuario> userOp = userRepository.findByEmail(email);
+        Usuario user = userRepository.findByEmail(email);
 
-        if (userOp.isPresent()) {
-            Usuario user = userOp.get();
+        if (user != null) {
             return new org.springframework.security.core.userdetails.User(user.getEmail(),
                     user.getClave(), mapRolesToAuthorities(user.getRoles()));
         }else{

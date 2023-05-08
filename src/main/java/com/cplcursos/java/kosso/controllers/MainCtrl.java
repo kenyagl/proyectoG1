@@ -17,7 +17,7 @@ public class MainCtrl {
     }
 
     @GetMapping("/login")
-    public String Acceso(Model modelo) {
+    public String acceso() {
         return "login";
     }
 

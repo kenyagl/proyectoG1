@@ -41,11 +41,6 @@
 <header th:replace="components/cabeceraFrag :: cabecera"></header>
 <nav th:replace="components/menuLateral :: navbar"></nav>
 
-<div th:if="${param.success}">
-    <div class="alert alert-info">
-        ¡Te has registrado correctamente!
-    </div>
-</div>
 
 <div class="container-fluid pb-3 flex-grow-1">
     <div class="row">
@@ -55,6 +50,12 @@
                      style="margin-top: 200px;background-image: url('/image/bg-form.png'); box-shadow: 5px 5px 10px rgba(255, 255, 255, 0.75);">
                     <div class="card-header">
                         <h5 class="card-title" style="color: white">Registro de Usuario</h5>
+                    </div>
+
+                    <div th:if="${param.success}">
+                        <div class="alert alert-info">
+                            ¡Te has registrado correctamente!
+                        </div>
                     </div>
 
                     <form th:action="@{/usuario/registro/save}" th:object="${usuario}" method="POST" enctype="utf8" role="form" style="color: white">

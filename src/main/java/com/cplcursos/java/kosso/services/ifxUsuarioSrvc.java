@@ -14,5 +14,5 @@ public interface ifxUsuarioSrvc {
 
     Optional<Usuario> findById(Long id);
 
-    Optional<Usuario> findByEmail(String email);
+    Usuario findByEmail(String email);
 }

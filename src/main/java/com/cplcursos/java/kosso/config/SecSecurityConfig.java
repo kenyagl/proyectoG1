@@ -4,6 +4,7 @@ import com.cplcursos.java.kosso.services.DetallesUsuarioSrvc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -66,15 +67,16 @@ public class SecSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests(requests -> requests
+                .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(ENDPOINTS_WHITELIST).permitAll()
                         .requestMatchers(ENDPOINTS_WHITELIST_ADMIN).hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
+                        .loginProcessingUrl("/login")
+                        .defaultSuccessUrl("/")
                         .permitAll()
-                        .defaultSuccessUrl("/home", true)
                 )
                 .logout(logout -> logout
                         .permitAll()
@@ -84,10 +86,13 @@ public class SecSecurityConfig {
         return http.build();
     }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .userDetailsService(detallesUsuarioSrvc)
-                .passwordEncoder(passwordEncoder);
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(detallesUsuarioSrvc);
+        authProvider.setPasswordEncoder(passwordEncoder);
+
+        return authProvider;
     }
+
 }

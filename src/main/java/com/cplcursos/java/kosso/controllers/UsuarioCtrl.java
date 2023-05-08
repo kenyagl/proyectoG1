@@ -36,7 +36,7 @@ public class UsuarioCtrl {
         return "registro";
     }
 
-    @PostMapping("/registro/save")
+    @PostMapping("/registro")
     public String registerUserAccount(@Valid @ModelAttribute("usuario") UsuarioDTO usuarioDTO,
                                             BindingResult result, Model modelo) {
 
@@ -44,11 +44,12 @@ public class UsuarioCtrl {
 
         if (yaRegistrado != null) {
             result.rejectValue("email", null, "Ya existe un usuario registrado con ese email");
+
         }
 
         if(result.hasErrors()){
             modelo.addAttribute("usuario", usuarioDTO);
-            return "/registro";
+            return "registro";
         }
 
         usuSrvc.save(usuarioDTO);

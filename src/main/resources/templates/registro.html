@@ -27,7 +27,7 @@
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <!-- Estilos personalizados -->
 
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -58,7 +58,7 @@
                         </div>
                     </div>
 
-                    <form th:action="@{/usuario/registro/save}" th:object="${usuario}" method="POST" enctype="utf8" role="form" style="color: white">
+                    <form th:action="@{/usuario/registro}" th:object="${usuario}" method="POST" enctype="utf8" role="form" style="color: white">
                         <div>
                             <label class="form-label" for="firstName">Nombre</label>
                             <input type="text" class="form-control" th:field="*{firstName}" id="firstName"

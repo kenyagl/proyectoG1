@@ -26,3 +26,6 @@ INSERT INTO `mydb`.`categoria` (`nombre`) VALUES ('Clases y Objetos');
 INSERT INTO `mydb`.`categoria` (`nombre`) VALUES ('POO');
 INSERT INTO `mydb`.`categoria` (`nombre`) VALUES ('Herencia');
 
+INSERT INTO `mydb`.`rol` (`name`) VALUES ('USER');
+INSERT INTO `mydb`.`rol` (`name`) VALUES ('ADMIN');
+

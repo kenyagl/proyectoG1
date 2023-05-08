@@ -1,7 +1,11 @@
 package com.cplcursos.java.kosso.config;
 
+import com.cplcursos.java.kosso.services.DetallesUsuarioSrvc;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -16,17 +20,25 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecSecurityConfig {
 
-    public static final String[] ENDPOINTS_WHITELIST = {
+    @Autowired
+    DetallesUsuarioSrvc detallesUsuarioSrvc;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+    private static final String[] ENDPOINTS_WHITELIST = {
             "/css/**",
             "/js/**",
             "/image/**",
             "/",
             "/login",
+            "/usuario/registro",
+            "/usuario/registro/**",
             "/home",
+            "",
             "/preguntas"
     };
 
-    public static final String[] ENDPOINTS_WHITELIST_ADMIN = {
+    private static final String[] ENDPOINTS_WHITELIST_ADMIN = {
             "/ejercicios/new",
             "/ejercicios/delete",
             "/ejercicios/edit/**",
@@ -37,41 +49,50 @@ public class SecSecurityConfig {
     @Bean
     public UserDetailsService userDetailsService() {
         UserDetails user1 = User.withUsername("user1")
-                .password(passwordEncoder().encode("user1Pass"))
+                .password(passwordEncoder.encode("user1Pass"))
                 .roles("USER")
                 .build();
         UserDetails user2 = User.withUsername("user2")
-                .password(passwordEncoder().encode("user2Pass"))
+                .password(passwordEncoder.encode("user2Pass"))
                 .roles("USER")
                 .build();
         UserDetails admin = User.withUsername("admin")
-                .password(passwordEncoder().encode("adminPass"))
+                .password(passwordEncoder.encode("adminPass"))
                 .roles("ADMIN")
                 .build();
         return new InMemoryUserDetailsManager(user1, user2, admin);
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/home").permitAll()
+                .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(ENDPOINTS_WHITELIST).permitAll()
                         .requestMatchers(ENDPOINTS_WHITELIST_ADMIN).hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
-                .formLogin((form) -> form
+                .formLogin(form -> form
                         .loginPage("/login")
+                        .loginProcessingUrl("/login")
+                        .defaultSuccessUrl("/")
                         .permitAll()
-                        .defaultSuccessUrl("/home", true)
                 )
-                .logout((logout) -> logout.permitAll());
+                .logout(logout -> logout
+                        .permitAll()
+                        .logoutSuccessUrl("/login?logout")
+                );
 
         return http.build();
     }
+
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(detallesUsuarioSrvc);
+        authProvider.setPasswordEncoder(passwordEncoder);
+
+        return authProvider;
+    }
+
 }

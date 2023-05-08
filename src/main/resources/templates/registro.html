@@ -29,124 +29,72 @@
 
     <link rel="stylesheet" href="../css/styles.css">
 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <title>registro</title>
 
 </head>
 
 <body>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <header th:replace="components/cabeceraFrag :: cabecera"></header>
 <nav th:replace="components/menuLateral :: navbar"></nav>
+
 
 <div class="container-fluid pb-3 flex-grow-1">
     <div class="row">
         <main class="col">
             <div class="d-flex align-items-center justify-content-center h-100 ">
-                <div class="card col-4" style="margin-top: 200px;background-image: url('/image/bg-form.png'); box-shadow: 5px 5px 10px rgba(255, 255, 255, 0.75);" >
+                <div class="card"
+                     style="margin-top: 200px;background-image: url('/image/bg-form.png'); box-shadow: 5px 5px 10px rgba(255, 255, 255, 0.75);">
                     <div class="card-header">
-                        <h5 class="card-title" style="color: white">Iniciar sesión</h5>
+                        <h5 class="card-title" style="color: white">Registro de Usuario</h5>
                     </div>
-                    <div class="card-body">
-                        <form action="/registro" method="POST" style="color: white">
-                            <div class="form-group row">
-                                <label class="col-3 col-form-label" for="usuario">Usuario</label>
-                                <div class="col-6">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <i class="fa fa-address-card"></i>
-                                            </div>
-                                        </div>
-                                        <input id="usuario" name="usuario" type="text" class="form-control" aria-describedby="usuarioHelpBlock" required="required">
-                                    </div>
-                                    <span id="usuarioHelpBlock" class="form-text text-muted">Eline el nombre de usuario con el que quieras que te conozcan</span>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="password" class="col-3 col-form-label">Contraseña</label>
-                                <div class="col-6">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <i class="fa fa-lock"></i>
-                                            </div>
-                                        </div>
-                                        <input id="password" name="password" type="text" aria-describedby="passwordHelpBlock" class="form-control" required="required">
-                                    </div>
-                                    <span id="passwordHelpBlock" class="form-text text-muted">min. 8 caracteres, mayus. caracteres especiales</span>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="email" class="col-3 col-form-label">Email</label>
-                                <div class="col-6">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">
-                                                <i class="fa fa-envelope-o"></i>
-                                            </div>
-                                        </div>
-                                        <input id="email" name="email" type="text" class="form-control" required="required">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="text" class="col-3 col-form-label">Nombre</label>
-                                <div class="col-6">
-                                    <input id="text" name="text" type="text" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="text1" class="col-3 col-form-label">Apellidos</label>
-                                <div class="col-6">
-                                    <input id="text1" name="text1" type="text" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-3">¿Que te interesa aprender?</label>
-                                <div class="col-6">
-                                    <div class="custom-control custom-checkbox custom-control-inline">
-                                        <input name="checkbox" id="checkbox_0" type="checkbox" class="custom-control-input" value="java">
-                                        <label for="checkbox_0" class="custom-control-label">Java</label>
-                                    </div>
-                                    <div class="custom-control custom-checkbox custom-control-inline">
-                                        <input name="checkbox" id="checkbox_1" type="checkbox" class="custom-control-input" value="html">
-                                        <label for="checkbox_1" class="custom-control-label">Html</label>
-                                    </div>
-                                    <div class="custom-control custom-checkbox custom-control-inline">
-                                        <input name="checkbox" id="checkbox_2" type="checkbox" class="custom-control-input" value="css">
-                                        <label for="checkbox_2" class="custom-control-label">Css</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-3">¿Cual es tu nivel?</label>
-                                <div class="col-6">
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input name="radio" id="radio_0" type="radio" class="custom-control-input" value="basico" required="required">
-                                        <label for="radio_0" class="custom-control-label">Basico</label>
-                                    </div>
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input name="radio" id="radio_1" type="radio" class="custom-control-input" value="intermedio" required="required">
-                                        <label for="radio_1" class="custom-control-label">Intermedio</label>
-                                    </div>
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input name="radio" id="radio_2" type="radio" class="custom-control-input" value="avanzado" required="required">
-                                        <label for="radio_2" class="custom-control-label">Avanzado</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="offset-4 col-8">
-                                    <button name="submit" type="submit" class="btn btn-primary">Submit</button>
-                                </div>
-                            </div>
-                        </form>
 
-
+                    <div th:if="${param.success}">
+                        <div class="alert alert-info">
+                            ¡Te has registrado correctamente!
+                        </div>
                     </div>
+
+                    <form th:action="@{/usuario/registro/save}" th:object="${usuario}" method="POST" enctype="utf8" role="form" style="color: white">
+                        <div>
+                            <label class="form-label" for="firstName">Nombre</label>
+                            <input type="text" class="form-control" th:field="*{firstName}" id="firstName"
+                                   name="firstName" alt="Pepe"/>
+                            <p th:errors="*{firstName}" class="text-danger"
+                               th:if="${#fields.hasErrors('firstName')}"></p>
+                        </div>
+
+                        <div>
+                            <label class="form-label" for="lastName">Apellidos</label>
+                            <input type="text" class="form-control" th:field="*{lastName}" id="lastName" name="lastName"
+                                   alt="Martínez Hernández"/>
+                            <p th:errors="*{lastName}" class="text-danger"
+                               th:if="${#fields.hasErrors('lastName')}"></p>
+                        </div>
+
+                        <div>
+                            <label class="form-label" for="email">Email</label>
+                            <input type="email" class="form-control" th:field="*{email}" id="email" name="email" alt="pepe.mh@gmail.com"/>
+                            <p th:errors="*{email}" class="text-danger"
+                               th:if="${#fields.hasErrors('email')}"></p>
+                        </div>
+
+                        <div>
+                            <label class="form-label" for="password">Contraseña</label>
+                            <input type="password" class="form-control" th:field="*{password}" id="password" name="password"
+                                   alt="Introduce una contraseña"/>
+                            <p th:errors="*{password}" class="text-danger"
+                               th:if="${#fields.hasErrors('password')}"></p>
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn btn-primary" type="submit">Registrarse</button>
+                            <span>¿Ya estás registrado? <a th:href="@{/login}">Accede a tu cuenta</a></span>
+                        </div>
+                    </form>
                 </div>
             </div>
         </main>
@@ -154,25 +102,15 @@
 </div>
 
 
+                    <!-- Optional JavaScript -->
 
+                    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+                            integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+                            crossorigin="anonymous"></script>
 
-
-
-
-
-
-
-
-
-<!-- Optional JavaScript -->
-
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
-        crossorigin="anonymous"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
-        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
-        crossorigin="anonymous"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+                            integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+                            crossorigin="anonymous"></script>
 
 </body>
 

@@ -6,7 +6,7 @@
       <!-- Acceso a login y registro -->
       <div class="col-md-10 text-end">
         <a href="/login" type="button" class="btn btn-outline-primary me-2">Acceder</a>
-        <a href="/registro" type="button" class="btn btn-primary">Registro</a>
+        <a href="/usuario/registro" type="button" class="btn btn-primary">Registro</a>
         <a href="/usuario/perfil" type="button" class="btn btn-primary"><span th:remove="tag" sec:authentication="name"></span></a>
       </div>
       <div class="flex-shrink-0 dropdown">
@@ -22,7 +22,10 @@
           <li>
             <hr class="dropdown-divider">
           </li>
-          <li><a class="dropdown-item" href="#">Sign out</a></li>
+          <li><form th:action="@{/logout}" method="post">
+            <i class="fa fa-power-off fa-2x"></i>
+            <input type="submit" value="Logout" />
+          </form></li>
         </ul>
       </div>
     </div>

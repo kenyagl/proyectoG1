@@ -38,10 +38,6 @@
 <header th:replace="components/cabeceraFrag :: cabecera"></header>
 <nav th:replace="components/menuLateral :: navbar"></nav>
 
-<div th:if="${param.logout}">
-    You have been logged out.
-</div>
-
 <div class="container-fluid pb-3 flex-grow-1">
     <div class="row">
         <main class="col">
@@ -50,8 +46,11 @@
                     <div class="card-header">
                         <h5 class="card-title" style="color: white">Iniciar sesión</h5>
                     </div>
+                    <div th:if="${param.logout}" class="text-danger">
+                        You have been logged out.
+                    </div>
                     <div class="card-body">
-                        <form th:action="@{/login}" method="POST" style="color: white">
+                        <form th:action="@{/login}" method="POST" style="color: white" class="form">
                             <div class="form-group row">
                                 <label class="col-3 col-form-label" for="username">Usuario</label>
                                 <div class="col-6">
@@ -61,7 +60,7 @@
                                                 <i class="fa fa-address-card"></i>
                                             </div>
                                         </div>
-                                        <input id="username" name="username" type="text" class="form-control" aria-describedby="usuarioHelpBlock" required="required" alt="Indroduzca su email">
+                                        <input id="username" name="username" type="text" class="form-control" aria-describedby="usuarioHelpBlock" required="required" alt="Introduzca su email">
                                     </div>
                                 </div>
                             </div>
@@ -78,14 +77,15 @@
                                     </div>
                                     <span id="passwordHelpBlock" class="form-text text-muted">min. 8 caracteres, 1 mayús., 1 carácter especial</span>
                                 </div>
-                                <div th:if="${param.error}">
-                                    Invalid username and password.
+                                <div th:if="${param.error}" class="text-danger">
+                                    Usuario o contraseña incorrectos
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <div class="offset-4 col-8">
-                                    <input name="submit" type="submit" class="btn btn-primary" value="Sign In"/>
-                                </div>
+                            <div class="form-group mb-3">
+                                <button type="submit" class="btn btn-primary" >Submit</button>
+                                <span> ¿No estás registrado?
+                                <a th:href="@{/usuario/registro}">Registrarse</a>
+                            </span>
                             </div>
                         </form>
                     </div>

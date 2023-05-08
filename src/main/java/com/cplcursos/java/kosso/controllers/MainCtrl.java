@@ -1,10 +1,12 @@
 package com.cplcursos.java.kosso.controllers;
 
+import com.cplcursos.java.kosso.DTO.UsuarioDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.WebRequest;
 
 @Controller
 public class MainCtrl {
@@ -15,7 +17,7 @@ public class MainCtrl {
     }
 
     @GetMapping("/login")
-    public String Acceso(Model modelo) {
+    public String acceso() {
         return "login";
     }
 
@@ -26,15 +28,4 @@ public class MainCtrl {
         return "exitoLogin";
     }
 
-    @GetMapping("/registro")
-    public String registro(Model modelo) {
-
-        return "registro";
-    }
-
-    @PostMapping("/registro")
-    public String alta(Model modelo){
-
-        return "exitoLogin";
-    }
 }

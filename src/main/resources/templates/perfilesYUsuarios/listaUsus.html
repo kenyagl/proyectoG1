@@ -40,8 +40,7 @@
                         <tr>
                             <th>id</th>
                             <th>Nombre</th>
-                            <th>Clave</th>
-                            <th>Activo</th>
+                            <th>Email</th>
                             <th>Rol</th>
                         </tr>
                     </thead>
@@ -49,8 +48,7 @@
                         <tr th:each="usu: ${listausuarios}">
                             <td th:text="${usu.getId()}"></td>
                             <td th:text="${usu.getNombre()}"></td>
-                            <td th:text="${usu.getClave()}"></td>
-                            <td th:text="${usu.getActivo()}"></td>
+                            <td th:text="${usu.getEmail()}"></td>
                             <td th:text="${usu.getRol()}"></td>
                         </tr>
                     </tbody>

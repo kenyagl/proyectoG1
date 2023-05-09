@@ -81,7 +81,8 @@ public class SecSecurityConfig {
                 .logout(logout -> logout
                         .permitAll()
                         .logoutSuccessUrl("/login?logout")
-                );
+                )
+                .csrf().disable();
 
         return http.build();
     }

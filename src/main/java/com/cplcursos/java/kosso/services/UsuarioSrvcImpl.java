@@ -39,6 +39,8 @@ public class UsuarioSrvcImpl implements ifxUsuarioSrvc {
         user.setApellidos(userDTO.getLastName());
         user.setEmail(userDTO.getEmail());
         user.setClave(passwordEncoder.encode(userDTO.getPassword()));
+        user.setPuntosEjercicios(100);
+        user.setPuntosRespuestas(0);
 
         Optional<Rol> rolOp = roleRepository.findByName("ADMIN");
         Rol rol;
@@ -49,6 +51,21 @@ public class UsuarioSrvcImpl implements ifxUsuarioSrvc {
         }
         user.setRoles(Arrays.asList(rol));
         usurepo.save(user);
+    }
+
+    public Integer totalPuntos(Usuario usu){
+        Integer ejercicios = usu.getPuntosEjercicios();
+        Integer respuestas = usu.getPuntosRespuestas();
+
+        if(ejercicios != null && respuestas != null) {
+            return ejercicios + respuestas;
+        }else if(ejercicios != null) {
+            return ejercicios;
+        }else if(respuestas != null){
+            return respuestas;
+        } else{
+            return 0;
+        }
     }
 
     @Override

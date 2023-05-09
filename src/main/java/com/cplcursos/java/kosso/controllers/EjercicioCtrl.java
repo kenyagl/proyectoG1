@@ -1,5 +1,6 @@
 package com.cplcursos.java.kosso.controllers;
 
+import com.cplcursos.java.kosso.MyUserDetails;
 import com.cplcursos.java.kosso.entities.*;
 import com.cplcursos.java.kosso.utils.FileUploadUtil;
 import com.cplcursos.java.kosso.services.CategoriaSrvc;
@@ -8,6 +9,7 @@ import com.cplcursos.java.kosso.services.UsuarioSrvcImpl;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -37,12 +39,16 @@ public class EjercicioCtrl {
     private UsuarioSrvcImpl usuarioSrvc;
 
     //Creo un usuario fake para probar el guardar respuesta, ya que sin la autenticación configurada el usuario no está presente
-    Usuario usu = new Usuario(1L, 200, 100);
-    Integer totalusu = usu.getPuntosEjercicios() + usu.getPuntosRespuestas();
+    /*Usuario usu = new Usuario(1L, 200, 100);
+    Integer totalusu = usu.getPuntosEjercicios() + usu.getPuntosRespuestas();*/
 
 
     @GetMapping(value = {"/", ""})
-    public String showEjercicios(Model model, @Param("keyword") String keyword) {
+    public String showEjercicios(@AuthenticationPrincipal MyUserDetails userDetails, Model model, @Param("keyword") String keyword) {
+        String userEmail = userDetails.getUsername();
+        Usuario usu = usuarioSrvc.findByEmail(userEmail);
+        Integer totalusu = usuarioSrvc.totalPuntos(usu);
+
         //Este método devuelve .findAll si no se le pasa ninguna keyword
         List<EjercicioOpMul> ejerciciosResult = ejerciciosService.encontrarEjerPorCategoria(keyword);
 
@@ -55,7 +61,11 @@ public class EjercicioCtrl {
     }
 
     @GetMapping("/{id}")
-    public String showEjercicio(@PathVariable("id") Long id, Model model) {
+    public String showEjercicio(@AuthenticationPrincipal MyUserDetails userDetails, @PathVariable("id") Long id, Model model) {
+        String userEmail = userDetails.getUsername();
+        Usuario usu = usuarioSrvc.findByEmail(userEmail);
+        Integer totalusu = usuarioSrvc.totalPuntos(usu);
+
         Optional<EjercicioOpMul> ejercicioOpMulOptional = ejerciciosService.findById(id);
         if (ejercicioOpMulOptional.isPresent()) {
 

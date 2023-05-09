@@ -10,7 +10,7 @@ public interface ifxUsuarioSrvc {
 
     Optional<Usuario> buscarNombre(String nombre);
     void save(UsuarioDTO usuarioDTO);
-    List<Usuario> listaUsus();
+    List<UsuarioDTO> listaUsus();
 
     Optional<Usuario> findById(Long id);
 

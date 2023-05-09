@@ -1,5 +1,6 @@
 package com.cplcursos.java.kosso.services;
 
+import com.cplcursos.java.kosso.MyUserDetails;
 import com.cplcursos.java.kosso.entities.Rol;
 import com.cplcursos.java.kosso.entities.Usuario;
 import com.cplcursos.java.kosso.repositories.UsuarioRepo;
@@ -13,16 +14,18 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class DetallesUsuarioSrvc implements UserDetailsService {
+public class MyUserDetailsSrvc implements UserDetailsService {
+
+    private Usuario user;
 
     @Autowired
     private UsuarioRepo userRepository;
 
-    public DetallesUsuarioSrvc (UsuarioRepo userRepository){
+    public MyUserDetailsSrvc(UsuarioRepo userRepository){
         this.userRepository = userRepository;
     }
 
@@ -31,17 +34,16 @@ public class DetallesUsuarioSrvc implements UserDetailsService {
         Usuario user = userRepository.findByEmail(email);
 
         if (user != null) {
-            return new org.springframework.security.core.userdetails.User(user.getEmail(),
-                    user.getClave(), mapRolesToAuthorities(user.getRoles()));
+            return new MyUserDetails(user);
         }else{
             throw new UsernameNotFoundException("Invalid username or password.");
         }
     }
 
-    private Collection < ? extends GrantedAuthority> mapRolesToAuthorities(List<Rol> roles) {
+    /*private Collection < ? extends GrantedAuthority> mapRolesToAuthorities(List<Rol> roles) {
         Collection < ? extends GrantedAuthority> mapRoles = roles.stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toList());
         return mapRoles;
-    }
+    }*/
 }

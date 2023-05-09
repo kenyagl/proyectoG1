@@ -13,6 +13,7 @@ import javax.swing.text.html.Option;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UsuarioSrvcImpl implements ifxUsuarioSrvc {
@@ -51,8 +52,12 @@ public class UsuarioSrvcImpl implements ifxUsuarioSrvc {
     }
 
     @Override
-    public List<Usuario> listaUsus() {
-        return usurepo.findAll();
+    public List<UsuarioDTO> listaUsus() {
+        List<Usuario> usuarios = usurepo.findAll();
+
+        return usuarios.stream()
+                .map((user) -> mapToUserDTO(user))
+                .collect(Collectors.toList());
     }
 
     public Optional<Usuario> findById(Long id) {
@@ -67,5 +72,14 @@ public class UsuarioSrvcImpl implements ifxUsuarioSrvc {
         Rol role = new Rol();
         role.setName("ADMIN");
         return roleRepository.save(role);
+    }
+
+    private UsuarioDTO mapToUserDTO(Usuario user){
+        UsuarioDTO userDTO = new UsuarioDTO();
+        userDTO.setFirstName(user.getNombre());
+        userDTO.setLastName(user.getApellidos());
+        userDTO.setEmail(user.getEmail());
+        userDTO.setPassword(user.getClave());
+        return userDTO;
     }
 }

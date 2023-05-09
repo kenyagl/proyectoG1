@@ -1,5 +1,6 @@
 package com.cplcursos.java.kosso.DTO;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,6 +22,7 @@ public class UsuarioDTO {
     private String password;
 
     @NotEmpty(message = "Por favor, introduce tu email")
+    @Email(message = "Por favor, introduce un email válido")
     private String email;
 
     public UsuarioDTO() {

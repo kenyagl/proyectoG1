@@ -21,10 +21,13 @@ import java.util.Map;
 @Controller
 @RequestMapping("/progreso")
 public class ProgresoCtrl {
+
+    // Dependency injection
     @Autowired
     RespuestaEjOpMulSrvc respuestaEjOpMulSrvc;
     @Autowired
     EjerciciosSrvc ejerciciosSrvc;
+    // TODO import voto and pregunta(foro) dependencies
 
     // Returns a list with respuestas log
     @GetMapping(value = {"/", ""})
@@ -33,12 +36,13 @@ public class ProgresoCtrl {
         return "respuesta";
     }
 
-    // Returns a view of respuestas grouped by month, day and year with no reference to current day
+    // Returns a view of respuestas grouped by month, day and year with no reference to current day (could be used for general statics)
     @GetMapping("/progress")
     public String showProgress(Model model) {
         // Retrieve data from database
         List<EjercicioOpMul> ejercicios = ejerciciosSrvc.findAll();
         List<RespuestaEjOpMul> respuestas = respuestaEjOpMulSrvc.findAll();
+
         // Calculate the number of ejercicios and respuestas
         int numeroEjercicios = ejercicios.size();
 //        int numeroRespuestas = respuestas.size();
@@ -58,7 +62,8 @@ public class ProgresoCtrl {
             respuestasByWeek.put(week, respuestasByWeek.getOrDefault(week, 0.0) + 1.0);
             respuestasByDay.put(day, respuestasByDay.getOrDefault(day, 0.0) + 1.0);
         }
-        // Calculate the percentages of responses for each time period
+        // Calculate the percentages of responses for each time period (returns the number of answers by dateRange as a percentage
+        // Of the total number of answers)
         for (Map.Entry<String, Double> entry : respuestasByMonth.entrySet()) {
             entry.setValue((entry.getValue() / numeroEjercicios) * 100.0);
         }

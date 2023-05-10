@@ -45,7 +45,7 @@ public class UsuarioCtrl {
     @GetMapping("/registro")
     public String registro(Model modelo) {
         UsuarioDTO usuDTO = new UsuarioDTO();
-        modelo.addAttribute("usuario", usuDTO);
+        modelo.addAttribute("usuarioDto", usuDTO);
         return "registro";
     }
 

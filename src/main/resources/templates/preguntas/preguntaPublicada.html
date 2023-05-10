@@ -146,8 +146,13 @@
                                         <!-- Imagen de Usuario, Nombre de Perfil, Título de la pregunta y fecha de la publicación-->
                                     <div class="col-12">
                                         <div class="d-flex align-items-center">
-                                            <img id="imgPerfil" class="rounded-circle m-3" src="@{${usuario.getFotoPath()}}" alt="Imagen de Prefil">
-                                            <h3 th:text="${pregunta.getTituloPregunta()}"><a href="/usuario" th:href="/perfil/{id}(id="{id=pregunta.getUsuario.getId()}")" th:text="${pregunta.getUsuario().getNombre()}">Nombre de Usuario</a> <span> - </span> Título Pregunta</h3>
+                                            <img id="imgPerfil" class="rounded-circle m-3" th:src="@{${pregunta.getUsuario.getPhotosImagePath()}}" alt="Imagen de Prefil">
+                                            <h3>
+                                                <a th:href="@{/usuario/perfil/{id}(id=${pregunta.getUsuario.getId()})}" th:text="${pregunta.getUsuario().getNombre()} ">Nombre de Usuario</a>
+                                                <span> - </span>
+                                            </h3>
+
+                                            <h3 th:text=" ${pregunta.getTituloPregunta()}">  Título Pregunta</h3>
                                         </div>
                                         <span th:text="${pregunta.getFechaPregunta()}">Fecha de Publicación</span>
                                     </div>
@@ -204,19 +209,15 @@
                                              class="d-flex flex-start">
 
                                             <!-- Imagen del usuario que responde -->
-                                            <img class="rounded-circle shadow-1-strong me-3"
-                                                 src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(10).webp"
-                                                 alt="avatar" width="65"
-                                                 height="65"/>
+                                            <img class="rounded-circle shadow-1-strong me-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(10).webp" th:src="@{${respuesta.getUsuario.getPhotosImagePath()}}" alt="avatar" width="65" height="65"/>
                                             <div class="flex-grow-1 flex-shrink-1">
                                                 <div>
                                                     <div class="d-flex justify-content-between align-items-center">
 
                                                         <!-- Usuario de la respuesta y fecha -->
-                                                        <p class="mb-1" text="${respuesta.getUsuario().getNombre()}}">
-                                                            Maria Smantha <span
-                                                                th:text="${respuesta.getFechaRespuesta()}"
-                                                                class="small">- 2 hours ago</span>
+                                                        <p class="mb-1">
+                                                            <a th:href="@{/usuario/perfil/{id}(id=${respuesta.getUsuario.getId()})}" th:text="${respuesta.getUsuario().getNombre()} ">Nombre de Usuario</a>
+                                                             <span th:text="${respuesta.getFechaRespuesta()}" class="small">- 2 hours ago</span>
                                                         </p>
 
                                                         <!-- Boton para comentar una Respuesta -->
@@ -245,13 +246,14 @@
                                                      class="d-flex flex-start mt-4">
                                                     <a class="me-3" href="#">
                                                         <!-- Imagen del Usuario que comenta -->
-                                                        <img class="rounded-circle shadow-1-strong" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(11).webp" alt="avatar" width="65" height="65"/>
+                                                        <img class="rounded-circle shadow-1-strong" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(11).webp" th:src="@{${comentario.getUsuario.getPhotosImagePath()}}" alt="avatar" width="65" height="65"/>
                                                     </a>
                                                     <div class="flex-grow-1 flex-shrink-1">
                                                         <div>
                                                             <!-- Nombre de usuario y fecha del comentario -->
                                                             <div class="d-flex justify-content-between align-items-center">
-                                                                <p class="mb-1" text="${comentario.getUsuario().getNombre()}}">Simona Disa
+                                                                <p class="mb-1">
+                                                                    <a th:href="@{/usuario/perfil/{id}(id=${comentario.getUsuario.getId()})}" th:text="${comentario.getUsuario().getNombre()} ">Nombre de Usuario</a>
                                                                     <span th:text="${comentario.getFechaComentario()}" class="small">- 3 hours ago</span>
                                                                 </p>
 

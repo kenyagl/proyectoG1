@@ -132,7 +132,7 @@ public class EjercicioCtrl {
         if (ejercicioOpMul.isPresent()) {
             model.addAttribute("ejercicioOpMul", ejercicioOpMul);
         } else {
-            return "errorEncontrandoEjercicio";
+            return "error/errorEncontrandoEjercicio";
         }
         return "ejercicios/ejercicioForm";
     }

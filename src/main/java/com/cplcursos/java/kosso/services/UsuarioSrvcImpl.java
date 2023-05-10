@@ -33,7 +33,12 @@ public class UsuarioSrvcImpl implements ifxUsuarioSrvc {
     }
 
     @Override
-    public void save(UsuarioDTO userDTO) {
+    public Usuario save(Usuario usu){
+        return usurepo.save(usu);
+    }
+
+    @Override
+    public void saveDto(UsuarioDTO userDTO) {
         Usuario user = new Usuario();
         user.setNombre(userDTO.getFirstName());
         user.setApellidos(userDTO.getLastName());
@@ -98,5 +103,10 @@ public class UsuarioSrvcImpl implements ifxUsuarioSrvc {
         userDTO.setEmail(user.getEmail());
         userDTO.setPassword(user.getClave());
         return userDTO;
+    }
+
+    @Override
+    public void deleteByEmail(String email){
+        usurepo.deleteByEmail(email);
     }
 }

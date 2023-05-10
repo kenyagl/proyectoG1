@@ -25,7 +25,7 @@ public class MyUserDetailsSrvc implements UserDetailsService {
     @Autowired
     private UsuarioRepo userRepository;
 
-    public MyUserDetailsSrvc(UsuarioRepo userRepository){
+    public MyUserDetailsSrvc(){
         this.userRepository = userRepository;
     }
 

@@ -47,25 +47,14 @@
 <nav th:replace="components/menuLateral :: navbar"></nav>
 
  <div class="header"   >
-     <img class="avatar"  src="/image/profile.jpg" style="margin-top:200px">
-     <h1 class="username" style="font-size: 40px;">TheKossoMaster</h1>
+     <img class="avatar" th:src="@{${usuario.getPhotosImagePath()}}" style="margin-top:200px">
+     <h1 class="username" th:text="${usuario.getNombre()}" style="font-size: 40px;"></h1>
+     <p th:text="${usuario.getEmail()}">Email: joselu@eoi.es</p>
+
  </div>
-     <ul class="datos" style="font-size: 24px; color: white">
-         <li>
-             <p>Nombre: Jose Luis</p>
-         </li>
-         <li>
-             <p>Apellidos: Hernadnez</p>
-          </li>
-         <li>
-             <p>Email: joselu@eoi.es</p>
-         </li>
-     </ul>
      <div class="about" style="font-size: 24px; color: white; padding-left: 200px;">
-         <h3 >Acerca de </h3>
-         <p>
-             Lorem ipsum jajjasdkfoona asp onjf jofasd sjfsad dsfdsj saff dsfsa jf adsfj adsf sdfia sdfasod fs fs dafs osdfs dfs odfsdf asdojf fod fasdjfposdcsj9erfnmas  fs ncscns cnasina scsnsa
-         </p>
+         <h3 class="text-black">Acerca de</h3>
+         <p th:text="${usuario.getDescripcion()}">Añade tu descripción aquí</p>
      </div>
 
 
@@ -77,9 +66,9 @@
          Tus preguntas
      </a>
 
-     <a class="btn btn-primary" href="/perfil/editar" type="button" aria-expanded="false" aria-controls="collapseExample">
+     <a class="btn btn-primary" href="/usuario/editar" type="button" aria-expanded="false" aria-controls="collapseExample">
          Editar perfil</a>
-     <a class="btn btn-primary" href="/perfil/borrarperfil" type="button" aria-expanded="false" aria-controls="collapseExample">
+     <a class="btn btn-primary" href="/usuario/borrar" type="button" aria-expanded="false" aria-controls="collapseExample">
          Borrar perfil</a>
 
 

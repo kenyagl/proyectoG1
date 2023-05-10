@@ -28,12 +28,40 @@ public class MyUserDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return user.getClave();
+        return this.user.getClave();
     }
 
     @Override
     public String getUsername() {
-        return user.getEmail();
+        return this.user.getEmail();
+    }
+
+    public void setFirstName(String firstName) {
+        this.user.setNombre(firstName);
+    }
+
+    public void setLastName(String lastName) {
+        this.user.setApellidos(lastName);
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.user.setDescripcion(descripcion);
+    }
+
+    public void setFoto(String foto) {
+        this.user.setFoto(foto);
+    }
+
+    public void setClave(String clave) {
+        this.user.setClave(clave);
+    }
+
+    public void setEmail(String email) {
+        this.user.setEmail(email);
+    }
+
+    public void setRoles(List<Rol> roles) {
+        this.user.setRoles(roles);
     }
 
     @Override

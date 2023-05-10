@@ -44,6 +44,13 @@ public class Usuario {
         this.puntosRespuestas = puntosRespuestas;
     }
 
+    @Transient
+    public String getPhotosImagePath() {
+        if (foto == null || id == null) return null;
+
+        return "/user-photos/" + id + "/" + foto;
+    }
+
     @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<DiaCalendario> diaCalendario = new ArrayList<>();
 

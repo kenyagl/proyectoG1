@@ -9,10 +9,14 @@ import java.util.Optional;
 public interface ifxUsuarioSrvc {
 
     Optional<Usuario> buscarNombre(String nombre);
-    void save(UsuarioDTO usuarioDTO);
+
+    Usuario save(Usuario usu);
+    void saveDto(UsuarioDTO usuarioDTO);
     List<UsuarioDTO> listaUsus();
 
     Optional<Usuario> findById(Long id);
 
     Usuario findByEmail(String email);
+
+    void deleteByEmail(String email);
 }

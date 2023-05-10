@@ -53,6 +53,10 @@ public class Usuario {
         return "/image/user-photos/" + id + "/" + foto;
     }
 
+    public String mensajeHola(){
+        return "Perfil de " + nombre;
+    }
+
     @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<DiaCalendario> diaCalendario = new ArrayList<>();
 

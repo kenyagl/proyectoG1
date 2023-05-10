@@ -8,7 +8,8 @@
       <div class="col-md-10 text-end">
         <a th:if="${usuario == null}" href="/login" type="button" class="btn btn-outline-primary me-2">Acceder</a>
         <a th:if="${usuario == null}" href="/usuario/registro" type="button" class="btn btn-primary">Registro</a>
-        <a href="/usuario/perfil" type="button" class="btn btn-primary"><span th:remove="tag" sec:authentication="name"></span></a>
+        <a th:if="${usuario != null}" href="/usuario/perfil" type="button" class="btn btn-primary" th:text="${usuario.mensajeHola()}"></a>
+
       </div>
       <div class="flex-shrink-0 dropdown">
         <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser2"

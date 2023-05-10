@@ -189,6 +189,6 @@ public class EjercicioCtrl {
         }
 
         model.addAttribute("resultMessage", resultMessage);
-        return "partesAjax :: resultadoRespuesta";
+        return "components/partesAjax :: resultadoRespuesta";
     }
 }

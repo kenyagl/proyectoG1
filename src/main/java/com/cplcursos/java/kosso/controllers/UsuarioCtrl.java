@@ -35,10 +35,10 @@ public class UsuarioCtrl {
     public String Perfil(Model modelo, @AuthenticationPrincipal MyUserDetails userDetails) {
         String email = userDetails.getUsername();
         Usuario usu = usuSrvc.findByEmail(email);
+        String nombreCompleto = usu.getNombre() + " " + usu.getApellidos();
 
-        String imagenPath = usu.getPhotosImagePath();
-        modelo.addAttribute("imagenPath", imagenPath);
         modelo.addAttribute("usuario", usu);
+        modelo.addAttribute("nombreCompleto", nombreCompleto);
         return "perfilesYUsuarios/perfil";
     }
 
@@ -96,7 +96,7 @@ public class UsuarioCtrl {
             user.setFoto(fileName);
             Usuario usuGuardado = usuSrvc.save(user);
 
-            String uploadDir = "user-photos/" + usuGuardado.getId();
+            String uploadDir = "target/classes/static/image/user-photos/" + usuGuardado.getId();
             FileUploadUtil.saveFile(uploadDir, fileName, foto);
         }else{
             if(user.getFoto().isEmpty()) user.setFoto(null);

@@ -46,10 +46,10 @@
 <header th:replace="components/cabeceraFrag :: cabecera"></header>
 <nav th:replace="components/menuLateral :: navbar"></nav>
 
- <div class="header"   >
-     <img class="avatar" th:src="@{${usuario.getPhotosImagePath()}}" style="margin-top:200px">
-     <h1 class="username" th:text="${usuario.getNombre()}" style="font-size: 40px;"></h1>
-     <p th:text="${usuario.getEmail()}">Email: joselu@eoi.es</p>
+ <div class="header"  >
+     <img class="avatar" th:src="@{${usuario.getPhotosImagePath()}}" style="margin-top:100px">
+     <h1 class="username" th:text="${nombreCompleto}" style="font-size: 40px;"></h1>
+     <p th:text="${usuario.getEmail()}" class="text-light">Email: joselu@eoi.es</p>
 
  </div>
      <div class="about" style="font-size: 24px; color: white; padding-left: 200px;">

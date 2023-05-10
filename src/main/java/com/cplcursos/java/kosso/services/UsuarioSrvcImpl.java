@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.swing.text.html.Option;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -46,6 +47,7 @@ public class UsuarioSrvcImpl implements ifxUsuarioSrvc {
         user.setClave(passwordEncoder.encode(userDTO.getPassword()));
         user.setPuntosEjercicios(100);
         user.setPuntosRespuestas(0);
+        user.setCreadoEl(LocalDate.now());
 
         Optional<Rol> rolOp = roleRepository.findByName("ADMIN");
         Rol rol;

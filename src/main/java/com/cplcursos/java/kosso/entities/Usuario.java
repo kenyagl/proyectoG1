@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.management.relation.Role;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,9 +29,8 @@ public class Usuario {
     private String apellidos;
     private String descripcion;
     private String foto;
-    private Boolean activo = false;
-    private Date creadoEl;
-    private String acercaDe;
+    private Boolean activo;
+    private LocalDate creadoEl;
     private Integer puntosEjercicios;
     private Integer puntosRespuestas;
     
@@ -48,7 +48,7 @@ public class Usuario {
     public String getPhotosImagePath() {
         if (foto == null || id == null) return null;
 
-        return "/user-photos/" + id + "/" + foto;
+        return "/image/user-photos/" + id + "/" + foto;
     }
 
     @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

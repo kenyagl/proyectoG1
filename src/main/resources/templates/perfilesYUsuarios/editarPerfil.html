@@ -59,6 +59,10 @@
                 <form th:action="@{/usuario/editar}" th:object="${usuario}" method="POST" role="form" enctype="multipart/form-data"
                       style="color: white">
                     <input type="hidden" th:field="*{id}">
+                    <input type="hidden" th:field="*{clave}">
+                    <input type="hidden" th:field="*{puntosEjercicios}">
+                    <input type="hidden" th:field="*{puntosRespuestas}">
+                    <input type="hidden" th:field="*{creadoEl}">
                     <div>
                         <label class="form-label" for="email">Email</label>
                         <input type="email" class="form-control" id="email" name="email" th:field="*{email}"
@@ -88,11 +92,11 @@
                                th:placeholder="${usuario.getFoto()}" required/>
                     </div>
 
-                    <div>
+                    <!--<div>
                         <label class="form-label" for="clave">Contraseña</label>
                         <input type="password" class="form-control" id="clave" name="clave" th:field="*{clave}"
                                placeholder="Introduce una nueva contraseña"/>
-                    </div>
+                    </div>-->
 
                     <div class="form-group">
                         <button class="btn btn-primary" type="submit">Enviar</button>

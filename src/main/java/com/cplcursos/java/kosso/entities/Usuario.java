@@ -46,7 +46,9 @@ public class Usuario {
 
     @Transient
     public String getPhotosImagePath() {
-        if (foto == null || id == null) return null;
+        if (foto == null || id == null){
+            return "/image/profile.jpg";
+        }
 
         return "/image/user-photos/" + id + "/" + foto;
     }

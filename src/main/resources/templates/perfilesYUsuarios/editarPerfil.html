@@ -63,6 +63,7 @@
                     <input type="hidden" th:field="*{puntosEjercicios}">
                     <input type="hidden" th:field="*{puntosRespuestas}">
                     <input type="hidden" th:field="*{creadoEl}">
+                    <input type="hidden" th:field="*{foto}">
                     <div>
                         <label class="form-label" for="email">Email</label>
                         <input type="email" class="form-control" id="email" name="email" th:field="*{email}"
@@ -89,7 +90,7 @@
                     <div>
                         <label class="form-label">Foto de Perfil</label>
                         <input type="file" class="form-control" name="image" accept="image/png, image/jpeg"
-                               th:placeholder="${usuario.getFoto()}" required/>
+                               th:placeholder="${usuario.getFoto()}"/>
                     </div>
 
                     <!--<div>

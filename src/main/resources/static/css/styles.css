@@ -23,10 +23,10 @@ overflow:visible;
 .main-menu {
 background:#212121;
 border-right:1px solid #e5e5e5;
-position:absolute;
+position:fixed;
 top:0;
 bottom:0;
-height:100%;
+height: 100vh;;
 left:0;
 width:60px;
 overflow:hidden;
@@ -75,7 +75,7 @@ position:relative;
 display:table-cell;
 vertical-align:middle;
 width:190px;
-  font-family: 'Titillium Web', sans-serif;
+font-family: 'Titillium Web', sans-serif;
 }
 
 .main-menu>ul.logout {
@@ -388,8 +388,9 @@ body { /* FONDO AZUL DEL BODY */
             color: #1089ff; }
 
 
-    /*FORO */
-        .bd-placeholder-img {
+    /* FORO */
+
+      .bd-placeholder-img {
             font-size: 1.125rem;
             text-anchor: middle;
             -webkit-user-select: none;

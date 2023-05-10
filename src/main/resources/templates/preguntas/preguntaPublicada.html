@@ -117,7 +117,7 @@
 <section class="main">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-10 m-auto">
 
                 <!--tags and badges-->
                 <div class="d-flex gap-2 justify-content-center py-5">
@@ -159,7 +159,7 @@
                     <div>
                         <!-- Contenido de la pregunta -->
                         <p th:text="${pregunta.getTextoPregunta}"> Texto Pregunta</p>
-                        <div class="container">
+                        <div class="container" th:if="${pregunta.getFoto() != null}">
                             <!-- Imagen de la pregunta -->
                             <img class="img-fluid mx-auto d-block" th:src="@{${pregunta.getFotoPath()}}" alt="Imagen de la pregunta">
                         </div>

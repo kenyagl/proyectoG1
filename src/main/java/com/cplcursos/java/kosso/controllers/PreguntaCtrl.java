@@ -7,6 +7,7 @@ import com.cplcursos.java.kosso.utils.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.ui.Model;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -16,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -46,7 +46,9 @@ public class PreguntaCtrl {
     public String mostrarPreguntas (Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(10);
-        Page<Pregunta> paginaPreguntas = preguntaPaginacionRepo.findAll(PageRequest.of(currentPage - 1, pageSize));
+
+        Page<Pregunta> paginaPreguntas = preguntaPaginacionRepo.findAll(PageRequest.of(currentPage - 1, pageSize, Sort.by("fechaPregunta").descending()));
+
         model.addAttribute("paginaPreguntas", paginaPreguntas);
 
         int totalPaginas = paginaPreguntas.getTotalPages();
@@ -58,6 +60,15 @@ public class PreguntaCtrl {
         }
         return "preguntas/pregunta-list";
     }
+
+    @PostMapping(value = "/search")
+    public String busqueda(@ModelAttribute("search") String search, Model model){
+        String a = search;
+        model.addAttribute("search", search);
+        return "redirect:/preguntas/" + search;
+    }
+
+
 
     // Muestra la pregunta publicada por su id
     @GetMapping(value = "/preguntaPublicada/{id}")

@@ -23,6 +23,7 @@ public class Pregunta {
 
     private String tituloPregunta;
 
+    @Column(length = 1500)
     private String textoPregunta;
 
     private String foto;

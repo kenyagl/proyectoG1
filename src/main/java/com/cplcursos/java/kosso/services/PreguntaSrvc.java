@@ -14,7 +14,6 @@ public class PreguntaSrvc  {
     @Autowired
     private PreguntaRepo preguntaRepo;
 
-
     public Optional<Pregunta> findById(Long id) {
         return preguntaRepo.findById(id);
     }

@@ -42,6 +42,21 @@ public class UsuarioCtrl {
         return "perfilesYUsuarios/perfil";
     }
 
+    @GetMapping(value={"/perfil/{id}"})
+    public String mostrarUsuario(@PathVariable("id") Long id, @AuthenticationPrincipal MyUserDetails userDetails , Model modelo) {
+        Optional<Usuario> usu = usuSrvc.findById(id);
+        if (usu.isPresent()){
+            if (usuSrvc.findByEmail(userDetails.getUsername()).equals(usu.get())){
+                return "redirect:/usuario/perfil";
+            }else {
+                modelo.addAttribute("usuario", usu.get());
+                return "perfilesYUsuarios/usuario";
+            }
+        }else {
+            return "error-page";
+        }
+    }
+
     @GetMapping("/registro")
     public String registro(Model modelo) {
         UsuarioDTO usuDTO = new UsuarioDTO();

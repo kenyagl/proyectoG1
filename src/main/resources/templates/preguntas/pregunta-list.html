@@ -18,6 +18,14 @@
 
     <title>Foro</title>
 
+        <style>
+
+        #imgPerfil{
+        height: 80px;
+        width: auto;
+        }
+
+        </style>
 </head>
 <body>
 
@@ -47,18 +55,18 @@
                                         <option value="votos">Mejor Valorados</option>
                                 </select>
                         </div>
-  
-                                
+
                         <!-- Preguntas publicadas -->
                         <div th:each="pregunta: ${paginaPreguntas.content}" class="row border-top border-bottom p-2">
                                 <div class="col-3 align-self-center">
-                                        <a href="#!" style="border: 2px; border-style: solid;">Img</a>
-                                        <a href="/version1/perfil/{id}">UsuarioQuePregunta</a>
+                                        <div class="row mx-auto">
+                                        <img id="imgPerfil" class="rounded-circle" th:src="@{${pregunta.getUsuario.getPhotosImagePath()}}" alt="Imagen de Prefil">
+                                        <a th:href="@{/usuario/perfil/{id}(id=${pregunta.getUsuario.getId()})}" th:text="${pregunta.getUsuario().getNombre()} ">Nombre de Usuario</a>
+                                        </div>
                                         <div class="container-fluid">
                                                 <ul>
                                                         <li th:text="${pregunta.getFechaPregunta()}">Fecha:</li>
                                                         <li><span>Votos: </span><span th:text="${pregunta.getVotos()} ?: '0'"></span></li>
-                                                        <li><span>Respuestas: </span><span text="" ></span> </li>
                                                 </ul>    
                                         </div>
                                 </div>

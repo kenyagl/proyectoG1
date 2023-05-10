@@ -1,5 +1,6 @@
 package com.cplcursos.java.kosso.controllers;
 
+import com.cplcursos.java.kosso.MyUserDetails;
 import com.cplcursos.java.kosso.entities.*;
 import com.cplcursos.java.kosso.repositories.PreguntaPaginacionRepo;
 import com.cplcursos.java.kosso.services.*;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.ui.Model;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -40,6 +42,9 @@ public class PreguntaCtrl {
 
     @Autowired
     private PreguntaPaginacionRepo preguntaPaginacionRepo;
+
+    @Autowired
+    private UsuarioSrvcImpl usuSrvc;
 
 
     @GetMapping(value = {"/", ""})
@@ -83,9 +88,9 @@ public class PreguntaCtrl {
 
     // Publica la pregunta y la muestra
     @PostMapping(value = "/save")
-    public String crearPregunta (@ModelAttribute("pregunta") Pregunta pregunta, @RequestParam("image") MultipartFile multipartFile) throws IOException {
+    public String crearPregunta (@ModelAttribute("pregunta") Pregunta pregunta, @RequestParam("image") MultipartFile multipartFile, @AuthenticationPrincipal MyUserDetails userDetails) throws IOException {
+        pregunta.setUsuario(usuSrvc.findByEmail(userDetails.getUsername()));
         String fileName1 = multipartFile.getOriginalFilename();
-
         if(fileName1 == null){
             fileName1 = pregunta.getTituloPregunta() + "default.png";
         }
@@ -106,9 +111,10 @@ public class PreguntaCtrl {
 
 // agregar al edit las categorias que ya tenía la pregunta
     @GetMapping(value = "/edit/{id}")
-    public String editarPregunta( @PathVariable("id") Long id, Model model){
+    public String editarPregunta( @PathVariable("id") Long id, @AuthenticationPrincipal MyUserDetails userDetails, Model model){
+
         Optional<Pregunta> pregunta = preguntaSrvc.findById(id);
-        if(pregunta.isPresent()){
+        if(pregunta.isPresent() && usuSrvc.findByEmail(userDetails.getUsername()).equals(pregunta.get().getUsuario())){
             model.addAttribute("pregunta", pregunta.get());
             model.addAttribute("categorias", categoriaSrvc.findAll());
 
@@ -133,18 +139,24 @@ public class PreguntaCtrl {
     }
 
     @GetMapping(value = "/delete/{id}")
-    public String borrarPregunta (@PathVariable("id") Long id){
-        preguntaSrvc.borrarPregunta(id);
+    public String borrarPregunta (@PathVariable("id") Long id, @AuthenticationPrincipal MyUserDetails userDetails){
+        Optional<Pregunta> pregunta = preguntaSrvc.findById(id);
+        if(pregunta.isPresent() && usuSrvc.findByEmail(userDetails.getUsername()).equals(pregunta.get().getUsuario())){
+        preguntaSrvc.borrarPregunta(id);}
+        else {
+            return "Usuario dueño de la pregunta no conectado";
+        }
         return "redirect:/preguntas";
     }
 
     // Controlador para Respuestas
 
     @PostMapping(value = "/respuestasave")
-    public String crearRespuesta (@RequestParam(name = "idPregunta") Long id, @RequestParam(name = "textoRespuesta") String textoRespuesta, Model model){
+    public String crearRespuesta (@RequestParam(name = "idPregunta") Long id, @RequestParam(name = "textoRespuesta") String textoRespuesta, @AuthenticationPrincipal MyUserDetails userDetails, Model model){
         Respuesta respuesta = new Respuesta();
         Pregunta pregunta = new Pregunta();
         pregunta.setId(id);
+        respuesta.setUsuario(usuSrvc.findByEmail(userDetails.getUsername()));
         respuesta.setPregunta(pregunta);
         respuesta.setTextoRespuesta(textoRespuesta);
         respuesta.setFechaRespuesta(LocalDate.now());
@@ -154,11 +166,11 @@ public class PreguntaCtrl {
 
     // Controlador para Comentarios
     @PostMapping(value = "/comentariosave")
-    public String crearComentario(@RequestParam(name = "idPregunta") Long idPregunta, @RequestParam(name = "idRespuesta") Long idRespuesta, @RequestParam(name = "textoComentario") String textoComentario, Model model){
+    public String crearComentario(@RequestParam(name = "idPregunta") Long idPregunta, @RequestParam(name = "idRespuesta") Long idRespuesta, @RequestParam(name = "textoComentario") String textoComentario, @AuthenticationPrincipal MyUserDetails userDetails ,Model model){
         Comentario comentario = new Comentario();
         Respuesta respuesta = new Respuesta();
         respuesta.setId(idRespuesta);
-
+        comentario.setUsuario(usuSrvc.findByEmail(userDetails.getUsername()));
         comentario.setRespuesta(respuesta);
         comentario.setTextoComentario(textoComentario);
         comentario.setFechaComentario(LocalDate.now());

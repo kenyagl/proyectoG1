@@ -27,9 +27,9 @@ public class ProgresoCtrl {
     RespuestaEjOpMulSrvc respuestaEjOpMulSrvc;
     @Autowired
     EjerciciosSrvc ejerciciosSrvc;
-    // TODO import voto and pregunta(foro) dependencies
+    // TODO import voto and pregunta(foro) dependencies, it should be preferably be a service to follow same implementation logic of other entities
 
-    // Returns a list with respuestas log
+    // Returns a list with all respuestas
     @GetMapping(value = {"/", ""})
     public String showAllProgreso (Model model){
         model.addAttribute("respuestas", respuestaEjOpMulSrvc.findAll());
@@ -51,28 +51,39 @@ public class ProgresoCtrl {
         // This shows the progress by month in general with no reference to current date
 
         // Create a HashMap with <respuestaByDateRange, counter>
-        Map<String, Double> respuestasByMonth = new HashMap<>();
-        Map<String, Double> respuestasByWeek = new HashMap<>();
-        Map<String, Double> respuestasByDay = new HashMap<>();
+        Map<String, Integer> respuestasByMonth = new HashMap<>();
+        Map<String, Integer> respuestasByWeek = new HashMap<>();
+        Map<String, Integer> respuestasByDay = new HashMap<>();
         for (RespuestaEjOpMul respuesta : respuestas) {
             String month = respuesta.getFechaRespuesta().getMonth().toString();
             String week = respuesta.getFechaRespuesta().getYear() + "-Semana: " + respuesta.getFechaRespuesta().get(IsoFields.WEEK_OF_WEEK_BASED_YEAR);
             String day = respuesta.getFechaRespuesta().toString().substring(0, 10);
-            respuestasByMonth.put(month, respuestasByMonth.getOrDefault(month, 0.0) + 1.0);
-            respuestasByWeek.put(week, respuestasByWeek.getOrDefault(week, 0.0) + 1.0);
-            respuestasByDay.put(day, respuestasByDay.getOrDefault(day, 0.0) + 1.0);
+            respuestasByMonth.put(month, respuestasByMonth.getOrDefault(month, 0) + 1);
+            respuestasByWeek.put(week, respuestasByWeek.getOrDefault(week, 0) + 1);
+            respuestasByDay.put(day, respuestasByDay.getOrDefault(day, 0) + 1);
         }
         // Calculate the percentages of responses for each time period (returns the number of answers by dateRange as a percentage
         // Of the total number of answers)
-        for (Map.Entry<String, Double> entry : respuestasByMonth.entrySet()) {
-            entry.setValue((entry.getValue() / numeroEjercicios) * 100.0);
+
+        for (Map.Entry<String, Integer> entry : respuestasByMonth.entrySet()) {
+            entry.setValue(entry.getValue() * 100);
         }
-        for (Map.Entry<String, Double> entry : respuestasByWeek.entrySet()) {
-            entry.setValue((entry.getValue() / numeroEjercicios) * 100.0);
+        for (Map.Entry<String, Integer> entry : respuestasByWeek.entrySet()) {
+            entry.setValue(entry.getValue() * 100);
         }
-        for (Map.Entry<String, Double> entry : respuestasByDay.entrySet()) {
-            entry.setValue((entry.getValue() / numeroEjercicios) * 100.0);
+        for (Map.Entry<String, Integer> entry : respuestasByDay.entrySet()) {
+            entry.setValue(entry.getValue() * 100);
         }
+
+        /*for (Map.Entry<String, Integer> entry : respuestasByMonth.entrySet()) {
+            entry.setValue((entry.getValue() / numeroEjercicios) * 100);
+        }
+        for (Map.Entry<String, Integer> entry : respuestasByWeek.entrySet()) {
+            entry.setValue((entry.getValue() / numeroEjercicios) * 100);
+        }
+        for (Map.Entry<String, Integer> entry : respuestasByDay.entrySet()) {
+            entry.setValue((entry.getValue() / numeroEjercicios) * 100);
+        }*/
 
         // Add the data to the model
         model.addAttribute("respuestasByMonth", respuestasByMonth);

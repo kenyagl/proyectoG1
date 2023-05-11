@@ -47,7 +47,7 @@
 <nav th:replace="components/menuLateral :: navbar"></nav>
 
 <div class="header">
-    <img class="avatar" th:src="${imagePath}" style="margin-top:100px">
+    <img class="avatar" th:src="@{${usuario.getPhotosImagePath()}}" style="margin-top:100px">
 </div>
 
 <div class="container">

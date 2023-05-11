@@ -54,6 +54,7 @@ public class EjercicioCtrl {
 
         model.addAttribute("ejercicios", ejerciciosResult);
         model.addAttribute("keyword", keyword);
+        model.addAttribute("usuario", usu);
         model.addAttribute("totalusu", totalusu);
         model.addAttribute("categorias", categoriaSrvc.findAll());
 
@@ -71,6 +72,7 @@ public class EjercicioCtrl {
 
             EjercicioOpMul ejercicioOpMul = ejercicioOpMulOptional.get();
             model.addAttribute("ejercicio", ejercicioOpMul);
+            model.addAttribute("usuario", usu);
             model.addAttribute("id_usuario", usu.getId());
             model.addAttribute("totalusu", totalusu);
 

@@ -48,9 +48,13 @@ public class PreguntaCtrl {
 
 
     @GetMapping(value = {"/", ""})
-    public String mostrarPreguntas (Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
+    public String mostrarPreguntas (Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size, @AuthenticationPrincipal MyUserDetails userDetails){
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(10);
+
+        String email = userDetails.getUsername();
+        Usuario usuario = usuSrvc.findByEmail(email);
+        model.addAttribute("usuario", usuario);
 
         Page<Pregunta> paginaPreguntas = preguntaPaginacionRepo.findAll(PageRequest.of(currentPage - 1, pageSize, Sort.by("fechaPregunta").descending()));
 
@@ -77,7 +81,11 @@ public class PreguntaCtrl {
 
     // Muestra la pregunta publicada por su id
     @GetMapping(value = "/preguntaPublicada/{id}")
-    public String verPreguntaPublicada (@PathVariable Long id, Model model){
+    public String verPreguntaPublicada (@PathVariable Long id, Model model, @AuthenticationPrincipal MyUserDetails userDetails){
+        String email = userDetails.getUsername();
+        Usuario usuario = usuSrvc.findByEmail(email);
+        model.addAttribute("usuario", usuario);
+
         Optional<Pregunta> pregunta = preguntaSrvc.findById(id);
         if(pregunta.isPresent()) {
             model.addAttribute("pregunta", pregunta.get());
@@ -113,6 +121,10 @@ public class PreguntaCtrl {
     @GetMapping(value = "/edit/{id}")
     public String editarPregunta( @PathVariable("id") Long id, @AuthenticationPrincipal MyUserDetails userDetails, Model model){
 
+        String email = userDetails.getUsername();
+        Usuario usuario = usuSrvc.findByEmail(email);
+        model.addAttribute("usuario", usuario);
+
         Optional<Pregunta> pregunta = preguntaSrvc.findById(id);
         if(pregunta.isPresent() && usuSrvc.findByEmail(userDetails.getUsername()).equals(pregunta.get().getUsuario())){
             model.addAttribute("pregunta", pregunta.get());
@@ -126,7 +138,11 @@ public class PreguntaCtrl {
     }
 
     @GetMapping(value = "/new")
-    public String verFormularioPregunta (Model model){
+    public String verFormularioPregunta (Model model, @AuthenticationPrincipal MyUserDetails userDetails){
+        String email = userDetails.getUsername();
+        Usuario usuario = usuSrvc.findByEmail(email);
+        model.addAttribute("usuario", usuario);
+
         model.addAttribute("pregunta", new Pregunta());
         model.addAttribute("categorias", categoriaSrvc.findAll());
         return "preguntas/pregunta-form";

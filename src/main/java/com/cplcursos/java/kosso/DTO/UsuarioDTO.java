@@ -1,5 +1,8 @@
 package com.cplcursos.java.kosso.DTO;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
@@ -11,11 +14,14 @@ import org.jetbrains.annotations.*;
 @Setter
 @AllArgsConstructor
 public class UsuarioDTO {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
 
-    @NotEmpty
+    @NotEmpty(message = "Por favor, introduce tu nombre")
     private String firstName;
 
-    @NotEmpty
+    @NotEmpty(message = "Por favor, introduce tus apellidos")
     private String lastName;
 
     @NotEmpty(message = "Por favor, introduce tu contraseña")

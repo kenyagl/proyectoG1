@@ -38,12 +38,6 @@ public class Usuario {
         this.id = id;
     }
 
-    public Usuario(Long id, Integer puntosEjercicios, Integer puntosRespuestas) {
-        this.id = id;
-        this.puntosEjercicios = puntosEjercicios;
-        this.puntosRespuestas = puntosRespuestas;
-    }
-
     @Transient
     public String getPhotosImagePath() {
         if (foto == null || id == null){
@@ -52,6 +46,7 @@ public class Usuario {
 
         return "/image/user-photos/" + id + "/" + foto;
     }
+
 
     public String mensajeHola(){
         return "Perfil de " + nombre;

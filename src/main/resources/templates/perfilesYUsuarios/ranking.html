@@ -38,20 +38,18 @@
                 <table class="table table-stripped">
                     <thead>
                         <tr>
-                            <th>id</th>
                             <th>Nombre</th>
-                            <th>Email</th>
-                            <th>Rol</th>
+                            <th>Puntos Ejercicios</th>
+                            <th>Puntos Preguntas</th>
+                            <th>Puntos Totales</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="usu: ${listausuarios}">
-                            <td th:text="${usu.getId()}"></td>
+                        <tr th:each="usu: ${listaOrdenada}">
                             <td th:text="${usu.getNombre()}"></td>
-                            <td th:text="${usu.getEmail()}"></td>
-                            <td th:each="rol : ${usu.getRoles()}">
-                                <p th:text="${rol.getName()}"></p>
-                            </td>
+                            <td th:text="${usu.getPuntosEjercicios() ?: 0}"></td>
+                            <td th:text="${usu.getPuntosRespuestas() ?: 0}"></td>
+                            <td th:text="${usu.puntosEjercicios ?: 0} + ${usu.puntosRespuestas ?: 0}"></td>
                         </tr>
                     </tbody>
                 </table>

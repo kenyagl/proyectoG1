@@ -111,4 +111,17 @@ public class UsuarioSrvcImpl implements ifxUsuarioSrvc {
     public void deleteByEmail(String email){
         usurepo.deleteByEmail(email);
     }
+
+    @Override
+    public List<Usuario> findAll(){
+        return usurepo.findAll();
+    }
+
+    @Override
+    public List<Usuario> ordenarPorPuntos(List<Usuario> listaNoOrdenada){
+
+        return listaNoOrdenada.stream()
+                .sorted((u1, u2) -> totalPuntos(u2).compareTo(totalPuntos(u1)))
+                .collect(Collectors.toList());
+    }
 }

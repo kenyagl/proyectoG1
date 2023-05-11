@@ -8,6 +8,7 @@
       <div class="col-md-10 text-end">
         <a th:if="${usuario == null}" href="/login" type="button" class="btn btn-outline-primary me-2">Acceder</a>
         <a th:if="${usuario == null}" href="/usuario/registro" type="button" class="btn btn-primary">Registro</a>
+        <a th:if="${usuario != null}" href="/usuario/ranking" type="button" class="btn btn-primary">Ranking de Puntos</a>
         <a th:if="${usuario != null}" href="/usuario/perfil" type="button" class="btn btn-primary" th:text="${usuario.mensajeHola()}"></a>
 
       </div>

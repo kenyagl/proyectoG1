@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -27,9 +28,26 @@ public class UsuarioCtrl {
     private UsuarioSrvcImpl usuSrvc;
 
     @GetMapping("/listausus")
-    public String listaUsus(Model modelo){
-        modelo.addAttribute("listausuarios", usuSrvc.listaUsus());
+    public String listaUsus(Model modelo, @AuthenticationPrincipal MyUserDetails userDetails){
+        String email = userDetails.getUsername();
+        Usuario usu = usuSrvc.findByEmail(email);
+        modelo.addAttribute("usuario", usu);
+
+        modelo.addAttribute("listausuarios", usuSrvc.findAll());
         return "perfilesYUsuarios/listaUsus";
+    }
+
+    @GetMapping("/ranking")
+    public String ranking(Model modelo, @AuthenticationPrincipal MyUserDetails userDetails){
+        String email = userDetails.getUsername();
+        Usuario usu = usuSrvc.findByEmail(email);
+        modelo.addAttribute("usuario", usu);
+
+        List<Usuario> listaNoOrdenada = usuSrvc.findAll();
+        List<Usuario> listaOrdenada = usuSrvc.ordenarPorPuntos(listaNoOrdenada);
+
+        modelo.addAttribute("listaOrdenada", listaOrdenada);
+        return "perfilesYUsuarios/ranking";
     }
     @GetMapping(value={"/perfil", "", "/"})
     public String Perfil(Model modelo, @AuthenticationPrincipal MyUserDetails userDetails) {

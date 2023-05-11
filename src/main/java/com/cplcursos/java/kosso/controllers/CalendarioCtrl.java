@@ -22,13 +22,14 @@ public class CalendarioCtrl {
                                     @RequestParam("month") Optional<Integer> month,
                                     @RequestParam("year") Optional<Integer> year)
     {
-        int firstDayOfWeek=0;
-
+        boolean hayPuntos = false;
+        LocalDate fechaActual = LocalDate.now();
+        int diaActual = fechaActual.getDayOfMonth();
 
         int numeroColumnas = 7;
-        int mes=1;
-        int agno=2023;
-        int dia=1;
+        int mes = fechaActual.getMonthValue();
+        int agno = fechaActual.getYear();
+        int dia = fechaActual.getDayOfMonth();
 
 
         int totalDias;
@@ -36,7 +37,6 @@ public class CalendarioCtrl {
         {
             mes=month.get();
         }
-        log.info("DIA DE LA SEMANA DEL LUNES" + DayOfWeek.MONDAY.ordinal());
 
         if(year.isPresent())
         {
@@ -44,16 +44,12 @@ public class CalendarioCtrl {
         }
 
 
-        //Creo un array MULTIDIMENSONAL que guardará LAS SEMANAS Y LOS días que quiero mostrar
         List<List<String>> dias = new ArrayList<>();
 
-        //Creo un objeto de fecha para los calculos de nombres, numero de dias, etc.
         LocalDate objetoFecha = LocalDate.of(agno, mes, dia);
 
-        //Calculo el total de dias del mes solicitado
         totalDias = objetoFecha.lengthOfMonth();
 
-        //Relleno el array con los dias que tiene el mes
         int fila=-1;
         for(int i = 1; i<= totalDias; i++)
         {
@@ -73,13 +69,22 @@ public class CalendarioCtrl {
                 }
 
             }
+            if (hayPuntosEnTalDia(fechaEnUso)) {
+                hayPuntos = true;
+            }
             dias.get(fila).add(String.valueOf(i));
         }
 
+        model.addAttribute("diaActual", diaActual);
         model.addAttribute("numeroColumnas",numeroColumnas);
         model.addAttribute("dias",dias);
+        model.addAttribute("hayPuntos", hayPuntos);
 
         return "calendario";
+    }
+
+    private boolean hayPuntosEnTalDia(LocalDate fecha) {
+        return false;
     }
 
 }

@@ -1,0 +1,31 @@
+.calendar-table {
+    margin: 250px auto;
+    width: 80%;
+    border-collapse: separate;
+    border-spacing: 5px;
+}
+
+.calendar-table th {
+    border-radius: 0.5em;
+    text-align: center;
+    background-color: #F8F9FA;
+    font-weight: bold;
+    padding: 10px;
+    border: 1px solid #000000;
+}
+
+.calendar-table td {
+    border-radius: 0.5em;
+    text-align: center;
+    background-color: #F8F9FA;
+    padding: 20px;
+    border: 1px solid #000000;
+}
+
+.conPuntos {
+    background-color: #fbff1d !important;
+}
+
+.sinPuntos {
+    background-color: #fd1515 !important;
+}

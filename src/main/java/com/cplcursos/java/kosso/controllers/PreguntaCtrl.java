@@ -46,6 +46,9 @@ public class PreguntaCtrl {
     @Autowired
     private UsuarioSrvcImpl usuSrvc;
 
+    @Autowired
+    private PuntosForoSrvc puntosForoSrvc;
+
 
     @GetMapping(value = {"/", ""})
     public String mostrarPreguntas (Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size, @AuthenticationPrincipal MyUserDetails userDetails){
@@ -104,15 +107,15 @@ public class PreguntaCtrl {
         }
         String fileName = StringUtils.cleanPath(fileName1);
         pregunta.setFoto(fileName);
-
         if (pregunta.getFechaPregunta() == null){
             preguntaSrvc.setFecha(pregunta);
         }
-
         Pregunta preguntaGuardada = preguntaSrvc.save(pregunta);
         String uploadDir = "target/classes/static/image/pregunta-photos/" + preguntaGuardada.getId();
 
         FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+
+        puntosForoSrvc.puntuarContenido(pregunta.getId(),10, "pregunta", pregunta.getUsuario());
 
         return "redirect:/preguntas/preguntaPublicada/" + pregunta.getId();
     }
@@ -177,6 +180,8 @@ public class PreguntaCtrl {
         respuesta.setTextoRespuesta(textoRespuesta);
         respuesta.setFechaRespuesta(LocalDate.now());
         respuestaSrvc.save(respuesta);
+        puntosForoSrvc.puntuarContenido(respuesta.getId(),25, "respuesta", respuesta.getUsuario());
+
         return "redirect:/preguntas/preguntaPublicada/" + id;
     }
 
@@ -191,28 +196,34 @@ public class PreguntaCtrl {
         comentario.setTextoComentario(textoComentario);
         comentario.setFechaComentario(LocalDate.now());
         comentarioSrvc.save(comentario);
+        puntosForoSrvc.puntuarContenido(comentario.getId(),5, "comentario", comentario.getUsuario());
+
+
         return "redirect:/preguntas/preguntaPublicada/" + idPregunta;
     }
 
 
     // Controladores de votos
     // Votos Preguntas
-    @PostMapping(value = "/cuentavotospregunta")
-    public String cuentaVotosPreg(@RequestParam(name = "valor") Integer votos, @RequestParam(name = "idPregunta") Long id, Model model){
-        Optional<Pregunta> preOp = preguntaSrvc.findById(id);
-        if(preOp.isPresent()){
-            Pregunta pregunta = preOp.get();
-            Integer acumulados = pregunta.getVotos();
-            if (acumulados == null){
-                acumulados = 0;
-            }
-            pregunta.setVotos(votos + acumulados);
-            model.addAttribute("sumaP", pregunta.getVotos());
-            preguntaSrvc.save(pregunta);
+    @PostMapping(value = "/votar")
+    public String votarContenido(@RequestParam(name = "valor") Integer valor, @RequestParam(name = "idContenido") Long idContenido, @RequestParam(name = "tipo") String tipoContenido,  @AuthenticationPrincipal MyUserDetails userDetails, Model model){
+        Integer puntos = 0;
+
+        if(valor != 0) {
+            valor = valor>0 ? 1 : -1;
         }
-        else{
-            return "error-page";
+        if (tipoContenido.equals("votoPregunta") || tipoContenido.equals("votoComentario") || tipoContenido.equals("votoRespuesta")) {
+            puntos = 25 * valor;
+        }else {
+            puntos = 0;
         }
+
+        Usuario usuario = usuSrvc.findByEmail(userDetails.getUsername());
+        puntosForoSrvc.puntuarContenido(idContenido, puntos, tipoContenido, usuario);
+
+        //votos para cada uno
+        model.addAttribute("votos", puntosForoSrvc.countByIdAndTipoContenido(idContenido, tipoContenido));
+
         return "/preguntas/bloqueAjaxVotos :: votosPregunta";
     }
 

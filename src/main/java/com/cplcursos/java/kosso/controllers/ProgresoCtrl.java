@@ -29,6 +29,18 @@ public class ProgresoCtrl {
     EjerciciosSrvc ejerciciosSrvc;
     // TODO import voto and pregunta(foro) dependencies, it should be preferably be a service to follow same implementation logic of other entities
 
+    // Points per action
+    final static int puntosEjercicio = 100;
+    final static int puntosPreguntaForo = 10;
+    final static int puntosRespuestaForo = 25;
+    final static int puntosUpVote = 25;
+
+    // Set maximum for progress bars
+    final static int progressBarEjercicioMax = 2000;
+    final static int progressBarPreguntaForoMax = 0;
+    final static int progressBarRespuestaMax = 0;
+    final static int progressBarUpMax = 0;
+
     // Returns a list with all respuestas
     @GetMapping(value = {"/", ""})
     public String showAllProgreso (Model model){
@@ -66,13 +78,13 @@ public class ProgresoCtrl {
         // Of the total number of answers)
 
         for (Map.Entry<String, Integer> entry : respuestasByMonth.entrySet()) {
-            entry.setValue(entry.getValue() * 100);
+            entry.setValue(entry.getValue() * puntosEjercicio);
         }
         for (Map.Entry<String, Integer> entry : respuestasByWeek.entrySet()) {
-            entry.setValue(entry.getValue() * 100);
+            entry.setValue(entry.getValue() * puntosEjercicio);
         }
         for (Map.Entry<String, Integer> entry : respuestasByDay.entrySet()) {
-            entry.setValue(entry.getValue() * 100);
+            entry.setValue(entry.getValue() * puntosEjercicio);
         }
 
         /*for (Map.Entry<String, Integer> entry : respuestasByMonth.entrySet()) {
@@ -120,8 +132,13 @@ public class ProgresoCtrl {
                 totalAnswersToday++;
             }
         }
+        totalAnswersThisMonth*= puntosEjercicio;
+        totalAnswersThisWeek*= puntosEjercicio;
+        totalAnswersToday+= puntosEjercicio;
+
 
         // Add progress data to model
+        model.addAttribute("progressBarEjercicioMax", progressBarEjercicioMax);
         model.addAttribute("totalAnswersThisMonth", totalAnswersThisMonth);
         model.addAttribute("totalAnswersThisWeek", totalAnswersThisWeek);
         model.addAttribute("totalAnswersToday", totalAnswersToday);

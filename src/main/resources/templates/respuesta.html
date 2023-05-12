@@ -24,23 +24,23 @@
 
 </head>
 <body>
-<div class="container mt-4">
-    <table class="table table-hover">
-        <thead class="thead-dark">
-        <tr>
-            <th>Respuesta</th>
-            <th>Fecha Respuesta</th>
-        </tr>
-        </thead>
-        <tbody>
-        <!-- Add a row for each RespuestaEjOpMul object -->
-        <tr th:each="respuesta : ${respuestas}">
-            <td th:text="${respuesta.respuesta}"></td>
-            <td th:text="${respuesta.fechaRespuesta}"></td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+    <div class="container mt-4">
+        <table class="table table-hover">
+            <thead class="thead-dark">
+            <tr>
+                <th>Respuesta</th>
+                <th>Fecha Respuesta</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Add a row for each RespuestaEjOpMul object -->
+            <tr th:each="respuesta : ${respuestas}">
+                <td th:text="${respuesta.respuesta}"></td>
+                <td th:text="${respuesta.fechaRespuesta}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
     <!-- Optional JavaScript -->
 

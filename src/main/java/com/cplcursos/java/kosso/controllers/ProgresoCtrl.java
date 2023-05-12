@@ -92,6 +92,8 @@ public class ProgresoCtrl {
 
         return "progress";
     }
+
+    // Returns a view of progress with reference to the current month, day and week
     @GetMapping("/usuario-progress")
     public String showUsuarioProgress(Model model) {
 

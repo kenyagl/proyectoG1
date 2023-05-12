@@ -46,21 +46,21 @@
             <div class="mt-4">
                 <div class="progress">
                     <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"
-                         style="width: ${(totalAnswersThisMonth/30)*100}%" aria-valuenow="${totalAnswersThisMonth}"
-                         aria-valuemin="0" aria-valuemax="30">${totalAnswersThisMonth}/30
-                    </div>
+                         style="width: ${totalAnswersThisMonth * 100}"
+                         aria-valuenow="${totalAnswersThisMonth}"
+                         aria-valuemin="0" aria-valuemax="10000"></div>
                 </div>
                 <div class="progress mt-3">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: ${(totalAnswersThisWeek/7)*100}%"
-                         aria-valuenow="${totalAnswersThisWeek}"
-                         aria-valuemin="0" aria-valuemax="7">${totalAnswersThisWeek}/7
-                    </div>
+                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar"
+                         style="width: ${totalAnswersThisWeek * 100}"
+                         aria-valuenow="${totalAnswersThisWeek + 'puntos'}"
+                         aria-valuemin="0" aria-valuemax="5000"></div>
                 </div>
                 <div class="progress mt-3">
                     <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar"
-                         style="width: ${(totalAnswersThisDay/1)*100}%" aria-valuenow="${totalAnswersThisDay}"
-                         aria-valuemin="0" aria-valuemax="1">${totalAnswersThisDay}/1
-                    </div>
+                         style="width: ${totalAnswersThisDay * 100}"
+                         aria-valuenow="${totalAnswersThisDay + 'puntos'}"
+                         aria-valuemin="0" aria-valuemax="1000"></div>
                 </div>
             </div>
         </div>

@@ -94,7 +94,7 @@ public class PreguntaCtrl {
             model.addAttribute("pregunta", pregunta.get());
             return "preguntas/preguntaPublicada";
         }
-        return "Pregunta no existe";
+        return "redirect:/preguntas/";
     }
 
     // Publica la pregunta y la muestra

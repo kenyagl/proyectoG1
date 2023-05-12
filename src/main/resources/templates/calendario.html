@@ -1,18 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Calendario</title>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
-
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	
-	<link rel="stylesheet" href="../static/css/calendar.css">
-</head>
+<head th:replace="~{components/headfragment :: head(titulo='Calendario')}"></head>
 <body>
+<header th:replace="~{components/cabeceraFrag :: cabecera(usuario=${usuario})}"></header>
+<nav th:replace="~{components/menuLateral :: navbar}"></nav>
     <div>
     </div>
     <div class="container">

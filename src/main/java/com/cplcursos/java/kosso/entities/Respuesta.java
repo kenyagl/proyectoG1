@@ -38,6 +38,9 @@ public class Respuesta {
     @JoinColumn(name = "idPregunta", referencedColumnName = "id")
     private Pregunta pregunta;
 
+    // Relacion con votos
+
+
     public Respuesta(Integer votos, Boolean alerta, String textoRespuesta) {
         this.votos = votos;
         this.alerta = alerta;

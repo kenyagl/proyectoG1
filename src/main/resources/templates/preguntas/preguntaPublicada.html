@@ -233,7 +233,7 @@
                             <div class="modal-body">
                                 <form th:action="@{/preguntas/comentariosave}" th:method="post">
                                     <input type="hidden" th:value="@{{id}(id=${pregunta.getId()})}" name="idPregunta">
-                                    <input type="text" name="idRespuesta" id="idRespuesta">
+                                    <input type="hidden" name="idRespuesta" id="idRespuesta">
                                     <div class="mb-3 form-group">
                                         <label for="textoComentario">Comentario:</label>
                                         <input type="text" class="form-control" id="textoComentario"
@@ -279,7 +279,7 @@
         // Añadimos un escuchador para detectar cuándo se abre el modal. Este escuchador lo lanza Bootstrap.
         // Al activarse el escuchador, se ejecuta la función que recibe el objeto "evento".
         comentModal.addEventListener('show.bs.modal', event => {
-                alert('alerta')
+
             // La propiedad relatedtarget indica el nodo del DOM que envió el evento (en este caso, el botón que abre
             // el modal)
             let boton = event.relatedTarget

@@ -9,39 +9,25 @@
 <body>
 
 <header th:replace="~{components/cabeceraFrag :: cabecera(usuario=${usuario})}"></header>
-
-<div class="row">
-<div class="col col-2 ">
     <nav th:replace="~{components/menuLateral :: navbar}"></nav>
-</div>
-    <main class="col overflow-auto h-100 " style="margin-top: 150px">
+
+
+    <main class="container" >
         <div class="bg-light border rounded-3 p-3" style="margin-left:50px">
-            <p>Khand</p>
-            <h3 class="tipo" >Comfortaa</h3>
-            <h2 class="tipo2" >Pridi</h2>
+            <video class="video portada" src="/image/videokosso.mp4" controls></video>
+            <div class="card">
 
-            <hr/>
+                <div class="card-body">
 
-            <h2>More content...</h2>
-            <p>Ethical Kickstarter PBR asymmetrical lo-fi. Dreamcatcher street art Carles, stumptown gluten-free
-                Kickstarter artisan Wes Anderson wolf pug. Godard sustainable you probably haven't heard of them, vegan
-                farm-to-table Williamsburg slow-carb readymade disrupt deep v. Meggings seitan Wes Anderson semiotics,
-                cliche American Apparel whatever. Helvetica cray plaid, vegan brunch Banksy leggings +1 direct trade.
-                Wayfarers codeply PBR selfies. Banh mi McSweeney's Shoreditch selfies, forage fingerstache food truck
-                occupy YOLO Pitchfork fixie iPhone fanny pack art party Portland.</p>
-            <hr/>
-            <h4>More content...</h4>
-            <p>Sriracha biodiesel taxidermy organic post-ironic, Intelligentsia salvia mustache 90's code editing
-                brunch. Butcher polaroid VHS art party, hashtag Brooklyn deep v PBR narwhal sustainable mixtape swag
-                wolf squid tote bag. Tote bag cronut semiotics, raw denim deep v taxidermy messenger bag. Tofu YOLO
-                Etsy, direct trade ethical Odd Future jean shorts paleo. Forage Shoreditch tousled aesthetic irony,
-                street art organic Bushwick artisan cliche semiotics ugh synth chillwave meditation. Shabby chic lomo
-                plaid vinyl chambray Vice. Vice sustainable cardigan, Williamsburg master cleanse hella DIY 90's
-                blog.</p>
+                    This is some text within a card body.
+
+                </div>
+
+            </div>
         </div>
     </main>
-</div>
-</div>
+
+
 
 
 

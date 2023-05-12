@@ -6,9 +6,9 @@
     <div class="flex-grow-1 d-flex align-items-center">
       <!-- Acceso a login y registro -->
       <div class="col-md-10 text-end">
-        <a th:if="${usuario == null}" href="/login" type="button" class="btn btn-outline-primary me-2"> <p class="tipo1">Acceder</p> </a>
-        <a th:if="${usuario == null}" href="/usuario/registro" type="button" class="btn btn-primary"><p class="tipo1"> Registro </p></a>
-        <a th:if="${usuario != null}" href="/usuario/ranking" type="button" class="btn btn-primary"><p class="tipo1"> Ranking de Puntos </p></a>
+        <a th:if="${usuario == null}" href="/login" type="button" class="btn btn-outline-primary me-2">Acceder </a>
+        <a th:if="${usuario == null}" href="/usuario/registro" type="button" class="btn btn-primary"> Registro </a>
+        <a th:if="${usuario != null}" href="/usuario/ranking" type="button" class="btn btn-primary">  Ranking de Puntos </a>
         <a th:if="${usuario != null}" href="/usuario/perfil" type="button" class="btn btn-primary" th:text="${usuario.mensajeHola()}"></a>
 
       </div>
@@ -16,7 +16,7 @@
         <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser2"
            data-bs-toggle="dropdown" aria-expanded="false">
           <img th:if="${usuario == null}" src="https://via.placeholder.com/28?text=!" alt="user" width="32" height="32"
-               class="rounded-circle">
+               class="rounded-circle" style=" margin-left: 20px">
           <img th:if="${usuario != null}" th:src="@{${usuario.getPhotosImagePath()}}" alt="user" width="32" height="32"
                class="rounded-circle">
         </a>

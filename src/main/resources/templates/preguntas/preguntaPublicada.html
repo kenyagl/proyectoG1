@@ -76,14 +76,19 @@
                                         data-placement="bottom" title="Like"
                                         th:attr="onclick=|votaP(1,'${pregunta.getId}')|">Like <i
                                         class="fa fa-thumbs-o-up " aria-hidden="true"></i></button>
+                                <!--  Likes Pregunta -->
+                                <span>Likes: <span th:id="'votoPregunta' + ${pregunta.getId()}" class="single-question-vote-result"
+                                                   th:text="${pregunta.getVotos()} ?: '0'">0</span></span>
+
                                 <button type="button" class="tooltip-button  thumbs-down2" data-toggle="tooltip"
                                         data-placement="bottom" title="Dislike"
                                         th:attr="onclick=|votaP(-1,'${pregunta.getId}')|">Dislike <i
                                         class="fa fa-thumbs-o-down" aria-hidden="true"></i>
                                 </button>
-                                <!-- Votos Pregunta -->
-                                <span>Likes: <span th:id="'votoPregunta' + ${pregunta.getId()}" class="single-question-vote-result"
+                                <!-- Dislikes Pregunta -->
+                                <span>Dislikes: <span th:id="'votoPregunta' + ${pregunta.getId()}" class="single-question-vote-result"
                                                    th:text="${pregunta.getVotos()} ?: '0'">0</span></span>
+
                             </div>
                         </div>
                     </div>

@@ -222,17 +222,15 @@ public class PreguntaCtrl {
         switch (tipoContenido){
             case "votoPregunta":
                 puntos = 25 * valor;
-                model.addAttribute("votos", preguntaSrvc.asignarVotoYObtenerTotal(idContenido, valor));
                 break;
 
             case "votoRespuesta":
                 puntos = 25 * valor;
-                model.addAttribute("votos", respuestaSrvc.asignarVotoYObtenerTotal(idContenido, valor));
+
                 break;
 
             case "votoComentario":
                 puntos = 25 * valor;
-                model.addAttribute("votos", comentarioSrvc.asignarVotoYObtenerTotal(idContenido,valor));
                 break;
 
             default:
@@ -242,6 +240,12 @@ public class PreguntaCtrl {
 
         Usuario usuario = usuSrvc.findByEmail(userDetails.getUsername());
         puntosForoSrvc.puntuarContenido(idContenido, puntos, tipoContenido, usuario);
+
+        int totalLikes = puntosForoSrvc.cuentaLikes(idContenido,tipoContenido);
+        int totalDislikes = puntosForoSrvc.cuentaDislikes(idContenido,tipoContenido);
+
+        model.addAttribute("totalLikes", totalLikes);
+        model.addAttribute("totalDislikes", totalDislikes);
 
 //        //Cuenta la cantidad de veces que ha sido votado pero + y -
 //        model.addAttribute("votos", puntosForoSrvc.countByIdContenidoAndTipoContenido(idContenido, tipoContenido));

@@ -33,13 +33,11 @@ public class ProgresoCtrl {
     final static int puntosEjercicio = 100;
     final static int puntosPreguntaForo = 10;
     final static int puntosRespuestaForo = 25;
-    final static int puntosUpVote = 25;
 
     // Set maximum value for progress bars
     final static int progressBarEjercicioMax = 2000;
     final static int progressBarPreguntaForoMax = 0;
     final static int progressBarRespuestaMax = 0;
-    final static int progressBarUpMax = 0;
 
     // Returns a list with all respuestas
     @GetMapping(value = {"/", ""})
@@ -93,7 +91,7 @@ public class ProgresoCtrl {
         model.addAttribute("respuestasByWeek", respuestasByWeek);
         model.addAttribute("respuestasByDay", respuestasByDay);
 
-        return "progress";
+        return "progreso/progress";
     }
 
     // Returns a view of progress with reference to the current month, day and week
@@ -134,6 +132,6 @@ public class ProgresoCtrl {
         model.addAttribute("totalAnswersThisWeek", totalAnswersThisWeek);
         model.addAttribute("totalAnswersToday", totalAnswersToday);
 
-        return "usuario-progress1";
+        return "progreso/usuario-progress";
     }
 }

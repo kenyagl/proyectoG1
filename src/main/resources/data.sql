@@ -1,9 +1,12 @@
-INSERT INTO usuario values ('1', NULL, 'Master', '$2a$10$2ao1OWFir.7au7lq0ANlCOG06ECWOvje/dbVkO0vhPIZ4H/O2K2oS', '2023-05-12', 'Vengo aquí a motivarme para aprender Java', 'admin@gmail.com', 'result-0.png', 'Kosso', '100', '100');
+INSERT INTO usuario values
+    ('1', NULL, 'Master', '$2a$10$2ao1OWFir.7au7lq0ANlCOG06ECWOvje/dbVkO0vhPIZ4H/O2K2oS', '2023-05-12', 'Vengo aquí a motivarme para aprender Java', 'admin@gmail.com', 'result-0.png', 'Kosso', '100', '100'),
+    ('2', NULL, 'Hernández', '$2a$10$YnjxiddygjqkDTOCiu9UH.FAkZRQiDdd7crUoQvSOE1mBwdsarUIq', '2023-05-13', 'Vengo aquí a motivarme para aprender Java', 'pepeher@gmail.com', 'profile.jpg', 'Pepe', '300', '200');
+
 
 
 INSERT INTO `mydb`.`rol` (`name`) VALUES ('user');
 INSERT INTO `mydb`.`rol` (`name`) VALUES ('admin');
-INSERT INTO users_roles values (1,2);
+INSERT INTO users_roles values (1,2), (2,1);
 
 ---Ejercicios
 

@@ -23,6 +23,7 @@
                 <table class="table table-stripped">
                     <thead>
                         <tr>
+                            <th> </th>
                             <th>Nombre</th>
                             <th>Puntos Ejercicios</th>
                             <th>Puntos Preguntas</th>
@@ -31,6 +32,10 @@
                     </thead>
                     <tbody>
                         <tr th:each="usu: ${listaOrdenada}">
+                            <td>
+                                <img th:src="@{${usu.getPhotosImagePath()}}" alt="user" width="32" height="32"
+                                 class="rounded-circle">
+                            </td>
                             <td th:text="${usu.getNombre()}"></td>
                             <td th:text="${usu.getPuntosEjercicios() ?: 0}"></td>
                             <td th:text="${usu.getPuntosRespuestas() ?: 0}"></td>

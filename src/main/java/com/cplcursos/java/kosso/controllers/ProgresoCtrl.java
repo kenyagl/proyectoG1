@@ -48,7 +48,7 @@ public class ProgresoCtrl {
         return "respuesta";
     }
 
-    // Returns a view of respuestas grouped by month, day and year with no reference to current day (could be used for general statics)
+    // Returns a view of respuestas grouped by month, day and year with no reference to current date (could be used for general statics)
     @GetMapping("/progress")
     public String showProgress(Model model) {
         // Retrieve data from database
@@ -134,6 +134,6 @@ public class ProgresoCtrl {
         model.addAttribute("totalAnswersThisWeek", totalAnswersThisWeek);
         model.addAttribute("totalAnswersToday", totalAnswersToday);
 
-        return "usuario-progress";
+        return "usuario-progress1";
     }
 }

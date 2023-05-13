@@ -35,7 +35,7 @@ public class ProgresoCtrl {
     final static int puntosRespuestaForo = 25;
     final static int puntosUpVote = 25;
 
-    // Set maximum for progress bars
+    // Set maximum value for progress bars
     final static int progressBarEjercicioMax = 2000;
     final static int progressBarPreguntaForoMax = 0;
     final static int progressBarRespuestaMax = 0;

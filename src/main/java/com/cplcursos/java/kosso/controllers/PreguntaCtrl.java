@@ -19,7 +19,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -92,6 +94,12 @@ public class PreguntaCtrl {
         Optional<Pregunta> pregunta = preguntaSrvc.findById(id);
         if(pregunta.isPresent()) {
             model.addAttribute("pregunta", pregunta.get());
+            // Cada vez que se cargue la página, hay que actualizar los contadores de likes y dislikes
+            Long totalLikes =  puntosForoSrvc.cuentaLikes(pregunta.get().getId(),"votoPregunta");
+            Long totalDislikes = puntosForoSrvc.cuentaDislikes(pregunta.get().getId(),"votoPregunta");
+            // los añadimos al modelo
+            model.addAttribute("totalLikes", totalLikes);
+            model.addAttribute("totalDisLikes", totalDislikes);
             return "preguntas/preguntaPublicada";
         }
         return "redirect:/preguntas/";
@@ -206,51 +214,53 @@ public class PreguntaCtrl {
     // Controladores de votos
     // Votos Preguntas
     @PostMapping(value = "/votar")
-    public String votarContenido(@RequestParam(name = "valor") Integer valor, @RequestParam(name = "idContenido") Long idContenido, @RequestParam(name = "tipo") String tipoContenido,  @AuthenticationPrincipal MyUserDetails userDetails, Model model){
+    @ResponseBody   // Permite devolver un objeto en el cuerpo de la respuesta HTTP a la llamada desde el js (fetch)
+    public Map<String, Object> votarContenido(@RequestParam(name = "valor") Integer valor, @RequestParam(name = "idContenido") Long idContenido, @RequestParam(name = "tipo") String tipoContenido,  @AuthenticationPrincipal MyUserDetails userDetails, Model model){
         Integer puntos = 0;
-
+        // "valor" indica si ha votado "me gusta" -valor positivo- o "no me gusta" -valor negativo-
+        // No aseguramos de que "valor" es 1, -1 ó cero
         if(valor != 0) {
             valor = valor>0 ? 1 : -1;
         }
-
-//        if (tipoContenido.equals("votoPregunta") || tipoContenido.equals("votoComentario") || tipoContenido.equals("votoRespuesta")) {
-//            puntos = 25 * valor;
-//        }else {
-//            puntos = 0;
-//        }
-
+        // Calculamos los puntos según el tipo de contenido votado
         switch (tipoContenido){
             case "votoPregunta":
                 puntos = 25 * valor;
                 break;
-
             case "votoRespuesta":
                 puntos = 25 * valor;
-
                 break;
-
             case "votoComentario":
                 puntos = 25 * valor;
                 break;
-
             default:
                 model.addAttribute("votos", 0);
-
         }
-
+        // buscamos el usuario...
         Usuario usuario = usuSrvc.findByEmail(userDetails.getUsername());
+        //... y grabamos los puntos con el id del usuario
         puntosForoSrvc.puntuarContenido(idContenido, puntos, tipoContenido, usuario);
+        // Obtenemos el total de "me gusta" y e ltotal de "no me gusta"...
+        Long totalLikes = (Long) puntosForoSrvc.cuentaLikes(idContenido,tipoContenido);
+        Long totalDislikes = puntosForoSrvc.cuentaDislikes(idContenido,tipoContenido);
 
-        int totalLikes = puntosForoSrvc.cuentaLikes(idContenido,tipoContenido);
-        int totalDislikes = puntosForoSrvc.cuentaDislikes(idContenido,tipoContenido);
+        /* ... y los empaquetamos en un Map para devolver los resultados como un objeto
 
-        model.addAttribute("totalLikes", totalLikes);
-        model.addAttribute("totalDislikes", totalDislikes);
+           ¡ATENCIÓN! La utilización de la clase Object -que es el "supertipo" de todos los tipos de datos en Java-
+           implica ciertos riesgos, ya que perdemos el tipo del valor original en la asignación.
 
-//        //Cuenta la cantidad de veces que ha sido votado pero + y -
-//        model.addAttribute("votos", puntosForoSrvc.countByIdContenidoAndTipoContenido(idContenido, tipoContenido));
+           En este caso lo podemos asumir, porque conocemos de antemano el tipo de datos que incluimos en el map.
 
-        return "/preguntas/bloqueAjaxVotos :: totalVotos";
+           Ver https://www.baeldung.com/java-hashmap-different-value-types para másinformación.
+         */
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("idContenido", idContenido);
+        map.put("tipo", tipoContenido);
+        map.put("totalLikes", totalLikes);
+        map.put("totalDisLikes", totalDislikes);
+        //...llegarán a la llamada FETCH de js como un objeto tipo array de parejas "clave": "valor"
+        return map;
     }
 
     // Votos Respuestas

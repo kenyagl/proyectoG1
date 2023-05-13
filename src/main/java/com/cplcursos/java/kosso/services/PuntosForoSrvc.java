@@ -29,11 +29,11 @@ public class PuntosForoSrvc {
         return puntosForoRepo.countByIdContenidoAndTipoContenido(idContenido, tipoContenido);
     }
 
-    public Integer cuentaLikes(Long idContenido, String tipoContenido){
+    public Long cuentaLikes(Long idContenido, String tipoContenido){
         return puntosForoRepo.cuentaLike(idContenido, tipoContenido);
     }
 
-    public Integer cuentaDislikes(Long idContenido, String tipoContenido){
+    public Long cuentaDislikes(Long idContenido, String tipoContenido){
         return puntosForoRepo.cuentaDislike(idContenido, tipoContenido);
     }
 

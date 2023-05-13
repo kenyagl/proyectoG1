@@ -38,10 +38,6 @@ public class EjercicioCtrl {
     @Autowired
     private UsuarioSrvcImpl usuarioSrvc;
 
-    //Creo un usuario fake para probar el guardar respuesta, ya que sin la autenticación configurada el usuario no está presente
-    /*Usuario usu = new Usuario(1L, 200, 100);
-    Integer totalusu = usu.getPuntosEjercicios() + usu.getPuntosRespuestas();*/
-
 
     @GetMapping(value = {"/", ""})
     public String showEjercicios(@AuthenticationPrincipal MyUserDetails userDetails, Model model, @Param("keyword") String keyword) {
@@ -49,7 +45,6 @@ public class EjercicioCtrl {
         Usuario usu = usuarioSrvc.findByEmail(userEmail);
         Integer totalusu = usuarioSrvc.totalPuntos(usu);
 
-        //Este método devuelve .findAll si no se le pasa ninguna keyword
         List<EjercicioOpMul> ejerciciosResult = ejerciciosService.encontrarEjerPorCategoria(keyword);
 
         model.addAttribute("ejercicios", ejerciciosResult);
@@ -80,20 +75,13 @@ public class EjercicioCtrl {
 
             model.addAttribute("idNextEjer", idNextEjer);
 
-            if(idNextEjer == null){
-                //Hacer algo
-            }else{
-                Optional<EjercicioOpMul> nextEjerOp = ejerciciosService.findById(idNextEjer);
-                if(nextEjerOp.isEmpty()){
-                    //Hacer algo
-                }else{
-                    EjercicioOpMul nextEjer = nextEjerOp.get();
-                    model.addAttribute("puntoAccesoNext", nextEjer.getPuntosAcceso());
-                }
-            }
+            Optional<EjercicioOpMul> nextEjerOp = ejerciciosService.findById(idNextEjer);
+
+            EjercicioOpMul nextEjer = nextEjerOp.get();
+            model.addAttribute("puntoAccesoNext", nextEjer.getPuntosAcceso());
 
         } else {
-            return "errorEncontrandoEjercicio";
+            return "error/errorEncontrandoEjercicio";
         }
         return "ejercicios/ejercicioOpMul";
     }
@@ -108,11 +96,11 @@ public class EjercicioCtrl {
     @PostMapping("/save")
     public String saveEjercicio(@ModelAttribute EjercicioOpMul ejercicioOpMul,
                                 @RequestParam("image") MultipartFile imagen
-                                ) throws IOException {
+    ) throws IOException {
 
         String fileName1 = imagen.getOriginalFilename();
-        if(fileName1 == null){
-            fileName1 = "default.png";
+        if (fileName1 == null) {
+            fileName1 = " ";
         }
 
         String fileName = StringUtils.cleanPath(fileName1);
@@ -145,14 +133,7 @@ public class EjercicioCtrl {
         return "redirect:/ejercicios/";
     }
 
-    /*
-     *
-     ****************** CONTROLADOR DE RESPUESTAS A CADA EJERCICIO ******************
-     *
-     * PREGUNTA: podría hacer una clase anidada aquí dentro para ponerle antes el @RequestMapping("/{id}/respuesta")?
-     *
-     */
-
+    /**************** CONTROLADOR DE RESPUESTAS A CADA EJERCICIO ******************/
     @PostMapping("/{id}/respuesta/save")
     public String saveRespuesta(@PathVariable("id") Long idEjercicio,
                                 @RequestParam(name = "resp") String miRespuesta,
@@ -162,7 +143,7 @@ public class EjercicioCtrl {
         Optional<EjercicioOpMul> ejer = ejerciciosService.findById(idEjercicio);
 
         if (ejer.isEmpty()) {
-            return "errorEncontrandoEjercicio";
+            return "error/errorEncontrandoEjercicio";
         }
 
         EjercicioOpMul ejercicio = ejer.get();
@@ -177,7 +158,7 @@ public class EjercicioCtrl {
             Optional<Usuario> usuOp = usuarioSrvc.findById(idUsuario);
 
             if (usuOp.isEmpty()) {
-                return "error";
+                return "error/error";
             }
 
             Usuario usuario = usuOp.get();

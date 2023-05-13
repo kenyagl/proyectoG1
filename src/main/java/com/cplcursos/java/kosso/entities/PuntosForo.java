@@ -24,6 +24,7 @@ public class PuntosForo {
     private Integer puntos;
 
     @ManyToOne
+    @JoinColumn(name = "idUsuario")
     private Usuario usuario; // el usuario que vota
 
     private Long idContenido; // pregunta, respuesta o comentario o votos

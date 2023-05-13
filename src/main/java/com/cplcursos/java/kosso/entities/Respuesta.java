@@ -23,6 +23,7 @@ public class Respuesta {
 
     private Boolean alerta;
 
+    @Column(length = 500)
     private String textoRespuesta;
 
     private LocalDate fechaRespuesta;

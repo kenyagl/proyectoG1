@@ -21,6 +21,7 @@ public class Comentario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(length = 500)
     private String textoComentario;
 
     private Integer votos;

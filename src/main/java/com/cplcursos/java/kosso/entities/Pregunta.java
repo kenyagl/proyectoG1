@@ -45,15 +45,6 @@ public class Pregunta {
     @OneToMany(mappedBy = "pregunta",cascade = CascadeType.ALL)
     private List<Respuesta> respuestas;
 
-
-
-    //Preguntar a Carlos:
-    //4) Botones para páginas de preguntas
-
-    // agregar en el controlador de votos un set de puntos al usuario por los votos
-
-    // TODO y asignarle su usuario(thymeleaf)
-
     @Transient
     public String getFotoPath() {
         if (foto == null || id == null) {

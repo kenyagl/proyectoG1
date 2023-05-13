@@ -21,24 +21,38 @@ import java.util.Map;
 @Controller
 @RequestMapping("/progreso")
 public class ProgresoCtrl {
+
+    // Dependency injection
     @Autowired
     RespuestaEjOpMulSrvc respuestaEjOpMulSrvc;
     @Autowired
     EjerciciosSrvc ejerciciosSrvc;
+    // TODO import voto and pregunta(foro) dependencies, it should be preferably be a service to follow same implementation logic of other entities
 
-    // Returns a list with respuestas log
+    // Points per action
+    final static int puntosEjercicio = 100;
+    final static int puntosPreguntaForo = 10;
+    final static int puntosRespuestaForo = 25;
+
+    // Set maximum value for progress bars
+    final static int progressBarEjercicioMax = 2000;
+    final static int progressBarPreguntaForoMax = 0;
+    final static int progressBarRespuestaMax = 0;
+
+    // Returns a list with all respuestas
     @GetMapping(value = {"/", ""})
     public String showAllProgreso (Model model){
         model.addAttribute("respuestas", respuestaEjOpMulSrvc.findAll());
         return "respuesta";
     }
 
-    // Returns a view of respuestas grouped by month, day and year with no reference to current day
+    // Returns a view of respuestas grouped by month, day and year with no reference to current date (could be used for general statics)
     @GetMapping("/progress")
     public String showProgress(Model model) {
-        // Retrieve the data from the database
+        // Retrieve data from database
         List<EjercicioOpMul> ejercicios = ejerciciosSrvc.findAll();
         List<RespuestaEjOpMul> respuestas = respuestaEjOpMulSrvc.findAll();
+
         // Calculate the number of ejercicios and respuestas
         int numeroEjercicios = ejercicios.size();
 //        int numeroRespuestas = respuestas.size();
@@ -47,35 +61,40 @@ public class ProgresoCtrl {
         // This shows the progress by month in general with no reference to current date
 
         // Create a HashMap with <respuestaByDateRange, counter>
-        Map<String, Double> respuestasByMonth = new HashMap<>();
-        Map<String, Double> respuestasByWeek = new HashMap<>();
-        Map<String, Double> respuestasByDay = new HashMap<>();
+        Map<String, Integer> respuestasByMonth = new HashMap<>();
+        Map<String, Integer> respuestasByWeek = new HashMap<>();
+        Map<String, Integer> respuestasByDay = new HashMap<>();
         for (RespuestaEjOpMul respuesta : respuestas) {
             String month = respuesta.getFechaRespuesta().getMonth().toString();
             String week = respuesta.getFechaRespuesta().getYear() + "-Semana: " + respuesta.getFechaRespuesta().get(IsoFields.WEEK_OF_WEEK_BASED_YEAR);
             String day = respuesta.getFechaRespuesta().toString().substring(0, 10);
-            respuestasByMonth.put(month, respuestasByMonth.getOrDefault(month, 0.0) + 1.0);
-            respuestasByWeek.put(week, respuestasByWeek.getOrDefault(week, 0.0) + 1.0);
-            respuestasByDay.put(day, respuestasByDay.getOrDefault(day, 0.0) + 1.0);
+            respuestasByMonth.put(month, respuestasByMonth.getOrDefault(month, 0) + 1);
+            respuestasByWeek.put(week, respuestasByWeek.getOrDefault(week, 0) + 1);
+            respuestasByDay.put(day, respuestasByDay.getOrDefault(day, 0) + 1);
         }
-        // Calculate the percentages of responses for each time period
-        for (Map.Entry<String, Double> entry : respuestasByMonth.entrySet()) {
-            entry.setValue((entry.getValue() / numeroEjercicios) * 100.0);
+        // Calculate the percentages of responses for each time period (returns the number of answers by dateRange as a percentage
+        // Of the total number of answers)
+
+        for (Map.Entry<String, Integer> entry : respuestasByMonth.entrySet()) {
+            entry.setValue(entry.getValue() * puntosEjercicio);
         }
-        for (Map.Entry<String, Double> entry : respuestasByWeek.entrySet()) {
-            entry.setValue((entry.getValue() / numeroEjercicios) * 100.0);
+        for (Map.Entry<String, Integer> entry : respuestasByWeek.entrySet()) {
+            entry.setValue(entry.getValue() * puntosEjercicio);
         }
-        for (Map.Entry<String, Double> entry : respuestasByDay.entrySet()) {
-            entry.setValue((entry.getValue() / numeroEjercicios) * 100.0);
+        for (Map.Entry<String, Integer> entry : respuestasByDay.entrySet()) {
+            entry.setValue(entry.getValue() * puntosEjercicio);
         }
 
         // Add the data to the model
+        model.addAttribute("progressBarEjercicioMax", progressBarEjercicioMax);
         model.addAttribute("respuestasByMonth", respuestasByMonth);
         model.addAttribute("respuestasByWeek", respuestasByWeek);
         model.addAttribute("respuestasByDay", respuestasByDay);
 
-        return "progress";
+        return "progreso/progress";
     }
+
+    // Returns a view of progress with reference to the current month, day and week
     @GetMapping("/usuario-progress")
     public String showUsuarioProgress(Model model) {
 
@@ -102,40 +121,17 @@ public class ProgresoCtrl {
                 totalAnswersToday++;
             }
         }
+        totalAnswersThisMonth*= puntosEjercicio;
+        totalAnswersThisWeek*= puntosEjercicio;
+        totalAnswersToday*= puntosEjercicio;
+
 
         // Add progress data to model
+        model.addAttribute("progressBarEjercicioMax", progressBarEjercicioMax);
         model.addAttribute("totalAnswersThisMonth", totalAnswersThisMonth);
         model.addAttribute("totalAnswersThisWeek", totalAnswersThisWeek);
         model.addAttribute("totalAnswersToday", totalAnswersToday);
 
-        return "usuario-progress";
-    }
-
-    @GetMapping("/progreso-mensual")
-    public String showProgresoMensual(Model model) {
-
-        LocalDateTime currentDate = LocalDateTime.now();
-        LocalDateTime startDate = currentDate.minusMonths(1);
-        List<RespuestaEjOpMul> agrupaPorMes = respuestaEjOpMulSrvc.getDateRange(startDate, currentDate);
-        model.addAttribute("agrupaPorMes", agrupaPorMes);
-        return "progresomensual";
-    }
-
-    @GetMapping("/progreso-semanal")
-    public String showProgresoSemanal(Model model){
-        LocalDateTime currentDate = LocalDateTime.now();
-        LocalDateTime startDate = currentDate.minusWeeks(1);
-        List<RespuestaEjOpMul> agrupaPorSemana = respuestaEjOpMulSrvc.getDateRange(startDate, currentDate);
-        model.addAttribute("agrupaPorSemana", agrupaPorSemana);
-        return "progresosemanal";
-    }
-
-    @GetMapping("/progreso-diario")
-    public String showProgresoDiario(Model model){
-        LocalDateTime currentDate = LocalDateTime.now();
-        LocalDateTime startDate = currentDate.minusDays(1);
-        List<RespuestaEjOpMul> agrupaPorDia = respuestaEjOpMulSrvc.getDateRange(startDate, currentDate);
-        model.addAttribute("agrupaPorDia", agrupaPorDia);
-        return "progresodiario";
+        return "progreso/usuario-progress";
     }
 }

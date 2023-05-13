@@ -84,7 +84,7 @@
                 <br><br>
 
                 <div class="modal-footer">
-                    <a th:if="${idNextEjer != null}" th:href="@{/ejercicios/{id}(id = ${idNextEjer})}" class="btn"
+                    <a th:if="${idNextEjer != ejercicio.getId()}" th:href="@{/ejercicios/{id}(id = ${idNextEjer})}" class="btn"
                        th:classappend="${totalusu<puntoAccesoNext} ? 'disabled btn-secondary' : 'btn-primary'">Siguiente</a>
                     <a th:href="@{/ejercicios}" class="btn btn-secondary">Volver al menú</a>
                 </div>

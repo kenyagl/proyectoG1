@@ -73,6 +73,10 @@ public class EjercicioCtrl {
 
             Long idNextEjer = ejerciciosService.findIdNextEjercicio(id);
 
+            if(idNextEjer == null) {
+                idNextEjer = ejercicioOpMul.getId();
+            }
+
             model.addAttribute("idNextEjer", idNextEjer);
 
             Optional<EjercicioOpMul> nextEjerOp = ejerciciosService.findById(idNextEjer);

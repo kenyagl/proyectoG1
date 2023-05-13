@@ -49,6 +49,7 @@
                 <tbody>
                     <tr th:each="semana: ${dias}" >
                         <td th:class="${hayPuntos ? 'conPuntos' : 'sinPuntos'}" th:text="${dia}" th:each="dia: ${semana}">
+                            <a th:href="@{/progreso/usuario-progress(day=${dia}, month=${month}, year=${year})}"></a>
                         </td>
                     </tr>
                 </tbody>

@@ -19,7 +19,7 @@ public class Respuesta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Integer votos;
+    private Integer votos = 0;
 
     private Boolean alerta;
 

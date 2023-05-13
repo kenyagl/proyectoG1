@@ -31,7 +31,7 @@ public class Pregunta {
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate fechaPregunta; // Preguntar formato de la fecha
 
-    private Integer votos;
+    private Integer votos = 0;
     // Como hacer que una persona solo pueda votar una vez o cambiar su voto
     // Solo los usuarios pueden votar
 

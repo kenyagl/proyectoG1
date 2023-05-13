@@ -29,40 +29,43 @@
     <div class="container mt-4">
         <div class="row">
             <div class="col-md-8 offset-md-2">
-               <!-- <div class="text-center">
-                    <h3>Tu progreso</h3>
+                <div class="text-center">
+                    <h1>Tu progreso</h1>
                     <div class="btn-group btn-group-toggle mt-4" data-toggle="buttons">
                         <label class="btn btn-primary active">
-                            <input type="radio" name="options" id="month" checked> Month
+                            <input type="radio" name="options" id="month" checked> Este Mes
                         </label>
                         <label class="btn btn-primary">
-                            <input type="radio" name="options" id="week"> Week
+                            <input type="radio" name="options" id="week"> Esta Semana
                         </label>
                         <label class="btn btn-primary">
-                            <input type="radio" name="options" id="day"> Day
+                            <input type="radio" name="options" id="day"> Hoy
                         </label>
                     </div>
-                </div>-->
-                <div class="mt-4">
-                    <div class="progress">
+                </div>
+                <div class="mt-4 ">
+                    <h2>Este Mes</h2>
+                    <div class="progress" id="month-progress">
                         <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"
                              th:attr="aria-valuenow=${totalAnswersThisMonth},
                              aria-valuemax=${progressBarEjercicioMax}"
                              th:text="${totalAnswersThisMonth + ' puntos'}"
                              aria-valuemin="0"></div>
                     </div>
-                    <div class="progress mt-3">
+                    <h2>Esta Semana</h2>
+                    <div class="progress mt-3" id="week-progress">
                         <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar"
                              th:attr="aria-valuenow=${totalAnswersThisWeek},
                              aria-valuemax=${progressBarEjercicioMax}"
                              th:text="${totalAnswersThisWeek + ' puntos'}"
                              aria-valuemin="0"></div>
                     </div>
-                    <div class="progress mt-3">
+                    <h2>Hoy</h2>
+                    <div class="progress mt-3" id="day-progress">
                         <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar"
-                             th:attr="aria-valuenow=${totalAnswersThisDay},
+                             th:attr="aria-valuenow=${totalAnswersToday},
                              aria-valuemax=${progressBarEjercicioMax}"
-                             th:text="${totalAnswersThisDay + ' puntos'}"
+                             th:text="${totalAnswersToday + ' puntos'}"
                              aria-valuemin="0"></div>
                     </div>
                 </div>

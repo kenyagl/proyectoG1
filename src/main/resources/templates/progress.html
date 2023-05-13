@@ -32,8 +32,10 @@
             <h5 th:text="${entry.key}"></h5>
             <div class="progress mb-3">
                 <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"
-                     th:style="'width: ' + ${entry.value} + ' puntos'"
-                     th:text="${entry.value + ' puntos'}"></div>
+                     th:attr="aria-valuenow=${entry.value},
+                     aria-valuemax=${progressBarEjercicioMax}"
+                     th:text="${entry.value + ' puntos'}"
+                     aria-valuemin="0"></div>
             </div>
         </div>
 
@@ -42,8 +44,10 @@
             <h5 th:text="${entry.key}"></h5>
             <div class="progress mb-3">
                 <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar"
-                     th:style="'width: ' + ${entry.value} + ' puntos'"
-                     th:text="${entry.value + ' puntos'}"></div>
+                     th:attr="aria-valuenow=${entry.value},
+                     aria-valuemax=${progressBarEjercicioMax}"
+                     th:text="${entry.value + ' puntos'}"
+                     aria-valuemin="0"></div>
             </div>
         </div>
 
@@ -52,8 +56,10 @@
             <h5 th:text="${entry.key}"></h5>
             <div class="progress mb-3">
                 <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar"
-                     th:style="'width: ' + ${entry.value} + ' puntos'"
-                     th:text="${entry.value + ' puntos'}"></div>
+                     th:attr="aria-valuenow=${entry.value},
+                     aria-valuemax=${progressBarEjercicioMax}"
+                     th:text="${entry.value + ' puntos'}"
+                     aria-valuemin="0"></div>
             </div>
         </div>
     </div>

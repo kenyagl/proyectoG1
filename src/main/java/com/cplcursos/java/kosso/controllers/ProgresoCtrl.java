@@ -87,17 +87,8 @@ public class ProgresoCtrl {
             entry.setValue(entry.getValue() * puntosEjercicio);
         }
 
-        /*for (Map.Entry<String, Integer> entry : respuestasByMonth.entrySet()) {
-            entry.setValue((entry.getValue() / numeroEjercicios) * 100);
-        }
-        for (Map.Entry<String, Integer> entry : respuestasByWeek.entrySet()) {
-            entry.setValue((entry.getValue() / numeroEjercicios) * 100);
-        }
-        for (Map.Entry<String, Integer> entry : respuestasByDay.entrySet()) {
-            entry.setValue((entry.getValue() / numeroEjercicios) * 100);
-        }*/
-
         // Add the data to the model
+        model.addAttribute("progressBarEjercicioMax", progressBarEjercicioMax);
         model.addAttribute("respuestasByMonth", respuestasByMonth);
         model.addAttribute("respuestasByWeek", respuestasByWeek);
         model.addAttribute("respuestasByDay", respuestasByDay);
@@ -134,7 +125,7 @@ public class ProgresoCtrl {
         }
         totalAnswersThisMonth*= puntosEjercicio;
         totalAnswersThisWeek*= puntosEjercicio;
-        totalAnswersToday+= puntosEjercicio;
+        totalAnswersToday*= puntosEjercicio;
 
 
         // Add progress data to model
@@ -144,33 +135,5 @@ public class ProgresoCtrl {
         model.addAttribute("totalAnswersToday", totalAnswersToday);
 
         return "usuario-progress";
-    }
-
-    @GetMapping("/progreso-mensual")
-    public String showProgresoMensual(Model model) {
-
-        LocalDateTime currentDate = LocalDateTime.now();
-        LocalDateTime startDate = currentDate.minusMonths(1);
-        List<RespuestaEjOpMul> agrupaPorMes = respuestaEjOpMulSrvc.getDateRange(startDate, currentDate);
-        model.addAttribute("agrupaPorMes", agrupaPorMes);
-        return "progresomensual";
-    }
-
-    @GetMapping("/progreso-semanal")
-    public String showProgresoSemanal(Model model){
-        LocalDateTime currentDate = LocalDateTime.now();
-        LocalDateTime startDate = currentDate.minusWeeks(1);
-        List<RespuestaEjOpMul> agrupaPorSemana = respuestaEjOpMulSrvc.getDateRange(startDate, currentDate);
-        model.addAttribute("agrupaPorSemana", agrupaPorSemana);
-        return "progresosemanal";
-    }
-
-    @GetMapping("/progreso-diario")
-    public String showProgresoDiario(Model model){
-        LocalDateTime currentDate = LocalDateTime.now();
-        LocalDateTime startDate = currentDate.minusDays(1);
-        List<RespuestaEjOpMul> agrupaPorDia = respuestaEjOpMulSrvc.getDateRange(startDate, currentDate);
-        model.addAttribute("agrupaPorDia", agrupaPorDia);
-        return "progresodiario";
     }
 }

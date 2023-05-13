@@ -212,19 +212,41 @@ public class PreguntaCtrl {
         if(valor != 0) {
             valor = valor>0 ? 1 : -1;
         }
-        if (tipoContenido.equals("votoPregunta") || tipoContenido.equals("votoComentario") || tipoContenido.equals("votoRespuesta")) {
-            puntos = 25 * valor;
-        }else {
-            puntos = 0;
+
+//        if (tipoContenido.equals("votoPregunta") || tipoContenido.equals("votoComentario") || tipoContenido.equals("votoRespuesta")) {
+//            puntos = 25 * valor;
+//        }else {
+//            puntos = 0;
+//        }
+
+        switch (tipoContenido){
+            case "votoPregunta":
+                puntos = 25 * valor;
+                model.addAttribute("votos", preguntaSrvc.asignarVotoYObtenerTotal(idContenido, valor));
+                break;
+
+            case "votoRespuesta":
+                puntos = 25 * valor;
+                model.addAttribute("votos", respuestaSrvc.asignarVotoYObtenerTotal(idContenido, valor));
+                break;
+
+            case "votoComentario":
+                puntos = 25 * valor;
+                model.addAttribute("votos", comentarioSrvc.asignarVotoYObtenerTotal(idContenido,valor));
+                break;
+
+            default:
+                model.addAttribute("votos", 0);
+
         }
 
         Usuario usuario = usuSrvc.findByEmail(userDetails.getUsername());
         puntosForoSrvc.puntuarContenido(idContenido, puntos, tipoContenido, usuario);
 
-        //votos para cada uno
-        model.addAttribute("votos", puntosForoSrvc.countByIdAndTipoContenido(idContenido, tipoContenido));
+//        //Cuenta la cantidad de veces que ha sido votado pero + y -
+//        model.addAttribute("votos", puntosForoSrvc.countByIdContenidoAndTipoContenido(idContenido, tipoContenido));
 
-        return "/preguntas/bloqueAjaxVotos :: votosPregunta";
+        return "/preguntas/bloqueAjaxVotos :: totalVotos";
     }
 
     // Votos Respuestas

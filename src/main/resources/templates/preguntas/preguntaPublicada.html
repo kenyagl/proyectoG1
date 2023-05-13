@@ -82,7 +82,7 @@
                                         class="fa fa-thumbs-o-down" aria-hidden="true"></i>
                                 </button>
                                 <!-- Votos Pregunta -->
-                                <span>Likes: <span id="votosPregunta" class="single-question-vote-result"
+                                <span>Likes: <span th:id="'votoPregunta' + ${pregunta.getId()}" class="single-question-vote-result"
                                                    th:text="${pregunta.getVotos()} ?: '0'">0</span></span>
                             </div>
                         </div>
@@ -134,7 +134,7 @@
                                                     <button type="button" class="tooltip-button thumbs-up2" data-toggle="tooltip" data-placement="bottom" title="Like" th:attr="onclick=|votaR(1,'${respuesta.getId}')|">Like <i class="fa fa-thumbs-o-up " aria-hidden="true"></i></button>
                                                     <button type="button" class="tooltip-button  thumbs-down2" data-toggle="tooltip" data-placement="bottom" title="Dislike" th:attr="onclick=|votaR(-1,'${respuesta.getId}')|">Dislike<i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button>
                                                     <!-- Votos Respuesta -->
-                                                    <span>Likes: <span th:id="'votosRespuesta' + ${respuesta.getId()}" class="single-question-vote-result" th:text="${respuesta.getVotos()} ?: '0'">0</span></span>
+                                                    <span>Likes: <span th:id="'votoRespuesta' + ${respuesta.getId()}" class="single-question-vote-result" th:text="${respuesta.getVotos()} ?: '0'">0</span></span>
                                                 </div>
 
                                                 <!-- Sección de comentarios -->
@@ -162,7 +162,7 @@
                                                                 <button type="button" class="tooltip-button thumbs-up2" data-toggle="tooltip" data-placement="bottom" title="Like" th:attr="onclick=|votaC(1,'${comentario.getId}')|"> Like <i class="fa fa-thumbs-o-up " aria-hidden="true"></i></button>
                                                                 <button type="button" class="tooltip-button  thumbs-down2" data-toggle="tooltip" data-placement="bottom" title="Dislike" th:attr="onclick=|votaC(-1,'${comentario.getId}')|"> Dislike <i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button>
                                                                 <!-- Votos Comentario -->
-                                                                <span>Likes: <span th:id="'votosComentario' + ${comentario.getId()}" class="single-question-vote-result" th:text="${comentario.getVotos()} ?: '0'">0</span></span>
+                                                                <span>Likes: <span th:id="'votoComentario' + ${comentario.getId()}" class="single-question-vote-result" th:text="${comentario.getVotos()} ?: '0'">0</span></span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -300,7 +300,7 @@
             let formData = new FormData();
             formData.append('valor', n)
             formData.append('idContenido', x)
-            formData.append('tipo', 'VotoComentario')
+            formData.append('tipo', 'votoComentario')
             votar(formData)
         }
 
@@ -313,7 +313,7 @@
                 return response.text();
             }).then(function (html){
                 console.log(html)
-                document.getElementById("votosPregunta").innerHTML = html;
+                document.getElementById(formData.get('tipo') + formData.get('idContenido')).innerHTML = html;
             }).catch(function (err){
                 console.warn('Something went wrong.', err)
             });

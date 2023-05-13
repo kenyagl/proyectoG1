@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PuntosForoRepo extends JpaRepository<PuntosForo, Long> {
 
-    Long countByIdAndTipoContenido(Long idContenido, String tipoContenido);
+    Long countByIdContenidoAndTipoContenido(Long idContenido, String tipoContenido);
 }

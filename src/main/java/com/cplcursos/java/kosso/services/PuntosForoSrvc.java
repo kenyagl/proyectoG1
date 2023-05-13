@@ -25,8 +25,8 @@ public class PuntosForoSrvc {
         puntosForoRepo.save(puntosForo);
     }
 
-    public Long countByIdAndTipoContenido(Long idContenido, String tipoContenido){
-        return puntosForoRepo.countByIdAndTipoContenido(idContenido, tipoContenido);
+    public Long countByIdContenidoAndTipoContenido(Long idContenido, String tipoContenido){
+        return puntosForoRepo.countByIdContenidoAndTipoContenido(idContenido, tipoContenido);
     }
 
 

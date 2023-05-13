@@ -25,9 +25,16 @@ public class PuntosForoSrvc {
         puntosForoRepo.save(puntosForo);
     }
 
-    public Long countByIdAndTipoContenido(Long idContenido, String tipoContenido){
-        return puntosForoRepo.countByIdAndTipoContenido(idContenido, tipoContenido);
+    public Long countByIdContenidoAndTipoContenido(Long idContenido, String tipoContenido){
+        return puntosForoRepo.countByIdContenidoAndTipoContenido(idContenido, tipoContenido);
     }
 
+    public Integer cuentaLikes(Long idContenido, String tipoContenido){
+        return puntosForoRepo.cuentaLike(idContenido, tipoContenido);
+    }
+
+    public Integer cuentaDislikes(Long idContenido, String tipoContenido){
+        return puntosForoRepo.cuentaDislike(idContenido, tipoContenido);
+    }
 
 }

@@ -18,6 +18,23 @@ public class PreguntaSrvc  {
         return preguntaRepo.findById(id);
     }
 
+    public Integer asignarVotoYObtenerTotal(Long id, Integer valor){
+        Optional<Pregunta> preOp = preguntaRepo.findById(id);
+        if(preOp.isPresent()){
+            Pregunta pregunta = preOp.get();
+            Integer acumulados = pregunta.getVotos();
+            if (acumulados == null){
+                acumulados = 0;
+            }
+            pregunta.setVotos(valor + acumulados);
+            preguntaRepo.save(pregunta);
+            return pregunta.getVotos();
+        }
+        else {
+            return null;
+        }
+    }
+
     public void borrarPregunta(Long id){
         preguntaRepo.deleteById(id);
     }

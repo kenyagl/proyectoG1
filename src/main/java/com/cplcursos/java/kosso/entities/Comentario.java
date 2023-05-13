@@ -24,7 +24,7 @@ public class Comentario {
     @Column(length = 500)
     private String textoComentario;
 
-    private Integer votos;
+    private Integer votos = 0;
 
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate fechaComentario;

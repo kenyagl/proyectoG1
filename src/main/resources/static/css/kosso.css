@@ -491,9 +491,19 @@ p{
 font-family: "Khand";
 }
 
+.modaltxt{
+font-family: "Khand";
+font-size: 24px;
+}
+
 h1{
 font-family: "Pridi";
 font-weight: 600;
+}
+
+.modal-title{
+font-family: "Pridi";
+font-size: 30px;
 }
 
 h2{

@@ -13,22 +13,24 @@
                         <h1>Preguntas</h1>
                         <a th:href="@{/preguntas/new}" class="btn border-dark">Hacer una pregunta</a>
                         <div class="input-group align-items-center">
-                                <form th:action="@{/preguntas/search}" th:method="post">
-                                        <input name="search" type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon">
-                                        <button  type="submit" class="btn btn-outline-primary">search</button>
-                                </form>
+                                        <form th:action="@{/preguntas/search}" method="post">
+                                                <input th:value="${search}" name="search" type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon">
+                                                <button  type="submit" class="btn btn-outline-primary">search</button>
+
+
+
+                                <div style="margin-top: 10px;">
+
+                                        <label for="filtro">Filtrar por:</label>
+                                                <select th:value="${filtro}" name="filtro" id="filtro" >
+                                                        <option th:value="default">Seleccione un filtro</option>
+                                                        <option th:value="newest">Más Recientes</option>
+                                                        <option th:value="oldest">Más Antiguas</option>
+                                                        <option value="votos">Mejor Valorados</option>
+                                                </select>
+                                                <button  type="submit" class="btn btn-outline-primary">Filtrar</button>
                         </div>
-
-                        <div style="margin-top: 10px;">
-
-                        <label for="filtros">Filtrar por:</label>
-                                <!-- Hacer que los dropdown apliquen el filtro directamente después de darles -->
-                                <select name="filtros" id="filtros">
-                                        <option value="default">Seleccione un filtro</option>
-                                        <option value="fechaNew">Más Recientes</option>
-                                        <option value="fechaOld">Más Antiguas</option>
-                                        <option value="votos">Mejor Valorados</option>
-                                </select>
+                                </form>
                         </div>
 
                         <!-- Preguntas publicadas -->
@@ -59,7 +61,7 @@
                         <nav th:if="${paginaPreguntas.totalPages > 0}" aria-label="Page navigation">
                                 <ul class="pagination justify-content-center">
                                         <li class="page-item" th:each="numeroPagina : ${numeroPaginas}">
-                                                <a class="page-link" th:href="@{/preguntas(size=${paginaPreguntas.size}, page=${numeroPagina})}" th:text=${numeroPagina} th:classappend="${numeroPagina==paginaPreguntas.number + 1} ? active">1</a>
+                                                <a class="page-link" th:href="@{/preguntas(size=${paginaPreguntas.size}, page=${numeroPagina}, filtro=${filtro}, search=${search})}" th:text=${numeroPagina} th:classappend="${numeroPagina==paginaPreguntas.number + 1} ? active">1</a>
                                         </li>
                                 </ul>
                         </nav>

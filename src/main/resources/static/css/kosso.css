@@ -511,3 +511,11 @@ font-family: "Comfortaa";
 .imgportada{
 width: 100%;
 }
+
+.tipo2{
+font-family: "Pridi"
+}
+
+.card.fondocard{
+background-image: url('/image/fondocard.png');
+}

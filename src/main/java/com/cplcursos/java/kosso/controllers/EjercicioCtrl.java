@@ -80,7 +80,7 @@ public class EjercicioCtrl {
             model.addAttribute("idNextEjer", idNextEjer);
 
         } else {
-            return "error/errorEncontrandoEjercicio";
+            return "error/error";
         }
         return "ejercicios/ejercicioOpMul";
     }
@@ -121,7 +121,7 @@ public class EjercicioCtrl {
         if (ejercicioOpMul.isPresent()) {
             model.addAttribute("ejercicioOpMul", ejercicioOpMul);
         } else {
-            return "error/errorEncontrandoEjercicio";
+            return "error/error";
         }
         return "ejercicios/ejercicioForm";
     }
@@ -142,7 +142,7 @@ public class EjercicioCtrl {
         Optional<EjercicioOpMul> ejer = ejerciciosService.findById(idEjercicio);
 
         if (ejer.isEmpty()) {
-            return "error/errorEncontrandoEjercicio";
+            return "error/error";
         }
 
         EjercicioOpMul ejercicio = ejer.get();

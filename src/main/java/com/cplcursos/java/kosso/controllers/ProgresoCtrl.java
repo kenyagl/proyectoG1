@@ -38,13 +38,13 @@ public class ProgresoCtrl {
 
     // Points per action
     final static int puntosEjercicio = 100;
-    final static int puntosPreguntaForo = 10;
-    final static int puntosRespuestaForo = 25;
+//    final static int puntosPreguntaForo = 10;
+//    final static int puntosRespuestaForo = 25;
 
     // Set maximum value for progress bars
     int progressBarEjercicioMax = 0;
-    int progressBarPreguntaForoMax = 0;
-    int progressBarRespuestaMax = 0;
+//    int progressBarPreguntaForoMax = 0;
+//    int progressBarRespuestaMax = 0;
 
     // Returns a list with all respuestas
     @GetMapping(value = {"/", ""})
@@ -106,6 +106,7 @@ public class ProgresoCtrl {
             entry.setValue(entry.getValue() * puntosEjercicio);
         }
 
+        progressBarEjercicioMax = (numeroEjercicios * puntosEjercicio);
 
         // Add the data to the model
         model.addAttribute("progressBarEjercicioMax", progressBarEjercicioMax);
@@ -151,7 +152,7 @@ public class ProgresoCtrl {
         totalAnswersThisMonth *= puntosEjercicio;
         totalAnswersThisWeek *= puntosEjercicio;
         totalAnswersToday *= puntosEjercicio;
-        progressBarEjercicioMax *= (numeroEjercicios * puntosEjercicio);
+        progressBarEjercicioMax = (numeroEjercicios * puntosEjercicio);
 
 
         // Add progress data to model

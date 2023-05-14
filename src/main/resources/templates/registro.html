@@ -1,5 +1,3 @@
-
-
 <!doctype html>
 
 <html xmlns:th="thymeleaf.org"
@@ -30,7 +28,8 @@
                         </div>
                     </div>
 
-                    <form th:action="@{/usuario/registro}" th:object="${usuarioDto}" method="POST" enctype="utf8" role="form" style="color: white">
+                    <form th:action="@{/usuario/registro}" th:object="${usuarioDto}" method="POST" enctype="utf8"
+                          role="form" style="color: white">
                         <div>
                             <label class="form-label" for="firstName">Nombre</label>
                             <input type="text" class="form-control" th:field="*{firstName}" id="firstName"
@@ -49,14 +48,16 @@
 
                         <div>
                             <label class="form-label" for="email">Email</label>
-                            <input type="email" class="form-control" th:field="*{email}" id="email" name="email" placeholder="pepe.mh@gmail.com" required/>
+                            <input type="email" class="form-control" th:field="*{email}" id="email" name="email"
+                                   placeholder="pepe.mh@gmail.com" required/>
                             <p th:errors="*{email}" class="text-danger"
                                th:if="${#fields.hasErrors('email')}"></p>
                         </div>
 
                         <div>
                             <label class="form-label" for="password">Contraseña</label>
-                            <input type="password" class="form-control" th:field="*{password}" id="password" name="password"
+                            <input type="password" class="form-control" th:field="*{password}" id="password"
+                                   name="password"
                                    placeholder="Introduce una contraseña" required/>
                             <p th:errors="*{password}" class="text-danger"
                                th:if="${#fields.hasErrors('password')}"></p>
@@ -74,15 +75,15 @@
 </div>
 
 
-                    <!-- Optional JavaScript -->
+<!-- Optional JavaScript -->
 
-                    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-                            integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
-                            crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+        crossorigin="anonymous"></script>
 
-                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
-                            integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
-                            crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+        crossorigin="anonymous"></script>
 
 </body>
 

@@ -16,21 +16,26 @@
     <h1>Tus Ejercicios</h1>
 </header>
 
-<form th:action="@{/ejercicios}" style="margin-left: 100px;  max-width: 700px;">
-        <label for="keyword" class="form-label">Buscar por categoría</label>
+<div class="card col-6" style="margin-left: 30%; margin-bottom: 2em;">
+    <div class="card-body card">
+<form th:action="@{/ejercicios}" style="max-width: 700px;">
+        <label for="keyword" class="respuestas" style="font-size: 18px; ">Buscar por categoría</label>
     <select class="form-select" id="keyword" name="keyword" multiple="true" data-allow-clear="true" data-suggestions-threshold="1">
         <option disabled hidden value="">Elige una etiqueta</option>
         <option th:each="categoria : ${categorias}" th:value="${categoria.getNombre()}" th:text="${categoria.getNombre()}"></option>
     </select>
     &nbsp;
-    <input type="submit" value="Search" style="
-    margin-top: 9px;" />
+    <input type="submit" class="btn  btn-primary" value="Search" style="margin-top: 9px;" />
     &nbsp;
-    <input type="button" value="Clear" id="btnClear" onclick="clearSearch()" />
+    <input type="button" class="btn  btn-primary" value="Clear" id="btnClear" onclick="clearSearch()" style="
+    margin-top: 9px;" />
 </form>
+        </div>
+</div>
 
-<div class="container" style="padding-left: 20%; padding-right: 20%">
-    <div class="row py-3">
+<div class="card col-6" style="margin-left: 30%;">
+    <div class="card-body card">
+
         <div th:each="ejercicio: ${ejercicios}">
             <div class="row p-2">
                 <a type="button" th:text="${ejercicio.getTitulo()}"
@@ -39,6 +44,7 @@
             </div>
         </div>
     </div>
+
 </div>
 
 

@@ -27,10 +27,11 @@
                 </div>
 
                 <!--Título y cuerpo pregunta-->
-                <div class="post-details">
+                <div class="card">
+                <div class="card-body">
                     <div class="details-header">
-                        <div class="row" style="margin-top: 150px;">
-                            <div class="col-md-8">
+                        <div class="row" >
+                            <div class="col-md-12">
                                 <div>
                                     <!-- Botón de editar pregunta -->
                                     <a th:href="@{/preguntas/edit/{id}(id=${pregunta.getId()})}"
@@ -45,12 +46,12 @@
                                             <img id="imgPerfil" class="rounded-circle m-3" th:src="@{${pregunta.getUsuario.getPhotosImagePath()}}" alt="Imagen de Prefil">
                                             <h3>
                                                 <a th:href="@{/usuario/perfil/{id}(id=${pregunta.getUsuario.getId()})}" th:text="${pregunta.getUsuario().getNombre()} ">Nombre de Usuario</a>
-                                                <span> - </span>
+
                                             </h3>
 
-                                            <h3 th:text=" ${pregunta.getTituloPregunta()}">  Título Pregunta</h3>
+                                            <h3 class="txtpreg"  th:text=" ${pregunta.getTituloPregunta()}" style="margin-left: 30px; font-weight: bolder">Título Pregunta</h3>
                                         </div>
-                                        <span th:text="${pregunta.getFechaPregunta()}">Fecha de Publicación</span>
+                                        <span class="datosforo" th:text="${pregunta.getFechaPregunta()}">Fecha de Publicación</span>
                                     </div>
 
                                 </div>
@@ -93,16 +94,19 @@
                         </div>
                     </div>
                 </div>
+                </div>
 
                 <!-- Respuestas -->
                 <section>
+
                     <div class="row d-flex justify-content-center">
                         <div class="container-fluid">
 
                             <div class="card-body p-4">
                                 <h4 class="text-center mb-4 pb-2">Respuestas</h4>
+                                <div class="card">
+                                    <div class="card-body">
 
-                                <div class="row">
                                     <div class="col">
 
                                         <!-- Respuesta -->
@@ -134,7 +138,7 @@
                                                         the readable content of a page.
                                                     </p>
                                                 </div>
-                                                <div class="col">
+                                                <div class="col" style=" margin-top: 1.5em;">
                                                     <!-- Botones de like y dislike a respuesta -->
                                                     <button type="button" class="tooltip-button thumbs-up2" data-toggle="tooltip" data-placement="bottom" title="Like" th:attr="onclick=|votaR(1,'${respuesta.getId}')|">Like <i class="fa fa-thumbs-o-up " aria-hidden="true"></i></button>
                                                     <button type="button" class="tooltip-button  thumbs-down2" data-toggle="tooltip" data-placement="bottom" title="Dislike" th:attr="onclick=|votaR(-1,'${respuesta.getId}')|">Dislike<i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button>
@@ -163,7 +167,7 @@
                                                             <p th:text="${comentario.getTextoComentario()}" class="small mb-0">letters, as opposed to using 'Content here, content here', making it look like readable English.</p>
 
                                                             <!-- Botones de like y dislike a comentarios -->
-                                                            <div class="col">
+                                                            <div class="col" >
                                                                 <button type="button" class="tooltip-button thumbs-up2" data-toggle="tooltip" data-placement="bottom" title="Like" th:attr="onclick=|votaC(1,'${comentario.getId}')|"> Like <i class="fa fa-thumbs-o-up " aria-hidden="true"></i></button>
                                                                 <button type="button" class="tooltip-button  thumbs-down2" data-toggle="tooltip" data-placement="bottom" title="Dislike" th:attr="onclick=|votaC(-1,'${comentario.getId}')|"> Dislike <i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button>
                                                                 <!-- Votos Comentario -->
@@ -174,6 +178,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
                                     </div>
                                 </div>
                             </div>

@@ -16,7 +16,7 @@
             <div class="card-body">
 
                 <h1 class="card-title" th:text="${ejercicio.getTitulo()}">Título del ejercicio</h1>
-                <p class="card-text" th:text="${ejercicio.getDescripcion()}">Descripción del ejercicio</p>
+                <p class="card-text enunciado" th:text="${ejercicio.getDescripcion()}">Descripción del ejercicio</p>
                 <img class="card-img img-fluid mb-3" th:if="${ejercicio.getImagen() != null}"
                      th:src="@{${ejercicio.getImagenPath()}}" height="138" width="580" alt="<Code picture>"/>
                 <div id="myForm" class="was-validated">
@@ -27,25 +27,25 @@
                     <div class="form-check">
                         <input type="radio" class="form-check-input" name="answer" value="1" id="op1" required
                                th:value="${ejercicio.getOpcion1()}"/>
-                        <label type="form-check-label" for="op4" th:text="${ejercicio.getOpcion1()}">Option 1</label>
+                        <label class="respuestas" type="form-check-label" for="op4" th:text="${ejercicio.getOpcion1()}">Option 1</label>
                     </div>
                     <br/>
                     <div class="form-check">
                         <input type="radio" class="form-check-input" name="answer" value="2" id="op2" required
                                th:value="${ejercicio.getOpcion2()}"/>
-                        <label type="form-check-label" for="op4" th:text="${ejercicio.getOpcion2()}">Option 2</label>
+                        <label class="respuestas" type="form-check-label" for="op4" th:text="${ejercicio.getOpcion2()}">Option 2</label>
                     </div>
                     <br/>
                     <div class="form-check">
                         <input type="radio" class="form-check-input" name="answer" value="3" id="op3" required
                                th:value="${ejercicio.getOpcion3()}"/>
-                        <label type="form-check-label" for="op4" th:text="${ejercicio.getOpcion3()}">Option 3</label>
+                        <label class="respuestas" type="form-check-label" for="op4" th:text="${ejercicio.getOpcion3()}">Option 3</label>
                     </div>
                     <br/>
                     <div class="form-check">
                         <input type="radio" class="form-check-input" name="answer" value="4" id="op4" required
                                th:value="${ejercicio.getOpcion4()}"/>
-                        <label type="form-check-label" for="op4" th:text="${ejercicio.getOpcion4()}">Option 4</label>
+                        <label class="respuestas" type="form-check-label" for="op4" th:text="${ejercicio.getOpcion4()}">Option 4</label>
                     </div>
                     <br/>
                     <button type="button"
@@ -86,8 +86,7 @@
 
                 <div class="row">
                     <div class="col-2"></div>
-                    <img class="col-8" id="resultImage" width="200px"
-                         style="box-shadow: 5px 5px 10px rgba(255, 255, 255, 0.75);">
+                    <img class="col-8 oso" id="resultImage" width="200px" >
                     <div class="col-2"></div>
                 </div>
 

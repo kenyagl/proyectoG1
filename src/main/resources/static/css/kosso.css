@@ -491,6 +491,15 @@ p{
 font-family: "Khand";
 }
 
+.respuestas{
+font-family: "Khand";
+}
+
+.card-text.enunciado{
+font-family: "Khand";
+font-size: 24px;
+}
+
 .modaltxt{
 font-family: "Khand";
 font-size: 24px;
@@ -520,4 +529,47 @@ font-family: "Comfortaa";
 
 .imgportada{
 width: 100%;
+}
+
+.tipo2{
+font-family: "Pridi";
+
+}
+
+.card{
+background-image: url('/image/fondocard.png');
+box-shadow: 5px 5px 10px rgba(255, 255, 255, 0.50);
+}
+
+.usus{
+font-family: "Pridi";
+font-size : 20px;
+font-weight: 600;
+color: #F79824 ;
+ text-shadow: 2px 2px #666666;
+}
+
+.datosforo{
+font-weight: bold;
+}
+
+.etiquetas{
+font-family: "Khand";
+font-size : 20px;
+color: #F79824;
+font-weight: bold;
+text-shadow: 2px 2px #666666;
+}
+ .prevpregunta{
+ font-weight: bold;
+ text-shadow: 2px 1px #666666;
+ }
+
+.mb-1{
+font-family: "Comfortaa"
+
+}
+
+.oso{
+filter: drop-shadow(5px 5px 10px rgba(255, 255, 255, 0.75));
 }

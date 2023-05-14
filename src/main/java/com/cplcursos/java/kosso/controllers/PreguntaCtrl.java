@@ -8,6 +8,7 @@ import com.cplcursos.java.kosso.utils.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.ui.Model;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -49,19 +51,38 @@ public class PreguntaCtrl {
     @Autowired
     private PuntosForoSrvc puntosForoSrvc;
 
-
     @GetMapping(value = {"/", ""})
-    public String mostrarPreguntas (Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size, @AuthenticationPrincipal MyUserDetails userDetails){
+    public String mostrarPreguntas (@ModelAttribute("search") String search, @ModelAttribute("filtro") String filtro, Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size, @AuthenticationPrincipal MyUserDetails userDetails, RedirectAttributes redirectAttributes){
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(10);
 
         String email = userDetails.getUsername();
         Usuario usuario = usuSrvc.findByEmail(email);
-        model.addAttribute("usuario", usuario);
 
-        Page<Pregunta> paginaPreguntas = preguntaPaginacionRepo.findAll(PageRequest.of(currentPage - 1, pageSize, Sort.by("fechaPregunta").descending()));
+        Pageable pageable = PageRequest.of(currentPage - 1, pageSize, Sort.by("fechaPregunta").descending());
+
+        if (filtro != null) {
+            switch (filtro){
+                case "oldest":
+                    pageable = PageRequest.of(currentPage - 1, pageSize, Sort.by("fechaPregunta").ascending());
+                    break;
+                case "votos":
+                    //pageable = PageRequest.of(currentPage - 1, pageSize, Sort.by("votos").ascending());
+                    break;
+                default:
+            }
+        }
+
+        Page<Pregunta> paginaPreguntas;
+        if ((search != null) && (!search.equals(""))){
+            paginaPreguntas = preguntaPaginacionRepo.findAllByTituloPreguntaContainingOrTextoPreguntaContaining(search, search, pageable);
+        } else {
+            paginaPreguntas = preguntaPaginacionRepo.findAll(pageable);
+        }
 
         model.addAttribute("paginaPreguntas", paginaPreguntas);
+        model.addAttribute("filtro", filtro);
+
 
         int totalPaginas = paginaPreguntas.getTotalPages();
         if (totalPaginas > 0) {
@@ -74,12 +95,11 @@ public class PreguntaCtrl {
     }
 
     @PostMapping(value = "/search")
-    public String busqueda(@ModelAttribute("search") String search, Model model){
-        String a = search;
-        model.addAttribute("search", search);
-        return "redirect:/preguntas/" + search;
+    public String busqueda(@ModelAttribute("search") String search, @ModelAttribute("filtro") String filtro, RedirectAttributes redirectAttributes){
+        redirectAttributes.addFlashAttribute("search", search);
+        redirectAttributes.addFlashAttribute("filtro", filtro);
+        return "redirect:/preguntas";
     }
-
 
 
     // Muestra la pregunta publicada por su id

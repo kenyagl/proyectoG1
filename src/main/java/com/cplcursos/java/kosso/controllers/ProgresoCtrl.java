@@ -42,9 +42,9 @@ public class ProgresoCtrl {
     final static int puntosRespuestaForo = 25;
 
     // Set maximum value for progress bars
-    final static int progressBarEjercicioMax = 2000;
-    final static int progressBarPreguntaForoMax = 0;
-    final static int progressBarRespuestaMax = 0;
+    int progressBarEjercicioMax = 0;
+    int progressBarPreguntaForoMax = 0;
+    int progressBarRespuestaMax = 0;
 
     // Returns a list with all respuestas
     @GetMapping(value = {"/", ""})
@@ -60,7 +60,6 @@ public class ProgresoCtrl {
         // Retrieve data from database
         List<EjercicioOpMul> ejercicios = ejerciciosSrvc.findAll();
         List<RespuestaEjOpMul> respuestas = respuestaEjOpMulSrvc.findAll();
-//        List<PuntosForo> puntosForos = puntosForoSrvc.
 
         // Calculate the number of ejercicios and respuestas
         int numeroEjercicios = ejercicios.size();
@@ -107,6 +106,7 @@ public class ProgresoCtrl {
             entry.setValue(entry.getValue() * puntosEjercicio);
         }
 
+
         // Add the data to the model
         model.addAttribute("progressBarEjercicioMax", progressBarEjercicioMax);
         model.addAttribute("respuestasByMonth", respuestasByMonth);
@@ -120,8 +120,13 @@ public class ProgresoCtrl {
     @GetMapping("/usuario-progress")
     public String showUsuarioProgress(Model model) {
 
-        // Retrieve all RespuestaEjOpMul entities
+        // Retrieve data from database
+        List<EjercicioOpMul> ejercicios = ejerciciosSrvc.findAll();
         List<RespuestaEjOpMul> respuestas = respuestaEjOpMulSrvc.findAll();
+
+        // Calculate the number of ejercicios and respuestas
+        int numeroEjercicios = ejercicios.size();
+        int numeroRespuestas = respuestas.size();
 
         // Calculate progress for current month, week, and day
         LocalDateTime now = LocalDateTime.now();
@@ -146,6 +151,7 @@ public class ProgresoCtrl {
         totalAnswersThisMonth *= puntosEjercicio;
         totalAnswersThisWeek *= puntosEjercicio;
         totalAnswersToday *= puntosEjercicio;
+        progressBarEjercicioMax *= (numeroEjercicios * puntosEjercicio);
 
 
         // Add progress data to model
@@ -156,11 +162,11 @@ public class ProgresoCtrl {
 
         return "progreso/usuario-progress";
     }
-    @GetMapping("/usuario-progress/{dia}/{mes}/{ano}")
+/*    @GetMapping("/usuario-progress/{dia}/{mes}/{ano}")
     public String showProgresoDia(Model model, @PathVariable("dia") int dia, @PathVariable("mes") int mes, @PathVariable("ano") int ano){
         // Calcular/leer el progreso para la fecha indicada
 
         // modelo a utilizar
         return "usuario/usuario";
-    }
+    }*/
 }

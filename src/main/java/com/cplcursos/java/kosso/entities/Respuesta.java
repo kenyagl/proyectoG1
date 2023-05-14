@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -40,7 +41,8 @@ public class Respuesta {
     private Pregunta pregunta;
 
     // Relacion con votos
-
+    @OneToMany(mappedBy = "respuesta")
+    private Set<PuntosForo> puntos;
 
     public Respuesta(Integer votos, Boolean alerta, String textoRespuesta) {
         this.votos = votos;

@@ -10,6 +10,7 @@ import java.time.LocalDate;
 
 @Service
 public class PuntosForoSrvc {
+/*
 
     @Autowired
     private PuntosForoRepo puntosForoRepo;
@@ -20,21 +21,25 @@ public class PuntosForoSrvc {
         puntosForo.setUsuario(usuario);
         puntosForo.setFechaVoto(LocalDate.now());
         puntosForo.setPuntos(puntos);
-        puntosForo.setTipoContenido(tipoContenido);
-        puntosForo.setIdContenido(idContenido);
+        //puntosForo.setTipoContenido(tipoContenido);
+        //puntosForo.setIdContenido(idContenido);
         puntosForoRepo.save(puntosForo);
     }
 
     public Long countByIdContenidoAndTipoContenido(Long idContenido, String tipoContenido){
-        return puntosForoRepo.countByIdContenidoAndTipoContenido(idContenido, tipoContenido);
+        return null;
+        //return puntosForoRepo.countByIdContenidoAndTipoContenido(idContenido, tipoContenido);
     }
 
     public Long cuentaLikes(Long idContenido, String tipoContenido){
-        return puntosForoRepo.cuentaLike(idContenido, tipoContenido);
+        //return puntosForoRepo.cuentaLike(idContenido, tipoContenido);
+        return null;
     }
 
     public Long cuentaDislikes(Long idContenido, String tipoContenido){
-        return puntosForoRepo.cuentaDislike(idContenido, tipoContenido);
+        //return puntosForoRepo.cuentaDislike(idContenido, tipoContenido);
+        return null;
     }
+*/
 
 }

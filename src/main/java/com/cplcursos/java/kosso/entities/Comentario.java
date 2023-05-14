@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -24,7 +25,9 @@ public class Comentario {
     @Column(length = 500)
     private String textoComentario;
 
-    private Integer votos = 0;
+    // Relacion con votos
+    @OneToMany(mappedBy = "comentario")
+    private Set<PuntosForo> puntos;
 
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate fechaComentario;

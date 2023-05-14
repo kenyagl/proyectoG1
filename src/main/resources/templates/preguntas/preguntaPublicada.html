@@ -318,7 +318,7 @@
             }
             try {
                 // la respuesta contiene un objeto con los totales de "me gusta" y de "no me gusta"
-                const resp = await fetch('/preguntas/votar', init);
+                const resp = await fetch('/votar', init);
                 const result = await resp.json();
                 console.log(result);
                 // Preparamos el id del tipo de contenido que hay que actualizar

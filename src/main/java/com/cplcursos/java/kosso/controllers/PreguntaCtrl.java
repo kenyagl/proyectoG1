@@ -95,11 +95,11 @@ public class PreguntaCtrl {
         if(pregunta.isPresent()) {
             model.addAttribute("pregunta", pregunta.get());
             // Cada vez que se cargue la página, hay que actualizar los contadores de likes y dislikes
-            Long totalLikes =  puntosForoSrvc.cuentaLikes(pregunta.get().getId(),"votoPregunta");
-            Long totalDislikes = puntosForoSrvc.cuentaDislikes(pregunta.get().getId(),"votoPregunta");
+            //Long totalLikes =  puntosForoSrvc.cuentaLikes(pregunta.get().getId(),"votoPregunta");
+            //Long totalDislikes = puntosForoSrvc.cuentaDislikes(pregunta.get().getId(),"votoPregunta");
             // los añadimos al modelo
-            model.addAttribute("totalLikes", totalLikes);
-            model.addAttribute("totalDisLikes", totalDislikes);
+            //model.addAttribute("totalLikes", totalLikes);
+            //model.addAttribute("totalDisLikes", totalDislikes);
             return "preguntas/preguntaPublicada";
         }
         return "redirect:/preguntas/";
@@ -123,7 +123,7 @@ public class PreguntaCtrl {
 
         FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 
-        puntosForoSrvc.puntuarContenido(pregunta.getId(),10, "pregunta", pregunta.getUsuario());
+        //puntosForoSrvc.puntuarContenido(pregunta.getId(),10, "pregunta", pregunta.getUsuario());
 
         return "redirect:/preguntas/preguntaPublicada/" + pregunta.getId();
     }
@@ -188,7 +188,7 @@ public class PreguntaCtrl {
         respuesta.setTextoRespuesta(textoRespuesta);
         respuesta.setFechaRespuesta(LocalDate.now());
         respuestaSrvc.save(respuesta);
-        puntosForoSrvc.puntuarContenido(respuesta.getId(),25, "respuesta", respuesta.getUsuario());
+        //puntosForoSrvc.puntuarContenido(respuesta.getId(),25, "respuesta", respuesta.getUsuario());
 
         return "redirect:/preguntas/preguntaPublicada/" + id;
     }
@@ -204,64 +204,64 @@ public class PreguntaCtrl {
         comentario.setTextoComentario(textoComentario);
         comentario.setFechaComentario(LocalDate.now());
         comentarioSrvc.save(comentario);
-        puntosForoSrvc.puntuarContenido(comentario.getId(),5, "comentario", comentario.getUsuario());
+        //puntosForoSrvc.puntuarContenido(comentario.getId(),5, "comentario", comentario.getUsuario());
 
 
         return "redirect:/preguntas/preguntaPublicada/" + idPregunta;
     }
 
 
-    // Controladores de votos
-    // Votos Preguntas
-    @PostMapping(value = "/votar")
-    @ResponseBody   // Permite devolver un objeto en el cuerpo de la respuesta HTTP a la llamada desde el js (fetch)
-    public Map<String, Object> votarContenido(@RequestParam(name = "valor") Integer valor, @RequestParam(name = "idContenido") Long idContenido, @RequestParam(name = "tipo") String tipoContenido,  @AuthenticationPrincipal MyUserDetails userDetails, Model model){
-        Integer puntos = 0;
-        // "valor" indica si ha votado "me gusta" -valor positivo- o "no me gusta" -valor negativo-
-        // No aseguramos de que "valor" es 1, -1 ó cero
-        if(valor != 0) {
-            valor = valor>0 ? 1 : -1;
-        }
-        // Calculamos los puntos según el tipo de contenido votado
-        switch (tipoContenido){
-            case "votoPregunta":
-                puntos = 25 * valor;
-                break;
-            case "votoRespuesta":
-                puntos = 25 * valor;
-                break;
-            case "votoComentario":
-                puntos = 25 * valor;
-                break;
-            default:
-                model.addAttribute("votos", 0);
-        }
-        // buscamos el usuario...
-        Usuario usuario = usuSrvc.findByEmail(userDetails.getUsername());
-        //... y grabamos los puntos con el id del usuario
-        puntosForoSrvc.puntuarContenido(idContenido, puntos, tipoContenido, usuario);
-        // Obtenemos el total de "me gusta" y e ltotal de "no me gusta"...
-        Long totalLikes = (Long) puntosForoSrvc.cuentaLikes(idContenido,tipoContenido);
-        Long totalDislikes = puntosForoSrvc.cuentaDislikes(idContenido,tipoContenido);
-
-        /* ... y los empaquetamos en un Map para devolver los resultados como un objeto
-
-           ¡ATENCIÓN! La utilización de la clase Object -que es el "supertipo" de todos los tipos de datos en Java-
-           implica ciertos riesgos, ya que perdemos el tipo del valor original en la asignación.
-
-           En este caso lo podemos asumir, porque conocemos de antemano el tipo de datos que incluimos en el map.
-
-           Ver https://www.baeldung.com/java-hashmap-different-value-types para másinformación.
-         */
-
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("idContenido", idContenido);
-        map.put("tipo", tipoContenido);
-        map.put("totalLikes", totalLikes);
-        map.put("totalDisLikes", totalDislikes);
-        //...llegarán a la llamada FETCH de js como un objeto tipo array de parejas "clave": "valor"
-        return map;
-    }
+//    // Controladores de votos
+//    // Votos Preguntas
+//    @PostMapping(value = "/votar")
+//    @ResponseBody   // Permite devolver un objeto en el cuerpo de la respuesta HTTP a la llamada desde el js (fetch)
+//    public Map<String, Object> votarContenido(@RequestParam(name = "valor") Integer valor, @RequestParam(name = "idContenido") Long idContenido, @RequestParam(name = "tipo") String tipoContenido,  @AuthenticationPrincipal MyUserDetails userDetails, Model model){
+//        Integer puntos = 0;
+//        // "valor" indica si ha votado "me gusta" -valor positivo- o "no me gusta" -valor negativo-
+//        // No aseguramos de que "valor" es 1, -1 ó cero
+//        if(valor != 0) {
+//            valor = valor>0 ? 1 : -1;
+//        }
+//        // Calculamos los puntos según el tipo de contenido votado
+//        switch (tipoContenido){
+//            case "votoPregunta":
+//                puntos = 25 * valor;
+//                break;
+//            case "votoRespuesta":
+//                puntos = 25 * valor;
+//                break;
+//            case "votoComentario":
+//                puntos = 25 * valor;
+//                break;
+//            default:
+//                model.addAttribute("votos", 0);
+//        }
+//        // buscamos el usuario...
+//        Usuario usuario = usuSrvc.findByEmail(userDetails.getUsername());
+//        //... y grabamos los puntos con el id del usuario
+//        puntosForoSrvc.puntuarContenido(idContenido, puntos, tipoContenido, usuario);
+//        // Obtenemos el total de "me gusta" y e ltotal de "no me gusta"...
+//        Long totalLikes = (Long) puntosForoSrvc.cuentaLikes(idContenido,tipoContenido);
+//        Long totalDislikes = puntosForoSrvc.cuentaDislikes(idContenido,tipoContenido);
+//
+//        /* ... y los empaquetamos en un Map para devolver los resultados como un objeto
+//
+//           ¡ATENCIÓN! La utilización de la clase Object -que es el "supertipo" de todos los tipos de datos en Java-
+//           implica ciertos riesgos, ya que perdemos el tipo del valor original en la asignación.
+//
+//           En este caso lo podemos asumir, porque conocemos de antemano el tipo de datos que incluimos en el map.
+//
+//           Ver https://www.baeldung.com/java-hashmap-different-value-types para másinformación.
+//         */
+//
+//        Map<String, Object> map = new HashMap<String, Object>();
+//        map.put("idContenido", idContenido);
+//        map.put("tipo", tipoContenido);
+//        map.put("totalLikes", totalLikes);
+//        map.put("totalDisLikes", totalDislikes);
+//        //...llegarán a la llamada FETCH de js como un objeto tipo array de parejas "clave": "valor"
+//        return map;
+//    }
 
     // Votos Respuestas
     @PostMapping(value = "/cuentavotosrespuesta")
@@ -288,19 +288,23 @@ public class PreguntaCtrl {
     @PostMapping(value = "/cuentavotoscomentario")
     public String cuentaVotosComen(@RequestParam(name = "valor") Integer votos, @RequestParam(name = "idComentario") Long id, Model model){
         Optional<Comentario> comenOp = comentarioSrvc.findById(id);
+        /*
         if(comenOp.isPresent()){
+
             Comentario comentario = comenOp.get();
-            Integer acumulados = comentario.getVotos();
+            Integer acumulados = comentario.getPuntos();
             if (acumulados == null){
                 acumulados = 0;
             }
-            comentario.setVotos(votos + acumulados);
-            model.addAttribute("sumaC", comentario.getVotos());
+            comentario.setPuntos(votos + acumulados);
+            model.addAttribute("sumaC", comentario.getPuntos());
             comentarioSrvc.save(comentario);
         }
         else{
             return "error-page";
         }
+
+         */
         return "/preguntas/bloqueAjaxVotos :: votosComentario";
     }
 

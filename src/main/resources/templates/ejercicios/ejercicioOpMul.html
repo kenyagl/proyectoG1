@@ -136,22 +136,25 @@
             const resultMessage = document.getElementById("resultMessage");
             resultMessage.innerHTML = html;
 
+            const respuestaIncorrecta = "¡OH NO! Tu respuesta no es correcta. \n ¡Vuélvelo a intentar!";
+            const respuestaCorrecta = "¡Muy bien! Tu respuesta es correcta.";
+
             const resultImage = document.getElementById("resultImage");
-            if (resultMessage.textContent.trim() === "Lo siento, tu respuesta no es correcta.") {
+            if (resultMessage.textContent.trim() === respuestaIncorrecta) {
                 resultImage.src = "/image/error_kossito.png";
             } else {
                 resultImage.src = "/image/oso_ok.png";
             }
 
             const resultModalBack = document.getElementById("resultModalBack");
-            if (resultMessage.textContent.trim() === "Lo siento, tu respuesta no es correcta.") {
+            if (resultMessage.textContent.trim() === respuestaIncorrecta) {
                 resultModalBack.style.backgroundImage = "url('/image/mal.png')";
             } else {
                 resultModalBack.style.backgroundImage = "url('/image/bien.png')";
             }
 
             const failedButton = document.getElementById("failedButton");
-            if (resultMessage.textContent.trim() === "Lo siento, tu respuesta no es correcta.") {
+            if (resultMessage.textContent.trim() === respuestaIncorrecta) {
                 const tryAgainButton = document.getElementById("tryAgainButton");
                 if (tryAgainButton) {
                     tryAgainButton.parentNode.removeChild(tryAgainButton);
@@ -173,7 +176,7 @@
             const idNextEjer = document.getElementById("idNextEjer").value;
 
             const nextEjercicio = document.getElementById("nextEjercicio");
-            if (resultMessage.textContent.trim() === "¡Muy bien! Tu respuesta es correcta.") {
+            if (resultMessage.textContent.trim() === respuestaCorrecta) {
                 const button = document.createElement("button");
                 button.textContent = "Siguiente";
                 button.setAttribute("class", "btn btn-primary");

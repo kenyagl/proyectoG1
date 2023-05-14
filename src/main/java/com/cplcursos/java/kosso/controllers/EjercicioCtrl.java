@@ -172,7 +172,7 @@ public class EjercicioCtrl {
             respuestaEjOpMulSrvc.saveAndFlush(respuestaEjOpMul);
 
         } else {
-            resultMessage = "Lo siento, tu respuesta no es correcta.";
+            resultMessage = "¡OH NO! Tu respuesta no es correcta. \n ¡Vuélvelo a intentar!";
         }
 
         model.addAttribute("resultMessage", resultMessage);

@@ -133,12 +133,14 @@
         fetch(ejercicioId + "/respuesta/save", init).then(function (response) {
             return response.text();
         }).then(function (html) {
+            //Controla el mensaje del modal
             const resultMessage = document.getElementById("resultMessage");
             resultMessage.innerHTML = html;
 
             const respuestaCorrecta = "¡Muy bien! Tu respuesta es correcta.";
             const respuestaIncorrecta = "¡OH NO! Tu respuesta no es correcta. \n ¡Vuélvelo a intentar!";
 
+            //Controla la imagen que se muestra en el modal
             const resultImage = document.getElementById("resultImage");
             if (resultMessage.textContent.trim() === respuestaCorrecta) {
                 resultImage.src = "/image/oso_ok.png";
@@ -146,6 +148,7 @@
                 resultImage.src = "/image/error_kossito.png";
             }
 
+            //Controla el fondo del modal
             const resultModalBack = document.getElementById("resultModalBack");
             if (resultMessage.textContent.trim() === respuestaCorrecta) {
                 resultModalBack.style.backgroundImage = "url('/image/bien.png')";
@@ -153,6 +156,7 @@
                 resultModalBack.style.backgroundImage = "url('/image/mal.png')";
             }
 
+            //Controla el botón de volver a intentar en el modal
             const failedButton = document.getElementById("failedButton");
             if (resultMessage.textContent.trim() === respuestaIncorrecta) {
                 const tryAgainButton = document.getElementById("tryAgainButton");
@@ -173,6 +177,7 @@
                 }
             }
 
+            //Controla el botón de siguiente ejercicio en el modal
             const idNextEjer = document.getElementById("idNextEjer").value;
 
             const nextEjercicio = document.getElementById("nextEjercicio");

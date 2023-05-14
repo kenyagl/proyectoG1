@@ -99,7 +99,7 @@ public class PreguntaCtrl {
 
     // Publica la pregunta y la muestra
     @PostMapping(value = "/save")
-    public String crearPregunta (@ModelAttribute("pregunta") Pregunta pregunta, @RequestParam("image") MultipartFile multipartFile, @AuthenticationPrincipal MyUserDetails userDetails) throws IOException {
+    public String crearPregunta (@ModelAttribute("pregunta") Pregunta pregunta, @RequestParam("image") MultipartFile multipartFile, @AuthenticationPrincipal MyUserDetails userDetails) {
         pregunta.setUsuario(usuSrvc.findByEmail(userDetails.getUsername()));
         String fileName1 = multipartFile.getOriginalFilename();
         if(fileName1 == null){
@@ -110,10 +110,17 @@ public class PreguntaCtrl {
         if (pregunta.getFechaPregunta() == null){
             preguntaSrvc.setFecha(pregunta);
         }
-        Pregunta preguntaGuardada = preguntaSrvc.save(pregunta);
-        String uploadDir = "target/classes/static/image/pregunta-photos/" + preguntaGuardada.getId();
+        //Pregunta preguntaGuardada = preguntaSrvc.save(pregunta);
+        preguntaSrvc.save(pregunta);
+        String uploadDir = "target/classes/static/image/pregunta-photos/" + pregunta.getId();
 
-        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+        try{
+            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+
+        }catch (IOException ioException){
+            pregunta.setFoto(null);
+            preguntaSrvc.save(pregunta);
+        }
 
         puntosForoSrvc.puntuarContenido(pregunta.getId(),10, "pregunta", pregunta.getUsuario());
 

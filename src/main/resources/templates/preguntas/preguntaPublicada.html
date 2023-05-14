@@ -31,28 +31,26 @@
                     <div class="details-header">
                         <div class="row" style="margin-top: 150px;">
                             <div class="col-md-8">
-                                <div>
+                                <div th:if="${pregunta.getUsuario()} == ${usuario}">
                                     <!-- Botón de editar pregunta -->
-                                    <a th:href="@{/preguntas/edit/{id}(id=${pregunta.getId()})}"
+                                    <a  th:href="@{/preguntas/edit/{id}(id=${pregunta.getId()})}"
                                        class="btn border-dark">Editar Pregunta</a>
                                     <!-- Botón de eliminar pregunta -->
                                     <a th:href="@{/preguntas/delete/{id}(id=${pregunta.getId()})}"
                                        class="btn border-dark btn-danger">Eliminar Pregunta</a>
-
+                                </div>
                                         <!-- Imagen de Usuario, Nombre de Perfil, Título de la pregunta y fecha de la publicación-->
-                                    <div class="col-12">
-                                        <div class="d-flex align-items-center">
-                                            <img id="imgPerfil" class="rounded-circle m-3" th:src="@{${pregunta.getUsuario.getPhotosImagePath()}}" alt="Imagen de Prefil">
-                                            <h3>
-                                                <a th:href="@{/usuario/perfil/{id}(id=${pregunta.getUsuario.getId()})}" th:text="${pregunta.getUsuario().getNombre()} ">Nombre de Usuario</a>
-                                                <span> - </span>
-                                            </h3>
+                                <div class="col-12">
+                                    <div class="d-flex align-items-center">
+                                        <img id="imgPerfil" class="rounded-circle m-3" th:src="@{${pregunta.getUsuario.getPhotosImagePath()}}" alt="Imagen de Prefil">
+                                        <h3>
+                                            <a th:href="@{/usuario/perfil/{id}(id=${pregunta.getUsuario.getId()})}" th:text="${pregunta.getUsuario().getNombre()} ">Nombre de Usuario</a>
+                                            <span> - </span>
+                                        </h3>
 
-                                            <h3 th:text=" ${pregunta.getTituloPregunta()}">  Título Pregunta</h3>
-                                        </div>
-                                        <span th:text="${pregunta.getFechaPregunta()}">Fecha de Publicación</span>
+                                        <h3 th:text=" ${pregunta.getTituloPregunta()}">  Título Pregunta</h3>
                                     </div>
-
+                                    <span th:text="${pregunta.getFechaPregunta()}">Fecha de Publicación</span>
                                 </div>
                             </div>
                         </div>

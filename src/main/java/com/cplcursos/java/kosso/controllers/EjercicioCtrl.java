@@ -79,11 +79,6 @@ public class EjercicioCtrl {
 
             model.addAttribute("idNextEjer", idNextEjer);
 
-            Optional<EjercicioOpMul> nextEjerOp = ejerciciosService.findById(idNextEjer);
-
-            EjercicioOpMul nextEjer = nextEjerOp.get();
-            model.addAttribute("puntoAccesoNext", nextEjer.getPuntosAcceso());
-
         } else {
             return "error/errorEncontrandoEjercicio";
         }

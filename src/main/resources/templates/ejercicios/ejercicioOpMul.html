@@ -62,7 +62,7 @@
 
 <div class="modal fade" id="resultModal" tabindex="-1" aria-labelledby="resultModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="margin-top: 150px;">
-        <div class="modal-content" id="resultModalBack">
+        <div class="modal-content">
             <div class="modal-header">
                 <div class="row">
                     <div class="col-4"></div>
@@ -73,7 +73,17 @@
                 </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" id="resultModalBack">
+                <br><br>
+
+                <div class="row">
+                    <div class="col-2"></div>
+                    <div class="col-8" id="resultMessage">ResultMessage</div>
+                    <div class="col-2"></div>
+                </div>
+
+                <br><br>
+
                 <div class="row">
                     <div class="col-2"></div>
                     <img class="col-8" id="resultImage" width="200px">
@@ -82,15 +92,7 @@
 
                 <br><br>
 
-                <div class="row">
-                    <div class="col-2"></div>
-                    <div class="col-8" id="resultMessage">ResultMessage</div>
-                    <div class="col-2"></div>
-                </div>
             </div>
-
-
-            <br><br>
 
             <div class="modal-footer">
                 <div id="failedButton"></div>
@@ -143,9 +145,9 @@
 
             const resultModalBack = document.getElementById("resultModalBack");
             if (resultMessage.textContent.trim() === "Lo siento, tu respuesta no es correcta.") {
-                resultModalBack.style.backgroundColor = "red";
+                resultModalBack.style.backgroundImage = "url('/image/mal.png')";
             } else {
-                resultModalBack.style.backgroundColor = "green";
+                resultModalBack.style.backgroundImage = "url('/image/bien.png')";
             }
 
             const failedButton = document.getElementById("failedButton");

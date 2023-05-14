@@ -160,7 +160,7 @@ public class ProgresoCtrl {
     public String showProgresoDia(Model model, @PathVariable("dia") int dia, @PathVariable("mes") int mes, @PathVariable("ano") int ano){
         // Calcular/leer el progreso para la fecha indicada
 
-        model.addAttribute("totalAnswersToday", totalAnswersToday);
+        // modelo a utilizar
         return "usuario/usuario";
     }
 }

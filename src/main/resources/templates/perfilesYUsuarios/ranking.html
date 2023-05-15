@@ -21,13 +21,13 @@
         <div class="row" style="margin-top: 100px; margin-left: 40px">
             <div class="col-1"></div>
             <div class="col-4">
-                <img src="/image/oso_success.png" width="500px">
+                <img class="oso" src="/image/oso_success.png" width="500px">
             </div>
             <div class="col-1"></div>
             <div class="col-6">
                 <table class="table table-stripped">
                     <thead>
-                        <tr>
+                        <tr style=" color: white; font-family: Pridi">
                             <th> </th>
                             <th>Nombre</th>
                             <th>Puntos Ejercicios</th>
@@ -36,12 +36,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="usu: ${listaOrdenada}">
+                        <tr th:each="usu: ${listaOrdenada}" style="font-family: Khand" >
                             <td>
                                 <img th:src="@{${usu.getPhotosImagePath()}}" alt="user" width="32" height="32"
                                  class="rounded-circle">
                             </td>
-                            <td th:text="${usu.getNombre()}"></td>
+                            <td style="font-family: Khand; font-weight: bold;"  th:text="${usu.getNombre()}"></td>
                             <td th:text="${usu.getPuntosEjercicios() ?: 0}"></td>
                             <td th:text="${usu.getPuntosRespuestas() ?: 0}"></td>
                             <td th:text="${usu.puntosEjercicios ?: 0} + ${usu.puntosRespuestas ?: 0}"></td>

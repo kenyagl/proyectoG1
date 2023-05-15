@@ -19,16 +19,16 @@
                 <div class="card"
                      style="margin-top: 200px;background-image: url('/image/bg-form.png'); box-shadow: 5px 5px 10px rgba(255, 255, 255, 0.75);">
                     <div class="card-header">
-                        <h5 class="card-title" style="color: white">Registro de Usuario</h5>
+                        <h5 class="card-title" style="color: white; font-family: Khand ">Registro de Usuario</h5>
                     </div>
 
                     <div th:if="${param.success}">
-                        <div class="alert alert-info">
+                        <div class="alert alert-info" style=" font-family: Khand">
                             ¡Te has registrado correctamente!
                         </div>
                     </div>
 
-                    <div class="card-body">
+                    <div class="card-body" style=" font-family: Khand">
                         <form th:action="@{/usuario/registro}" th:object="${usuarioDto}" method="POST" enctype="utf8"
                               role="form" style="color: white">
                             <div>

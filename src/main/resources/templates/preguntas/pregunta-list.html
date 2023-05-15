@@ -11,7 +11,7 @@
 <section class="container" style="padding-top: 150px ">
     <div>
             <h1 class="text-center" >Preguntas</h1>
-        <div class="card">
+        <div class="card col-4" style=" display: flex; justify-content: center;">
             <div class="card-body">
 
                 <a th:href="@{/preguntas/new}" class="btn border-dark" style="">Hacer una pregunta</a>
@@ -41,19 +41,18 @@
 
 
         <!-- Preguntas publicadas -->
-        <div th:each="pregunta: ${paginaPreguntas.content}" class="card row border-top border-bottom p-2"
-             style="margin-top: 3em; margin-bottom: 3em;">
+        <div th:each="pregunta: ${paginaPreguntas.content}" class="card row border-top border-bottom p-2" style="margin-top: 3em; margin-bottom: 3em;">
             <div class=" col-3 align-self-center">
-                <div class="row mx-auto">
-                    <img id="imgPerfil" class="rounded-circle" th:src="@{${pregunta.getUsuario().getPhotosImagePath()}}"
+                <div class="row mx-auto text-center">
+                    <img id="imgPerfil" class="rounded-circle mx-auto" th:src="@{${pregunta.getUsuario().getPhotosImagePath()}}"
                          alt="Imagen de Prefil">
                     <a class="usus" th:href="@{/usuario/perfil/{id}(id=${pregunta.getUsuario().getId()})}"
                        th:text="${pregunta.getUsuario().getNombre()} ">Nombre de Usuario</a>
                 </div>
-                <div class="container-fluid">
-                    <ul class="datosforo">
-                        <li th:text="${pregunta.getFechaPregunta()}">Fecha:</li>
-                        <li><span>Votos: </span><span th:text="${pregunta.getVotos()} ?: '0'"></span></li>
+                <div class="container-fluid text-center">
+                    <ul class="datosforo list-group list-group-flush">
+                        <span th:text="${pregunta.getFechaPregunta()}">Fecha:</span>
+                        <span><span>Votos: </span><span th:text="${pregunta.getVotos()} ?: '0'"></span></span>
                     </ul>
                 </div>
             </div>

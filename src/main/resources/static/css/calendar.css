@@ -22,6 +22,16 @@
     border: 1px solid #000000;
 }
 
+.calendar-table td a {
+    text-decoration: none;
+    color: #000000;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
 .conPuntos {
     background-color: #fbff1d !important;
 }

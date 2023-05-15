@@ -57,8 +57,8 @@
             </thead>
             <tbody>
             <tr th:each="semana: ${dias}">
-                <td class="text-center" th:each="dia: ${semana}">
-                    <a th:href="@{/progreso/usuario-progress(day=${dia}, month=${month}, year=${year})}" th:text="${dia}" class="text-black" style="text-decoration: none;"></a>
+                <td th:each="dia: ${semana}">
+                    <a th:href="@{/progreso/usuario-progress(day=${dia}, month=${month}, year=${year})}" th:text="${dia}"></a>
                 </td>
 
                 <!--<td class="text-center" th:text="${dia}" th:each="dia: ${semana}">

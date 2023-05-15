@@ -42,7 +42,7 @@ public class Pregunta {
     @ManyToMany
     private List<Categoria> categorias;
 
-    @OneToMany(mappedBy = "pregunta",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "pregunta", cascade = CascadeType.ALL)
     private List<Respuesta> respuestas;
 
     @Transient

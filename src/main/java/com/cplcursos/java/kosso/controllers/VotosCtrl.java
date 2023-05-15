@@ -58,6 +58,7 @@ public class VotosCtrl {
         if (valor == 0) {
             return Collections.emptyMap();
         }
+        // creamos el objeto voto a asignar al contenido
         PuntosForo nuevoVoto = new PuntosForo();
         nuevoVoto.setFechaVoto(LocalDate.now());
         nuevoVoto.setPuntos(valor > 0 ? 25 : -25);
@@ -68,9 +69,8 @@ public class VotosCtrl {
 
         // Vemos qué tipo de contenido se está votando...
         switch (tipo) {
-            //... y creamos el objeto voto a asignar a ese contenido
+
             case "votoPregunta":
-                //findById devuelve un Optional. Debe tratarse el caso de que sea nulo lanzando un error
                 Optional<Pregunta> pregOP = preguntaSrvc.findById(idContenido);
                 if (pregOP.isPresent()) {
                     Pregunta pregunta = pregOP.get();

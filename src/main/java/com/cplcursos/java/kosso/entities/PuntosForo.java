@@ -20,13 +20,13 @@ public class PuntosForo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-    /*
-        El usuario no hace falta porque es una propiedad de la entidad votada
+
+        //El usuario no hace falta porque es una propiedad de la entidad votada
 
     @ManyToOne
     @JoinColumn(name = "idUsuario")
     private Usuario usuario; // el usuario que vota
-     */
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="idPregunta")
     private Pregunta pregunta;

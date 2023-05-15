@@ -3,7 +3,6 @@ package com.cplcursos.java.kosso.controllers;
 import com.cplcursos.java.kosso.MyUserDetails;
 import com.cplcursos.java.kosso.entities.*;
 import com.cplcursos.java.kosso.repositories.PreguntaPaginacionRepo;
-import com.cplcursos.java.kosso.repositories.PuntosForoRepo;
 import com.cplcursos.java.kosso.services.*;
 import com.cplcursos.java.kosso.utils.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -40,53 +40,43 @@
 
 
 
-        <!-- Preguntas publicadas -->
-        <div th:each="pregunta: ${paginaPreguntas.content}" class="card row border-top border-bottom p-2" style="margin-top: 3em; margin-bottom: 3em;">
-            <div class=" col-3 align-self-center">
-                <div class="row mx-auto text-center">
-                    <img id="imgPerfil" class="rounded-circle mx-auto" th:src="@{${pregunta.getUsuario().getPhotosImagePath()}}"
-                         alt="Imagen de Prefil">
-                    <a class="usus" th:href="@{/usuario/perfil/{id}(id=${pregunta.getUsuario().getId()})}"
-                       th:text="${pregunta.getUsuario().getNombre()} ">Nombre de Usuario</a>
+                        <!-- Preguntas publicadas -->
+                        <div th:each="pregunta: ${paginaPreguntas.content}" class="card row border-top border-bottom p-2" style="margin-top: 3em; margin-bottom: 3em;">
+                                <div class=" col-3 align-self-center">
+                                        <div class="row mx-auto text-center">
+                                        <img id="imgPerfil" class="rounded-circle mx-auto" th:src="@{${pregunta.getUsuario().getPhotosImagePath()}}" alt="Imagen de Prefil">
+                                        <a class="usus" th:href="@{/usuario/perfil/{id}(id=${pregunta.getUsuario().getId()})}" th:text="${pregunta.getUsuario().getNombre()} ">Nombre de Usuario</a>
+                                        </div>
+                                        <div class="container-fluid text-center">
+                                                <ul class="datosforo list-group list-group-flush">
+                                                        <span th:text="${pregunta.getFechaPregunta()}">Fecha:</span>
+                                                        <!--
+                                                        <span><span>Votos: </span><span th:text="${pregunta.getVotos()} ?: '0'"></span></span>
+                                                        -->
+                                                </ul>
+                                        </div>
+                                </div>
+                                <div class="col-9 align-self-center">
+                                        <a th:href="@{/preguntas/preguntaPublicada/{id}(id=${pregunta.getId()})}"><h3 class="text-truncate overflow-hidden prevpregunta" th:text="${pregunta.getTituloPregunta()}"> Pregunta1</h3></a>
+                                        <!-- Ver como se hace para que el overflow termine en puntos suspensivos -->
+                                        <p th:text="${pregunta.getTextoPregunta()}" class="text-truncate overflow-hidden" style="max-height: 100px;">Lorem ipsum dolor sit amet consectetur adipiscing elit non habitasse semper, eleifend cum suspendisse class velit hendrerit fringilla euismod vestibulum ad, sodales etiam praesent maecenas purus cubilia venenatis feugiat faucibus. Praesent ligula habitasse fusce parturient faucibus maecenas vivamus, magna suspendisse urna felis dignissim penatibus ut, ultrices lacinia ridiculus id senectus
+                                        </p>
+                                        <div class="container">
+                                                <a th:each="categoria : ${pregunta.getCategorias()}" class="mx-2 etiquetas" href="#!" th:text="${categoria.getNombre()}">Tag1</a>
+                                        </div>
+                                </div>
+                        </div>
+                        <!-- Navegación de páginas -->
+                        <nav th:if="${paginaPreguntas.totalPages > 0}" aria-label="Page navigation">
+                                <ul class="pagination justify-content-center">
+                                        <li class="page-item" th:each="numeroPagina : ${numeroPaginas}">
+                                                <a class="page-link" th:href="@{/preguntas(size=${paginaPreguntas.size}, page=${numeroPagina})}" th:text=${numeroPagina} th:classappend="${numeroPagina==paginaPreguntas.number + 1} ? active">1</a>
+                                        </li>
+                                </ul>
+                        </nav>
+                        
                 </div>
-                <div class="container-fluid text-center">
-                    <ul class="datosforo list-group list-group-flush">
-                        <span th:text="${pregunta.getFechaPregunta()}">Fecha:</span>
-                        <span><span>Votos: </span><span th:text="${pregunta.getVotos()} ?: '0'"></span></span>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-9 align-self-center">
-                <a th:href="@{preguntas/preguntaPublicada/{id}(id=${pregunta.getId()})}"><h3
-                        class="text-truncate overflow-hidden prevpregunta" th:text="${pregunta.getTituloPregunta()}">
-                    Pregunta1</h3></a>
-                <!-- Ver como se hace para que el overflow termine en puntos suspensivos -->
-                <p th:text="${pregunta.getTextoPregunta()}" class="text-truncate overflow-hidden"
-                   style="max-height: 100px;">Lorem ipsum dolor sit amet consectetur adipiscing elit non habitasse
-                    semper, eleifend cum suspendisse class velit hendrerit fringilla euismod vestibulum ad, sodales
-                    etiam praesent maecenas purus cubilia venenatis feugiat faucibus. Praesent ligula habitasse fusce
-                    parturient faucibus maecenas vivamus, magna suspendisse urna felis dignissim penatibus ut, ultrices
-                    lacinia ridiculus id senectus
-                </p>
-                <div class="container">
-                    <a th:each="categoria : ${pregunta.getCategorias()}" class="mx-2 etiquetas" href="#!"
-                       th:text="${categoria.getNombre()}">Tag1</a>
-                </div>
-            </div>
-        </div>
-        <!-- Navegación de páginas -->
-        <nav th:if="${paginaPreguntas.totalPages > 0}" aria-label="Page navigation">
-            <ul class="pagination justify-content-center">
-                <li class="page-item" th:each="numeroPagina : ${numeroPaginas}">
-                    <a class="page-link" th:href="@{/preguntas(size=${paginaPreguntas.size}, page=${numeroPagina})}"
-                       th:text=${numeroPagina}
-                       th:classappend="${numeroPagina==paginaPreguntas.number + 1} ? active">1</a>
-                </li>
-            </ul>
-        </nav>
-
-    </div>
-</section>
+        </section>
 
 
 

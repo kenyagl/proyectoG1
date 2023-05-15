@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -31,9 +32,8 @@ public class Pregunta {
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate fechaPregunta; // Preguntar formato de la fecha
 
-    private Integer votos = 0;
-    // Como hacer que una persona solo pueda votar una vez o cambiar su voto
-    // Solo los usuarios pueden votar
+    @OneToMany(mappedBy = "pregunta", cascade = CascadeType.ALL)
+    private Set<PuntosForo> puntos;
 
     @ManyToOne
     @JoinColumn(name = "idUsuario")
@@ -42,7 +42,7 @@ public class Pregunta {
     @ManyToMany
     private List<Categoria> categorias;
 
-    @OneToMany(mappedBy = "pregunta",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "pregunta", cascade = CascadeType.ALL)
     private List<Respuesta> respuestas;
 
     @Transient
@@ -50,8 +50,31 @@ public class Pregunta {
         if (foto == null || id == null) {
             return null;
         }
-
         return "/image/pregunta-photos/" + id + "/" + foto;
     }
 
+    public void anexarVoto(PuntosForo voto){
+        voto.setPregunta(this);
+        this.puntos.add(voto);
+    }
+    
+    public int calcularLikes(){
+        int totalVotos = 0;
+        for( PuntosForo pf : puntos ){
+            if(pf.getPuntos() == 25){
+                totalVotos++;
+            }
+        }
+        return totalVotos;
+    }
+    public int calcularDislikes(){
+        int totalVotos = 0;
+        for( PuntosForo pf : puntos ){
+            if(pf.getPuntos() == -25){
+                totalVotos++;
+            }
+        }
+        return totalVotos;
+    }
+    
 }

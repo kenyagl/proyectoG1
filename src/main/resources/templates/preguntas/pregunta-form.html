@@ -20,7 +20,9 @@
   <form class="card-body respuestas"  th:action="@{/preguntas/save}" enctype="multipart/form-data" th:object="${pregunta}" method="post" >
       <input type="hidden" th:field="*{id}">
       <input type="hidden" th:field="*{fechaPregunta}">
+      <!--
       <input type="hidden" th:field="*{votos}">
+      -->
       <fieldset>
     <!-- Título de la pregunta-->
     <div class="form-group gap-2">
@@ -50,7 +52,7 @@
     <!-- Botón para añadir archivo -->
     <div class="form-group gap-2">
         <label class="control-label">Subir imagen:</label>
-        <input class="form-control" type="file" name="image" accept="image/png, image/jpeg" required>
+        <input class="form-control" type="file" name="image" accept="image/png, image/jpeg">
     </div>
     
     <!-- Button -->

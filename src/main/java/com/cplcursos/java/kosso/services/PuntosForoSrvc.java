@@ -1,7 +1,6 @@
 package com.cplcursos.java.kosso.services;
 
-import com.cplcursos.java.kosso.entities.Usuario;
-import com.cplcursos.java.kosso.entities.PuntosForo;
+import com.cplcursos.java.kosso.entities.*;
 import com.cplcursos.java.kosso.repositories.PuntosForoRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,30 +10,31 @@ import java.time.LocalDate;
 @Service
 public class PuntosForoSrvc {
 
+
     @Autowired
     private PuntosForoRepo puntosForoRepo;
 
 
-    public void puntuarContenido(Long idContenido, Integer puntos, String tipoContenido, Usuario usuario){
+    public void puntuarPregunta(Pregunta pregunta){
         PuntosForo puntosForo = new PuntosForo();
-        puntosForo.setUsuario(usuario);
+        puntosForo.setPregunta(pregunta);
         puntosForo.setFechaVoto(LocalDate.now());
-        puntosForo.setPuntos(puntos);
-        puntosForo.setTipoContenido(tipoContenido);
-        puntosForo.setIdContenido(idContenido);
+        puntosForo.setPuntos(10);
         puntosForoRepo.save(puntosForo);
     }
-
-    public Long countByIdContenidoAndTipoContenido(Long idContenido, String tipoContenido){
-        return puntosForoRepo.countByIdContenidoAndTipoContenido(idContenido, tipoContenido);
+    public void puntuarRespuesta(Respuesta respuesta){
+        PuntosForo puntosForo = new PuntosForo();
+        puntosForo.setRespuesta(respuesta);
+        puntosForo.setFechaVoto(LocalDate.now());
+        puntosForo.setPuntos(10);
+        puntosForoRepo.save(puntosForo);
     }
-
-    public Integer cuentaLikes(Long idContenido, String tipoContenido){
-        return puntosForoRepo.cuentaLike(idContenido, tipoContenido);
-    }
-
-    public Integer cuentaDislikes(Long idContenido, String tipoContenido){
-        return puntosForoRepo.cuentaDislike(idContenido, tipoContenido);
+    public void puntuarComentario(Comentario comentario){
+        PuntosForo puntosForo = new PuntosForo();
+        puntosForo.setComentario(comentario);
+        puntosForo.setFechaVoto(LocalDate.now());
+        puntosForo.setPuntos(5);
+        puntosForoRepo.save(puntosForo);
     }
 
 }

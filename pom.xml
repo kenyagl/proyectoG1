@@ -15,7 +15,9 @@
 	<description>Proyecto final de curso</description>
 	<properties>
 		<java.version>17</java.version>
+		<hibernate.version>6.2.0.CR3</hibernate.version>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

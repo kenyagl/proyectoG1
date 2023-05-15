@@ -114,6 +114,11 @@ public class PreguntaCtrl {
         return "preguntas/pregunta-list";
     }
 
+    @GetMapping("/preguntas/preguntaPublicada/{id}")
+    public String redirectPregunta(){
+        return "redirect:/preguntas/preguntaPublicada/{id}";
+    }
+
     @PostMapping(value = "/search")
     public String busqueda(@ModelAttribute("search") String search, @ModelAttribute("filtro") String filtro, RedirectAttributes redirectAttributes){
         redirectAttributes.addFlashAttribute("search", search);

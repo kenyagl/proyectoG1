@@ -24,7 +24,7 @@ public class MainCtrl {
 
     @GetMapping(value = {"/", "/home", ""})
     public String showHome() {
-        if(!isAuthenticated()){
+        if(!usuSrvc.isAuthenticated()){
             return "home";
         }else{
             return "redirect:/homeLogged";
@@ -51,15 +51,6 @@ public class MainCtrl {
         String texto = "Hola "+ usu +". Tu clave es " + clave + ".";
         modelo.addAttribute("texto", texto);
         return "exitoLogin";
-    }
-
-    private boolean isAuthenticated() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || AnonymousAuthenticationToken.class.
-                isAssignableFrom(authentication.getClass())) {
-            return false;
-        }
-        return authentication.isAuthenticated();
     }
 
 }

@@ -6,6 +6,9 @@ import com.cplcursos.java.kosso.entities.Usuario;
 import com.cplcursos.java.kosso.repositories.RolRepo;
 import com.cplcursos.java.kosso.repositories.UsuarioRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -123,5 +126,14 @@ public class UsuarioSrvcImpl implements ifxUsuarioSrvc {
         return listaNoOrdenada.stream()
                 .sorted((u1, u2) -> totalPuntos(u2).compareTo(totalPuntos(u1)))
                 .collect(Collectors.toList());
+    }
+
+    public boolean isAuthenticated() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || AnonymousAuthenticationToken.class.
+                isAssignableFrom(authentication.getClass())) {
+            return false;
+        }
+        return authentication.isAuthenticated();
     }
 }

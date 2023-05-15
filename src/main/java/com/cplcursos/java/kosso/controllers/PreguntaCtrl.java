@@ -10,7 +10,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -52,12 +55,29 @@ public class PreguntaCtrl {
     private PuntosForoSrvc puntosForoSrvc;
 
     @GetMapping(value = {"/", ""})
-    public String mostrarPreguntas (@ModelAttribute("search") String search, @ModelAttribute("filtro") String filtro, Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size, @AuthenticationPrincipal MyUserDetails userDetails, RedirectAttributes redirectAttributes){
-        int currentPage = page.orElse(1);
-        int pageSize = size.orElse(10);
+    public String mostrarPreguntas (@ModelAttribute("search") String search, @ModelAttribute("filtro") String filtro, Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size){
+        if(usuSrvc.isAuthenticated()){
+            return "redirect:/preguntas/logged";
+        }
 
+        return mostrarForo(null, search, filtro, model, page, size);
+    }
+
+    @GetMapping(value = {"/logged", "/logged/"})
+    public String mostrarPreguntasLogged (@AuthenticationPrincipal MyUserDetails userDetails, @ModelAttribute("search") String search, @ModelAttribute("filtro") String filtro, Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
         String email = userDetails.getUsername();
         Usuario usuario = usuSrvc.findByEmail(email);
+
+        return mostrarForo(usuario, search, filtro, model, page, size);
+    }
+
+    private String mostrarForo(Usuario usuario, String search, String filtro, Model model, Optional<Integer> page, Optional<Integer> size){
+        if(usuario != null){
+            model.addAttribute("usuario", usuario);
+        }
+
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(10);
 
         Pageable pageable = PageRequest.of(currentPage - 1, pageSize, Sort.by("fechaPregunta").descending());
 
@@ -313,7 +333,6 @@ public class PreguntaCtrl {
         }
         return "/preguntas/bloqueAjaxVotos :: votosComentario";
     }
-
 
 
 }

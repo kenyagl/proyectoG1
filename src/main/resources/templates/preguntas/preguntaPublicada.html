@@ -7,7 +7,7 @@
 
 <body>
 
-<header th:replace="components/cabeceraFrag :: cabecera"></header>
+<header th:replace="components/cabeceraFrag :: cabecera(usuario=${usuario})"></header>
 <nav th:replace="components/menuLateral :: navbar"></nav>
 
 <section class="main">

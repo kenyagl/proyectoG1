@@ -4,45 +4,49 @@
 <body>
 <header th:replace="~{components/cabeceraFrag :: cabecera(usuario=${usuario})}"></header>
 <nav th:replace="~{components/menuLateral :: navbar}"></nav>
-    <div>
+
+
+<div class="container" style="margin-top: 150px">
+    <div class="row">
+        <table class="table table-striped">
+            <thead>
+            <th class="text-center" >
+                LUNES
+            </th>
+            <th class="text-center" >
+                MARTES
+            </th >
+            <th class="text-center" >
+                MIERCOLES
+            </th>
+            <th class="text-center" >
+                JUEVES
+            </th>
+            <th class="text-center" >
+                VIERNES
+            </th>
+            <th class="text-center" >
+                SABADO
+            </th>
+            <th class="text-center" >
+                DOMINGO
+            </th>
+
+            </thead>
+            <tbody>
+            <tr th:each="semana: ${dias}">
+                <td class="text-center" th:each="dia: ${semana}">
+                    <a th:href="@{/progreso/usuario-progress(day=${dia}, month=${month}, year=${year})}" th:text="${dia}" class="text-black" style="text-decoration: none;"></a>
+                </td>
+
+                <!--<td class="text-center" th:text="${dia}" th:each="dia: ${semana}">
+                    <a th:href="@{/progreso/usuario-progress(day=${dia}, month=${month}, year=${year})}"></a>
+                </td>-->
+            </tr>
+            </tbody>
+        </table>
     </div>
-    <div class="container">
-        <div class="row">
-            <table class="table table-striped">
-                <thead>
-                <th class="text-center" >
-                    LUNES
-                </th>
-                <th class="text-center" >
-                    MARTES
-                </th >
-                <th class="text-center" >
-                    MIERCOLES
-                </th>
-                <th class="text-center" >
-                    JUEVES
-                </th>
-                <th class="text-center" >
-                    VIERNES
-                </th>
-                <th class="text-center" >
-                    SABADO
-                </th>
-                <th class="text-center" >
-                    DOMINGO
-                </th>
-    
-                </thead>
-                <tbody>
-                    <tr th:each="semana: ${dias}" >
-                        <td class="text-center" th:text="${dia}" th:each="dia: ${semana}">
-                            <a th:href="@{/progreso/usuario-progress(day=${dia}, month=${month}, year=${year})}"></a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+</div>
 
 <script src="../static/js/jquery.min.js"></script>
 <script src="../static/js/popper.js"></script>

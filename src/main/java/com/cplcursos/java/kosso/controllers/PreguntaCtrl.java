@@ -93,12 +93,6 @@ public class PreguntaCtrl {
         Optional<Pregunta> pregunta = preguntaSrvc.findById(id);
         if(pregunta.isPresent()) {
             model.addAttribute("pregunta", pregunta.get());
-
-             //Cada vez que se cargue la página, hay que actualizar los contadores de likes y dislikes
-//            Long totalLikes =  puntosForoSrvc.cuentaLikes(pregunta.get().getId(),"votoPregunta");
-//            Long totalDislikes = puntosForoSrvc.cuentaDislikes(pregunta.get().getId(),"votoPregunta");
-
-             //los añadimos al modelo
             return "preguntas/preguntaPublicada";
         }
         return "redirect:/preguntas/";
@@ -106,7 +100,7 @@ public class PreguntaCtrl {
 
     // Publica la pregunta y la muestra
     @PostMapping(value = "/save")
-    public String crearPregunta (@ModelAttribute("pregunta") Pregunta pregunta, @RequestParam("image") MultipartFile multipartFile, @AuthenticationPrincipal MyUserDetails userDetails) throws IOException {
+    public String crearPregunta (@ModelAttribute("pregunta") Pregunta pregunta, @RequestParam("image") MultipartFile multipartFile, @AuthenticationPrincipal MyUserDetails userDetails) {
         pregunta.setUsuario(usuSrvc.findByEmail(userDetails.getUsername()));
         String fileName1 = multipartFile.getOriginalFilename();
         if(fileName1 == null){
@@ -114,23 +108,26 @@ public class PreguntaCtrl {
         }
         String fileName = StringUtils.cleanPath(fileName1);
         pregunta.setFoto(fileName);
+        if (fileName.isEmpty() || fileName == null){
+            pregunta.setFoto(null);
+        }
+        preguntaSrvc.save(pregunta);
         if (pregunta.getFechaPregunta() == null){
             preguntaSrvc.setFecha(pregunta);
+            puntosForoSrvc.puntuarPregunta(pregunta);
         }
-        Pregunta preguntaGuardada = preguntaSrvc.save(pregunta);
-        String uploadDir = "target/classes/static/image/pregunta-photos/" + preguntaGuardada.getId();
-
+        String uploadDir = "target/classes/static/image/pregunta-photos/" + pregunta.getId();
+        try {
         FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-
-        //puntosForoSrvc.puntuarContenido(pregunta.getId(),10, "pregunta", pregunta.getUsuario());
-        puntosForoSrvc.puntuarPregunta(preguntaGuardada);
+        }catch(IOException ioException){
+            log.info("No se ha podido guardar la imagen en el directorio o es una pregunta sin foto");
+        }
         return "redirect:/preguntas/preguntaPublicada/" + pregunta.getId();
     }
 
 // agregar al edit las categorias que ya tenía la pregunta
     @GetMapping(value = "/edit/{id}")
     public String editarPregunta( @PathVariable("id") Long id, @AuthenticationPrincipal MyUserDetails userDetails, Model model){
-
         String email = userDetails.getUsername();
         Usuario usuario = usuSrvc.findByEmail(email);
         model.addAttribute("usuario", usuario);
@@ -139,7 +136,6 @@ public class PreguntaCtrl {
         if(pregunta.isPresent() && usuSrvc.findByEmail(userDetails.getUsername()).equals(pregunta.get().getUsuario())){
             model.addAttribute("pregunta", pregunta.get());
             model.addAttribute("categorias", categoriaSrvc.findAll());
-
         }
         else{
             return "error-page";
@@ -188,8 +184,6 @@ public class PreguntaCtrl {
         respuesta.setFechaRespuesta(LocalDate.now());
         respuestaSrvc.save(respuesta);
         puntosForoSrvc.puntuarRespuesta(respuesta);
-        //puntosForoSrvc.puntuarContenido(respuesta.getId(),25, "respuesta", respuesta.getUsuario());
-
         return "redirect:/preguntas/preguntaPublicada/" + id;
     }
 
@@ -205,9 +199,6 @@ public class PreguntaCtrl {
         comentario.setFechaComentario(LocalDate.now());
         comentarioSrvc.save(comentario);
         puntosForoSrvc.puntuarComentario(comentario);
-        //puntosForoSrvc.puntuarContenido(comentario.getId(),5, "comentario", comentario.getUsuario());
-
-
         return "redirect:/preguntas/preguntaPublicada/" + idPregunta;
     }
 

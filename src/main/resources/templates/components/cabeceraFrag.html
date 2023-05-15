@@ -18,7 +18,7 @@
           <img th:if="${usuario == null}" src="https://via.placeholder.com/28?text=!" alt="user" width="32" height="32"
                class="rounded-circle" style=" margin-left: 20px">
           <img th:if="${usuario != null}" th:src="@{${usuario.getPhotosImagePath()}}" alt="user" width="32" height="32"
-               class="rounded-circle">
+               class="rounded-circle" style=" margin-left: 20px">
         </a>
         <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="dropdownUser2" style="">
           <li><a class="dropdown-item" href="/ejercicios">Mis ejercicios</a></li>

@@ -1,5 +1,5 @@
 .calendar-table {
-    margin: 250px auto;
+    margin: 100px auto;
     width: 80%;
     border-collapse: separate;
     border-spacing: 5px;
@@ -28,4 +28,29 @@
 
 .sinPuntos {
     background-color: #fd1515 !important;
+}
+
+.arrow {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.title-container {
+    margin-top: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.title-container h2 {
+    font-size: 24px;
+    margin: 0 20px 0 20px;
+    color: white;
+}
+
+.titleN{
+    visibility: hidden;
+    display: none;
 }

@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @Controller
@@ -75,15 +77,35 @@ public class CalendarioCtrl {
             dias.get(fila).add(String.valueOf(i));
         }
 
+        String monthName = objetoFecha.getMonth().getDisplayName(TextStyle.FULL, Locale.getDefault());
+        String capitalizedMonthName = monthName.substring(0, 1).toUpperCase() + monthName.substring(1).toLowerCase();
+
         model.addAttribute("diaActual", diaActual);
         model.addAttribute("numeroColumnas",numeroColumnas);
         model.addAttribute("month", mes);
+        model.addAttribute("monthName", capitalizedMonthName);
         model.addAttribute("year", agno);
         model.addAttribute("dias",dias);
         model.addAttribute("hayPuntos", hayPuntos);
 
         return "calendario";
     }
+
+    @GetMapping("/calendario-anterior")
+public String mostrarMesAnterior(Model model,
+                                 @RequestParam("month") int month,
+                                 @RequestParam("year") int year) {
+    LocalDate fechaActual = LocalDate.of(year, month, 1).minusMonths(1);
+    return "redirect:/calendario?month=" + fechaActual.getMonthValue() + "&year=" + fechaActual.getYear();
+}
+
+@GetMapping("/calendario-siguiente")
+public String mostrarMesSiguiente(Model model,
+                                  @RequestParam("month") int month,
+                                  @RequestParam("year") int year) {
+    LocalDate fechaActual = LocalDate.of(year, month, 1).plusMonths(1);
+    return "redirect:/calendario?month=" + fechaActual.getMonthValue() + "&year=" + fechaActual.getYear();
+}
 
     private boolean hayPuntosEnTalDia(LocalDate fecha) {
         return false;

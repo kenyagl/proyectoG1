@@ -37,14 +37,14 @@ INSERT INTO `mydb`.`categoria` (`nombre`) VALUES ('Herencia');
 
 -- Inserción de preguntas
 
-INSERT INTO `preguntas` (`titulo_pregunta`, `texto_pregunta`, `foto`, `fecha_pregunta`, `votos`, `id_usuario`)
+INSERT INTO `preguntas` (`titulo_pregunta`, `texto_pregunta`, `foto`, `fecha_pregunta`, `id_usuario`)
 VALUES
 
-('¿Cuáles son las mejores técnicas de estudio para mejorar el rendimiento académico?', 'Estoy buscando consejos y técnicas efectivas para mejorar mi rendimiento en los estudios. ¿Qué estrategias han funcionado bien para ustedes?', 'foto1.jpg', '2023-05-12', 0, 1),
-('¿Qué opciones de carrera son ideales para alguien con habilidades en programación?', 'Tengo habilidades en programación y me gustaría saber qué opciones de carrera son las más adecuadas para aprovechar al máximo mis habilidades. ¿Alguna sugerencia?', 'foto2.jpg', '2023-05-12', 0, 1),
-('Recomendaciones de libros de ciencia ficción para leer este verano', 'Estoy buscando recomendaciones de libros de ciencia ficción interesantes para disfrutar durante mis vacaciones de verano. ¿Cuáles son algunos de tus favoritos?', 'foto3.jpg', '2023-05-12', 0, 1),
-('¿Cuáles son los mejores destinos turísticos para visitar en Europa?', 'Planeo hacer un viaje a Europa y estoy buscando recomendaciones sobre los mejores lugares para visitar. ¿Cuáles son tus destinos favoritos en Europa?', 'foto4.jpg', '2023-05-12', 0, 1),
-('Consejos para mejorar la productividad en el trabajo desde casa', 'Trabajo desde casa y me gustaría conocer algunos consejos y técnicas para aumentar mi productividad y mantenerme enfocado. ¿Qué estrategias han funcionado para ustedes?', 'foto5.jpg', '2023-05-12', 0, 1);
+('¿Cuáles son las mejores técnicas de estudio para mejorar el rendimiento académico?', 'Estoy buscando consejos y técnicas efectivas para mejorar mi rendimiento en los estudios. ¿Qué estrategias han funcionado bien para ustedes?', 'foto1.jpg', '2023-05-12', 1),
+('¿Qué opciones de carrera son ideales para alguien con habilidades en programación?', 'Tengo habilidades en programación y me gustaría saber qué opciones de carrera son las más adecuadas para aprovechar al máximo mis habilidades. ¿Alguna sugerencia?', 'foto2.jpg', '2023-05-12', 1),
+('Recomendaciones de libros de ciencia ficción para leer este verano', 'Estoy buscando recomendaciones de libros de ciencia ficción interesantes para disfrutar durante mis vacaciones de verano. ¿Cuáles son algunos de tus favoritos?', 'foto3.jpg', '2023-05-12', 1),
+('¿Cuáles son los mejores destinos turísticos para visitar en Europa?', 'Planeo hacer un viaje a Europa y estoy buscando recomendaciones sobre los mejores lugares para visitar. ¿Cuáles son tus destinos favoritos en Europa?', 'foto4.jpg', '2023-05-12', 1),
+('Consejos para mejorar la productividad en el trabajo desde casa', 'Trabajo desde casa y me gustaría conocer algunos consejos y técnicas para aumentar mi productividad y mantenerme enfocado. ¿Qué estrategias han funcionado para ustedes?', 'foto5.jpg', '2023-05-12', 1);
 
 
 

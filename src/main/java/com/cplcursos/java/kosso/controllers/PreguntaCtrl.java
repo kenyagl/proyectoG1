@@ -107,23 +107,20 @@ public class PreguntaCtrl {
         }
         String fileName = StringUtils.cleanPath(fileName1);
         pregunta.setFoto(fileName);
+        if (fileName.isEmpty() || fileName == null){
+            pregunta.setFoto(null);
+        }
+        preguntaSrvc.save(pregunta);
         if (pregunta.getFechaPregunta() == null){
             preguntaSrvc.setFecha(pregunta);
+            puntosForoSrvc.puntuarPregunta(pregunta);
         }
-        //Pregunta preguntaGuardada = preguntaSrvc.save(pregunta);
-        preguntaSrvc.save(pregunta);
         String uploadDir = "target/classes/static/image/pregunta-photos/" + pregunta.getId();
-
-        try{
-            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-
-        }catch (IOException ioException){
-            pregunta.setFoto(null);
-            preguntaSrvc.save(pregunta);
+        try {
+        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+        }catch(IOException ioException){
+            log.info("No se ha podido guardar la imagen en el directorio o es una pregunta sin foto");
         }
-
-        puntosForoSrvc.puntuarContenido(pregunta.getId(),10, "pregunta", pregunta.getUsuario());
-
         return "redirect:/preguntas/preguntaPublicada/" + pregunta.getId();
     }
 
@@ -187,8 +184,7 @@ public class PreguntaCtrl {
         respuesta.setTextoRespuesta(textoRespuesta);
         respuesta.setFechaRespuesta(LocalDate.now());
         respuestaSrvc.save(respuesta);
-        puntosForoSrvc.puntuarContenido(respuesta.getId(),25, "respuesta", respuesta.getUsuario());
-
+        puntosForoSrvc.puntuarRespuesta(respuesta);
         return "redirect:/preguntas/preguntaPublicada/" + id;
     }
 
@@ -203,104 +199,8 @@ public class PreguntaCtrl {
         comentario.setTextoComentario(textoComentario);
         comentario.setFechaComentario(LocalDate.now());
         comentarioSrvc.save(comentario);
-        puntosForoSrvc.puntuarContenido(comentario.getId(),5, "comentario", comentario.getUsuario());
-
-
+        puntosForoSrvc.puntuarComentario(comentario);
         return "redirect:/preguntas/preguntaPublicada/" + idPregunta;
     }
-
-
-    // Controladores de votos
-    // Votos Preguntas
-    @PostMapping(value = "/votar")
-    public String votarContenido(@RequestParam(name = "valor") Integer valor, @RequestParam(name = "idContenido") Long idContenido, @RequestParam(name = "tipo") String tipoContenido,  @AuthenticationPrincipal MyUserDetails userDetails, Model model){
-        Integer puntos = 0;
-
-        if(valor != 0) {
-            valor = valor>0 ? 1 : -1;
-        }
-
-//        if (tipoContenido.equals("votoPregunta") || tipoContenido.equals("votoComentario") || tipoContenido.equals("votoRespuesta")) {
-//            puntos = 25 * valor;
-//        }else {
-//            puntos = 0;
-//        }
-
-        switch (tipoContenido){
-            case "votoPregunta":
-                puntos = 25 * valor;
-                break;
-
-            case "votoRespuesta":
-                puntos = 25 * valor;
-
-                break;
-
-            case "votoComentario":
-                puntos = 25 * valor;
-                break;
-
-            default:
-                model.addAttribute("votos", 0);
-
-        }
-
-        Usuario usuario = usuSrvc.findByEmail(userDetails.getUsername());
-        puntosForoSrvc.puntuarContenido(idContenido, puntos, tipoContenido, usuario);
-
-        int totalLikes = puntosForoSrvc.cuentaLikes(idContenido,tipoContenido);
-        int totalDislikes = puntosForoSrvc.cuentaDislikes(idContenido,tipoContenido);
-
-        model.addAttribute("totalLikes", totalLikes);
-        model.addAttribute("totalDislikes", totalDislikes);
-
-//        //Cuenta la cantidad de veces que ha sido votado pero + y -
-//        model.addAttribute("votos", puntosForoSrvc.countByIdContenidoAndTipoContenido(idContenido, tipoContenido));
-
-        return "/preguntas/bloqueAjaxVotos :: totalVotos";
-    }
-
-    // Votos Respuestas
-    @PostMapping(value = "/cuentavotosrespuesta")
-    public String cuentaVotosResp(@RequestParam(name = "valor") Integer votos, @RequestParam(name = "idRespuesta") Long id, Model model){
-        Optional<Respuesta> respOp = respuestaSrvc.findById(id);
-        if(respOp.isPresent()){
-            Respuesta respuesta = respOp.get();
-            Integer acumulados = respuesta.getVotos();
-            if (acumulados == null){
-                acumulados = 0;
-            }
-            respuesta.setVotos(votos + acumulados);
-            model.addAttribute("sumaR", respuesta.getVotos());
-            respuestaSrvc.save(respuesta);
-        }
-        else{
-            return "error-page";
-        }
-        return "/preguntas/bloqueAjaxVotos :: votosRespuesta";
-    }
-
-    // Votos Comentarios
-
-    @PostMapping(value = "/cuentavotoscomentario")
-    public String cuentaVotosComen(@RequestParam(name = "valor") Integer votos, @RequestParam(name = "idComentario") Long id, Model model){
-        Optional<Comentario> comenOp = comentarioSrvc.findById(id);
-        if(comenOp.isPresent()){
-            Comentario comentario = comenOp.get();
-            Integer acumulados = comentario.getVotos();
-            if (acumulados == null){
-                acumulados = 0;
-            }
-            comentario.setVotos(votos + acumulados);
-            model.addAttribute("sumaC", comentario.getVotos());
-            comentarioSrvc.save(comentario);
-        }
-        else{
-            return "error-page";
-        }
-        return "/preguntas/bloqueAjaxVotos :: votosComentario";
-    }
-
-
 
 }

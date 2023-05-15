@@ -32,22 +32,4 @@ public class RespuestaSrvc {
         respuesta.setFechaRespuesta(LocalDate.now());
     }
 
-    public Integer asignarVotoYObtenerTotal(Long id, Integer valor){
-        Optional<Respuesta> preOp = respuestaRepo.findById(id);
-        if(preOp.isPresent()){
-            Respuesta respuesta = preOp.get();
-            Integer acumulados = respuesta.getVotos();
-            if (acumulados == null){
-                acumulados = 0;
-            }
-            respuesta.setVotos(valor + acumulados);
-            respuestaRepo.save(respuesta);
-            return respuesta.getVotos();
-        }
-        else {
-            return null;
-        }
     }
-
-
-}

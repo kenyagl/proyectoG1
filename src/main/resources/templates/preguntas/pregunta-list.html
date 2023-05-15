@@ -41,12 +41,14 @@
                                         <div class="container-fluid">
                                                 <ul>
                                                         <li th:text="${pregunta.getFechaPregunta()}">Fecha:</li>
+                                                        <!--
                                                         <li><span>Votos: </span><span th:text="${pregunta.getVotos()} ?: '0'"></span></li>
+                                                        -->
                                                 </ul>    
                                         </div>
                                 </div>
                                 <div class="col-9 align-self-center">
-                                        <a th:href="@{preguntas/preguntaPublicada/{id}(id=${pregunta.getId()})}"><h3 class="text-truncate overflow-hidden" th:text="${pregunta.getTituloPregunta()}"> Pregunta1</h3></a>
+                                        <a th:href="@{/preguntas/preguntaPublicada/{id}(id=${pregunta.getId()})}"><h3 class="text-truncate overflow-hidden" th:text="${pregunta.getTituloPregunta()}"> Pregunta1</h3></a>
                                         <!-- Ver como se hace para que el overflow termine en puntos suspensivos -->
                                         <p th:text="${pregunta.getTextoPregunta()}" class="text-truncate overflow-hidden" style="max-height: 100px;">Lorem ipsum dolor sit amet consectetur adipiscing elit non habitasse semper, eleifend cum suspendisse class velit hendrerit fringilla euismod vestibulum ad, sodales etiam praesent maecenas purus cubilia venenatis feugiat faucibus. Praesent ligula habitasse fusce parturient faucibus maecenas vivamus, magna suspendisse urna felis dignissim penatibus ut, ultrices lacinia ridiculus id senectus
                                         </p>

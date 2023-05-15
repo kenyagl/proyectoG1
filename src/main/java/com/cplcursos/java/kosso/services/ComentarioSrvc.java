@@ -38,6 +38,7 @@ public class ComentarioSrvc {
 
     public Integer asignarVotoYObtenerTotal(Long id, Integer valor){
         Optional<Comentario> ComentarioOp = comentarioRepo.findById(id);
+        /*
         if(ComentarioOp.isPresent()){
             Comentario comentario = ComentarioOp.get();
             Integer acumulados = comentario.getVotos();
@@ -51,6 +52,9 @@ public class ComentarioSrvc {
         else {
             return null;
         }
+
+         */
+        return null;
     }
 
 

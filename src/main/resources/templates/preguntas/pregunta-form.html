@@ -19,7 +19,9 @@
   <form class="card-body form-horizontal d-grid"  th:action="@{/preguntas/save}" enctype="multipart/form-data" th:object="${pregunta}" method="post" >
       <input type="hidden" th:field="*{id}">
       <input type="hidden" th:field="*{fechaPregunta}">
+      <!--
       <input type="hidden" th:field="*{votos}">
+      -->
       <fieldset>
     <!-- Título de la pregunta-->
     <div class="form-group gap-2">

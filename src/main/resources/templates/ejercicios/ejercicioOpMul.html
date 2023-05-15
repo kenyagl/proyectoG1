@@ -90,14 +90,18 @@
                          style="box-shadow: 5px 5px 10px rgba(255, 255, 255, 0.75);">
                     <div class="col-2"></div>
                 </div>
-
                 <br><br>
-
             </div>
 
             <div class="modal-footer" id="resultModalfooter">
-                <div id="failedButton"></div>
-                <div id="nextEjercicio"></div>
+                <div id="failedButton">
+                    <div class="btn btn-primary" id="tryAgainButton" data-bs-dismiss="modal">Vuélvelo a intentar</div>
+                </div>
+                <div id="nextEjercicio">
+                    <a th:href="@{/ejercicios/{id}(id=${idNextEjer})}">
+                        <button class="btn btn-primary" id="nextButton">Siguiente</button>
+                    </a>
+                </div>
                 <a th:href="@{/ejercicios}" class="btn btn-secondary">Volver al menú</a>
             </div>
         </div>
@@ -112,34 +116,71 @@
         integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
         crossorigin="anonymous"></script>
 <script>
-    document.getElementById('resultModal').addEventListener('show.bs.modal', event => {
+    // Para evitar errores de conexión, utilizamos async...await
+    // En el tratamiento del evento "show.bs.modal", definimos la función con async y en la llamada a fetch utilizaremos
+    // await. De esa forma, la función espera a tener el resultado del servidor
+    document.getElementById('resultModal').addEventListener('show.bs.modal', async event => {
+        // creamos las constantes que utilizaremos
+        const respuestaCorrecta = "¡Muy bien! Tu respuesta es correcta.";
+        const respuestaIncorrecta = "¡OH NO! Tu respuesta no es correcta. \n ¡Vuélvelo a intentar!";
+        const ejercicioId = document.getElementById("id_ejercicio").value;
         let resp = document.querySelector('input[name=answer]:checked');
+
         if (!resp) {
+            /*
+            SIMPLIFICO EL CÓDIGO EN UNA SOLA LINEA
             const resultMessage = document.getElementById("resultMessage");
             resultMessage.innerHTML = "Debe indicar una respuesta.";
+             */
+            document.getElementById("resultMessage").innerHTML = "Debe indicar una respuesta.";
             return
         }
-        resp = resp.value;
-        const id_usuario = document.getElementById("id_usuario").value;
-        const ejercicioId = document.getElementById("id_ejercicio").value;
 
         let formData = new FormData();
-        formData.append('resp', resp);
-        formData.append('id_usuario', id_usuario);
+        formData.append('resp', resp.value);
+        formData.append('id_usuario', document.getElementById("id_usuario").value);
         let init = {
             method: 'POST',
             body: formData
         };
 
-        fetch(ejercicioId + "/respuesta/save", init).then(function (response) {
-            return response.text();
-        }).then(function (html) {
+        // Esperamos al servidor
+        await fetch(ejercicioId + "/respuesta/save", init)
+            // cogemos la respuesta en formato json
+            .then(async function (response) {
+                // Esperamos a que esté disponible
+                const acierto = await response.json();
+                if (acierto.acierto) { // respuesta acertada
+                    document.getElementById("resultMessage").innerText = respuestaCorrecta;
+                    document.getElementById("resultImage").src = "/image/oso_ok.png";
+                    document.getElementById("resultModalBack").style.backgroundImage = "url('/image/bien.png')";
+                    document.getElementById("resultModalheader").style.backgroundImage = "url('/image/bien70.png')";
+                    document.getElementById("resultModalfooter").style.backgroundImage = "url('/image/bien70.png')";
+                    document.getElementById("tryAgainButton").style.display = 'none';
+                    document.getElementById("nextEjercicio").style.display = 'block';
+
+                } else {                // respuesta errónea
+                    document.getElementById("resultMessage").innerText = respuestaIncorrecta;
+                    document.getElementById("resultImage").src = "/image/error_kossito.png";
+                    document.getElementById("resultModalBack").style.backgroundImage = "url('/image/mal.png')";
+                    document.getElementById("resultModalheader").style.backgroundImage = "url('/image/mal70.png')";
+                    document.getElementById("resultModalfooter").style.backgroundImage = "url('/image/mal70.png')";
+                    document.getElementById("tryAgainButton").style.display = 'block';
+                    document.getElementById("nextEjercicio").style.display = 'none';
+                }
+            })
+            .catch(function (err) {
+                console.warn('Something went wrong.', err);
+            });
+    })
+
+
+
+/*
+            .then(function (html) {
             //Controla el mensaje del modal
             const resultMessage = document.getElementById("resultMessage");
             resultMessage.innerHTML = html;
-
-            const respuestaCorrecta = "¡Muy bien! Tu respuesta es correcta.";
-            const respuestaIncorrecta = "¡OH NO! Tu respuesta no es correcta. \n ¡Vuélvelo a intentar!";
 
             //Controla la imagen que se muestra en el modal
             const resultImage = document.getElementById("resultImage");
@@ -218,7 +259,7 @@
             console.warn('Something went wrong.', err);
         });
     })
-
+*/
 </script>
 </body>
 

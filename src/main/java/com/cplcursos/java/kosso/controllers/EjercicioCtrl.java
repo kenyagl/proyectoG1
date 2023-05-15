@@ -19,7 +19,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -134,28 +136,57 @@ public class EjercicioCtrl {
 
     /**************** CONTROLADOR DE RESPUESTAS A CADA EJERCICIO ******************/
     @PostMapping("/{id}/respuesta/save")
-    public String saveRespuesta(@PathVariable("id") Long idEjercicio,
+    @ResponseBody   // Permite devolver un objeto en el cuerpo de la respuesta HTTP a la llamada desde el js (fetch)
+    public Map<String, Object> saveRespuesta(@PathVariable("id") Long idEjercicio,
                                 @RequestParam(name = "resp") String miRespuesta,
                                 @RequestParam(name = "id_usuario") Long idUsuario,
                                 Model model) {
+        // La variable map es un objeto que contendrá toda la información a devolver a la llamada fetch
+        Map<String, Object> map = new HashMap<String, Object>();
 
+        // Aplicamos estilo de programación funcional al Optional...
+        // leer https://blog.adamgamboa.dev/es/como-utilizar-java-optional/
+        ejerciciosService.findById(idEjercicio).ifPresentOrElse(
+                ejer -> {
+                   if(miRespuesta.equals(ejer.getRespuestaCorrecta())){
+                       map.put("acierto", true);
+                       usuarioSrvc.findById(idUsuario).ifPresentOrElse(
+                               usu -> {
+                                   usu.setPuntosEjercicios(usu.getPuntosEjercicios() + 100);
+                                   RespuestaEjOpMul respuestaEjOpMul = new RespuestaEjOpMul(
+                                           new IdRespuestaEj(ejer, usu),
+                                           miRespuesta,
+                                           LocalDateTime.now()
+                                   );
+                                   respuestaEjOpMulSrvc.saveAndFlush(respuestaEjOpMul);
+                               },
+                               () -> { map.put("error", "No se encuentra el usuario.");}
+                       );
+                   } else {
+                       map.put("acierto", false);
+                   };
+                },
+                () -> { map.put("error", "No se encuentra el ejercicio.");}
+        );
+        // No devolvemos el mensaje de correcto o incorrecto para que se pueda internacionalizar con thymeleaf.
+        // La plantilla necesita saber únicamente si la respuesta es correcta o no para poner el mensaje en el
+        // idioma correspondiente.
+        // Utilizamos "msg" en caso de error.
+        // Por otra parte, así, si se quiere modificar el mensaje, no hay que cambiar el código del controlador.
+        return map;
+
+/*
         Optional<EjercicioOpMul> ejer = ejerciciosService.findById(idEjercicio);
-
         if (ejer.isEmpty()) {
             return "error/error";
         }
-
         EjercicioOpMul ejercicio = ejer.get();
-
         String respuestaCorrecta = ejercicio.getRespuestaCorrecta();
-
         String resultMessage;
 
         if (miRespuesta.equals(respuestaCorrecta)) {
             resultMessage = "¡Muy bien! Tu respuesta es correcta.";
-
             Optional<Usuario> usuOp = usuarioSrvc.findById(idUsuario);
-
             if (usuOp.isEmpty()) {
                 return "error/error";
             }
@@ -172,5 +203,6 @@ public class EjercicioCtrl {
 
         model.addAttribute("resultMessage", resultMessage);
         return "components/partesAjax :: resultadoRespuesta";
+ */
     }
 }

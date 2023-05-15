@@ -43,6 +43,8 @@ public class EjercicioOpMul {
 
     private String respuestaUsuario;
 
+    private String rutaFoto;
+
     @Transient
     public String getImagenPath() {
         if (imagen == null || id == null) {

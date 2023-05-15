@@ -1,11 +1,11 @@
 package com.cplcursos.java.kosso.controllers;
 
 import com.cplcursos.java.kosso.MyUserDetails;
-import com.cplcursos.java.kosso.entities.*;
-import com.cplcursos.java.kosso.utils.FileUploadUtil;
-import com.cplcursos.java.kosso.services.CategoriaSrvc;
-import com.cplcursos.java.kosso.services.RespuestaEjOpMulSrvc;
-import com.cplcursos.java.kosso.services.UsuarioSrvcImpl;
+import com.cplcursos.java.kosso.entities.EjercicioOpMul;
+import com.cplcursos.java.kosso.entities.IdRespuestaEj;
+import com.cplcursos.java.kosso.entities.RespuestaEjOpMul;
+import com.cplcursos.java.kosso.entities.Usuario;
+import com.cplcursos.java.kosso.services.*;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -14,10 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-import com.cplcursos.java.kosso.services.EjerciciosSrvc;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -37,6 +35,9 @@ public class EjercicioCtrl {
 
     @Autowired
     private UsuarioSrvcImpl usuarioSrvc;
+
+    @Autowired
+    private FileSystemStorageServiceImpl fileSystemStorageService;
 
 
     @GetMapping(value = {"/", ""})
@@ -94,8 +95,8 @@ public class EjercicioCtrl {
 
     @PostMapping("/save")
     public String saveEjercicio(@ModelAttribute EjercicioOpMul ejercicioOpMul,
-                                @RequestParam("image") MultipartFile imagen
-    ) throws IOException {
+                                @RequestParam("image") MultipartFile imagen, Model modelo
+    ){
 
         String fileName1 = imagen.getOriginalFilename();
         if (fileName1 == null) {
@@ -105,12 +106,13 @@ public class EjercicioCtrl {
         String fileName = StringUtils.cleanPath(fileName1);
 
         ejercicioOpMul.setImagen(fileName);
+        ejercicioOpMul.setRutaFoto("src/main/resources/static/image/ejercicio-photos/" + ejercicioOpMul.getId() + "/" + fileName);
 
+        modelo.addAttribute("ejercicio", ejercicioOpMul);
+        fileSystemStorageService.save(imagen);
+
+        ejercicioOpMul.setRutaFoto("/image/" + fileName);
         EjercicioOpMul savedEjer = ejerciciosService.save(ejercicioOpMul);
-
-        String uploadDir = "target/classes/static/image/ejercicio-photos/" + savedEjer.getId();
-
-        FileUploadUtil.saveFile(uploadDir, fileName, imagen);
 
         return "redirect:/ejercicios/";
     }

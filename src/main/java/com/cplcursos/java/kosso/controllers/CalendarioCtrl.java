@@ -1,6 +1,11 @@
 package com.cplcursos.java.kosso.controllers;
 
+import com.cplcursos.java.kosso.MyUserDetails;
+import com.cplcursos.java.kosso.entities.Usuario;
+import com.cplcursos.java.kosso.repositories.UsuarioRepo;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,12 +23,21 @@ import java.util.Optional;
 @Log4j2
 public class CalendarioCtrl {
 
+    @Autowired
+    UsuarioRepo usuarioRepository;
+
     @GetMapping("/calendario")
     public String getCalendarioHTML(Model model,
                                     @RequestParam("day") Optional<Integer> day,
                                     @RequestParam("month") Optional<Integer> month,
-                                    @RequestParam("year") Optional<Integer> year)
+                                    @RequestParam("year") Optional<Integer> year,
+                                    @AuthenticationPrincipal MyUserDetails userDetails)
     {
+        String email = userDetails.getUsername();
+        Usuario usuario = usuarioRepository.findByEmail(email);
+
+        model.addAttribute("usuario", usuario);
+
         boolean hayPuntos = false;
         LocalDate fechaActual = LocalDate.now();
         int diaActual = fechaActual.getDayOfMonth();

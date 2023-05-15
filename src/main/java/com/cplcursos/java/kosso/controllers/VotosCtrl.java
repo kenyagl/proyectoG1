@@ -74,6 +74,7 @@ public class VotosCtrl {
                 Optional<Pregunta> pregOP = preguntaSrvc.findById(idContenido);
                 if (pregOP.isPresent()) {
                     Pregunta pregunta = pregOP.get();
+                    nuevoVoto.setUsuario(pregunta.getUsuario());
                     pregunta.anexarVoto(nuevoVoto);
                     preguntaSrvc.save(pregunta);
                     totalLikes = pregunta.calcularLikes();
@@ -84,6 +85,7 @@ public class VotosCtrl {
                 Optional<Respuesta> respOP = respuestaSrvc.findById(idContenido);
                 if (respOP.isPresent()) {
                     Respuesta respuesta = respOP.get();
+                    nuevoVoto.setUsuario(respuesta.getUsuario());
                     respuesta.anexarVoto(nuevoVoto);
                     respuestaSrvc.save(respuesta);
                     totalLikes = respuesta.calcularLikes();
@@ -94,6 +96,7 @@ public class VotosCtrl {
                 Optional<Comentario> comentOP = comentarioSrvc.findById(idContenido);
                 if (comentOP.isPresent()) {
                     Comentario comentario = comentOP.get();
+                    nuevoVoto.setUsuario(comentario.getUsuario());
                     comentario.anexarVoto(nuevoVoto);
                     comentarioSrvc.save(comentario);
                     totalLikes = comentario.calcularLikes();

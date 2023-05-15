@@ -43,8 +43,8 @@
                             </td>
                             <td style="font-family: Khand; font-weight: bold;"  th:text="${usu.getNombre()}"></td>
                             <td th:text="${usu.getPuntosEjercicios() ?: 0}"></td>
-                            <td th:text="${usu.getPuntosRespuestas() ?: 0}"></td>
-                            <td th:text="${usu.puntosEjercicios ?: 0} + ${usu.puntosRespuestas ?: 0}"></td>
+                            <td th:text="${usu.calcularPuntosForo() ?: 0}"></td>
+                            <td th:text="${usu.puntosEjercicios ?: 0} + ${usu.calcularPuntosForo() ?: 0}"></td>
                         </tr>
                     </tbody>
                 </table>

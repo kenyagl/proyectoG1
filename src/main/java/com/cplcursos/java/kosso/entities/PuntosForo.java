@@ -21,11 +21,9 @@ public class PuntosForo {
     @Column(name = "id", nullable = false)
     private Long id;
 
-        //El usuario no hace falta porque es una propiedad de la entidad votada
-
     @ManyToOne
     @JoinColumn(name = "idUsuario")
-    private Usuario usuario; // el usuario que vota
+    private Usuario usuario;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="idPregunta")

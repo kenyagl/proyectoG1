@@ -20,6 +20,7 @@ public class PuntosForoSrvc {
         puntosForo.setPregunta(pregunta);
         puntosForo.setFechaVoto(LocalDate.now());
         puntosForo.setPuntos(10);
+        puntosForo.setUsuario(pregunta.getUsuario());
         puntosForoRepo.save(puntosForo);
     }
     public void puntuarRespuesta(Respuesta respuesta){
@@ -27,6 +28,7 @@ public class PuntosForoSrvc {
         puntosForo.setRespuesta(respuesta);
         puntosForo.setFechaVoto(LocalDate.now());
         puntosForo.setPuntos(10);
+        puntosForo.setUsuario(respuesta.getUsuario());
         puntosForoRepo.save(puntosForo);
     }
     public void puntuarComentario(Comentario comentario){
@@ -34,6 +36,7 @@ public class PuntosForoSrvc {
         puntosForo.setComentario(comentario);
         puntosForo.setFechaVoto(LocalDate.now());
         puntosForo.setPuntos(5);
+        puntosForo.setUsuario(comentario.getUsuario());
         puntosForoRepo.save(puntosForo);
     }
 

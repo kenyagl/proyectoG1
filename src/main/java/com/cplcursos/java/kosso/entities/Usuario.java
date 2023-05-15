@@ -77,4 +77,11 @@ public class Usuario {
             inverseJoinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
     private List<Rol> roles = new ArrayList<>();
 
+    public Integer calcularPuntosForo(){
+        Integer totalPuntos = 0;
+        for (PuntosForo puntosForo : puntosForoList ){
+            totalPuntos += puntosForo.getPuntos();
+        }
+        return totalPuntos;
+    }
 }

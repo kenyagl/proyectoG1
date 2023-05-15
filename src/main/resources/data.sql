@@ -4,8 +4,8 @@ INSERT INTO usuario values
 
 
 
-INSERT INTO `mydb`.`rol` (`name`) VALUES ('user');
-INSERT INTO `mydb`.`rol` (`name`) VALUES ('admin');
+INSERT INTO `mydb`.`rol` (`name`) VALUES ('USER');
+INSERT INTO `mydb`.`rol` (`name`) VALUES ('ADMIN');
 INSERT INTO users_roles values (1,2), (2,1);
 
 ---Ejercicios

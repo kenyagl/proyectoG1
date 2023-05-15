@@ -77,6 +77,8 @@ public class CalendarioCtrl {
 
         model.addAttribute("diaActual", diaActual);
         model.addAttribute("numeroColumnas",numeroColumnas);
+        model.addAttribute("month", mes);
+        model.addAttribute("year", agno);
         model.addAttribute("dias",dias);
         model.addAttribute("hayPuntos", hayPuntos);
 

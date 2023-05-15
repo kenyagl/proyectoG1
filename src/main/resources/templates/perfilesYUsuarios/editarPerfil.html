@@ -36,14 +36,13 @@
     <img class="avatar" th:src="@{${usuario.getPhotosImagePath()}}" style="margin-top:100px">
 </div>
 
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <div class="header">
-                <h5 style="color: white">Editar tu Perfil</h5>
 
-                <form th:action="@{/usuario/editar}" th:object="${usuario}" method="POST" role="form" enctype="multipart/form-data"
-                      style="color: white">
+        <div class="card col-7" style="font-family: Khand;  margin-top: 2em; margin-left: 30%; margin-bottom: 5em">
+            <div class="card-body">
+                <h5 style="color: black">Editar tu Perfil</h5>
+
+                <form  th:action="@{/usuario/editar}" th:object="${usuario}" method="POST" role="form" enctype="multipart/form-data"
+                      style="color:black">
                     <input type="hidden" th:field="*{id}">
                     <input type="hidden" th:field="*{clave}">
                     <input type="hidden" th:field="*{puntosEjercicios}">
@@ -91,8 +90,7 @@
                 </form>
             </div>
         </div>
-    </div>
-</div>
+
 
 
 <!-- Optional JavaScript -->

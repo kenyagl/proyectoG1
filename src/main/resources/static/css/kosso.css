@@ -143,7 +143,8 @@ body { /* FONDO AZUL DEL BODY */
   text-align: center;
   height: 500px;
   padding:12px;
-  background-image: url('/image/bg-form.png');
+  background-image: url('/image/fondoperfil.jpg');
+background-size: cover;
   }
 
   .avatar{ /* Foto de perfil*/
@@ -573,4 +574,13 @@ font-family: "Comfortaa"
 
 .oso{
 filter: drop-shadow(5px 5px 10px rgba(255, 255, 255, 0.75));
+}
+
+.username{
+ text-shadow: 3px 3px 2px rgba(0, 0, 0, 1);
+}
+
+.text-light{
+filter: drop-shadow(5px 5px 10px rgba(255, 255, 255, 0.75));
+ text-shadow: 3px 3px 2px rgba(0, 0, 0, 1);
 }

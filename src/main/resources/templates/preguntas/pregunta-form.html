@@ -16,7 +16,8 @@
 
 
     <!-- Formulario para publicar una pregunta -->
-  <form class="card-body form-horizontal d-grid"  th:action="@{/preguntas/save}" enctype="multipart/form-data" th:object="${pregunta}" method="post" >
+      <div class="card">
+  <form class="card-body respuestas"  th:action="@{/preguntas/save}" enctype="multipart/form-data" th:object="${pregunta}" method="post" >
       <input type="hidden" th:field="*{id}">
       <input type="hidden" th:field="*{fechaPregunta}">
       <input type="hidden" th:field="*{votos}">
@@ -37,7 +38,7 @@
     
     <!-- Etiquetas -->
           <div class="form-group gap-2">
-                  <label for="validationTagsThreshold" class="form-label">Categorías: </label>
+                  <label for="validationTagsThreshold" class="form-label" style="margin-bottom: 0px;">Categorías: </label>
                   <select class="form-select" id="validationTagsThreshold" name="tagsClearThreshold[]" multiple="true" data-allow-clear="true" data-suggestions-threshold="1"
                           th:field="*{categorias}" required>
                       <option disabled hidden value="">Elige una etiqueta</option>
@@ -53,13 +54,15 @@
     </div>
     
     <!-- Button -->
-    <div class="form-group gap-2">
+    <div class="form-group gap-2" style="margin-top: 1.5em;">
         <button type="submit" class="btn btn-primary">Publicar</button>
         <a th:href="@{/preguntas/}" class="btn btn-outline-secondary">Cancelar</a>
     </div>
     
     </fieldset>
+
     </form>
+      </div>
                 </div>
             </div>
         </div>

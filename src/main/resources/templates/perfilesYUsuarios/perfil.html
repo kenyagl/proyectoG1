@@ -32,10 +32,12 @@
      <p th:text="${usuario.getEmail()}" class="text-light">Email: joselu@eoi.es</p>
 
  </div>
-     <div class="about" style="font-size: 24px; color: white; padding-left: 200px;">
-         <h3 class="text-black">Acerca de</h3>
+<div class="card col-6 " style="margin-left: 30%; margin-bottom: 2em; margin-top:2em">
+     <div class="card-body about" style="font-size: 20px;color: black;padding-left: 10px;">
+         <h3 class="text-black">Acerca de:</h3>
          <p th:text="${usuario.getDescripcion()}">Añade tu descripción aquí</p>
      </div>
+</div>
 
 
  <div style="padding-left: 200px;">

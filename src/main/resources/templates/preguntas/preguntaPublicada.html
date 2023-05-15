@@ -7,7 +7,7 @@
 
 <body>
 
-<header th:replace="components/cabeceraFrag :: cabecera"></header>
+<header th:replace="components/cabeceraFrag :: cabecera(usuario=${usuario})"></header>
 <nav th:replace="components/menuLateral :: navbar"></nav>
 
 <section class="main">
@@ -136,7 +136,7 @@
                                                         the readable content of a page.
                                                     </p>
                                                 </div>
-                                                <div class="col" style=" margin-top: 1.5em;">
+                                                <div class="col">
                                                     <!-- Botones de like y dislike a respuesta -->
                                                     <button type="button" class="tooltip-button thumbs-up2" data-toggle="tooltip" data-placement="bottom" title="Like" th:attr="onclick=|votaR(1,'${respuesta.getId}')|">Like <i class="fa fa-thumbs-o-up " aria-hidden="true"></i></button>
                                                     <button type="button" class="tooltip-button  thumbs-down2" data-toggle="tooltip" data-placement="bottom" title="Dislike" th:attr="onclick=|votaR(-1,'${respuesta.getId}')|">Dislike<i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button>
@@ -181,6 +181,7 @@
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </section>

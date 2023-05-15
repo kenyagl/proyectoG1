@@ -4,7 +4,7 @@
 <head th:replace="~{components/headfragment :: head(titulo='Foro')}"></head>
 <body>
 
-<header th:replace="components/cabeceraFrag :: cabecera"></header>
+<header th:replace="components/cabeceraFrag :: cabecera(usuario=${usuario})"></header>
 <nav th:replace="components/menuLateral :: navbar"></nav>
 
 <!-- Contenido de la página -->
@@ -87,6 +87,10 @@
 
     </div>
 </section>
+
+
+
+
 
 
 <!-- Optional JavaScript -->

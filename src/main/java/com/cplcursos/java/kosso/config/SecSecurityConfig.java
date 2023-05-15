@@ -57,9 +57,7 @@ public class SecSecurityConfig {
         http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(ENDPOINTS_WHITELIST).permitAll()
-/*
                         .requestMatchers(ENDPOINTS_WHITELIST_ADMIN).hasRole("ADMIN")
-*/
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

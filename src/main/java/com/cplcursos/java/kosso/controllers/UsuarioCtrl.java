@@ -129,8 +129,11 @@ public class UsuarioCtrl {
             user.setFoto(fileName);
             Usuario usuGuardado = usuSrvc.save(user);
 
-            String uploadDir = "target/classes/static/image/user-photos/" + usuGuardado.getId();
+            String uploadDir = "src/main/resources/static/image/user-photos/" + usuGuardado.getId();
             FileUploadUtil.saveFile(uploadDir, fileName, foto);
+
+            String uploadDir2 = "target/classes/static/image/user-photos/" + usuGuardado.getId();
+            FileUploadUtil.saveFile(uploadDir2, fileName, foto);
         }else{
             if(user.getFoto().isEmpty()) user.setFoto(null);
             usuSrvc.save(user);

@@ -150,10 +150,14 @@ public class PreguntaCtrl {
         if (pregunta.getFechaPregunta() == null){
             preguntaSrvc.setFecha(pregunta);
         }
-        Pregunta preguntaGuardada = preguntaSrvc.save(pregunta);
-        String uploadDir = "target/classes/static/image/pregunta-photos/" + preguntaGuardada.getId();
 
+        Pregunta preguntaGuardada = preguntaSrvc.save(pregunta);
+
+        String uploadDir = "src/main/resources/static/image/pregunta-photos/" + preguntaGuardada.getId();
         FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+
+        String uploadDir2 = "target/classes/static/image/pregunta-photos/" + preguntaGuardada.getId();
+        FileUploadUtil.saveFile(uploadDir2, fileName, multipartFile);
 
         puntosForoSrvc.puntuarContenido(pregunta.getId(),10, "pregunta", pregunta.getUsuario());
 

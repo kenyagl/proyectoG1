@@ -108,9 +108,11 @@ public class EjercicioCtrl {
 
         EjercicioOpMul savedEjer = ejerciciosService.save(ejercicioOpMul);
 
-        String uploadDir = "target/classes/static/image/ejercicio-photos/" + savedEjer.getId();
-
+        String uploadDir = "src/main/resources/static/image/ejercicio-photos/" + savedEjer.getId();
         FileUploadUtil.saveFile(uploadDir, fileName, imagen);
+
+        String uploadDir2 = "target/classes/static/image/ejercicio-photos/" + savedEjer.getId();
+        FileUploadUtil.saveFile(uploadDir2, fileName, imagen);
 
         return "redirect:/ejercicios/";
     }

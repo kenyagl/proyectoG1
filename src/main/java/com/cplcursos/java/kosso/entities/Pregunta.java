@@ -61,7 +61,7 @@ public class Pregunta {
     public int calcularLikes(){
         int totalVotos = 0;
         for( PuntosForo pf : puntos ){
-            if(pf.getPuntos()>0){
+            if(pf.getPuntos() == 25){
                 totalVotos++;
             }
         }
@@ -70,7 +70,7 @@ public class Pregunta {
     public int calcularDislikes(){
         int totalVotos = 0;
         for( PuntosForo pf : puntos ){
-            if(pf.getPuntos()<0){
+            if(pf.getPuntos() == -25){
                 totalVotos++;
             }
         }

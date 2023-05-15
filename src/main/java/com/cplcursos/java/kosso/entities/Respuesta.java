@@ -20,8 +20,6 @@ public class Respuesta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Integer votos = 0;
-
     private Boolean alerta;
 
     @Column(length = 500)
@@ -41,12 +39,35 @@ public class Respuesta {
     private Pregunta pregunta;
 
     // Relacion con votos
-    @OneToMany(mappedBy = "respuesta")
+    @OneToMany(mappedBy = "respuesta", cascade = CascadeType.ALL)
     private Set<PuntosForo> puntos;
 
-    public Respuesta(Integer votos, Boolean alerta, String textoRespuesta) {
-        this.votos = votos;
+    public Respuesta(Boolean alerta, String textoRespuesta) {
         this.alerta = alerta;
         this.textoRespuesta = textoRespuesta;
+    }
+
+    public void anexarVoto(PuntosForo voto){
+        voto.setRespuesta(this);
+        this.puntos.add(voto);
+    }
+
+    public int calcularLikes(){
+        int totalVotos = 0;
+        for( PuntosForo pf : puntos ){
+            if(pf.getPuntos() == 25){
+                totalVotos++;
+            }
+        }
+        return totalVotos;
+    }
+    public int calcularDislikes(){
+        int totalVotos = 0;
+        for( PuntosForo pf : puntos ){
+            if(pf.getPuntos() == -25){
+                totalVotos++;
+            }
+        }
+        return totalVotos;
     }
 }

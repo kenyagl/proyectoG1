@@ -26,7 +26,7 @@ public class Comentario {
     private String textoComentario;
 
     // Relacion con votos
-    @OneToMany(mappedBy = "comentario")
+    @OneToMany(mappedBy = "comentario", cascade = CascadeType.ALL)
     private Set<PuntosForo> puntos;
 
     @DateTimeFormat(pattern = "dd-MM-yyyy")
@@ -40,4 +40,28 @@ public class Comentario {
     @JoinColumn(name = "idRespuesta", referencedColumnName = "id")
     private Respuesta respuesta;
 
+
+    public void anexarVoto(PuntosForo voto){
+        voto.setComentario(this);
+        this.puntos.add(voto);
+    }
+
+    public int calcularLikes(){
+        int totalVotos = 0;
+        for( PuntosForo pf : puntos ){
+            if(pf.getPuntos() == 25){
+                totalVotos++;
+            }
+        }
+        return totalVotos;
+    }
+    public int calcularDislikes(){
+        int totalVotos = 0;
+        for( PuntosForo pf : puntos ){
+            if(pf.getPuntos() == -25){
+                totalVotos++;
+            }
+        }
+        return totalVotos;
+    }
 }

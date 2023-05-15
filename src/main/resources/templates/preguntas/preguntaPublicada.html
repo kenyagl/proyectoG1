@@ -78,7 +78,7 @@
                                         <i class="fa fa-thumbs-o-up " aria-hidden="true" ></i></button>
                                     <!--  Likes Pregunta -->
                                     <span>Likes:
-                                        <span th:id="'likesPregunta' + ${pregunta.getId()}" class="single-question-vote-result">
+                                        <span th:text="${pregunta.calcularLikes}" th:id="'likesPregunta' + ${pregunta.getId()}" class="single-question-vote-result">
                                             0
                                         </span>
                                     </span>
@@ -87,10 +87,10 @@
                                         <i class="fa fa-thumbs-o-down" aria-hidden="true" ></i>
                                         </button>
                                         <!-- Dislikes Pregunta -->
-                                        <span>Dislikes:
-                                            <span th:id="'dislikesPregunta' + ${pregunta.getId()}" class="single-question-vote-result">
-                                                0
-                                            </span>
+                                    <span>Dislikes:
+                                        <span th:text="${pregunta.calcularDislikes}" th:id="'dislikesPregunta' + ${pregunta.getId()}" class="single-question-vote-result">
+                                            0
+                                        </span>
                                     </span>
 
 
@@ -145,14 +145,14 @@
                                                     <button type="button" class="tooltip-button thumbs-up2" data-toggle="tooltip" data-placement="bottom" title="Like" th:attr="onclick=|votaR(1,'${respuesta.getId}')|">Like <i class="fa fa-thumbs-o-up " aria-hidden="true"></i></button>
                                                     <!--  Likes Pregunta -->
                                                     <span>Likes:
-                                                        <span th:id="'likesRespuesta' + ${respuesta.getId()}" class="single-question-vote-result">
+                                                        <span th:text="${respuesta.calcularLikes()}" th:id="'likesRespuesta' + ${respuesta.getId()}" class="single-question-vote-result" >
                                                             0
                                                         </span>
                                                     </span>
                                                     <button type="button" class="tooltip-button  thumbs-down2" data-toggle="tooltip" data-placement="bottom" title="Dislike" th:attr="onclick=|votaR(-1,'${respuesta.getId}')|">Dislike<i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button>
                                                     <!-- Votos Respuesta -->
-                                                    <span>DisLikes:
-                                                        <span th:id="'dislikesRespuesta' + ${respuesta.getId()}" class="single-question-vote-result">
+                                                    <span>Dislikes:
+                                                        <span th:text="${respuesta.calcularDislikes()}" th:id="'dislikesRespuesta' + ${respuesta.getId()}" class="single-question-vote-result">
                                                             0
                                                         </span>
                                                     </span>
@@ -182,15 +182,15 @@
                                                             <div class="col">
                                                                 <button type="button" class="tooltip-button thumbs-up2" data-toggle="tooltip" data-placement="bottom" title="Like" th:attr="onclick=|votaC(1,'${comentario.getId}')|"> Like <i class="fa fa-thumbs-o-up " aria-hidden="true"></i></button>
                                                                 <span>Likes:
-                                                                    <span th:id="'likesComentario' + ${comentario.getId()}" class="single-question-vote-result">
+                                                                    <span th:text="${comentario.calcularLikes()}" th:id="'likesComentario' + ${comentario.getId()}" class="single-question-vote-result">
                                                                         0
                                                                     </span>
                                                                 </span>
 
                                                                 <button type="button" class="tooltip-button  thumbs-down2" data-toggle="tooltip" data-placement="bottom" title="Dislike" th:attr="onclick=|votaC(-1,'${comentario.getId}')|"> Dislike <i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button>
                                                                 <!-- Votos Comentario -->
-                                                                <span>DisLikes:
-                                                                    <span th:id="'dislikesComentario' + ${comentario.getId()}" class="single-question-vote-result">
+                                                                <span>Dislikes:
+                                                                    <span th:text="${comentario.calcularDislikes()}" th:id="'dislikesComentario' + ${comentario.getId()}" class="single-question-vote-result">
                                                                         0
                                                                     </span>
                                                                 </span>
@@ -291,7 +291,6 @@
 
 <!-- Código para adjuntar el código de la respuesta en el formulario del comentario -->
 <script type="text/javascript">
-
         // comentModal contiene el nodo del DOM con el modal para el comentario
         const comentModal = document.getElementById('modalComentario')
 
@@ -330,10 +329,10 @@
                         like = 'Respuesta'
                         break;
                     case 'votoComentario':
+                        like = 'Comentario'
                         break;
                 }
                 // ponemos los datos en su lugar correspondiente según el tipo
-                console.log("mensaje")
                 document.getElementById("likes" + like + result.idContenido).innerText = result.totalLikes;
                 document.getElementById("dislikes"+ like + result.idContenido).innerText = result.totalDisLikes;
             } catch (error) {
@@ -341,40 +340,6 @@
                 console.error("Error: ", error)
             }
         };
-        async function obtenerVotos() {
-            let init = {
-                method: 'GET'
-            }
-            try {
-                // la respuesta contiene un objeto con los totales de "me gusta" y de "no me gusta"
-                const resp = await fetch( window.location.href + '/obtenerVotos', init);
-                const result = await resp.json();
-                console.log(result);
-                // Preparamos el id del tipo de contenido que hay que actualizar
-                switch (result.tipo){
-                    case 'votoPregunta':
-                        like = 'Pregunta'
-                        break;
-                    case 'votoRespuesta':
-                        like = 'Respuesta'
-                        break;
-                    case 'votoComentario':
-                        break;
-                }
-                // ponemos los datos en su lugar correspondiente según el tipo
-                console.log("mensaje")
-                document.getElementById("likes" + like + result.idContenido).innerText = result.totalLikes;
-                document.getElementById("dislikes"+ like + result.idContenido).innerText = result.totalDisLikes;
-            } catch (error) {
-                // TODO: Poner un mensaje de error en la pantalla
-                console.error("Error: ", error)
-            }
-        };
-
-       document.addEventListener('DOMContentLoaded', function(){
-        obtenerVotos();
-       });
-
 
         // Script votos
         const votaP = (n , x) => {
@@ -400,6 +365,7 @@
             formData.append('tipo', 'votoComentario')
             votar(formData)
         }
+
 </script>
 
 

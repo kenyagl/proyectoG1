@@ -14,7 +14,6 @@ public class VotosSrvc {
         votosRepo.save(voto);
     }
 
-
     public Integer likesPregunta(Long idPregunta){
         return votosRepo.totalLikesPregunta(idPregunta);
     }

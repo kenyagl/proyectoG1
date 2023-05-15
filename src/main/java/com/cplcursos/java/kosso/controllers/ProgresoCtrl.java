@@ -1,14 +1,17 @@
 package com.cplcursos.java.kosso.controllers;
 
+import com.cplcursos.java.kosso.MyUserDetails;
 import com.cplcursos.java.kosso.entities.EjercicioOpMul;
 import com.cplcursos.java.kosso.entities.PuntosForo;
 import com.cplcursos.java.kosso.entities.RespuestaEjOpMul;
 import com.cplcursos.java.kosso.services.EjerciciosSrvc;
 import com.cplcursos.java.kosso.services.PuntosForoSrvc;
 import com.cplcursos.java.kosso.services.RespuestaEjOpMulSrvc;
+import com.cplcursos.java.kosso.services.UsuarioSrvcImpl;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +38,8 @@ public class ProgresoCtrl {
     EjerciciosSrvc ejerciciosSrvc;
     @Autowired
     PuntosForoSrvc puntosForoSrvc;
+    @Autowired
+    UsuarioSrvcImpl usuarioSrvc;
 
     // Points per action
     final static int puntosEjercicio = 100;
@@ -55,7 +60,7 @@ public class ProgresoCtrl {
 
     // Returns a view of respuestas grouped by month, day and year with no reference to current date (could be used for general statics)
     @GetMapping("/progress")
-    public String showProgress(Model model) {
+    public String showProgress(Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
 
         // Retrieve data from database
         List<EjercicioOpMul> ejercicios = ejerciciosSrvc.findAll();
@@ -113,13 +118,14 @@ public class ProgresoCtrl {
         model.addAttribute("respuestasByMonth", respuestasByMonth);
         model.addAttribute("respuestasByWeek", respuestasByWeek);
         model.addAttribute("respuestasByDay", respuestasByDay);
+        model.addAttribute("usuario", usuarioSrvc.findByAuth(userDetails));
 
         return "progreso/progress";
     }
 
     // Returns a view of progress with reference to the current month, day and week
     @GetMapping("/usuario-progress")
-    public String showUsuarioProgress(Model model) {
+    public String showUsuarioProgress(Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
 
         // Retrieve data from database
         List<EjercicioOpMul> ejercicios = ejerciciosSrvc.findAll();
@@ -160,6 +166,7 @@ public class ProgresoCtrl {
         model.addAttribute("totalAnswersThisMonth", totalAnswersThisMonth);
         model.addAttribute("totalAnswersThisWeek", totalAnswersThisWeek);
         model.addAttribute("totalAnswersToday", totalAnswersToday);
+        model.addAttribute("usuario", usuarioSrvc.findByAuth(userDetails));
 
         return "progreso/usuario-progress";
     }

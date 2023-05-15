@@ -65,8 +65,7 @@ public class PreguntaCtrl {
 
     @GetMapping(value = {"/logged", "/logged/"})
     public String mostrarPreguntasLogged (@AuthenticationPrincipal MyUserDetails userDetails, @ModelAttribute("search") String search, @ModelAttribute("filtro") String filtro, Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
-        String email = userDetails.getUsername();
-        Usuario usuario = usuSrvc.findByEmail(email);
+        Usuario usuario = usuSrvc.findByAuth(userDetails);
 
         return mostrarForo(usuario, search, filtro, model, page, size);
     }
@@ -130,9 +129,8 @@ public class PreguntaCtrl {
     // Muestra la pregunta publicada por su id
     @GetMapping(value = "/preguntaPublicada/{id}")
     public String verPreguntaPublicada (@PathVariable Long id, Model model, @AuthenticationPrincipal MyUserDetails userDetails){
-        String email = userDetails.getUsername();
-        Usuario usuario = usuSrvc.findByEmail(email);
-        model.addAttribute("usuario", usuario);
+
+        model.addAttribute("usuario", usuSrvc.findByAuth(userDetails));
 
         Optional<Pregunta> pregunta = preguntaSrvc.findById(id);
         if(pregunta.isPresent()) {
@@ -173,9 +171,7 @@ public class PreguntaCtrl {
     @GetMapping(value = "/edit/{id}")
     public String editarPregunta( @PathVariable("id") Long id, @AuthenticationPrincipal MyUserDetails userDetails, Model model){
 
-        String email = userDetails.getUsername();
-        Usuario usuario = usuSrvc.findByEmail(email);
-        model.addAttribute("usuario", usuario);
+        model.addAttribute("usuario", usuSrvc.findByAuth(userDetails));
 
         Optional<Pregunta> pregunta = preguntaSrvc.findById(id);
         if(pregunta.isPresent() && usuSrvc.findByEmail(userDetails.getUsername()).equals(pregunta.get().getUsuario())){
@@ -191,9 +187,8 @@ public class PreguntaCtrl {
 
     @GetMapping(value = "/new")
     public String verFormularioPregunta (Model model, @AuthenticationPrincipal MyUserDetails userDetails){
-        String email = userDetails.getUsername();
-        Usuario usuario = usuSrvc.findByEmail(email);
-        model.addAttribute("usuario", usuario);
+
+        model.addAttribute("usuario", usuSrvc.findByAuth(userDetails));
 
         model.addAttribute("pregunta", new Pregunta());
         model.addAttribute("categorias", categoriaSrvc.findAll());
@@ -212,7 +207,7 @@ public class PreguntaCtrl {
         if(pregunta.isPresent() && usuSrvc.findByEmail(userDetails.getUsername()).equals(pregunta.get().getUsuario())){
         preguntaSrvc.borrarPregunta(id);}
         else {
-            return "Usuario dueño de la pregunta no conectado";
+            return "error/error";
         }
         return "redirect:/preguntas";
     }

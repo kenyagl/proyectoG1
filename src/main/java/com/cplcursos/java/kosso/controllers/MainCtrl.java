@@ -33,10 +33,8 @@ public class MainCtrl {
 
     @GetMapping("/homeLogged")
     public String showHomeLogged(@AuthenticationPrincipal MyUserDetails userDetails, Model modelo) {
-        String email = userDetails.getUsername();
-        Usuario usu = usuSrvc.findByEmail(email);
 
-        modelo.addAttribute("usuario", usu);
+        modelo.addAttribute("usuario", usuSrvc.findByAuth(userDetails));
 
         return "home";
     }
@@ -44,13 +42,6 @@ public class MainCtrl {
     @GetMapping("/login")
     public String acceso() {
         return "login";
-    }
-
-    @PostMapping("/loginprueba")
-    public String comprobarAcceso(Model modelo, @RequestParam("usuario") String usu, @RequestParam("clave") String clave){
-        String texto = "Hola "+ usu +". Tu clave es " + clave + ".";
-        modelo.addAttribute("texto", texto);
-        return "exitoLogin";
     }
 
 }

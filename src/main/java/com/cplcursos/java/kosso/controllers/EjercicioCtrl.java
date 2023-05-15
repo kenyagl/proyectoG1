@@ -41,16 +41,14 @@ public class EjercicioCtrl {
 
     @GetMapping(value = {"/", ""})
     public String showEjercicios(@AuthenticationPrincipal MyUserDetails userDetails, Model model, @Param("keyword") String keyword) {
-        String userEmail = userDetails.getUsername();
-        Usuario usu = usuarioSrvc.findByEmail(userEmail);
-        Integer totalusu = usuarioSrvc.totalPuntos(usu);
+        Usuario usu = usuarioSrvc.findByAuth(userDetails);
 
         List<EjercicioOpMul> ejerciciosResult = ejerciciosService.encontrarEjerPorCategoria(keyword);
 
         model.addAttribute("ejercicios", ejerciciosResult);
         model.addAttribute("keyword", keyword);
         model.addAttribute("usuario", usu);
-        model.addAttribute("totalusu", totalusu);
+        model.addAttribute("totalusu", usuarioSrvc.totalPuntos(usu));
         model.addAttribute("categorias", categoriaSrvc.findAll());
 
         return "ejercicios/menuEjercicios";
@@ -58,9 +56,8 @@ public class EjercicioCtrl {
 
     @GetMapping("/{id}")
     public String showEjercicio(@AuthenticationPrincipal MyUserDetails userDetails, @PathVariable("id") Long id, Model model) {
-        String userEmail = userDetails.getUsername();
-        Usuario usu = usuarioSrvc.findByEmail(userEmail);
-        Integer totalusu = usuarioSrvc.totalPuntos(usu);
+
+        Usuario usu = usuarioSrvc.findByAuth(userDetails);
 
         Optional<EjercicioOpMul> ejercicioOpMulOptional = ejerciciosService.findById(id);
         if (ejercicioOpMulOptional.isPresent()) {
@@ -69,7 +66,7 @@ public class EjercicioCtrl {
             model.addAttribute("ejercicio", ejercicioOpMul);
             model.addAttribute("usuario", usu);
             model.addAttribute("id_usuario", usu.getId());
-            model.addAttribute("totalusu", totalusu);
+            model.addAttribute("totalusu", usuarioSrvc.totalPuntos(usu));
 
             Long idNextEjer = ejerciciosService.findIdNextEjercicio(id);
 

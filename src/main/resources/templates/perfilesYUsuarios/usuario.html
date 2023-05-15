@@ -27,7 +27,7 @@
 <nav th:replace="components/menuLateral :: navbar"></nav>
 
  <div class="header"  >
-     <img class="avatar" th:src="@{${usuario.getPhotosImagePath()}}" style="margin-top:100px">
+     <img class="avatar" th:src="@{${usuarioPerfil.getPhotosImagePath()}}" style="margin-top:100px">
      <h1 class="username" th:text="${nombreCompleto}" style="font-size: 40px;"></h1>
 
  </div>
@@ -35,7 +35,7 @@
 <div class="card">
      <div class="card-body about" style="font-size: 24px; color: white; padding-left: 200px;">
          <h3 class="text-black">Acerca de</h3>
-         <p th:text="${usuario.getDescripcion()}">Añade tu descripción aquí</p>
+         <p th:text="${usuarioPerfil.getDescripcion()}">Añade tu descripción aquí</p>
      </div>
 </div>
 

@@ -1,6 +1,7 @@
 package com.cplcursos.java.kosso.services;
 
 import com.cplcursos.java.kosso.DTO.UsuarioDTO;
+import com.cplcursos.java.kosso.MyUserDetails;
 import com.cplcursos.java.kosso.entities.Usuario;
 
 import java.util.List;
@@ -23,4 +24,8 @@ public interface ifxUsuarioSrvc {
     List<Usuario> findAll();
 
     List<Usuario> ordenarPorPuntos(List<Usuario> listaNoOrdenada);
+
+    Usuario findByAuth(MyUserDetails myUserDetails);
+
+    boolean isAuthenticated();
 }

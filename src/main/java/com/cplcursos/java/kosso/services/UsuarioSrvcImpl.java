@@ -1,6 +1,7 @@
 package com.cplcursos.java.kosso.services;
 
 import com.cplcursos.java.kosso.DTO.UsuarioDTO;
+import com.cplcursos.java.kosso.MyUserDetails;
 import com.cplcursos.java.kosso.entities.Rol;
 import com.cplcursos.java.kosso.entities.Usuario;
 import com.cplcursos.java.kosso.repositories.RolRepo;
@@ -128,6 +129,7 @@ public class UsuarioSrvcImpl implements ifxUsuarioSrvc {
                 .collect(Collectors.toList());
     }
 
+    @Override
     public boolean isAuthenticated() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || AnonymousAuthenticationToken.class.
@@ -135,5 +137,11 @@ public class UsuarioSrvcImpl implements ifxUsuarioSrvc {
             return false;
         }
         return authentication.isAuthenticated();
+    }
+
+    @Override
+    public Usuario findByAuth(MyUserDetails myUserDetails){
+        String email = myUserDetails.getUsername();
+        return findByEmail(email);
     }
 }

@@ -29,9 +29,8 @@ public class UsuarioCtrl {
 
     @GetMapping("/listausus")
     public String listaUsus(Model modelo, @AuthenticationPrincipal MyUserDetails userDetails){
-        String email = userDetails.getUsername();
-        Usuario usu = usuSrvc.findByEmail(email);
-        modelo.addAttribute("usuario", usu);
+
+        modelo.addAttribute("usuario", usuSrvc.findByAuth(userDetails));
 
         modelo.addAttribute("listausuarios", usuSrvc.findAll());
         return "perfilesYUsuarios/listaUsus";
@@ -39,9 +38,8 @@ public class UsuarioCtrl {
 
     @GetMapping("/ranking")
     public String ranking(Model modelo, @AuthenticationPrincipal MyUserDetails userDetails){
-        String email = userDetails.getUsername();
-        Usuario usu = usuSrvc.findByEmail(email);
-        modelo.addAttribute("usuario", usu);
+
+        modelo.addAttribute("usuario", usuSrvc.findByAuth(userDetails));
 
         List<Usuario> listaNoOrdenada = usuSrvc.findAll();
         List<Usuario> listaOrdenada = usuSrvc.ordenarPorPuntos(listaNoOrdenada);
@@ -51,8 +49,8 @@ public class UsuarioCtrl {
     }
     @GetMapping(value={"/perfil", "", "/"})
     public String Perfil(Model modelo, @AuthenticationPrincipal MyUserDetails userDetails) {
-        String email = userDetails.getUsername();
-        Usuario usu = usuSrvc.findByEmail(email);
+
+        Usuario usu = usuSrvc.findByAuth(userDetails);
         String nombreCompleto = usu.getNombre() + " " + usu.getApellidos();
 
         modelo.addAttribute("usuario", usu);
@@ -67,11 +65,12 @@ public class UsuarioCtrl {
             if (usuSrvc.findByEmail(userDetails.getUsername()).equals(usu.get())){
                 return "redirect:/usuario/perfil";
             }else {
-                modelo.addAttribute("usuario", usu.get());
+                modelo.addAttribute("usuario", usuSrvc.findByAuth(userDetails));
+                modelo.addAttribute("usuarioPerfil", usu.get());
                 return "perfilesYUsuarios/usuario";
             }
         }else {
-            return "error-page";
+            return "error/error";
         }
     }
 

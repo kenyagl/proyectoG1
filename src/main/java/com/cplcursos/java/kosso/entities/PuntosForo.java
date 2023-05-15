@@ -40,5 +40,6 @@ public class PuntosForo {
     private Comentario comentario;
 
     private Integer puntos;
+
     private LocalDate fechaVoto;
 }

@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,8 +49,8 @@ public class PreguntaCtrl {
     @Autowired
     private UsuarioSrvcImpl usuSrvc;
 
-    @Autowired
-    private PuntosForoSrvc puntosForoSrvc;
+//    @Autowired
+//    private PuntosForoSrvc puntosForoSrvc;
 
 
     @GetMapping(value = {"/", ""})
@@ -94,16 +95,33 @@ public class PreguntaCtrl {
         Optional<Pregunta> pregunta = preguntaSrvc.findById(id);
         if(pregunta.isPresent()) {
             model.addAttribute("pregunta", pregunta.get());
-            // Cada vez que se cargue la página, hay que actualizar los contadores de likes y dislikes
-            //Long totalLikes =  puntosForoSrvc.cuentaLikes(pregunta.get().getId(),"votoPregunta");
-            //Long totalDislikes = puntosForoSrvc.cuentaDislikes(pregunta.get().getId(),"votoPregunta");
-            // los añadimos al modelo
-            //model.addAttribute("totalLikes", totalLikes);
-            //model.addAttribute("totalDisLikes", totalDislikes);
+             //Cada vez que se cargue la página, hay que actualizar los contadores de likes y dislikes
+//            Long totalLikes =  puntosForoSrvc.cuentaLikes(pregunta.get().getId(),"votoPregunta");
+//            Long totalDislikes = puntosForoSrvc.cuentaDislikes(pregunta.get().getId(),"votoPregunta");
+
+             //los añadimos al modelo
+            model.addAttribute("totalLikes", pregunta.get().calcularLikes());
+            model.addAttribute("totalDisLikes", pregunta.get().calcularDislikes());
             return "preguntas/preguntaPublicada";
         }
         return "redirect:/preguntas/";
     }
+
+    @GetMapping(value = "/preguntaPublicada/{id}/obtenerVotos")
+    @ResponseBody
+    public Map<String, Object> obtenerVotos (@PathVariable Long id, Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
+        Optional<Pregunta> pregunta = preguntaSrvc.findById(id);
+        if(pregunta.isPresent()) {
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("idContenido", id);
+            map.put("tipo", "votoPregunta");
+            map.put("totalLikes", pregunta.get().calcularLikes());
+            map.put("totalDisLikes", pregunta.get().calcularDislikes());
+        return map;
+        }
+        return Collections.emptyMap();
+    }
+
 
     // Publica la pregunta y la muestra
     @PostMapping(value = "/save")

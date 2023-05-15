@@ -72,28 +72,28 @@
                                         data-bs-target="#modalRespuesta">Responder
                                 </button>
                                 <!-- Botones de like y dislike de Pregunta -->
-                                <button type="button" class="tooltip-button thumbs-up2" data-toggle="tooltip"
-                                        data-placement="bottom" title="Like"
-                                        th:attr="onclick=|votaP(1,'${pregunta.getId}')|">Like <i
-                                        class="fa fa-thumbs-o-up " aria-hidden="true"></i></button>
-                                <!--  Likes Pregunta -->
-                                <span>Likes:
-                                    <span th:id="'likesPregunta' + ${pregunta.getId()}" class="single-question-vote-result" th:text="${totalLikes}">
-                                        0
-                                    </span>
-                                </span>
 
-                                <button type="button" class="tooltip-button  thumbs-down2" data-toggle="tooltip"
-                                        data-placement="bottom" title="Dislike"
-                                        th:attr="onclick=|votaP(-1,'${pregunta.getId}')|">Dislike <i
-                                        class="fa fa-thumbs-o-down" aria-hidden="true"></i>
-                                </button>
-                                <!-- Dislikes Pregunta -->
-                                <span>Dislikes:
-                                    <span th:id="'dislikesPregunta' + ${pregunta.getId()}" class="single-question-vote-result" th:text="${totalDisLikes}">
-                                        0
+                                    <button type="button" class="tooltip-button thumbs-up2" data-toggle="tooltip"
+                                            data-placement="bottom" title="Like" th:attr="onclick=|votaP(1,'${pregunta.getId}')|">Like
+                                        <i class="fa fa-thumbs-o-up " aria-hidden="true" ></i></button>
+                                    <!--  Likes Pregunta -->
+                                    <span>Likes:
+                                        <span th:id="'likesPregunta' + ${pregunta.getId()}" class="single-question-vote-result">
+                                            0
+                                        </span>
                                     </span>
-                                </span>
+                                    <button type="button" class="tooltip-button  thumbs-down2" data-toggle="tooltip"
+                                                data-placement="bottom" title="Dislike" th:attr="onclick=|votaP(-1,'${pregunta.getId}')|">Dislike
+                                        <i class="fa fa-thumbs-o-down" aria-hidden="true" ></i>
+                                        </button>
+                                        <!-- Dislikes Pregunta -->
+                                        <span>Dislikes:
+                                            <span th:id="'dislikesPregunta' + ${pregunta.getId()}" class="single-question-vote-result">
+                                                0
+                                            </span>
+                                    </span>
+
+
 
                             </div>
                         </div>
@@ -328,11 +328,12 @@
                         break;
                     case 'votoRespuesta':
                         like = 'Respuesta'
-                        break
+                        break;
                     case 'votoComentario':
-                        like = "Comentario"
+                        break;
                 }
                 // ponemos los datos en su lugar correspondiente según el tipo
+                console.log("mensaje")
                 document.getElementById("likes" + like + result.idContenido).innerText = result.totalLikes;
                 document.getElementById("dislikes"+ like + result.idContenido).innerText = result.totalDisLikes;
             } catch (error) {
@@ -340,6 +341,40 @@
                 console.error("Error: ", error)
             }
         };
+        async function obtenerVotos() {
+            let init = {
+                method: 'GET'
+            }
+            try {
+                // la respuesta contiene un objeto con los totales de "me gusta" y de "no me gusta"
+                const resp = await fetch( window.location.href + '/obtenerVotos', init);
+                const result = await resp.json();
+                console.log(result);
+                // Preparamos el id del tipo de contenido que hay que actualizar
+                switch (result.tipo){
+                    case 'votoPregunta':
+                        like = 'Pregunta'
+                        break;
+                    case 'votoRespuesta':
+                        like = 'Respuesta'
+                        break;
+                    case 'votoComentario':
+                        break;
+                }
+                // ponemos los datos en su lugar correspondiente según el tipo
+                console.log("mensaje")
+                document.getElementById("likes" + like + result.idContenido).innerText = result.totalLikes;
+                document.getElementById("dislikes"+ like + result.idContenido).innerText = result.totalDisLikes;
+            } catch (error) {
+                // TODO: Poner un mensaje de error en la pantalla
+                console.error("Error: ", error)
+            }
+        };
+
+       document.addEventListener('DOMContentLoaded', function(){
+        obtenerVotos();
+       });
+
 
         // Script votos
         const votaP = (n , x) => {

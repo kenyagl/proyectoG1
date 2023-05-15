@@ -7,11 +7,13 @@ import com.cplcursos.java.kosso.services.PreguntaSrvc;
 import com.cplcursos.java.kosso.services.VotosSrvc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -35,8 +37,9 @@ public class VotosCtrl {
 
     // Votar pregunta
     @PostMapping("/votar")
-    @ResponseBody   // Permite devolver un objeto en el cuerpo de la respuesta HTTP a la llamada desde el js (fetch)
-    public Map<String, Object> votar(@RequestParam Long idContenido, @RequestParam String tipo, @RequestParam Integer valor){
+    @ResponseBody
+     // Permite devolver un objeto en el cuerpo de la respuesta HTTP a la llamada desde el js (fetch)
+    public Map<String, Object> votar(@RequestParam Long idContenido, @RequestParam String tipo, @RequestParam Integer valor, Model model){
 
         // TODO Si no hay idContenido ni tipo, no se puede asignar el voto --> Lanzar condición de error
         // TODO Si valor es 0, no hay que hacer nada. Se puede indicar la situación o no al usuario
@@ -46,29 +49,39 @@ public class VotosCtrl {
             //... y creamos el objeto voto a asignar a ese contenido
             case "votoPregunta":
                 // TODO findById devuelve un Optional. Debe tratarse el caso de que sea nulo lanzando un error
-                Pregunta preg = pregSrvc.findById(idContenido).get();
+                 Pregunta preg = pregSrvc.findById(idContenido).get();
 
                 PuntosForo nuevoVoto = new PuntosForo();
                 nuevoVoto.setFechaVoto(LocalDate.now());
                 nuevoVoto.setPuntos(valor > 0 ? 25 : -25);
                 preg.anexarVoto(nuevoVoto);
                 pregSrvc.save(preg);
-                break;
+
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("idContenido", idContenido);
+                map.put("tipo", tipo);
+                map.put("totalLikes", preg.calcularLikes());
+                map.put("totalDisLikes", preg.calcularDislikes());
+                return map;
             case "votoRespuesta":
                 break;
             case "votoComentario":
                 break;
             default:
         }
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("idContenido", idContenido);
-        map.put("tipo", tipo);
-        map.put("totalLikes", votoSrvc.likesPregunta(idContenido));
-        map.put("totalDisLikes", votoSrvc.dislikesPregunta(idContenido));
-        //...llegarán a la llamada FETCH de js como un objeto tipo array de parejas "clave": "valor"
-        return map;
 
+//        Map<String, Object> map = new HashMap<String, Object>();
+//        map.put("idContenido", idContenido);
+//        map.put("tipo", tipo);
+//        map.put("totalLikes", votoSrvc.likesPregunta(idContenido));
+//        map.put("totalDisLikes", votoSrvc.dislikesPregunta(idContenido));
+//        //...llegarán a la llamada FETCH de js como un objeto tipo array de parejas "clave": "valor"
+
+
+        return Collections.emptyMap();
     }
+
+
 
     // Votar respuesta
 

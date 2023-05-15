@@ -32,7 +32,7 @@ public class Pregunta {
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate fechaPregunta; // Preguntar formato de la fecha
 
-    @OneToMany(mappedBy = "pregunta")
+    @OneToMany(mappedBy = "pregunta", cascade = CascadeType.ALL)
     private Set<PuntosForo> puntos;
 
     @ManyToOne
@@ -57,4 +57,24 @@ public class Pregunta {
         voto.setPregunta(this);
         this.puntos.add(voto);
     }
+    
+    public int calcularLikes(){
+        int totalVotos = 0;
+        for( PuntosForo pf : puntos ){
+            if(pf.getPuntos()>0){
+                totalVotos++;
+            }
+        }
+        return totalVotos;
+    }
+    public int calcularDislikes(){
+        int totalVotos = 0;
+        for( PuntosForo pf : puntos ){
+            if(pf.getPuntos()<0){
+                totalVotos++;
+            }
+        }
+        return totalVotos;
+    }
+    
 }

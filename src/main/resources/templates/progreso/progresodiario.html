@@ -7,26 +7,42 @@
 
 <body>
 
-<header th:replace="components/cabeceraFrag :: cabecera(usuario=${usuario})"></header>
-<nav th:replace="components/menuLateral :: navbar"></nav>
+<header th:replace="~{components/cabeceraFrag :: cabecera(usuario=${usuario})}"></header>
+<nav th:replace="~{components/menuLateral :: navbar}"></nav>
 
-<div class="container mt-4">
-    <div class="row">
-        <div class="col-md-8 offset-md-2">
-            <div class="text-center">
-                <h1>Tu Progreso: </h1>
-            </div>
-
-            <div class="mt-4 ">
-                <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar"
-                     th:attr="aria-valuenow=${totalAnswersToday},
-                             aria-valuemax=${progressBarEjercicioMax}"
-                     th:text="${totalAnswersToday + ' puntos'}"
-                     aria-valuemin="0"></div>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="text-center">
+                    <h1 th:text="'Tu Progreso en fecha: '+ ${fechaCalendario}"></h1>
+                </div>
+                <h2>Ejercicios</h2>
+                <div class="mt-4 ">
+                    <div class="accordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Hoy
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <div class="progress" id="day-progress">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar"
+                                             th:attr="aria-valuenow=${totalAnswersToday},
+                                             aria-valuemax=${progressBarEjercicioMax}"
+                                             th:text="${totalAnswersToday + ' puntos'}"
+                                             aria-valuemin="0"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
+
 
 <!-- Optional JavaScript -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>

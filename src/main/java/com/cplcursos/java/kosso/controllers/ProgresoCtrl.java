@@ -2,10 +2,8 @@ package com.cplcursos.java.kosso.controllers;
 
 import com.cplcursos.java.kosso.MyUserDetails;
 import com.cplcursos.java.kosso.entities.EjercicioOpMul;
-import com.cplcursos.java.kosso.entities.PuntosForo;
 import com.cplcursos.java.kosso.entities.RespuestaEjOpMul;
 import com.cplcursos.java.kosso.services.EjerciciosSrvc;
-import com.cplcursos.java.kosso.services.PuntosForoSrvc;
 import com.cplcursos.java.kosso.services.RespuestaEjOpMulSrvc;
 import com.cplcursos.java.kosso.services.UsuarioSrvcImpl;
 import lombok.extern.log4j.Log4j2;
@@ -14,11 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.GetMapping;;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.DateFormatSymbols;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.IsoFields;
 import java.util.HashMap;
@@ -37,19 +36,14 @@ public class ProgresoCtrl {
     @Autowired
     EjerciciosSrvc ejerciciosSrvc;
     @Autowired
-    PuntosForoSrvc puntosForoSrvc;
-    @Autowired
     UsuarioSrvcImpl usuarioSrvc;
 
     // Points per action
     final static int puntosEjercicio = 100;
-//    final static int puntosPreguntaForo = 10;
-//    final static int puntosRespuestaForo = 25;
+
 
     // Set maximum value for progress bars
     int progressBarEjercicioMax = 0;
-//    int progressBarPreguntaForoMax = 0;
-//    int progressBarRespuestaMax = 0;
 
     // Returns a list with all respuestas
     @GetMapping(value = {"/", ""})
@@ -170,11 +164,35 @@ public class ProgresoCtrl {
 
         return "progreso/usuario-progress";
     }
-/*    @GetMapping("/usuario-progress/{dia}/{mes}/{ano}")
-    public String showProgresoDia(Model model, @PathVariable("dia") int dia, @PathVariable("mes") int mes, @PathVariable("ano") int ano){
-        // Calcular/leer el progreso para la fecha indicada
+    @GetMapping("/progresodiario/{day}/{month}/{year}")
+    public String showProgresoDia(Model model, @RequestParam("day") int day, @RequestParam("month") int month, @RequestParam("year") int year){
 
-        // modelo a utilizar
-        return "usuario/usuario";
-    }*/
+        // Retrieve data from database
+        List<EjercicioOpMul> ejercicios = ejerciciosSrvc.findAll();
+        List<RespuestaEjOpMul> respuestas = respuestaEjOpMulSrvc.findAll();
+
+        // Calculate the number of ejercicios and respuestas
+        int numeroEjercicios = ejercicios.size();
+
+        // Convert day, month, and year to LocalDate
+        LocalDate fechaCalendario = LocalDate.of(year, month, day);
+        // Variable to store answers today
+        int totalAnswersToday = 0;
+
+        // Calculate progress for a concrete day
+        for (RespuestaEjOpMul respuesta : respuestas) {
+            LocalDateTime fechaRespuesta = respuesta.getFechaRespuesta();
+            if (fechaRespuesta.toLocalDate().isEqual(fechaCalendario)) {
+                totalAnswersToday++;
+            }
+        }
+        totalAnswersToday *= puntosEjercicio;
+        progressBarEjercicioMax = (numeroEjercicios * puntosEjercicio);
+
+        // Add progress data to model
+        model.addAttribute("fechaCalendario", fechaCalendario.toString());
+        model.addAttribute("progressBarEjercicioMax", progressBarEjercicioMax);
+        model.addAttribute("totalAnswersToday", totalAnswersToday);
+        return "progreso/progresodiario";
+    }
 }

@@ -74,7 +74,7 @@
                                 </button>
                                 <!-- Botones de like y dislike de Pregunta -->
 
-                                    <button type="button" class="tooltip-button thumbs-up2" data-toggle="tooltip"
+                                    <button th:if="${usuario != null}" type="button" class="tooltip-button thumbs-up2" data-toggle="tooltip"
                                             data-placement="bottom" title="Like" th:attr="onclick=|votaP(1,'${pregunta.getId}')|">Like
                                         <i class="fa fa-thumbs-o-up " aria-hidden="true" ></i></button>
                                     <!--  Likes Pregunta -->
@@ -83,7 +83,7 @@
                                             0
                                         </span>
                                     </span>
-                                    <button type="button" class="tooltip-button  thumbs-down2" data-toggle="tooltip"
+                                    <button th:if="${usuario != null}" type="button" class="tooltip-button  thumbs-down2" data-toggle="tooltip"
                                                 data-placement="bottom" title="Dislike" th:attr="onclick=|votaP(-1,'${pregunta.getId}')|">Dislike
                                         <i class="fa fa-thumbs-o-down" aria-hidden="true" ></i>
                                         </button>
@@ -144,14 +144,14 @@
                                                 </div>
                                                 <div class="col">
                                                     <!-- Botones de like y dislike a respuesta -->
-                                                    <button type="button" class="tooltip-button thumbs-up2" data-toggle="tooltip" data-placement="bottom" title="Like" th:attr="onclick=|votaR(1,'${respuesta.getId}')|">Like <i class="fa fa-thumbs-o-up " aria-hidden="true"></i></button>
+                                                    <button th:if="${usuario != null}" type="button" class="tooltip-button thumbs-up2" data-toggle="tooltip" data-placement="bottom" title="Like" th:attr="onclick=|votaR(1,'${respuesta.getId}')|">Like <i class="fa fa-thumbs-o-up " aria-hidden="true"></i></button>
                                                     <!--  Likes Pregunta -->
                                                     <span>Likes:
                                                         <span th:text="${respuesta.calcularLikes()}" th:id="'likesRespuesta' + ${respuesta.getId()}" class="single-question-vote-result" >
                                                             0
                                                         </span>
                                                     </span>
-                                                    <button type="button" class="tooltip-button  thumbs-down2" data-toggle="tooltip" data-placement="bottom" title="Dislike" th:attr="onclick=|votaR(-1,'${respuesta.getId}')|">Dislike<i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button>
+                                                    <button th:if="${usuario != null}" type="button" class="tooltip-button  thumbs-down2" data-toggle="tooltip" data-placement="bottom" title="Dislike" th:attr="onclick=|votaR(-1,'${respuesta.getId}')|">Dislike<i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button>
                                                     <!-- Votos Respuesta -->
                                                     <span>Dislikes:
                                                         <span th:text="${respuesta.calcularDislikes()}" th:id="'dislikesRespuesta' + ${respuesta.getId()}" class="single-question-vote-result">
@@ -182,14 +182,14 @@
 
                                                             <!-- Botones de like y dislike a comentarios -->
                                                             <div class="col" >
-                                                                <button type="button" class="tooltip-button thumbs-up2" data-toggle="tooltip" data-placement="bottom" title="Like" th:attr="onclick=|votaC(1,'${comentario.getId}')|"> Like <i class="fa fa-thumbs-o-up " aria-hidden="true"></i></button>
+                                                                <button th:if="${usuario != null}" type="button" class="tooltip-button thumbs-up2" data-toggle="tooltip" data-placement="bottom" title="Like" th:attr="onclick=|votaC(1,'${comentario.getId}')|"> Like <i class="fa fa-thumbs-o-up " aria-hidden="true"></i></button>
                                                                 <span>Likes:
                                                                     <span th:text="${comentario.calcularLikes()}" th:id="'likesComentario' + ${comentario.getId()}" class="single-question-vote-result">
                                                                         0
                                                                     </span>
                                                                 </span>
 
-                                                                <button type="button" class="tooltip-button  thumbs-down2" data-toggle="tooltip" data-placement="bottom" title="Dislike" th:attr="onclick=|votaC(-1,'${comentario.getId}')|"> Dislike <i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button>
+                                                                <button th:if="${usuario != null}" type="button" class="tooltip-button  thumbs-down2" data-toggle="tooltip" data-placement="bottom" title="Dislike" th:attr="onclick=|votaC(-1,'${comentario.getId}')|"> Dislike <i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button>
                                                                 <!-- Votos Comentario -->
                                                                 <span>Dislikes:
                                                                     <span th:text="${comentario.calcularDislikes()}" th:id="'dislikesComentario' + ${comentario.getId()}" class="single-question-vote-result">

@@ -35,7 +35,10 @@ public class SecSecurityConfig {
             "/usuario/registro?success",
             "/home",
             "",
-            "/preguntas"
+            "/preguntas",
+            "/preguntas/search",
+            "/preguntas/preguntaPublicada/**"
+
     };
 
     private static final String[] ENDPOINTS_WHITELIST_ADMIN = {

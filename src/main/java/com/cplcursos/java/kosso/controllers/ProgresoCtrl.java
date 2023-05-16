@@ -164,11 +164,11 @@ public class ProgresoCtrl {
 
         return "progreso/usuario-progress";
     }
-    @GetMapping("/progresodiario/{day}/{month}/{year}")
+    @GetMapping("/progresodiario")
     public String showProgresoDia(Model model, @AuthenticationPrincipal MyUserDetails userDetails,
                                   @RequestParam("day") int day,
                                   @RequestParam("month") int month,
-                                  @RequestParam("year") int year){
+                                  @RequestParam("year") int year) {
 
         // Retrieve data from database
         List<EjercicioOpMul> ejercicios = ejerciciosSrvc.findAll();

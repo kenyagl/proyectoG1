@@ -490,6 +490,7 @@ font-family: "Khand";
 
 p{
 font-family: "Khand";
+font-size:14px;
 }
 
 .respuestas{
@@ -583,4 +584,12 @@ filter: drop-shadow(5px 5px 10px rgba(255, 255, 255, 0.75));
 .text-light{
 filter: drop-shadow(5px 5px 10px rgba(255, 255, 255, 0.75));
  text-shadow: 3px 3px 2px rgba(0, 0, 0, 1);
+}
+.modal-content{
+background-image: url('/image/fondocard.png');
+box-shadow: 5px 5px 10px rgba(255, 255, 255, 0.50);
+
+}
+.pregunta{
+font-size: 20px;
 }

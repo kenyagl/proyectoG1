@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       lang="es_ES">
 
-    <head th:replace="~{components/headfragment :: head(titulo='Pregunta publicada')}"></head>
+<head th:replace="~{components/headfragment :: head(titulo='Pregunta publicada')}"></head>
 
 
 <body>
@@ -28,28 +28,32 @@
 
                 <!--Título y cuerpo pregunta-->
                 <div class="card">
-                <div class="card-body">
-                    <div class="details-header">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div th:if="${pregunta.getUsuario()} == ${usuario}">
-                                    <!-- Botón de editar pregunta -->
-                                    <a  th:href="@{/preguntas/edit/{id}(id=${pregunta.getId()})}"
-                                       class="btn border-dark">Editar Pregunta</a>
-                                    <!-- Botón de eliminar pregunta -->
-                                    <a th:href="@{/preguntas/delete/{id}(id=${pregunta.getId()})}"
-                                       class="btn border-dark btn-danger">Eliminar Pregunta</a>
-                                </div>
-                                        <!-- Imagen de Usuario, Nombre de Perfil, Título de la pregunta y fecha de la publicación-->
+                    <div class="card-body">
+                        <div class="details-header">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div th:if="${pregunta.getUsuario()} == ${usuario}">
+                                        <!-- Botón de editar pregunta -->
+                                        <a th:href="@{/preguntas/edit/{id}(id=${pregunta.getId()})}"
+                                           class="btn border-dark">Editar Pregunta</a>
+                                        <!-- Botón de eliminar pregunta -->
+                                        <a th:href="@{/preguntas/delete/{id}(id=${pregunta.getId()})}"
+                                           class="btn border-dark btn-danger">Eliminar Pregunta</a>
+                                    </div>
+                                    <!-- Imagen de Usuario, Nombre de Perfil, Título de la pregunta y fecha de la publicación-->
                                     <div class="col-12">
                                         <div class="d-flex align-items-center">
-                                            <img id="imgPerfil" class="rounded-circle m-3" th:src="@{${pregunta.getUsuario.getPhotosImagePath()}}" alt="Imagen de Prefil">
+                                            <img id="imgPerfil" class="rounded-circle m-3"
+                                                 th:src="@{${pregunta.getUsuario.getPhotosImagePath()}}"
+                                                 alt="Imagen de Prefil">
                                             <h3>
-                                                <a th:href="@{/usuario/perfil/{id}(id=${pregunta.getUsuario.getId()})}" th:text="${pregunta.getUsuario().getNombre()} ">Nombre de Usuario</a>
+                                                <a th:href="@{/usuario/perfil/{id}(id=${pregunta.getUsuario.getId()})}"
+                                                   th:text="${pregunta.getUsuario().getNombre()} ">Nombre de Usuario</a>
 
                                             </h3>
 
-                                            <h3 class="txtpreg"  th:text=" ${pregunta.getTituloPregunta()}" style="margin-left: 30px; font-weight: bolder">Título Pregunta</h3>
+                                            <h3 class="txtpreg" th:text=" ${pregunta.getTituloPregunta()}"
+                                                style="margin-left: 30px; font-weight: bolder">Título Pregunta</h3>
                                         </div>
                                         <span class="datosforo" th:text="${pregunta.getFechaPregunta()}">Fecha de Publicación</span>
                                     </div>
@@ -57,229 +61,283 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div>
-                        <!-- Contenido de la pregunta -->
-                        <p th:text="${pregunta.getTextoPregunta}"> Texto Pregunta</p>
-                        <div class="container" th:if="${pregunta.getFoto() != null}">
-                            <!-- Imagen de la pregunta -->
-                            <img class="img-fluid mx-auto d-block" th:src="@{${pregunta.getFotoPath()}}" alt="Imagen de la pregunta">
-                        </div>
-                        <hr>
-                        <div class="post-footer">
-                            <div class="col">
-                        <!-- Botón de responder a una pregunta -->
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#modalRespuesta">Responder
-                                </button>
-                                <!-- Botones de like y dislike de Pregunta -->
 
-                                    <button th:if="${usuario != null}" type="button" class="tooltip-button thumbs-up2" data-toggle="tooltip"
-                                            data-placement="bottom" title="Like" th:attr="onclick=|votaP(1,'${pregunta.getId}')|">Like
-                                        <i class="fa fa-thumbs-o-up " aria-hidden="true" ></i></button>
+                        <div>
+                            <!-- Contenido de la pregunta -->
+                            <p class="pregunta" th:text="${pregunta.getTextoPregunta}"> Texto Pregunta</p>
+                            <div class="container" th:if="${pregunta.getFoto() != null}">
+                                <!-- Imagen de la pregunta -->
+                                <img class="img-fluid mx-auto d-block" th:src="@{${pregunta.getFotoPath()}}"
+                                     alt="Imagen de la pregunta">
+                            </div>
+                            <hr>
+                            <div class="post-footer">
+                                <div class="col">
+                                    <!-- Botón de responder a una pregunta -->
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#modalRespuesta">Responder
+                                    </button>
+                                    <!-- Botones de like y dislike de Pregunta -->
+
+                                    <button th:if="${usuario != null}" type="button" class="tooltip-button thumbs-up2"
+                                            data-toggle="tooltip"
+                                            data-placement="bottom" title="Like"
+                                            th:attr="onclick=|votaP(1,'${pregunta.getId}')|">Like
+                                        <i class="fa fa-thumbs-o-up " aria-hidden="true"></i></button>
                                     <!--  Likes Pregunta -->
                                     <span>Likes:
-                                        <span th:text="${pregunta.calcularLikes}" th:id="'likesPregunta' + ${pregunta.getId()}" class="single-question-vote-result">
+                                        <span th:text="${pregunta.calcularLikes}"
+                                              th:id="'likesPregunta' + ${pregunta.getId()}"
+                                              class="single-question-vote-result">
                                             0
                                         </span>
                                     </span>
-                                    <button th:if="${usuario != null}" type="button" class="tooltip-button  thumbs-down2" data-toggle="tooltip"
-                                                data-placement="bottom" title="Dislike" th:attr="onclick=|votaP(-1,'${pregunta.getId}')|">Dislike
-                                        <i class="fa fa-thumbs-o-down" aria-hidden="true" ></i>
-                                        </button>
-                                        <!-- Dislikes Pregunta -->
+                                    <button th:if="${usuario != null}" type="button"
+                                            class="tooltip-button  thumbs-down2"
+                                            data-toggle="tooltip"
+                                            data-placement="bottom" title="Dislike"
+                                            th:attr="onclick=|votaP(-1,'${pregunta.getId}')|">Dislike
+                                        <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+                                    </button>
+                                    <!-- Dislikes Pregunta -->
                                     <span>Dislikes:
-                                        <span th:text="${pregunta.calcularDislikes}" th:id="'dislikesPregunta' + ${pregunta.getId()}" class="single-question-vote-result">
+                                        <span th:text="${pregunta.calcularDislikes}"
+                                              th:id="'dislikesPregunta' + ${pregunta.getId()}"
+                                              class="single-question-vote-result">
                                             0
                                         </span>
                                     </span>
-
-
-
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                </div>
-
-                <!-- Respuestas -->
-                <section>
-                    <div class="row d-flex justify-content-center">
-                        <div class="container-fluid">
-
-                            <div class="card-body p-4">
-                                <h1 class="text-center mb-4 pb-2">Respuestas</h1>
+            </div>
 
 
-                                    <div class="col">
+            <!-- Respuestas -->
+            <section>
+                <div class="row d-flex justify-content-center">
+                    <div class="container-fluid">
 
-                                        <!-- Respuesta -->
-                                        <div th:each="respuesta : ${pregunta.getRespuestas()}" class="card d-flex flex-start" style="margin-top: 1.5em; margin-bottom: 1.5em;" >
-                                            <div class="card-body">
+                        <div class="card-body p-4">
+                            <h1 class="text-center mb-4 pb-2">Respuestas</h1>
 
-                                            <!-- Imagen del usuario que responde -->
-                                            <img class="rounded-circle shadow-1-strong me-3" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(10).webp" th:src="@{${respuesta.getUsuario.getPhotosImagePath()}}" alt="avatar" width="65" height="65"/>
-                                            <div class="flex-grow-1 flex-shrink-1">
-                                                <div>
-                                                    <div class="d-flex justify-content-between align-items-center">
 
-                                                        <!-- Usuario de la respuesta y fecha -->
-                                                        <p class="mb-1">
-                                                            <a th:href="@{/usuario/perfil/{id}(id=${respuesta.getUsuario.getId()})}" th:text="${respuesta.getUsuario().getNombre()} ">Nombre de Usuario</a>
-                                                             <span th:text="${respuesta.getFechaRespuesta()}" class="small">- 2 hours ago</span>
-                                                        </p>
+                            <div class="col">
 
-                                                        <!-- Boton para comentar una Respuesta -->
-                                                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalComentario" th:attr="data-idrespuesta=${respuesta.getId()}">
-                                                            <span class="small"> Comentar</span>
-                                                        </button>
-                                                    </div>
+                                <!-- Respuesta -->
+                                <div th:each="respuesta : ${pregunta.getRespuestas()}" class="card d-flex flex-start"
+                                     style="margin-top: 1.5em; margin-bottom: 1.5em;">
+                                    <div class="card-body">
 
-                                                    <!-- Texto de la respuesta -->
-                                                    <p th:text="${respuesta.getTextoRespuesta()}" class="small mb-0">
-                                                        It is a long-established fact that a reader will be distracted
-                                                        by
-                                                        the readable content of a page.
+                                        <!-- Imagen del usuario que responde -->
+                                        <img class="rounded-circle shadow-1-strong me-3"
+                                             src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(10).webp"
+                                             th:src="@{${respuesta.getUsuario.getPhotosImagePath()}}" alt="avatar"
+                                             width="65" height="65"/>
+                                        <div class="flex-grow-1 flex-shrink-1">
+                                            <div style="margin-bottom: 10px;">
+                                                <div class="d-flex justify-content-between align-items-center">
+
+                                                    <!-- Usuario de la respuesta y fecha -->
+                                                    <p class="mb-1">
+                                                        <a th:href="@{/usuario/perfil/{id}(id=${respuesta.getUsuario.getId()})}"
+                                                           th:text="${respuesta.getUsuario().getNombre()} ">Nombre de
+                                                            Usuario</a>
+                                                        <span th:text="${respuesta.getFechaRespuesta()}" class="small">- 2 hours ago</span>
                                                     </p>
+
+                                                    <!-- Boton para comentar una Respuesta -->
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-bs-toggle="modal" data-bs-target="#modalComentario"
+                                                            th:attr="data-idrespuesta=${respuesta.getId()}">
+                                                        <span class="small"> Comentar</span>
+                                                    </button>
                                                 </div>
-                                                <div class="col">
-                                                    <!-- Botones de like y dislike a respuesta -->
-                                                    <button th:if="${usuario != null}" type="button" class="tooltip-button thumbs-up2" data-toggle="tooltip" data-placement="bottom" title="Like" th:attr="onclick=|votaR(1,'${respuesta.getId}')|">Like <i class="fa fa-thumbs-o-up " aria-hidden="true"></i></button>
-                                                    <!--  Likes Pregunta -->
-                                                    <span>Likes:
-                                                        <span th:text="${respuesta.calcularLikes()}" th:id="'likesRespuesta' + ${respuesta.getId()}" class="single-question-vote-result" >
+
+                                                <!-- Texto de la respuesta -->
+                                                <p th:text="${respuesta.getTextoRespuesta()}" class="small mb-0">
+                                                    It is a long-established fact that a reader will be distracted
+                                                    by
+                                                    the readable content of a page.
+                                                </p>
+                                            </div>
+                                            <div class="col">
+                                                <!-- Botones de like y dislike a respuesta -->
+                                                <button th:if="${usuario != null}" type="button"
+                                                        class="tooltip-button thumbs-up2" data-toggle="tooltip"
+                                                        data-placement="bottom" title="Like"
+                                                        th:attr="onclick=|votaR(1,'${respuesta.getId}')|">Like <i
+                                                        class="fa fa-thumbs-o-up " aria-hidden="true"></i></button>
+                                                <!--  Likes Pregunta -->
+                                                <span>Likes:
+                                                        <span th:text="${respuesta.calcularLikes()}"
+                                                              th:id="'likesRespuesta' + ${respuesta.getId()}"
+                                                              class="single-question-vote-result">
                                                             0
                                                         </span>
                                                     </span>
-                                                    <button th:if="${usuario != null}" type="button" class="tooltip-button  thumbs-down2" data-toggle="tooltip" data-placement="bottom" title="Dislike" th:attr="onclick=|votaR(-1,'${respuesta.getId}')|">Dislike<i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button>
-                                                    <!-- Votos Respuesta -->
-                                                    <span>Dislikes:
-                                                        <span th:text="${respuesta.calcularDislikes()}" th:id="'dislikesRespuesta' + ${respuesta.getId()}" class="single-question-vote-result">
+                                                <button th:if="${usuario != null}" type="button"
+                                                        class="tooltip-button  thumbs-down2" data-toggle="tooltip"
+                                                        data-placement="bottom" title="Dislike"
+                                                        th:attr="onclick=|votaR(-1,'${respuesta.getId}')|">Dislike<i
+                                                        class="fa fa-thumbs-o-down" aria-hidden="true"></i></button>
+                                                <!-- Votos Respuesta -->
+                                                <span>Dislikes:
+                                                        <span th:text="${respuesta.calcularDislikes()}"
+                                                              th:id="'dislikesRespuesta' + ${respuesta.getId()}"
+                                                              class="single-question-vote-result">
                                                             0
                                                         </span>
                                                     </span>
-                                                </div>
+                                            </div>
 
-                                                <!-- Sección de comentarios -->
-                                                <div th:each="comentario : ${respuesta.getComentario()}"
-                                                     class="d-flex flex-start mt-4">
-                                                    <a class="me-3" href="#">
-                                                        <!-- Imagen del Usuario que comenta -->
-                                                        <img class="rounded-circle shadow-1-strong" src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(11).webp" th:src="@{${comentario.getUsuario.getPhotosImagePath()}}" alt="avatar" width="65" height="65"/>
-                                                    </a>
-                                                    <div class="flex-grow-1 flex-shrink-1">
-                                                        <div>
-                                                            <!-- Nombre de usuario y fecha del comentario -->
-                                                            <div class="d-flex justify-content-between align-items-center">
-                                                                <p class="mb-1">
-                                                                    <a th:href="@{/usuario/perfil/{id}(id=${comentario.getUsuario.getId()})}" th:text="${comentario.getUsuario().getNombre()} ">Nombre de Usuario</a>
-                                                                    <span th:text="${comentario.getFechaComentario()}" class="small">- 3 hours ago</span>
-                                                                </p>
+                                            <!-- Sección de comentarios -->
+                                            <div th:each="comentario : ${respuesta.getComentario()}"
+                                                 class="d-flex flex-start mt-4" style=" margin-left: 70px;">
+                                                <a class="me-3" href="#">
+                                                    <!-- Imagen del Usuario que comenta -->
+                                                    <img class="rounded-circle shadow-1-strong"
+                                                         src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(11).webp"
+                                                         th:src="@{${comentario.getUsuario.getPhotosImagePath()}}"
+                                                         alt="avatar" width="65" height="65"/>
+                                                </a>
+                                                <div class="flex-grow-1 flex-shrink-1">
+                                                    <div>
+                                                        <!-- Nombre de usuario y fecha del comentario -->
+                                                        <div class="d-flex justify-content-between align-items-center">
+                                                            <p class="mb-1">
+                                                                <a th:href="@{/usuario/perfil/{id}(id=${comentario.getUsuario.getId()})}"
+                                                                   th:text="${comentario.getUsuario().getNombre()} ">Nombre
+                                                                    de Usuario</a>
+                                                                <span th:text="${comentario.getFechaComentario()}"
+                                                                      class="small">- 3 hours ago</span>
+                                                            </p>
 
-                                                            </div>
-                                                            <!-- Texto Comentario -->
-                                                            <p th:text="${comentario.getTextoComentario()}" class="small mb-0">letters, as opposed to using 'Content here, content here', making it look like readable English.</p>
+                                                        </div>
+                                                        <!-- Texto Comentario -->
+                                                        <p th:text="${comentario.getTextoComentario()}"
+                                                           class="small mb-0">letters, as opposed to using 'Content
+                                                            here, content here', making it look like readable
+                                                            English.</p>
 
-                                                            <!-- Botones de like y dislike a comentarios -->
-                                                            <div class="col" >
-                                                                <button th:if="${usuario != null}" type="button" class="tooltip-button thumbs-up2" data-toggle="tooltip" data-placement="bottom" title="Like" th:attr="onclick=|votaC(1,'${comentario.getId}')|"> Like <i class="fa fa-thumbs-o-up " aria-hidden="true"></i></button>
-                                                                <span>Likes:
-                                                                    <span th:text="${comentario.calcularLikes()}" th:id="'likesComentario' + ${comentario.getId()}" class="single-question-vote-result">
+                                                        <!-- Botones de like y dislike a comentarios -->
+                                                        <div class="col">
+                                                            <button th:if="${usuario != null}" type="button"
+                                                                    class="tooltip-button thumbs-up2"
+                                                                    data-toggle="tooltip" data-placement="bottom"
+                                                                    title="Like"
+                                                                    th:attr="onclick=|votaC(1,'${comentario.getId}')|">
+                                                                Like <i class="fa fa-thumbs-o-up "
+                                                                        aria-hidden="true"></i></button>
+                                                            <span>Likes:
+                                                                    <span th:text="${comentario.calcularLikes()}"
+                                                                          th:id="'likesComentario' + ${comentario.getId()}"
+                                                                          class="single-question-vote-result">
                                                                         0
                                                                     </span>
                                                                 </span>
 
-                                                                <button th:if="${usuario != null}" type="button" class="tooltip-button  thumbs-down2" data-toggle="tooltip" data-placement="bottom" title="Dislike" th:attr="onclick=|votaC(-1,'${comentario.getId}')|"> Dislike <i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button>
-                                                                <!-- Votos Comentario -->
-                                                                <span>Dislikes:
-                                                                    <span th:text="${comentario.calcularDislikes()}" th:id="'dislikesComentario' + ${comentario.getId()}" class="single-question-vote-result">
+                                                            <button th:if="${usuario != null}" type="button"
+                                                                    class="tooltip-button  thumbs-down2"
+                                                                    data-toggle="tooltip" data-placement="bottom"
+                                                                    title="Dislike"
+                                                                    th:attr="onclick=|votaC(-1,'${comentario.getId}')|">
+                                                                Dislike <i class="fa fa-thumbs-o-down"
+                                                                           aria-hidden="true"></i></button>
+                                                            <!-- Votos Comentario -->
+                                                            <span>Dislikes:
+                                                                    <span th:text="${comentario.calcularDislikes()}"
+                                                                          th:id="'dislikesComentario' + ${comentario.getId()}"
+                                                                          class="single-question-vote-result">
                                                                         0
                                                                     </span>
                                                                 </span>
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            </div>
                                         </div>
-                                    </div>
                                     </div>
                                 </div>
                             </div>
-                        </section>
-                        </div>
-                    </div>
-                </section>
-
-
-                <!-- Modal respuesta -->
-                <div class="modal fade modal-lg" id="modalRespuesta" tabindex="-1" aria-labelledby="exampleModalLabel"
-                     aria-hidden="true" data-bs-backdrop="static">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Responder pregunta</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form th:action="@{/preguntas/respuestasave}" th:method="post">
-                                    <input type="hidden" th:value="@{{id}(id=${pregunta.getId()})}" name="idPregunta">
-                                    <div class="mb-3 form-group">
-                                        <label for="textoRespuesta">Respuesta:</label>
-                                        <input type="text" class="form-control" id="textoRespuesta"
-                                               name="textoRespuesta" required>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                            Cancelar
-                                        </button>
-                                        <button type="submit" class="btn btn-primary">Publicar</button>
-                                    </div>
-                                </form>
-                            </div>
                         </div>
                     </div>
                 </div>
+            </section>
+        </div>
+    </div>
+</section>
 
-                <!--Modal comentario-->
 
-                <div class="modal fade modal-lg" id="modalComentario" tabindex="-1" aria-labelledby="exampleModalLabel"
-                     aria-hidden="true" data-bs-backdrop="static">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="comentario">Comentar</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form th:action="@{/preguntas/comentariosave}" th:method="post">
-                                    <input type="hidden" th:value="@{{id}(id=${pregunta.getId()})}" name="idPregunta">
-                                    <input type="hidden" name="idRespuesta" id="idRespuesta">
-                                    <div class="mb-3 form-group">
-                                        <label for="textoComentario">Comentario:</label>
-                                        <input type="text" class="form-control" id="textoComentario"
-                                               name="textoComentario" required>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                            Cancelar
-                                        </button>
-                                        <button type="submit" class="btn btn-primary">Publicar</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+<!-- Modal respuesta -->
+<div class="modal fade modal-lg" id="modalRespuesta" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Responder pregunta</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/preguntas/respuestasave}" th:method="post">
+                    <input type="hidden" th:value="@{{id}(id=${pregunta.getId()})}" name="idPregunta">
+                    <div class="mb-3 form-group">
+                        <label for="textoRespuesta">Respuesta:</label>
+                        <input type="text" class="form-control" id="textoRespuesta"
+                               name="textoRespuesta" required>
                     </div>
-                </div>
-
-                <!-- footer -->
-
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Cancelar
+                        </button>
+                        <button type="submit" class="btn btn-primary">Publicar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
+
+<!--Modal comentario-->
+
+<div class="modal fade modal-lg" id="modalComentario" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="comentario">Comentar</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/preguntas/comentariosave}" th:method="post">
+                    <input type="hidden" th:value="@{{id}(id=${pregunta.getId()})}" name="idPregunta">
+                    <input type="hidden" name="idRespuesta" id="idRespuesta">
+                    <div class="mb-3 form-group">
+                        <label for="textoComentario">Comentario:</label>
+                        <input type="text" class="form-control" id="textoComentario"
+                               name="textoComentario" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Cancelar
+                        </button>
+                        <button type="submit" class="btn btn-primary">Publicar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- footer -->
+
+</div>
+</div>
+</div>
 </section>
 
 <!-- Optional JavaScript -->
@@ -370,6 +428,8 @@
             formData.append('tipo', 'votoComentario')
             votar(formData)
         }
+
+
 
 </script>
 

@@ -1,0 +1,64 @@
+<!--
+  Created by CPL.
+  User: Carlos
+  Date: 12/04/2023
+  Time: 17:26
+  To change this template use File | Settings | File Templates | JSP Bootstrap 5.
+-->
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sd="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layout}">
+<head th:replace="~{components/headfragment :: head(titulo='Ranking')}"></head>
+
+<body>
+
+<header th:replace="components/cabeceraFrag :: cabecera(usuario = ${usuario})"></header>
+<nav th:replace="components/menuLateral :: navbar"></nav>
+
+    <div class="container-fluid pb-3 flex-grow-1 d-flex flex-column flex-sm-row overflow-auto">
+        <div class="row" style="margin-top: 100px; margin-left: 40px">
+            <div class="col-1"></div>
+            <div class="col-4">
+                <img class="oso" src="/image/oso_success.png" width="500px">
+            </div>
+            <div class="col-1"></div>
+            <div class="col-6">
+                <table class="table table-stripped">
+                    <thead>
+                        <tr style=" color: white; font-family: Pridi">
+                            <th> </th>
+                            <th>Nombre</th>
+                            <th>Puntos Ejercicios</th>
+                            <th>Puntos Preguntas</th>
+                            <th>Puntos Totales</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="usu: ${listaOrdenada}" style="font-family: Khand" >
+                            <td>
+                                <img th:src="@{${usu.getPhotosImagePath()}}" alt="user" width="32" height="32"
+                                 class="rounded-circle">
+                            </td>
+                            <td style="font-family: Khand; font-weight: bold;"  th:text="${usu.getNombre()}"></td>
+                            <td th:text="${usu.getPuntosEjercicios() ?: 0}"></td>
+                            <td th:text="${usu.calcularPuntosForo() ?: 0}"></td>
+                            <td th:text="${usu.puntosEjercicios ?: 0} + ${usu.calcularPuntosForo() ?: 0}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Optional JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+        crossorigin="anonymous"></script>
+</body>
+</html>

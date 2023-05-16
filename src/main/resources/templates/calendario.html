@@ -1,56 +1,74 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Calendario</title>
+<html xmlns:th="thymeleaf.org"
+      xmlns:layout="ultraq.net.nz/thymeleaf/layout"
+      xmlns:sd="w3.org/1999/xhtml"
+      layout:decorate="~{layout}">
+      <head th:replace="~{components/headfragment :: head(titulo='Calendario')}"></head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/calendar.css">
 
-	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
 
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	
-	<link rel="stylesheet" href="../static/css/calendar.css">
 </head>
 <body>
-    <div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <table class="table table-striped">
-                <thead>
-                <th class="text-center" >
-                    LUNES
-                </th>
-                <th class="text-center" >
-                    MARTES
-                </th >
-                <th class="text-center" >
-                    MIERCOLES
-                </th>
-                <th class="text-center" >
-                    JUEVES
-                </th>
-                <th class="text-center" >
-                    VIERNES
-                </th>
-                <th class="text-center" >
-                    SABADO
-                </th>
-                <th class="text-center" >
-                    DOMINGO
-                </th>
-    
-                </thead>
-                <tbody>
-                    <tr th:each="semana: ${dias}" >
-                        <td class="text-center" th:text="${dia}" th:each="dia: ${semana}">
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<header th:replace="~{components/cabeceraFrag :: cabecera(usuario=${usuario})}"></header>
+    <nav th:replace="~{components/menuLateral :: navbar}"></nav>
+<div class="container">
+    <div class="row">
+        <div class="title-container">
+            <span class="arrow" onclick="mostrarMesAnterior()">&lt;</span>
+            <h2 class="title" th:text="${monthName} + ' ' + ${year}"></h2>
+            <h2 class="titleN" id="currentMonth" th:text="${month} + ' ' + ${year}"></h2>
+            <span class="arrow" onclick="mostrarMesSiguiente()">&gt;</span>
         </div>
     </div>
+    <div class="row">
+        <table class="calendar-table">
+            <thead>
+            <th>
+                L
+            </th>
+            <th>
+                M
+            </th >
+            <th>
+                X
+            </th>
+            <th>
+                J
+            </th>
+            <th>
+                V
+            </th>
+            <th>
+                S
+            </th>
+            <th>
+                D
+            </th>
+
+            </thead>
+            <tbody>
+            <tr th:each="semana: ${dias}">
+                <td th:each="dia: ${semana}">
+                    <a th:href="@{/progreso/usuario-progress(day=${dia}, month=${month}, year=${year})}" th:text="${dia}"></a>
+                </td>
+
+                <!--<td class="text-center" th:text="${dia}" th:each="dia: ${semana}">
+                    <a th:href="@{/progreso/usuario-progress(day=${dia}, month=${month}, year=${year})}"></a>
+                </td>-->
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 
 <script src="../js/jquery.min.js"></script>
 <script src="../js/popper.js"></script>

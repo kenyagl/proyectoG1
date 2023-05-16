@@ -53,27 +53,12 @@ public class EjerciciosSrvc {
         return null;
     }
 
-   /* //Servicios para imágenes
-    private final Path root = Paths.get("./uploads");
-
-    public void init() {
-        try {
-            Files.createDirectories(root);
-        } catch (IOException e) {
-            throw new RuntimeException("Could not initialize folder for upload!");
+    public List<EjercicioOpMul> encontrarEjerPorCategoria(String keyword) {
+        if(keyword == null || keyword.isEmpty()){
+            return ejerciciosRepository.findAll();
         }
+
+        return ejerciciosRepository.encontrarEjerPorCategoria(keyword);
     }
-
-    public void save(MultipartFile file) {
-        try {
-            Files.copy(file.getInputStream(), this.root.resolve(file.getOriginalFilename()));
-        } catch (Exception e) {
-            if (e instanceof FileAlreadyExistsException) {
-                throw new RuntimeException("A file of that name already exists.");
-            }
-
-            throw new RuntimeException(e.getMessage());
-        }
-    }*/
 
 }

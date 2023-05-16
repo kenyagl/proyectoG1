@@ -1,27 +1,36 @@
-<header th:fragment="cabecera" class="py-3 mb-4 border-bottom shadow fixed-top w-100 header-bg">
+<header th:fragment="cabecera" class="py-3 mb-4 border-bottom shadow fixed-top w-100 header-bg"
+        xmlns:sec="http://www.w3.org/1999/xhtml">
+
   <div class="container-fluid align-items-center d-flex">
     <img src="/image/logo-grey.png" alt="Logo de la empresa" class="logo" style=" padding-left: 70px;">
     <div class="flex-grow-1 d-flex align-items-center">
       <!-- Acceso a login y registro -->
       <div class="col-md-10 text-end">
-        <a href="/usuario/acceso" type="button" class="btn btn-outline-primary me-2">Acceder</a>
-        <a href="/usuario/registro" type="button" class="btn btn-primary">Registro</a>
-        <a href="/usuario/perfil" type="button" class="btn btn-primary">Mi Perfil</a>
+        <a th:if="${usuario == null}" href="/login" type="button" class="btn btn-outline-primary me-2">Acceder </a>
+        <a th:if="${usuario == null}" href="/usuario/registro" type="button" class="btn btn-primary"> Registro </a>
+        <a th:if="${usuario != null}" href="/usuario/ranking" type="button" class="btn btn-primary">  Ranking de Puntos </a>
+        <a th:if="${usuario != null}" href="/usuario/perfil" type="button" class="btn btn-primary" th:text="${usuario.mensajeHola()}"></a>
+
       </div>
       <div class="flex-shrink-0 dropdown">
         <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser2"
            data-bs-toggle="dropdown" aria-expanded="false">
-          <img src="https://via.placeholder.com/28?text=!" alt="user" width="32" height="32"
-               class="rounded-circle">
+          <img th:if="${usuario == null}" src="https://via.placeholder.com/28?text=!" alt="user" width="32" height="32"
+               class="rounded-circle" style=" margin-left: 20px">
+          <img th:if="${usuario != null}" th:src="@{${usuario.getPhotosImagePath()}}" alt="user" width="32" height="32"
+               class="rounded-circle" style=" margin-left: 20px">
         </a>
         <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="dropdownUser2" style="">
           <li><a class="dropdown-item" href="/ejercicios">Mis ejercicios</a></li>
-          <li><a class="dropdown-item" href="#">Settings</a></li>
-          <li><a class="dropdown-item" href="#">Profile</a></li>
+          <li><a class="dropdown-item" href="/preguntas">Preguntas</a></li>
+          <li><a class="dropdown-item" href="/usuario/perfil">Perfil</a></li>
           <li>
             <hr class="dropdown-divider">
           </li>
-          <li><a class="dropdown-item" href="#">Sign out</a></li>
+          <li><form th:action="@{/logout}" method="post">
+            <i class="fa fa-power-off fa-2x"></i>
+            <input class="btn btn-bd-primary" type="submit" value="Logout" />
+          </form></li>
         </ul>
       </div>
     </div>

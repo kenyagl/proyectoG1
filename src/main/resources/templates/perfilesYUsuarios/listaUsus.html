@@ -29,7 +29,7 @@
 
 <body>
 
-<header th:replace="components/cabeceraFrag :: cabecera"></header>
+<header th:replace="components/cabeceraFrag :: cabecera(usuario = ${usuario})"></header>
 <nav th:replace="components/menuLateral :: navbar"></nav>
 
     <div class="container-fluid pb-3 flex-grow-1 d-flex flex-column flex-sm-row overflow-auto">
@@ -40,8 +40,7 @@
                         <tr>
                             <th>id</th>
                             <th>Nombre</th>
-                            <th>Clave</th>
-                            <th>Activo</th>
+                            <th>Email</th>
                             <th>Rol</th>
                         </tr>
                     </thead>
@@ -49,9 +48,10 @@
                         <tr th:each="usu: ${listausuarios}">
                             <td th:text="${usu.getId()}"></td>
                             <td th:text="${usu.getNombre()}"></td>
-                            <td th:text="${usu.getClave()}"></td>
-                            <td th:text="${usu.getActivo()}"></td>
-                            <td th:text="${usu.getRol()}"></td>
+                            <td th:text="${usu.getEmail()}"></td>
+                            <td th:each="rol : ${usu.getRoles()}">
+                                <p th:text="${rol.getName()}"></p>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

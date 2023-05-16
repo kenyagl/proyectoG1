@@ -32,7 +32,4 @@ public class RespuestaSrvc {
         respuesta.setFechaRespuesta(LocalDate.now());
     }
 
-
-
-
-}
+    }

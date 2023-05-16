@@ -1,58 +1,46 @@
-<nav th:fragment="navbar" class="main-menu">
-  <ul style="margin-top: 200px;">
-    <li>
-      <a href="/home">
-        <i class="fa fa-home fa-2x"></i>
-        <span class="nav-text">
-                           Inicio
-                        </span>
-      </a>
+<nav th:fragment="navbar" class="main-menu ">
+    <ul class="nav flex-column mb-auto" style="margin-top: 200px;">
+        <li class="nav-item">
+            <a class="nav-link" href="/home">
+                <i class="bi bi-house-fill"></i>
+                <span class="nav-text">
+    <h4 class="tipo2">Inicio</h4>
+   </span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/ejercicios">
+                <i class="bi bi-journals"></i>
+                <span class="nav-text">
+    <h4 class="tipo2">Ejercicios</h4>
+   </span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/preguntas">
+                <i class="bi bi-chat-left-text"></i>
+                <span class="nav-text">
 
-    </li>
-    <li>
-      <a href="/ejercicios">
-        <i class="fa fa-book fa-2x"></i>
-        <span class="nav-text">
-                           Ejercicios
-         </span>
-      </a>
-    </li>
-    <li class="has-subnav">
-      <a href="/preguntas">
-        <i class="fa fa-comments fa-2x"></i>
-        <span class="nav-text">
-                            Foro
-                        </span>
-      </a>
+    <h4 class="tipo2">Foro</h4>
+   </span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/calendario">
+                <i class="bi bi-calendar-check"></i>
+                <span class="nav-text">
+    <h4 class="tipo2">Calendario</h4>
+   </span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/usuario/perfil">
+                <i class="bi bi-person-fill-gear"></i>
+                <span class="nav-text">
 
-    </li>
-    <li class="has-subnav">
-      <a href="/calendario">
-        <i class="fa fa-calendar fa-2x"></i>
-        <span class="nav-text">
-                            Calendario
-                        </span>
-      </a>
-
-    </li>
-    <li>
-      <a href="/perfil">
-        <i class="fa fa-cogs fa-2x"></i>
-        <span class="nav-text">
-                            Ajustes de perfil
-                        </span>
-      </a>
-    </li>
-  </ul>
-
-  <ul class="logout">
-    <li>
-      <a href="/index">
-        <i class="fa fa-power-off fa-2x"></i>
-        <span class="nav-text">
-                            Logout
-                        </span>
-      </a>
-    </li>
-  </ul>
+    <h4 class="tipo2">Ajustes de perfil</h4>
+   </span>
+            </a>
+        </li>
+    </ul>
 </nav>

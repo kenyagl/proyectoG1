@@ -1,6 +1,7 @@
 package com.cplcursos.java.kosso.services;
 
 import com.cplcursos.java.kosso.entities.Comentario;
+import com.cplcursos.java.kosso.entities.Pregunta;
 import com.cplcursos.java.kosso.repositories.ComentarioRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,8 +35,6 @@ public class ComentarioSrvc {
     public void setFecha (Comentario comentario){
         comentario.setFechaComentario(LocalDate.now());
     }
-
-
 
 
 }

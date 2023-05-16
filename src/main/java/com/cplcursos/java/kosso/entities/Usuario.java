@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.management.relation.Role;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,13 +24,13 @@ public class Usuario {
     private Long id;
 
     private String email;
-    private String nombre;
     private String clave;
-    private String rol;
+    private String nombre;
+    private String apellidos;
+    private String descripcion;
     private String foto;
-    private Boolean activo = false;
-    private Date creadoEl;
-    private String acercaDe;
+    private Boolean activo;
+    private LocalDate creadoEl;
     private Integer puntosEjercicios;
     private Integer puntosRespuestas;
     
@@ -36,10 +38,18 @@ public class Usuario {
         this.id = id;
     }
 
-    public Usuario(Long id, Integer puntosEjercicios, Integer puntosRespuestas) {
-        this.id = id;
-        this.puntosEjercicios = puntosEjercicios;
-        this.puntosRespuestas = puntosRespuestas;
+    @Transient
+    public String getPhotosImagePath() {
+        if (foto == null || id == null){
+            return "/image/default-avatar.png";
+        }
+
+        return "/image/user-photos/" + id + "/" + foto;
+    }
+
+
+    public String mensajeHola(){
+        return "Perfil de " + nombre;
     }
 
     @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -54,7 +64,24 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario")
     private List<Comentario> comentarios;
 
+    @OneToMany(mappedBy = "usuario")
+    private List<PuntosForo> puntosForoList;
+
     @OneToMany
     private List<RespuestaEjOpMul> respuestasEj;
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    @JoinTable(
+            name="users_roles",
+            joinColumns={@JoinColumn(name="USER_ID", referencedColumnName="ID")},
+            inverseJoinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
+    private List<Rol> roles = new ArrayList<>();
+
+    public Integer calcularPuntosForo(){
+        Integer totalPuntos = 0;
+        for (PuntosForo puntosForo : puntosForoList ){
+            totalPuntos += puntosForo.getPuntos();
+        }
+        return totalPuntos;
+    }
 }

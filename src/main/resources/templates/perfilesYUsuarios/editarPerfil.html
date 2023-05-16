@@ -1,0 +1,110 @@
+<!--
+
+  Created by CPL.
+
+  User: josel
+
+  Date: 11/04/2023
+
+  Time: 17:38
+
+  To change this template use File | Settings | File Templates | JSP Bootstrap 5.
+
+-->
+
+<!doctype html>
+
+<html xmlns:th="thymeleaf.org"
+      xmlns:layout="ultraq.net.nz/thymeleaf/layout"
+      xmlns:sd="w3.org/1999/xhtml"
+      layout:decorate="~{layout}">
+<head th:fragment="head">
+    <head th:replace="~{components/headfragment :: head(titulo='Editar Perfil')}"></head>
+
+
+
+
+</head>
+
+<body>
+
+
+<header th:replace="components/cabeceraFrag :: cabecera(usuario=${usuario})"></header>
+<nav th:replace="components/menuLateral :: navbar"></nav>
+
+<div class="header">
+    <img class="avatar" th:src="@{${usuario.getPhotosImagePath()}}" style="margin-top:100px">
+</div>
+
+
+        <div class="card col-7" style="font-family: Khand;  margin-top: 2em; margin-left: 30%; margin-bottom: 5em">
+            <div class="card-body">
+                <h5 style="color: black">Editar tu Perfil</h5>
+
+                <form  th:action="@{/usuario/editar}" th:object="${usuario}" method="POST" role="form" enctype="multipart/form-data"
+                      style="color:black">
+                    <input type="hidden" th:field="*{id}">
+                    <input type="hidden" th:field="*{clave}">
+                    <input type="hidden" th:field="*{puntosEjercicios}">
+                    <input type="hidden" th:field="*{puntosRespuestas}">
+                    <input type="hidden" th:field="*{creadoEl}">
+                    <input type="hidden" th:field="*{foto}">
+                    <div>
+                        <label class="form-label" for="email">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" th:field="*{email}"
+                               th:placeholder="${usuario.getEmail()}" readonly="readonly"/>
+                    </div>
+                    <div>
+                        <label class="form-label" for="nombre">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" th:field="*{nombre}"
+                               name="nombre" th:placeholder="${usuario.getNombre()}"/>
+                    </div>
+
+                    <div>
+                        <label class="form-label" for="apellidos">Apellidos</label>
+                        <input type="text" class="form-control" id="apellidos" name="apellidos" th:field="*{apellidos}"
+                               th:placeholder="${usuario.getApellidos()}"/>
+                    </div>
+
+                    <div>
+                        <label class="form-label" for="descripcion">Sobre mí</label>
+                        <input type="text" class="form-control" id="descripcion" name="descripcion" th:field="*{descripcion}"
+                               th:placeholder="${usuario.getDescripcion()}"/>
+                    </div>
+
+                    <div>
+                        <label class="form-label">Foto de Perfil</label>
+                        <input type="file" class="form-control" name="image" accept="image/png, image/jpeg"
+                               th:placeholder="${usuario.getFoto()}"/>
+                    </div>
+
+                    <!--<div>
+                        <label class="form-label" for="clave">Contraseña</label>
+                        <input type="password" class="form-control" id="clave" name="clave" th:field="*{clave}"
+                               placeholder="Introduce una nueva contraseña"/>
+                    </div>-->
+
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit">Enviar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+
+<!-- Optional JavaScript -->
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+        crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
+
+

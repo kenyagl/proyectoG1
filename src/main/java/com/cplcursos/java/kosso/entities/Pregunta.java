@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -23,34 +24,57 @@ public class Pregunta {
 
     private String tituloPregunta;
 
+    @Column(length = 1500)
     private String textoPregunta;
+
+    private String foto;
 
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate fechaPregunta; // Preguntar formato de la fecha
 
-    private Integer votos;
-    // Como hacer que una persona solo pueda votar una vez o cambiar su voto
-    // Solo los usuarios pueden votar
+    @OneToMany(mappedBy = "pregunta", cascade = CascadeType.ALL)
+    private Set<PuntosForo> puntos;
 
     @ManyToOne
     @JoinColumn(name = "idUsuario")
     private Usuario usuario;
 
-    @ManyToMany(mappedBy = "preguntas")
-    private List<Etiqueta> etiquetas;
+    @ManyToMany
+    private List<Categoria> categorias;
 
-    @OneToMany(mappedBy = "pregunta",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "pregunta", cascade = CascadeType.ALL)
     private List<Respuesta> respuestas;
 
-    //Preguntar a Carlos:
-    //4) Botones para páginas de preguntas
+    @Transient
+    public String getFotoPath() {
+        if (foto == null || id == null) {
+            return null;
+        }
+        return "/image/pregunta-photos/" + id + "/" + foto;
+    }
 
-    // agregar en el controlador de votos un set de puntos al usuario por los votos
-
-    // TODO -agragar etiquetas al formulario de preguntas y asignarle su usuario(thymeleaf)
-    //  controlador de etiquetas
-    //
-
-
-
+    public void anexarVoto(PuntosForo voto){
+        voto.setPregunta(this);
+        this.puntos.add(voto);
+    }
+    
+    public int calcularLikes(){
+        int totalVotos = 0;
+        for( PuntosForo pf : puntos ){
+            if(pf.getPuntos() == 25){
+                totalVotos++;
+            }
+        }
+        return totalVotos;
+    }
+    public int calcularDislikes(){
+        int totalVotos = 0;
+        for( PuntosForo pf : puntos ){
+            if(pf.getPuntos() == -25){
+                totalVotos++;
+            }
+        }
+        return totalVotos;
+    }
+    
 }

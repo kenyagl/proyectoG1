@@ -56,9 +56,9 @@ public class EjercicioOpMul {
     @JoinTable(
             name = "ejercicio_categoria",
             joinColumns = @JoinColumn(name = "id_ejercicioOpMul"),
-            inverseJoinColumns = @JoinColumn(name = "id_categoriaEjercicios")
+            inverseJoinColumns = @JoinColumn(name = "id_categoria")
     )
-    private List<CategoriaEjercicios> categorias;
+    private List<Categoria> categorias;
 
 }
 

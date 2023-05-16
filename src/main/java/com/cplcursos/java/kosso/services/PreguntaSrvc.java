@@ -14,9 +14,12 @@ public class PreguntaSrvc  {
     @Autowired
     private PreguntaRepo preguntaRepo;
 
-
     public Optional<Pregunta> findById(Long id) {
         return preguntaRepo.findById(id);
+    }
+
+    public Pregunta getReferenceById(Long id){
+        return preguntaRepo.getReferenceById(id);
     }
 
     public void borrarPregunta(Long id){

@@ -63,11 +63,11 @@ INSERT INTO `mydb`.`ejercicio_categoria`(`id_ejercicio_op_mul`, `id_categoria`)
 
 INSERT INTO `preguntas` (`titulo_pregunta`, `texto_pregunta`, `foto`, `fecha_pregunta`, `id_usuario`)
 VALUES
-    ('¿Cuál es la diferencia entre un objeto y una clase en Java?', 'No entiendo bien la diferencia entre un objeto y una clase en Java. ¿Podrían explicármelo?', 'foto1.jpg', '2023-05-13', 1),
-    ('¿Cómo se declara una variable en Java?', 'Soy nuevo en Java y no sé cómo se declara una variable. ¿Alguien podría ayudarme?', 'foto1.jpg', '2023-05-13', 1),
-    ('¿Qué es un bucle for en Java?', 'He oído hablar del bucle for en Java, pero no sé exactamente qué es. ¿Podrían explicármelo?', 'foto1.jpg', '2023-05-13', 1),
-    ('¿Cómo se manejan las excepciones en Java?', 'Me han dicho que Java tiene un sistema para manejar excepciones, pero no sé cómo funciona. ¿Alguien podría darme una idea?', 'foto1.jpg', '2023-05-13', 1),
-    ('¿Cómo se lee entrada del usuario en Java?', 'Quiero saber cómo puedo leer la entrada que ingrese un usuario en Java. ¿Alguien sabe cómo hacerlo?', 'foto1.jpg', '2023-05-13', 1);
+    ('¿Cuál es la diferencia entre un objeto y una clase en Java?', 'No entiendo bien la diferencia entre un objeto y una clase en Java. ¿Podrían explicármelo?', null, '2023-05-13', 1),
+    ('¿Cómo se declara una variable en Java?', 'Soy nuevo en Java y no sé cómo se declara una variable. ¿Alguien podría ayudarme?', null, '2023-05-13', 1),
+    ('¿Qué es un bucle for en Java?', 'He oído hablar del bucle for en Java, pero no sé exactamente qué es. ¿Podrían explicármelo?', null, '2023-05-13', 1),
+    ('¿Cómo se manejan las excepciones en Java?', 'Me han dicho que Java tiene un sistema para manejar excepciones, pero no sé cómo funciona. ¿Alguien podría darme una idea?', null, '2023-05-13', 1),
+    ('¿Cómo se lee entrada del usuario en Java?', 'Quiero saber cómo puedo leer la entrada que ingrese un usuario en Java. ¿Alguien sabe cómo hacerlo?', null, '2023-05-13', 1);
 --/*('¿Cuáles son las mejores técnicas de estudio para mejorar el rendimiento académico?', 'Estoy buscando consejos y técnicas efectivas para mejorar mi rendimiento en los estudios. ¿Qué estrategias han funcionado bien para ustedes?', 'foto1.jpg', '2023-05-12', 0, 1),
 --('¿Qué opciones de carrera son ideales para alguien con habilidades en programación?', 'Tengo habilidades en programación y me gustaría saber qué opciones de carrera son las más adecuadas para aprovechar al máximo mis habilidades. ¿Alguna sugerencia?', 'foto2.jpg', '2023-05-12', 0, 1),
 --('Recomendaciones de libros de ciencia ficción para leer este verano', 'Estoy buscando recomendaciones de libros de ciencia ficción interesantes para disfrutar durante mis vacaciones de verano. ¿Cuáles son algunos de tus favoritos?', 'foto3.jpg', '2023-05-12', 0, 1),

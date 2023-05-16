@@ -165,7 +165,10 @@ public class ProgresoCtrl {
         return "progreso/usuario-progress";
     }
     @GetMapping("/progresodiario/{day}/{month}/{year}")
-    public String showProgresoDia(Model model, @RequestParam("day") int day, @RequestParam("month") int month, @RequestParam("year") int year){
+    public String showProgresoDia(Model model, @AuthenticationPrincipal MyUserDetails userDetails,
+                                  @RequestParam("day") int day,
+                                  @RequestParam("month") int month,
+                                  @RequestParam("year") int year){
 
         // Retrieve data from database
         List<EjercicioOpMul> ejercicios = ejerciciosSrvc.findAll();
@@ -193,6 +196,7 @@ public class ProgresoCtrl {
         model.addAttribute("fechaCalendario", fechaCalendario.toString());
         model.addAttribute("progressBarEjercicioMax", progressBarEjercicioMax);
         model.addAttribute("totalAnswersToday", totalAnswersToday);
+        model.addAttribute("usuario", usuarioSrvc.findByAuth(userDetails));
         return "progreso/progresodiario";
     }
 }

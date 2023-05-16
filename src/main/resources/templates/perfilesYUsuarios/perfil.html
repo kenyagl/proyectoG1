@@ -45,8 +45,13 @@
          Tus ejercicios
      </a>
      <a class="btn btn-primary" href="/perfil/pregunta" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-         Tus preguntas
+        Tus Preguntas
      </a>
+     <div class="collapse" id="collapseExample">
+         <div class="card card-body">
+             <a th:each="pregunta : ${usuario.getPreguntas()}" th:href="@{/preguntas/preguntaPublicadalogged/{id}(id=${pregunta.getId()})}" th:text="${pregunta.getTituloPregunta()}"> <span th:text="${pregunta.getFechaPregunta()}"></span></a>
+         </div>
+     </div>
 
      <a class="btn btn-primary" href="/usuario/editar" type="button" aria-expanded="false" aria-controls="collapseExample">
          Editar perfil</a>

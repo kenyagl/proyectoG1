@@ -10,82 +10,89 @@
 <header th:replace="components/cabeceraFrag :: cabecera(usuario=${usuario})"></header>
 <nav th:replace="components/menuLateral :: navbar"></nav>
 
-<div class="container mt-5">
-    <div class="text-center">
-        <h1>Tu Progreso General</h1>
-    </div>
-    <h2>Ejercicios</h2>
-    <div class="accordion">
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="headingOne">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                        aria-expanded="true" aria-controls="collapseOne">
-                    Por Mes
-                </button>
-            </h2>
-            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                 data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                        <div th:each="entry : ${respuestasByMonth}">
-                            <h5 th:text="${entry.key}"></h5>
-                            <div class="progress mb-3">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
-                                     role="progressbar"
-                                     th:attr="aria-valuenow=${entry.value},
-                                     aria-valuemax=${progressBarEjercicioMax}"
-                                     th:text="${entry.value + ' puntos'}"
-                                     aria-valuemin="0"></div>
+<div class="container mt-9">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="text-center">
+                <h1>Tu Progreso General</h1>
+            </div>
+            <h2>Ejercicios</h2>
+            <div class="mt-4 ">
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne"
+                                    aria-expanded="true" aria-controls="collapseOne">
+                                Por Mes
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                             data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <div th:each="entry : ${respuestasByMonth}">
+                                    <h5 th:text="${entry.key}"></h5>
+                                    <div class="progress mb-3">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+                                             role="progressbar"
+                                             th:attr="aria-valuenow=${entry.value},
+                                             aria-valuemax=${progressBarEjercicioMax}"
+                                             th:text="${entry.value + ' puntos'}"
+                                             aria-valuemin="0"></div>
+                                    </div>
+                                </div>
                             </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
 
-        <div class="accordion-item mt-3">
-            <h2 class="accordion-header" id="headingTwo">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    Por Semana
-                </button>
-            </h2>
-            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                 data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                        <div th:each="entry : ${respuestasByWeek}">
-                            <h5 th:text="${entry.key}"></h5>
-                            <div class="progress mb-3">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-info"
-                                     role="progressbar"
-                                     th:attr="aria-valuenow=${entry.value},
-                                     aria-valuemax=${progressBarEjercicioMax}"
-                                     th:text="${entry.value + ' puntos'}"
-                                     aria-valuemin="0"></div>
+                    <div class="accordion-item mt-3">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Por Semana
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                             data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <div th:each="entry : ${respuestasByWeek}">
+                                    <h5 th:text="${entry.key}"></h5>
+                                    <div class="progress mb-3">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-info"
+                                             role="progressbar"
+                                             th:attr="aria-valuenow=${entry.value},
+                                             aria-valuemax=${progressBarEjercicioMax}"
+                                             th:text="${entry.value + ' puntos'}"
+                                             aria-valuemin="0"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                </div>
-            </div>
-        </div>
-        <div class="accordion-item mt-3">
-            <h2 class="accordion-header" id="headingThree">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                    Por Día
-                </button>
-            </h2>
-            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
-                 data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                        <div th:each="entry : ${respuestasByDay}">
-                            <h5 th:text="${entry.key}"></h5>
-                            <div class="progress mb-3">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
-                                     role="progressbar"
-                                     th:attr="aria-valuenow=${entry.value},
-                                     aria-valuemax=${progressBarEjercicioMax}"
-                                     th:text="${entry.value + ' puntos'}"
-                                     aria-valuemin="0"></div>
+                    </div>
+                    <div class="accordion-item mt-3">
+                        <h2 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                Por Día
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                             data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <div th:each="entry : ${respuestasByDay}">
+                                    <h5 th:text="${entry.key}"></h5>
+                                    <div class="progress mb-3">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
+                                             role="progressbar"
+                                             th:attr="aria-valuenow=${entry.value},
+                                             aria-valuemax=${progressBarEjercicioMax}"
+                                             th:text="${entry.value + ' puntos'}"
+                                             aria-valuemin="0"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -112,6 +119,7 @@
         $(this).css('width', siz+'%');
       });
     });
+
 </script>
 </body>
 </html>

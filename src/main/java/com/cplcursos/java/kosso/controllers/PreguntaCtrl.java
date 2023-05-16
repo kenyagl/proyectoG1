@@ -56,22 +56,22 @@ public class PreguntaCtrl {
 
 
     @GetMapping(value = {"/", ""})
-    public String mostrarPreguntas (@ModelAttribute("search") String search, @ModelAttribute("filtro") String filtro, Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size){
+    public String mostrarPreguntas (@ModelAttribute("search") String search, @ModelAttribute("filtro") String filtro, Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size,RedirectAttributes redirectAttributes){
         if(usuSrvc.isAuthenticated()){
             return "redirect:/preguntas/logged";
         }
 
-        return mostrarForo(null, search, filtro, model, page, size);
+        return mostrarForo(null, search, filtro, model, page, size, redirectAttributes);
     }
 
     @GetMapping(value = {"/logged", "/logged/"})
-    public String mostrarPreguntasLogged (@AuthenticationPrincipal MyUserDetails userDetails, @ModelAttribute("search") String search, @ModelAttribute("filtro") String filtro, Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size) {
+    public String mostrarPreguntasLogged (@AuthenticationPrincipal MyUserDetails userDetails, @ModelAttribute("search") String search, @ModelAttribute("filtro") String filtro, Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size, RedirectAttributes redirectAttributes) {
         Usuario usuario = usuSrvc.findByAuth(userDetails);
 
-        return mostrarForo(usuario, search, filtro, model, page, size);
+        return mostrarForo(usuario, search, filtro, model, page, size, redirectAttributes);
     }
 
-    private String mostrarForo(Usuario usuario, String search, String filtro, Model model, Optional<Integer> page, Optional<Integer> size){
+    private String mostrarForo(Usuario usuario, String search, String filtro, Model model, Optional<Integer> page, Optional<Integer> size, RedirectAttributes redirectAttributes){
         if(usuario != null){
             model.addAttribute("usuario", usuario);
         }
@@ -123,16 +123,31 @@ public class PreguntaCtrl {
     public String busqueda(@ModelAttribute("search") String search, @ModelAttribute("filtro") String filtro, RedirectAttributes redirectAttributes){
         redirectAttributes.addFlashAttribute("search", search);
         redirectAttributes.addFlashAttribute("filtro", filtro);
+        if (usuSrvc.isAuthenticated()){
+        return "redirect:/preguntas/logged";
+        }
         return "redirect:/preguntas";
     }
 
-
-
     // Muestra la pregunta publicada por su id
     @GetMapping(value = "/preguntaPublicada/{id}")
-    public String verPreguntaPublicada (@PathVariable Long id, Model model, @AuthenticationPrincipal MyUserDetails userDetails){
+    public String verPreguntaPublicada (@PathVariable Long id, Model model){
 
-        model.addAttribute("usuario", usuSrvc.findByAuth(userDetails));
+        if (usuSrvc.isAuthenticated()){
+            return "redirect:/preguntaPublicadalogged/{id}";
+        }
+        return verPregunta(id, model, null);
+    }
+    @GetMapping(value = "/preguntaPublicadalogged/{id}")
+    public String verPreguntaPublicada (@PathVariable Long id, Model model, @AuthenticationPrincipal MyUserDetails userDetails){
+        Usuario usuario = usuSrvc.findByAuth(userDetails);
+        return verPregunta(id, model, usuario);
+    }
+
+    private String verPregunta(Long id, Model model, Usuario usuario){
+        if(usuario != null){
+            model.addAttribute("usuario", usuario);
+        }
 
         Optional<Pregunta> pregunta = preguntaSrvc.findById(id);
         if(pregunta.isPresent()) {
@@ -168,7 +183,7 @@ public class PreguntaCtrl {
         }catch(IOException ioException){
             log.info("No se ha podido guardar la imagen en el directorio o es una pregunta sin foto");
         }
-        return "redirect:/preguntas/preguntaPublicada/" + pregunta.getId();
+        return "redirect:/preguntas/preguntaPublicadalogged/" + pregunta.getId();
     }
 
 // agregar al edit las categorias que ya tenía la pregunta
@@ -229,7 +244,7 @@ public class PreguntaCtrl {
         respuesta.setFechaRespuesta(LocalDate.now());
         respuestaSrvc.save(respuesta);
         puntosForoSrvc.puntuarRespuesta(respuesta);
-        return "redirect:/preguntas/preguntaPublicada/" + id;
+        return "redirect:/preguntas/preguntaPublicadalogged/" + id;
     }
 
     // Controlador para Comentarios
@@ -244,7 +259,7 @@ public class PreguntaCtrl {
         comentario.setFechaComentario(LocalDate.now());
         comentarioSrvc.save(comentario);
         puntosForoSrvc.puntuarComentario(comentario);
-        return "redirect:/preguntas/preguntaPublicada/" + idPregunta;
+        return "redirect:/preguntas/preguntaPublicadalogged/" + idPregunta;
     }
 
 }

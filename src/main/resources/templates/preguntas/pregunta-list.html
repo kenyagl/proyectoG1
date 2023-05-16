@@ -10,31 +10,31 @@
 <!-- Contenido de la página -->
 <section class="container" style="padding-top: 150px ">
     <div>
-            <h1 class="text-center" >Preguntas</h1>
+            <h1 class="text-center">Preguntas</h1>
         <div class="card col-4" style=" display: flex; justify-content: center;">
-            <div class="card-body">
 
-                <a th:href="@{/preguntas/new}" class="btn border-dark" style="">Hacer una pregunta</a>
+            <div class="card-body">
+                <a th:href="@{/preguntas/new}" class="btn border-dark">Hacer una pregunta</a>
+
                 <div class="input-group align-items-center">
-                    <form th:action="@{/preguntas/search}" th:method="post">
-                        <input name="search" type="search" class="form-control rounded" placeholder="Search"
-                               aria-label="Search" aria-describedby="search-addon" style="margin-top: 1em; margin-bottom: 1em;">
-                        <button type="submit" class="btn btn-outline-primary">search</button>
+                    <form th:action="@{/preguntas/search}" method="post">
+                        <input th:value="${search}" name="search" type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon">
+                        <button  type="submit" class="btn btn-outline-primary">search</button>
+
+
+
+                        <div style="margin-top: 10px;">
+                            <label for="filtro">Filtrar por:</label>
+                            <select th:value="${filtro}" name="filtro" id="filtro" >
+                                <option th:value="default">Seleccione un filtro</option>
+                                <option th:value="newest">Más Recientes</option>
+                                <option th:value="oldest">Más Antiguas</option>
+                                <option value="votos">Mejor Valorados</option>
+                            </select>
+                            <button  type="submit" class="btn btn-outline-primary">Filtrar</button>
+                        </div>
                     </form>
                 </div>
-                    <div style="margin-top: 10px;">
-
-                            <label for="filtros" style="font-family: Khand;">Filtrar por:</label>
-                            <!-- Hacer que los dropdown apliquen el filtro directamente después de darles -->
-                            <select name="filtros" id="filtros">
-                                    <option value="default">Seleccione un filtro</option>
-                                    <option value="fechaNew">Más Recientes</option>
-                                    <option value="fechaOld">Más Antiguas</option>
-                                    <option value="votos">Mejor Valorados</option>
-                            </select>
-                    </div>
-
-
             </div>
         </div>
 
@@ -50,14 +50,17 @@
                                         <div class="container-fluid text-center">
                                                 <ul class="datosforo list-group list-group-flush">
                                                         <span th:text="${pregunta.getFechaPregunta()}">Fecha:</span>
-                                                        <!--
-                                                        <span><span>Votos: </span><span th:text="${pregunta.getVotos()} ?: '0'"></span></span>
-                                                        -->
+                                                        <span><span>Likes: </span><span th:text="${pregunta.calcularLikes()} ?: '0'"></span></span>
+                                                        <span><span>Dislikes: </span><span th:text="${pregunta.calcularDislikes()} ?: '0'"></span></span>
+
+
                                                 </ul>
                                         </div>
                                 </div>
                                 <div class="col-9 align-self-center">
-                                        <a th:href="@{/preguntas/preguntaPublicada/{id}(id=${pregunta.getId()})}"><h3 class="text-truncate overflow-hidden prevpregunta" th:text="${pregunta.getTituloPregunta()}"> Pregunta1</h3></a>
+                                        <a th:if="${usuario == null}" th:href="@{/preguntas/preguntaPublicada/{id}(id=${pregunta.getId()})}"><h3 class="text-truncate overflow-hidden prevpregunta" th:text="${pregunta.getTituloPregunta()}"> Pregunta1</h3></a>
+                                        <a th:if="${usuario != null}" th:href="@{/preguntas/preguntaPublicadalogged/{id}(id=${pregunta.getId()})}"><h3 class="text-truncate overflow-hidden prevpregunta" th:text="${pregunta.getTituloPregunta()}"> Pregunta1</h3></a>
+
                                         <!-- Ver como se hace para que el overflow termine en puntos suspensivos -->
                                         <p th:text="${pregunta.getTextoPregunta()}" class="text-truncate overflow-hidden" style="max-height: 100px;">Lorem ipsum dolor sit amet consectetur adipiscing elit non habitasse semper, eleifend cum suspendisse class velit hendrerit fringilla euismod vestibulum ad, sodales etiam praesent maecenas purus cubilia venenatis feugiat faucibus. Praesent ligula habitasse fusce parturient faucibus maecenas vivamus, magna suspendisse urna felis dignissim penatibus ut, ultrices lacinia ridiculus id senectus
                                         </p>
@@ -70,7 +73,8 @@
                         <nav th:if="${paginaPreguntas.totalPages > 0}" aria-label="Page navigation">
                                 <ul class="pagination justify-content-center">
                                         <li class="page-item" th:each="numeroPagina : ${numeroPaginas}">
-                                                <a class="page-link" th:href="@{/preguntas(size=${paginaPreguntas.size}, page=${numeroPagina})}" th:text=${numeroPagina} th:classappend="${numeroPagina==paginaPreguntas.number + 1} ? active">1</a>
+                                            <a  th:if="${usuario != null}" class="page-link" th:href="@{/preguntas/logged(size=${paginaPreguntas.size}, page=${numeroPagina}, filtro=${filtro}, search=${search})}" th:text=${numeroPagina} th:classappend="${numeroPagina==paginaPreguntas.number + 1} ? active">1</a>
+                                            <a  th:if="${usuario == null}" class="page-link" th:href="@{/preguntas(size=${paginaPreguntas.size}, page=${numeroPagina}, filtro=${filtro}, search=${search})}" th:text=${numeroPagina} th:classappend="${numeroPagina==paginaPreguntas.number + 1} ? active">1</a>
                                         </li>
                                 </ul>
                         </nav>

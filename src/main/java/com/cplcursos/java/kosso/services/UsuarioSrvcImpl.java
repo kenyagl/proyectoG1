@@ -66,7 +66,7 @@ public class UsuarioSrvcImpl implements ifxUsuarioSrvc {
 
     public Integer totalPuntos(Usuario usu){
         Integer ejercicios = usu.getPuntosEjercicios();
-        Integer respuestas = usu.getPuntosRespuestas();
+        Integer respuestas = usu.calcularPuntosForo();
 
         if(ejercicios != null && respuestas != null) {
             return ejercicios + respuestas;

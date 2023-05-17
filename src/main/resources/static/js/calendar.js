@@ -30,3 +30,14 @@ function mostrarMesSiguiente() {
     
     window.location.href = "/calendario?month=" + currentMonth + "&year=" + currentYear;
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    var tds = document.querySelectorAll('.calendar-table td');
+    
+    tds.forEach(function(td) {
+      var link = td.querySelector('a');
+      if (link && link.textContent.trim() === '') {
+        td.classList.add('sinTexto');
+      }
+    });
+  });

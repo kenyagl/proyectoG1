@@ -31,40 +31,35 @@
     </div>
     <div class="row">
         <table class="calendar-table">
-            <thead>
-            <th>
-                L
-            </th>
-            <th>
-                M
-            </th >
-            <th>
-                X
-            </th>
-            <th>
-                J
-            </th>
-            <th>
-                V
-            </th>
-            <th>
-                S
-            </th>
-            <th>
-                D
-            </th>
-
+            <thead class="calendarCabecera">
+                <th>
+                    L
+                </th>
+                <th>
+                    M
+                </th >
+                <th>
+                    X
+                </th>
+                <th>
+                    J
+                </th>
+                <th>
+                    V
+                </th>
+                <th>
+                    S
+                </th>
+                <th>
+                    D
+                </th>
             </thead>
             <tbody>
-            <tr th:each="semana: ${dias}">
-                <td th:each="dia: ${semana}">
-                    <a th:href="@{/progreso/progresodiario(day=${dia}, month=${month}, year=${year})}" th:text="${dia}"></a>
-                </td>
-
-                <!--<td class="text-center" th:text="${dia}" th:each="dia: ${semana}">
-                    <a th:href="@{/progreso/usuario-progress(day=${dia}, month=${month}, year=${year})}"></a>
-                </td>-->
-            </tr>
+                <tr th:each="semana: ${dias}">
+                    <td th:each="dia: ${semana}">
+                        <a th:href="@{/progreso/progresodiario(day=${dia}, month=${month}, year=${year})}" th:text="${dia}"></a>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>

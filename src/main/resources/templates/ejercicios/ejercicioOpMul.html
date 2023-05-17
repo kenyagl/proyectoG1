@@ -16,7 +16,7 @@
             <div class="card-body">
 
                 <h1 class="card-title" th:text="${ejercicio.getTitulo()}">Título del ejercicio</h1>
-                <p class="card-text enunciado" th:text="${ejercicio.getDescripcion()}">Descripción del ejercicio</p>
+                <p class="card-text" th:text="${ejercicio.getDescripcion()}">Descripción del ejercicio</p>
                 <img class="card-img img-fluid mb-3" th:if="${ejercicio.getImagen() != null}"
                      th:src="@{${ejercicio.getImagenPath()}}" height="138" width="580" alt="<Code picture>"/>
                 <div id="myForm" class="was-validated">
@@ -27,25 +27,25 @@
                     <div class="form-check">
                         <input type="radio" class="form-check-input" name="answer" value="1" id="op1" required
                                th:value="${ejercicio.getOpcion1()}"/>
-                        <label class="respuestas" type="form-check-label" for="op4" th:text="${ejercicio.getOpcion1()}">Option 1</label>
+                        <label type="form-check-label" for="op4" th:text="${ejercicio.getOpcion1()}">Option 1</label>
                     </div>
                     <br/>
                     <div class="form-check">
                         <input type="radio" class="form-check-input" name="answer" value="2" id="op2" required
                                th:value="${ejercicio.getOpcion2()}"/>
-                        <label class="respuestas" type="form-check-label" for="op4" th:text="${ejercicio.getOpcion2()}">Option 2</label>
+                        <label type="form-check-label" for="op4" th:text="${ejercicio.getOpcion2()}">Option 2</label>
                     </div>
                     <br/>
                     <div class="form-check">
                         <input type="radio" class="form-check-input" name="answer" value="3" id="op3" required
                                th:value="${ejercicio.getOpcion3()}"/>
-                        <label class="respuestas" type="form-check-label" for="op4" th:text="${ejercicio.getOpcion3()}">Option 3</label>
+                        <label type="form-check-label" for="op4" th:text="${ejercicio.getOpcion3()}">Option 3</label>
                     </div>
                     <br/>
                     <div class="form-check">
                         <input type="radio" class="form-check-input" name="answer" value="4" id="op4" required
                                th:value="${ejercicio.getOpcion4()}"/>
-                        <label class="respuestas" type="form-check-label" for="op4" th:text="${ejercicio.getOpcion4()}">Option 4</label>
+                        <label type="form-check-label" for="op4" th:text="${ejercicio.getOpcion4()}">Option 4</label>
                     </div>
                     <br/>
                     <button type="button"
@@ -86,17 +86,21 @@
 
                 <div class="row">
                     <div class="col-2"></div>
-                    <img class="col-8 oso" id="resultImage" width="200px" >
+                    <img class="col-8 oso" id="resultImage" width="200px">
                     <div class="col-2"></div>
                 </div>
-
                 <br><br>
-
             </div>
 
             <div class="modal-footer" id="resultModalfooter">
-                <div id="failedButton"></div>
-                <div id="nextEjercicio"></div>
+                <div id="failedButton">
+                    <div class="btn btn-primary" id="tryAgainButton" data-bs-dismiss="modal">Vuélvelo a intentar</div>
+                </div>
+                <div id="nextEjercicio">
+                    <a th:href="@{/ejercicios/{id}(id=${idNextEjer})}">
+                        <button class="btn btn-primary" id="nextButton">Siguiente</button>
+                    </a>
+                </div>
                 <a th:href="@{/ejercicios}" class="btn btn-secondary">Volver al menú</a>
             </div>
         </div>
@@ -111,113 +115,150 @@
         integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
         crossorigin="anonymous"></script>
 <script>
-    document.getElementById('resultModal').addEventListener('show.bs.modal', event => {
+    // Para evitar errores de conexión, utilizamos async...await
+    // En el tratamiento del evento "show.bs.modal", definimos la función con async y en la llamada a fetch utilizaremos
+    // await. De esa forma, la función espera a tener el resultado del servidor
+    document.getElementById('resultModal').addEventListener('show.bs.modal', async event => {
+        // creamos las constantes que utilizaremos
+        const respuestaCorrecta = "¡Muy bien! Tu respuesta es correcta.";
+        const respuestaIncorrecta = "¡OH NO! Tu respuesta no es correcta. \n ¡Vuélvelo a intentar!";
+        const ejercicioId = document.getElementById("id_ejercicio").value;
         let resp = document.querySelector('input[name=answer]:checked');
+
         if (!resp) {
+            /*
+            SIMPLIFICO EL CÓDIGO EN UNA SOLA LINEA
             const resultMessage = document.getElementById("resultMessage");
             resultMessage.innerHTML = "Debe indicar una respuesta.";
+             */
+            document.getElementById("resultMessage").innerHTML = "Debe indicar una respuesta.";
             return
         }
-        resp = resp.value;
-        const id_usuario = document.getElementById("id_usuario").value;
-        const ejercicioId = document.getElementById("id_ejercicio").value;
 
         let formData = new FormData();
-        formData.append('resp', resp);
-        formData.append('id_usuario', id_usuario);
+        formData.append('resp', resp.value);
+        formData.append('id_usuario', document.getElementById("id_usuario").value);
         let init = {
             method: 'POST',
             body: formData
         };
 
-        fetch(ejercicioId + "/respuesta/save", init).then(function (response) {
-            return response.text();
-        }).then(function (html) {
-            //Controla el mensaje del modal
-            const resultMessage = document.getElementById("resultMessage");
-            resultMessage.innerHTML = html;
+        // Esperamos al servidor
+        await fetch(ejercicioId + "/respuesta/save", init)
+            // cogemos la respuesta en formato json
+            .then(async function (response) {
+                // Esperamos a que esté disponible
+                const acierto = await response.json();
+                if (acierto.acierto) { // respuesta acertada
+                    document.getElementById("resultMessage").innerText = respuestaCorrecta;
+                    document.getElementById("resultImage").src = "/image/oso_ok.png";
+                    document.getElementById("resultModalBack").style.backgroundImage = "url('/image/bien.png')";
+                    document.getElementById("resultModalheader").style.backgroundImage = "url('/image/bien70.png')";
+                    document.getElementById("resultModalfooter").style.backgroundImage = "url('/image/bien70.png')";
+                    document.getElementById("tryAgainButton").style.display = 'none';
+                    document.getElementById("nextEjercicio").style.display = 'block';
 
-            const respuestaCorrecta = "¡Muy bien! Tu respuesta es correcta.";
-            const respuestaIncorrecta = "¡OH NO! Tu respuesta no es correcta. \n ¡Vuélvelo a intentar!";
-
-            //Controla la imagen que se muestra en el modal
-            const resultImage = document.getElementById("resultImage");
-            if (resultMessage.textContent.trim() === respuestaCorrecta) {
-                resultImage.src = "/image/oso_ok.png";
-            } else {
-                resultImage.src = "/image/error_kossito.png";
-            }
-
-            //Controla el fondo del modal
-            const resultModalBack = document.getElementById("resultModalBack");
-            if (resultMessage.textContent.trim() === respuestaCorrecta) {
-                resultModalBack.style.backgroundImage = "url('/image/bien.png')";
-            } else {
-                resultModalBack.style.backgroundImage = "url('/image/mal.png')";
-            }
-
-             const resultModalheader = document.getElementById("resultModalheader");
-            if (resultMessage.textContent.trim() === respuestaCorrecta) {
-               resultModalheader.style.backgroundImage = "url('/image/bien70.png')";
-            } else {
-                resultModalheader.style.backgroundImage = "url('/image/mal70.png')";
-            }
-
-             const resultModalfooter = document.getElementById("resultModalfooter");
-            if (resultMessage.textContent.trim() === respuestaCorrecta) {
-              resultModalfooter.style.backgroundImage = "url('/image/bien70.png')";
-            } else {
-               resultModalfooter.style.backgroundImage = "url('/image/mal70.png')";
-            }
-
-            //Controla el botón de volver a intentar en el modal
-            const failedButton = document.getElementById("failedButton");
-            if (resultMessage.textContent.trim() === respuestaIncorrecta) {
-                const tryAgainButton = document.getElementById("tryAgainButton");
-                if (tryAgainButton) {
-                    tryAgainButton.parentNode.removeChild(tryAgainButton);
+                } else {                // respuesta errónea
+                    document.getElementById("resultMessage").innerText = respuestaIncorrecta;
+                    document.getElementById("resultImage").src = "/image/error_kossito.png";
+                    document.getElementById("resultModalBack").style.backgroundImage = "url('/image/mal.png')";
+                    document.getElementById("resultModalheader").style.backgroundImage = "url('/image/mal70.png')";
+                    document.getElementById("resultModalfooter").style.backgroundImage = "url('/image/mal70.png')";
+                    document.getElementById("tryAgainButton").style.display = 'block';
+                    document.getElementById("nextEjercicio").style.display = 'none';
                 }
-
-                const button = document.createElement("button");
-                button.textContent = "Vuélvelo a intentar";
-                button.setAttribute("class", "btn btn-primary");
-                button.setAttribute("id", "tryAgainButton");
-                button.setAttribute("data-bs-dismiss", "modal");
-                failedButton.appendChild(button);
-            } else {
-                const tryAgainButton = document.getElementById("tryAgainButton");
-                if (tryAgainButton) {
-                    tryAgainButton.parentNode.removeChild(tryAgainButton);
-                }
-            }
-
-            //Controla el botón de siguiente ejercicio en el modal
-            const idNextEjer = document.getElementById("idNextEjer").value;
-
-            const nextEjercicio = document.getElementById("nextEjercicio");
-            if (resultMessage.textContent.trim() === respuestaCorrecta) {
-             const nextButton = document.getElementById("nextButton");
-                if (nextButton) {
-                    nextButton.parentNode.removeChild(nextButton);
-                }
-                const button = document.createElement("button");
-                button.textContent = "Siguiente";
-                button.setAttribute("class", "btn btn-primary");
-                button.setAttribute("id", "nextButton");
-                button.setAttribute("onclick", `window.location.href = '/ejercicios/${idNextEjer}';`);
-                nextEjercicio.appendChild(button);
-            } else {
-                const nextButton = document.getElementById("nextButton");
-                if (nextButton) {
-                    nextButton.parentNode.removeChild(nextButton);
-                }
-            }
-
-        }).catch(function (err) {
-            console.warn('Something went wrong.', err);
-        });
+            })
+            .catch(function (err) {
+                console.warn('Something went wrong.', err);
+            });
     })
 
+
+
+    /*
+                .then(function (html) {
+                //Controla el mensaje del modal
+                const resultMessage = document.getElementById("resultMessage");
+                resultMessage.innerHTML = html;
+
+                //Controla la imagen que se muestra en el modal
+                const resultImage = document.getElementById("resultImage");
+                if (resultMessage.textContent.trim() === respuestaCorrecta) {
+                    resultImage.src = "/image/oso_ok.png";
+                } else {
+                    resultImage.src = "/image/error_kossito.png";
+                }
+
+                //Controla el fondo del modal
+                const resultModalBack = document.getElementById("resultModalBack");
+                if (resultMessage.textContent.trim() === respuestaCorrecta) {
+                    resultModalBack.style.backgroundImage = "url('/image/bien.png')";
+                } else {
+                    resultModalBack.style.backgroundImage = "url('/image/mal.png')";
+                }
+
+                 const resultModalheader = document.getElementById("resultModalheader");
+                if (resultMessage.textContent.trim() === respuestaCorrecta) {
+                   resultModalheader.style.backgroundImage = "url('/image/bien70.png')";
+                } else {
+                    resultModalheader.style.backgroundImage = "url('/image/mal70.png')";
+                }
+
+                 const resultModalfooter = document.getElementById("resultModalfooter");
+                if (resultMessage.textContent.trim() === respuestaCorrecta) {
+                  resultModalfooter.style.backgroundImage = "url('/image/bien70.png')";
+                } else {
+                   resultModalfooter.style.backgroundImage = "url('/image/mal70.png')";
+                }
+
+                //Controla el botón de volver a intentar en el modal
+                const failedButton = document.getElementById("failedButton");
+                if (resultMessage.textContent.trim() === respuestaIncorrecta) {
+                    const tryAgainButton = document.getElementById("tryAgainButton");
+                    if (tryAgainButton) {
+                        tryAgainButton.parentNode.removeChild(tryAgainButton);
+                    }
+
+                    const button = document.createElement("button");
+                    button.textContent = "Vuélvelo a intentar";
+                    button.setAttribute("class", "btn btn-primary");
+                    button.setAttribute("id", "tryAgainButton");
+                    button.setAttribute("data-bs-dismiss", "modal");
+                    failedButton.appendChild(button);
+                } else {
+                    const tryAgainButton = document.getElementById("tryAgainButton");
+                    if (tryAgainButton) {
+                        tryAgainButton.parentNode.removeChild(tryAgainButton);
+                    }
+                }
+
+                //Controla el botón de siguiente ejercicio en el modal
+                const idNextEjer = document.getElementById("idNextEjer").value;
+
+                const nextEjercicio = document.getElementById("nextEjercicio");
+                if (resultMessage.textContent.trim() === respuestaCorrecta) {
+                 const nextButton = document.getElementById("nextButton");
+                    if (nextButton) {
+                        nextButton.parentNode.removeChild(nextButton);
+                    }
+                    const button = document.createElement("button");
+                    button.textContent = "Siguiente";
+                    button.setAttribute("class", "btn btn-primary");
+                    button.setAttribute("id", "nextButton");
+                    button.setAttribute("onclick", `window.location.href = '/ejercicios/${idNextEjer}';`);
+                    nextEjercicio.appendChild(button);
+                } else {
+                    const nextButton = document.getElementById("nextButton");
+                    if (nextButton) {
+                        nextButton.parentNode.removeChild(nextButton);
+                    }
+                }
+
+            }).catch(function (err) {
+                console.warn('Something went wrong.', err);
+            });
+        })
+    */
 </script>
 </body>
 

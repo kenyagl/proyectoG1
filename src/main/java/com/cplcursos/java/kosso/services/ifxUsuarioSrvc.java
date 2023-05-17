@@ -21,6 +21,8 @@ public interface ifxUsuarioSrvc {
 
     void deleteByEmail(String email);
 
+    void deleteById(Long id);
+
     List<Usuario> findAll();
 
     List<Usuario> ordenarPorPuntos(List<Usuario> listaNoOrdenada);

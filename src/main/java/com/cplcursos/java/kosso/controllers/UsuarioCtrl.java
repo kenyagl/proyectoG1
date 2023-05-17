@@ -101,12 +101,12 @@ public class UsuarioCtrl {
         return "redirect:/usuario/registro?success";
     }
 
-    @DeleteMapping("/borrar")
-    public String eliminarperfil (@AuthenticationPrincipal MyUserDetails userDetails){
-        String email = userDetails.getUsername();
-        usuSrvc.deleteByEmail(email);
-        return "redirect:/home";
+    @PostMapping ("/borrar/{id}")
+    public String eliminarperfil (@PathVariable("id") Long id){
+        usuSrvc.deleteById(id);
+        return "redirect:/usuario/listausus";
     }
+
     @GetMapping("/editar")
     public String verPerfilForm (@AuthenticationPrincipal MyUserDetails userDetails, Model model){
         String email = userDetails.getUsername();

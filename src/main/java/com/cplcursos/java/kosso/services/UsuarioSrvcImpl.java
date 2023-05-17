@@ -53,7 +53,7 @@ public class UsuarioSrvcImpl implements ifxUsuarioSrvc {
         user.setPuntosRespuestas(0);
         user.setCreadoEl(LocalDate.now());
 
-        Optional<Rol> rolOp = roleRepository.findByName("ADMIN");
+        Optional<Rol> rolOp = roleRepository.findByName("USER");
         Rol rol;
         if(rolOp.isPresent()){
             rol = rolOp.get();
@@ -98,7 +98,7 @@ public class UsuarioSrvcImpl implements ifxUsuarioSrvc {
 
     private Rol checkRoleExist(){
         Rol role = new Rol();
-        role.setName("ADMIN");
+        role.setName("USER");
         return roleRepository.save(role);
     }
 
@@ -114,6 +114,11 @@ public class UsuarioSrvcImpl implements ifxUsuarioSrvc {
     @Override
     public void deleteByEmail(String email){
         usurepo.deleteByEmail(email);
+    }
+
+    @Override
+    public void deleteById(Long id){
+        usurepo.deleteById(id);
     }
 
     @Override

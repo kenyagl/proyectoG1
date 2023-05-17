@@ -8,7 +8,7 @@ INSERT INTO `mydb`.`rol` (`name`) VALUES ('USER');
 INSERT INTO `mydb`.`rol` (`name`) VALUES ('ADMIN');
 INSERT INTO users_roles values (1,2), (2,1);
 
----Ejercicios
+-- Ejercicios
 
 INSERT INTO mydb.ejercicio_op_mul (descripcion, dificultad, opcion1, opcion2, opcion3, opcion4, puntos_acceso, respuesta_correcta,titulo, imagen)
 VALUES
@@ -36,13 +36,13 @@ VALUES
 ('¿Cuál es el resultado de la operación 5 % 2 en Java?', '4', '2', '1', '2.5', '0.5', '2100', '1', 'Operadores en Java', null),
 ('¿Qué hace el operador "&" a nivel de bits en Java?', '4', 'Realiza una operación de suma', 'Realiza una operación de resta', 'Realiza una operación de multiplicación', 'Realiza una operación de AND', '22000', 'Realiza una operación de AND', 'Operadores a nivel de bits en Java', null);
 
----Categorías de ejercicios y preguntas
+-- Categorías de ejercicios y preguntas
 
 INSERT INTO `mydb`.`categoria` (`nombre`)
 VALUES
     ('String'), ('Array'), ('Clases y Objetos'), ('POO'), ('Herencia'), ('Básicos'), ('Bucles');
 
---- Categorías de ejercicios
+-- Categorías de ejercicios
 
 INSERT INTO `mydb`.`ejercicio_categoria`(`id_ejercicio_op_mul`, `id_categoria`)
     VALUES
@@ -68,12 +68,12 @@ VALUES
     ('¿Qué es un bucle for en Java?', 'He oído hablar del bucle for en Java, pero no sé exactamente qué es. ¿Podrían explicármelo?', null, '2023-05-13', 1),
     ('¿Cómo se manejan las excepciones en Java?', 'Me han dicho que Java tiene un sistema para manejar excepciones, pero no sé cómo funciona. ¿Alguien podría darme una idea?', null, '2023-05-13', 2),
     ('¿Cómo se lee entrada del usuario en Java?', 'Quiero saber cómo puedo leer la entrada que ingrese un usuario en Java. ¿Alguien sabe cómo hacerlo?', null, '2023-05-13', 1);
---/*('¿Cuáles son las mejores técnicas de estudio para mejorar el rendimiento académico?', 'Estoy buscando consejos y técnicas efectivas para mejorar mi rendimiento en los estudios. ¿Qué estrategias han funcionado bien para ustedes?', 'foto1.jpg', '2023-05-12', 0, 1),
---('¿Qué opciones de carrera son ideales para alguien con habilidades en programación?', 'Tengo habilidades en programación y me gustaría saber qué opciones de carrera son las más adecuadas para aprovechar al máximo mis habilidades. ¿Alguna sugerencia?', 'foto2.jpg', '2023-05-12', 0, 1),
---('Recomendaciones de libros de ciencia ficción para leer este verano', 'Estoy buscando recomendaciones de libros de ciencia ficción interesantes para disfrutar durante mis vacaciones de verano. ¿Cuáles son algunos de tus favoritos?', 'foto3.jpg', '2023-05-12', 0, 1),
---('¿Cuáles son los mejores destinos turísticos para visitar en Europa?', 'Planeo hacer un viaje a Europa y estoy buscando recomendaciones sobre los mejores lugares para visitar. ¿Cuáles son tus destinos favoritos en Europa?', 'foto4.jpg', '2023-05-12', 0, 1),
---('Consejos para mejorar la productividad en el trabajo desde casa', 'Trabajo desde casa y me gustaría conocer algunos consejos y técnicas para aumentar mi productividad y mantenerme enfocado. ¿Qué estrategias han funcionado para ustedes?', 'foto5.jpg', '2023-05-12', 0, 1);
---*/
+-- ('¿Cuáles son las mejores técnicas de estudio para mejorar el rendimiento académico?', 'Estoy buscando consejos y técnicas efectivas para mejorar mi rendimiento en los estudios. ¿Qué estrategias han funcionado bien para ustedes?', 'foto1.jpg', '2023-05-12', 0, 1),
+-- ('¿Qué opciones de carrera son ideales para alguien con habilidades en programación?', 'Tengo habilidades en programación y me gustaría saber qué opciones de carrera son las más adecuadas para aprovechar al máximo mis habilidades. ¿Alguna sugerencia?', 'foto2.jpg', '2023-05-12', 0, 1),
+-- ('Recomendaciones de libros de ciencia ficción para leer este verano', 'Estoy buscando recomendaciones de libros de ciencia ficción interesantes para disfrutar durante mis vacaciones de verano. ¿Cuáles son algunos de tus favoritos?', 'foto3.jpg', '2023-05-12', 0, 1),
+-- ('¿Cuáles son los mejores destinos turísticos para visitar en Europa?', 'Planeo hacer un viaje a Europa y estoy buscando recomendaciones sobre los mejores lugares para visitar. ¿Cuáles son tus destinos favoritos en Europa?', 'foto4.jpg', '2023-05-12', 0, 1),
+-- ('Consejos para mejorar la productividad en el trabajo desde casa', 'Trabajo desde casa y me gustaría conocer algunos consejos y técnicas para aumentar mi productividad y mantenerme enfocado. ¿Qué estrategias han funcionado para ustedes?', 'foto5.jpg', '2023-05-12', 0, 1);
+
 
 
 

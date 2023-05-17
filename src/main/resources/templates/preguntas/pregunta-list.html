@@ -14,12 +14,12 @@
         <div class="card col-4" style=" display: flex; justify-content: center;">
 
             <div class="card-body">
-                <a th:href="@{/preguntas/new}" class="btn border-dark">Hacer una pregunta</a>
+                <a th:href="@{/preguntas/new}" class="btn border-dark" style=" margin-bottom: 10px;">Hacer una pregunta</a>
 
                 <div class="input-group align-items-center">
                     <form th:action="@{/preguntas/search}" method="post">
                         <input th:value="${search}" name="search" type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon">
-                        <button  type="submit" class="btn btn-outline-primary">search</button>
+                        <button  type="submit" class="btn btn-outline-primary" style="margin-top: 10px;">search</button>
 
 
 
@@ -29,7 +29,6 @@
                                 <option th:value="default">Seleccione un filtro</option>
                                 <option th:value="newest">Más Recientes</option>
                                 <option th:value="oldest">Más Antiguas</option>
-                                <option value="votos">Mejor Valorados</option>
                             </select>
                             <button  type="submit" class="btn btn-outline-primary">Filtrar</button>
                         </div>

@@ -48,8 +48,15 @@
         Tus Preguntas
      </a>
      <div class="collapse" id="collapseExample">
-         <div class="card card-body">
-             <a th:each="pregunta : ${usuario.getPreguntas()}" th:href="@{/preguntas/preguntaPublicadalogged/{id}(id=${pregunta.getId()})}" th:text="${pregunta.getTituloPregunta()}"> <span th:text="${pregunta.getFechaPregunta()}"></span></a>
+         <div class="card col-6">
+         <div class="card-body">
+             <ul>
+                 <li class="mipreg" styles="font-family: Khand; font-size: 24px;"  th:each="pregunta : ${usuario.getPreguntas()}">
+                     <a  th:href="@{/preguntas/preguntaPublicadalogged/{id}(id=${pregunta.getId()})}" th:text="${pregunta.getTituloPregunta()}"> <span th:text="${pregunta.getFechaPregunta()}"></span></a>
+
+                 </li>
+             </ul>
+         </div>
          </div>
      </div>
 

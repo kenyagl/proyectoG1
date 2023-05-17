@@ -167,21 +167,25 @@ public class PreguntaCtrl {
         }
         String fileName = StringUtils.cleanPath(fileName1);
         pregunta.setFoto(fileName);
+        String uploadDir = "src/main/resources/static/image/pregunta-photos/" + pregunta.getId();
+        String uploadDir2 = "target/classes/static/image/pregunta-photos/" + pregunta.getId();
         if (fileName.isEmpty() || fileName == null){
             pregunta.setFoto(null);
+            uploadDir = null;
+            uploadDir2 = null;
         }
         preguntaSrvc.save(pregunta);
         if (pregunta.getFechaPregunta() == null){
             preguntaSrvc.setFecha(pregunta);
             puntosForoSrvc.puntuarPregunta(pregunta);
         }
-        String uploadDir = "src/main/resources/static/image/pregunta-photos/" + pregunta.getId();
-        String uploadDir2 = "target/classes/static/image/pregunta-photos/" + pregunta.getId();
+
         try {
+
         FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
         FileUploadUtil.saveFile(uploadDir2, fileName, multipartFile);
-        }catch(IOException ioException){
-            log.info("No se ha podido guardar la imagen en el directorio o es una pregunta sin foto");
+        }catch(Exception exception){
+            log.info("No se ha podido guardar la imagen en el directorio o es una pregunta sin foto" + exception);
         }
         return "redirect:/preguntas/preguntaPublicadalogged/" + pregunta.getId();
     }

@@ -49,7 +49,7 @@ public class EjercicioOpMul {
             return null;
         }
 
-        return "/image/ejercicio-photos/" + id + "/" + imagen;
+        return "/ejercicio-photos/" + id + "/" + imagen;
     }
 
     @ManyToMany

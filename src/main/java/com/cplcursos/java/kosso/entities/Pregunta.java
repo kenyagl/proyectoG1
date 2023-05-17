@@ -50,7 +50,7 @@ public class Pregunta {
         if (foto == null || id == null) {
             return null;
         }
-        return "/image/pregunta-photos/" + id + "/" + foto;
+        return "/pregunta-photos/" + id + "/" + foto;
     }
 
     public void anexarVoto(PuntosForo voto){

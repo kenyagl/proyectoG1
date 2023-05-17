@@ -44,7 +44,7 @@ public class Usuario {
             return "/image/default-avatar.png";
         }
 
-        return "/image/user-photos/" + id + "/" + foto;
+        return "/user-photos/" + id + "/" + foto;
     }
 
 

@@ -7,6 +7,7 @@ import com.cplcursos.java.kosso.services.UsuarioSrvcImpl;
 import com.cplcursos.java.kosso.utils.FileUploadUtil;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +27,9 @@ public class UsuarioCtrl {
 
     @Autowired
     private UsuarioSrvcImpl usuSrvc;
+
+    @Value("${upload.photos.usuarios.dir}")
+    String usuariosDir;
 
     @GetMapping("/listausus")
     public String listaUsus(Model modelo, @AuthenticationPrincipal MyUserDetails userDetails){
@@ -117,6 +121,12 @@ public class UsuarioCtrl {
         return "perfilesYUsuarios/editarPerfil";
     }
 
+
+
+
+
+
+
     @PostMapping("/editar")
     public String editarPerfil (Usuario user,
                                 RedirectAttributes redirectAttributes,
@@ -128,11 +138,13 @@ public class UsuarioCtrl {
             user.setFoto(fileName);
             Usuario usuGuardado = usuSrvc.save(user);
 
-            String uploadDir = "src/main/resources/static/image/user-photos/" + usuGuardado.getId();
+            String uploadDir = usuariosDir + "/" + usuGuardado.getId();
             FileUploadUtil.saveFile(uploadDir, fileName, foto);
 
-            String uploadDir2 = "target/classes/static/image/user-photos/" + usuGuardado.getId();
-            FileUploadUtil.saveFile(uploadDir2, fileName, foto);
+            //String uploadDir2 = "/user-photos/" + usuGuardado.getId();
+            //FileUploadUtil.saveFile(uploadDir2, fileName, foto);
+
+
         }else{
             if(user.getFoto().isEmpty()) user.setFoto(null);
             usuSrvc.save(user);

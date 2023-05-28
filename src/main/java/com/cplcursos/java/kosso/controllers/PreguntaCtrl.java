@@ -103,7 +103,6 @@ public class PreguntaCtrl {
         model.addAttribute("paginaPreguntas", paginaPreguntas);
         model.addAttribute("filtro", filtro);
 
-
         int totalPaginas = paginaPreguntas.getTotalPages();
         if (totalPaginas > 0) {
             List<Integer> numeroPaginas = IntStream.rangeClosed(1, totalPaginas)
